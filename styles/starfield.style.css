@@ -1,0 +1,40 @@
+.star {
+    position: absolute;
+    border-radius: 50%;
+    animation: twinkle 4s infinite;
+}
+
+.mini-star {
+    position: absolute;
+    border-radius: 50%;
+    background: #7e4600;
+    animation: twinkle 6s infinite;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 0.9; }
+}
+
+.shooting-star {
+    position: absolute;
+    width: 1.5px;
+    height: 1.5px;
+    background: #7e4600;
+    border-radius: 50%;
+    box-shadow: 0 0 15px #7e460044;
+    transform: rotate(45deg);
+    opacity: 0;
+    animation: shoot 2.2s ease-out forwards;
+}
+
+@keyframes shoot {
+    0% {
+        transform: translate(0, 0) rotate(45deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-600px, 600px) rotate(45deg);
+        opacity: 0;
+    }
+}

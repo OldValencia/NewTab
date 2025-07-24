@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Tab</title>
+    <link rel="icon" type="image/x-icon" href="icons/favicon.ico">
+    <link rel="stylesheet" href="styles/main.style.css"/>
+    <link rel="stylesheet" href="styles/starfield.style.css"/>
+    <link rel="stylesheet" href="styles/time.style.css"/>
+    <link rel="stylesheet" href="styles/links.style.css"/>
+    <link rel="stylesheet" href="styles/sidebar.style.css"/>
+</head>
+<body>
+<div id="background-layer"></div>
+
+<button id="menu-toggle" class="menu-button">☰</button>
+
+<div id="sidebar" class="sidebar">
+    <h2>Customization</h2>
+
+    <!-- 🔗 Links -->
+    <section data-section="links">
+        <div class="section-header">
+            <span class="section-icon">🔗</span>
+            <h3>Links</h3>
+            <button class="toggle-section">+</button>
+        </div>
+        <div class="section-content">
+            <div class="cols-control">
+                <span>Columns:</span>
+                <button id="cols-minus">−</button>
+                <span id="cols-value">3</span>
+                <button id="cols-plus">+</button>
+            </div>
+            <div id="links-editor"></div>
+            <button id="add-link">Add link</button>
+        </div>
+    </section>
+
+    <!-- 🕒 Time and Date -->
+    <section data-section="time-date">
+        <div class="section-header">
+            <span class="section-icon">🕒</span>
+            <h3>Time and date</h3>
+            <button class="toggle-section">+</button>
+        </div>
+        <div class="section-content">
+            <div class="font-control">
+                <label>Time:</label>
+                <select id="time-font">
+                    <option value="Arial">Arial (default)</option>
+                    <option value="Segoe UI">Segoe UI</option>
+                    <option value="Georgia">Georgia</option>
+                    <option value="Courier New">Courier New</option>
+                    <option value="Roboto">Roboto</option>
+                </select>
+                <input type="color" id="time-color">
+            </div>
+
+            <div class="font-control">
+                <label>Date:</label>
+                <select id="date-font">
+                    <option value="Arial">Arial (default)</option>
+                    <option value="Segoe UI">Segoe UI</option>
+                    <option value="Georgia">Georgia</option>
+                    <option value="Courier New">Courier New</option>
+                    <option value="Roboto">Roboto</option>
+                </select>
+                <input type="color" id="date-color">
+            </div>
+
+            <button id="reset-time-date" class="reset-button">Reset Time & Date Settings</button>
+        </div>
+    </section>
+
+    <!-- 🌌 Background -->
+    <section data-section="background">
+        <div class="section-header">
+            <span class="section-icon">🌌</span>
+            <h3>Background</h3>
+            <button class="toggle-section">+</button>
+        </div>
+        <div class="section-content">
+            <button id="reset-bg" class="reset-button">Reset Background</button>
+
+            <label><input type="radio" name="bg-mode" value="stars" checked> Starfield (default)</label>
+            <label><input type="radio" name="bg-mode" value="blobFlow"> Blob Flow</label>
+            <label><input type="radio" name="bg-mode" value="nebulaDust"> Nebula Dust</label>
+            <label><input type="radio" name="bg-mode" value="glassGrid"> Glass Grid</label>
+            <label><input type="radio" name="bg-mode" value="orbitalRings"> Orbital Rings</label>
+            <label><input type="radio" name="bg-mode" value="particleDrift"> Particle Drift</label>
+            <label><input type="radio" name="bg-mode" value="custom-image"> Custom Image</label>
+            <input type="file" id="bg-upload" accept="image/*" style="display: none;">
+
+            <label><input type="radio" name="bg-mode" value="dynamic-search"> Dynamic Search Background</label>
+            <div id="dynamic-search-config" style="display: none;">
+                <input type="text" id="dynamic-tag" placeholder="e.g. Nature">
+                <label>Change interval:
+                    <select id="dynamic-interval">
+                        <option value="onload">On page load</option>
+                        <option value="3">Every 3 min</option>
+                        <option value="5">Every 5 min</option>
+                        <option value="15">Every 15 min</option>
+                        <option value="30">Every 30 min</option>
+                        <option value="60">Every 60 min</option>
+                    </select>
+                </label>
+            </div>
+
+            <label><input type="radio" name="bg-mode" value="search-image"> Search Image (Pixabay)</label>
+            <input type="text" id="bg-search" placeholder="e.g. Nature" style="display: none;">
+            <div id="bg-loading" style="display: none; color: #ccc; font-size: 14px;">Searching...</div>
+            <div id="bg-results" class="bg-gallery"></div>
+
+            <div id="bg-effects-group">
+                <h4>Background Effects</h4>
+                <label>Blur: <input type="range" id="bg-blur" min="0" max="20" step="1" value="0"></label>
+                <label>Brightness: <input type="range" id="bg-brightness" min="50" max="150" step="1" value="100"></label>
+                <label>Image Fit:
+                    <select id="bg-fit">
+                        <option value="cover">Cover</option>
+                        <option value="contain">Contain</option>
+                        <option value="repeat">Repeat</option>
+                        <option value="stretch">Stretch</option>
+                        <option value="center">Center</option>
+                    </select>
+                </label>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div class="time-container">
+    <div class="time" id="time">00:00</div>
+    <div class="date" id="date" data-tooltip="01-15-2025">July 20 2025</div>
+</div>
+
+<div class="links" id="links-container"></div>
+
+<script src="scripts/effects/effects-main.js"></script>
+<script src="scripts/effects/star-generator.js"></script>
+<script src="scripts/effects/blob-flow.js"></script>
+<script src="scripts/effects/nebula-dust.js"></script>
+<script src="scripts/effects/glass-grid.js"></script>
+<script src="scripts/effects/orbital-rings.js"></script>
+<script src="scripts/effects/particle-drift.js"></script>
+<script src="scripts/time.js"></script>
+<script src="scripts/links-service.js"></script>
+<script src="scripts/sidebar.js"></script>
+</body>
+</html>

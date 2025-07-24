@@ -1,0 +1,39 @@
+<svg width="48" height="48" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" fill="none">
+    <defs>
+        <linearGradient id="bgGradient" x1="0" y1="0" x2="96" y2="96" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#F0F4FF"/>
+            <stop offset="1" stop-color="#DCEBFF"/>
+        </linearGradient>
+        <linearGradient id="accentGradient" x1="0" y1="0" x2="0" y2="96" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#4C6FFF"/>
+            <stop offset="1" stop-color="#7F9FFF"/>
+        </linearGradient>
+        <filter id="glass" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur"/>
+            <feColorMatrix in="blur" type="matrix"
+                           values="1 0 0 0 0
+                             0 1 0 0 0
+                             0 0 1 0 0
+                             0 0 0 0.3 0" result="glass"/>
+            <feBlend in="SourceGraphic" in2="glass" mode="normal"/>
+        </filter>
+    </defs>
+
+    <!-- Основная рамка окна -->
+    <rect x="8" y="8" width="80" height="80" rx="20" fill="url(#bgGradient)" stroke="#D0D8F0" stroke-width="1.5" filter="url(#glass)" />
+
+    <!-- Плюс -->
+    <g stroke="url(#accentGradient)" stroke-width="4" stroke-linecap="round">
+        <line x1="48" y1="32" x2="48" y2="64" />
+        <line x1="32" y1="48" x2="64" y2="48" />
+    </g>
+
+    <!-- Карандаш в правом верхнем углу -->
+    <g transform="translate(55, 0) rotate(45 12 12)">
+        <rect x="12" y="12" width="19" height="6" rx="1" fill="#FFB300"/>
+        <polygon points="31.2,12.02 30.2,12.02 30,18.01 31,18.01" fill="#FFB300"/>
+        <polygon points="31.2,12.02 37,15 31,18.01" fill="#5D4037"/>
+        <rect x="12" y="12" width="4" height="6" fill="#E57373"/>
+        <rect x="16" y="12" width="2" height="6" fill="#B0BEC5"/>
+    </g>
+</svg>
