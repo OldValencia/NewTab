@@ -1,6 +1,22 @@
 let noteCounter = 0;
 let stickyNoteOffset = 0;
 
+function getStickyNotesVisibilityState() {
+    const settings = loadCustomSettings();
+    if (settings.stickyNotesVisibilityState === null) {
+        settings.stickyNotesVisibilityState = false;
+        saveCustomSettings(settings);
+        return false;
+    }
+    return settings.stickyNotesVisibilityState;
+}
+
+function setStickyNotesVisibilityState(value) {
+    const settings = loadCustomSettings();
+    settings.stickyNotesVisibilityState = value;
+    saveCustomSettings(settings);
+}
+
 function createStickyNote(data = {}) {
     const noteId = `sticky-note-${noteCounter++}`;
     const note = document.createElement("div");
@@ -28,6 +44,7 @@ function createStickyNote(data = {}) {
     note.style.fontFamily = data.font || "sans-serif";
     note.style.fontSize = data.fontSize || "14px";
     note.style.color = data.textColor || "#333";
+    note.style.display = getStickyNotesVisibilityState() ? "block" : "none";
 
     note.innerHTML = `
         <div class="controls">

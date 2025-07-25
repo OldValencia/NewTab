@@ -727,20 +727,17 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // Toggle visibility of sticky notes
     toggleStickyNotes.addEventListener("change", () => {
+        setStickyNotesVisibilityState(toggleStickyNotes.checked);
         const notes = document.querySelectorAll(".sticky-note, #add-sticky-note");
         notes.forEach(note => {
             note.style.display = toggleStickyNotes.checked ? "block" : "none";
         });
     });
 
-    // Optional: Load visibility state from localStorage
-    const savedToggle = localStorage.getItem("stickyNotesVisible");
-    if (savedToggle !== null) {
-        toggleStickyNotes.checked = savedToggle === "true";
-        toggleStickyNotes.dispatchEvent(new Event("change"));
-    }
-
-    toggleStickyNotes.addEventListener("change", () => {
-        localStorage.setItem("stickyNotesVisible", toggleStickyNotes.checked);
+    const stickyNotesVisibilityState = getStickyNotesVisibilityState();
+    toggleStickyNotes.checked = stickyNotesVisibilityState;
+    const notes = document.querySelectorAll(".sticky-note, #add-sticky-note");
+    notes.forEach(note => {
+        note.style.display = stickyNotesVisibilityState ? "block" : "none";
     });
 });
