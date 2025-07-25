@@ -6,6 +6,10 @@ A lightweight Firefox extension that replaces your default new tab with a custom
 
 https://s0fly.github.io/NewTab/
 
+# Addon on Addons.Mozilla.org 
+
+https://addons.mozilla.org/en-US/firefox/addon/new_tab_extension/
+
 ---
 
 ## What Is This?
