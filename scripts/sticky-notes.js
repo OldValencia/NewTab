@@ -49,8 +49,8 @@ function createStickyNote(data = {}) {
     note.innerHTML = `
         <div class="controls">
             <button class="customize-toggle">⚙️</button>
-            <button onclick="clearNote('${noteId}')">🗑️</button>
-            <button onclick="hideNote('${noteId}')">✖</button>
+            <button class="sticky-note-clear-btn">🗑️</button>
+            <button class="sticky-note-hide-btn">✖</button>
         </div>
        
         <div class="customize-menu hidden">
@@ -88,6 +88,8 @@ function createStickyNote(data = {}) {
         const menu = note.querySelector(".customize-menu");
         menu.classList.toggle("hidden");
     });
+    note.querySelector(".sticky-note-clear-btn").addEventListener("click", () => clearNote(noteId));
+    note.querySelector(".sticky-note-hide-btn").addEventListener("click", () => hideNote(noteId));
 
     loadNote(noteId);
     setupCustomization(note, noteId);
@@ -223,6 +225,7 @@ function hideNote(id) {
 document.getElementById("add-sticky-note").addEventListener("click", () => {
     createStickyNote();
 });
+
 
 // Load existing notes on page load
 window.addEventListener("DOMContentLoaded", () => {
