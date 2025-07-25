@@ -1,10 +1,9 @@
 const colsValue = document.getElementById("cols-value");
-const colsContainer = document.getElementById("links-container");
 const sidebar = document.getElementById("sidebar");
 const toggleBtn = document.getElementById("menu-toggle");
 const linksEditor = document.getElementById("links-editor");
 const addLinkBtn = document.getElementById("add-link");
-const bgLayer = document.getElementById("background-layer");
+const toggleLinksCheckbox = document.getElementById("toggle-links");
 
 async function applyDynamicBackground(settings) {
     const now = Date.now();
@@ -16,14 +15,14 @@ async function applyDynamicBackground(settings) {
         (interval !== "onload" && now - lastChange > interval * 60 * 1000);
 
     if (!shouldChange && settings.bgImage) {
-        bgLayer.style.backgroundImage = `url(${settings.bgImage})`;
+        backgroundLayer.style.backgroundImage = `url(${settings.bgImage})`;
         applyBackgroundFit(settings.bgFit);
         return;
     }
 
     const imageUrl = await fetchRandomImageByTag(settings.dynamicTag);
     if (imageUrl) {
-        bgLayer.style.backgroundImage = `url(${imageUrl})`;
+        backgroundLayer.style.backgroundImage = `url(${imageUrl})`;
         settings.bgImage = imageUrl;
         settings.bgSource = "dynamic";
         localStorage.setItem("dynamic_bg_last", now.toString());
@@ -48,7 +47,7 @@ async function fetchSearchResults(tag) {
             image.src = img.webformatURL;
             image.alt = img.tags;
             image.addEventListener("click", () => {
-                bgLayer.style.backgroundImage = `url(${img.largeImageURL})`;
+                backgroundLayer.style.backgroundImage = `url(${img.largeImageURL})`;
                 document.body.style.backgroundColor = "";
 
                 const settings = loadCustomSettings();
@@ -74,23 +73,6 @@ async function fetchRandomImageByTag(tag) {
     if (images.length === 0) return null;
     const random = images[Math.floor(Math.random() * images.length)];
     return random.largeImageURL;
-}
-
-function debounce(func, delay) {
-    let timeout;
-    return function (...args) {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => func.apply(this, args), delay);
-    };
-}
-
-function saveCustomSettings(settings) {
-    localStorage.setItem("custom_settings", JSON.stringify(settings));
-}
-
-function loadCustomSettings() {
-    const json = localStorage.getItem("custom_settings");
-    return json ? JSON.parse(json) : {};
 }
 
 function renderEditor(links) {
@@ -176,50 +158,11 @@ function renderEditor(links) {
     });
 }
 
-function applyBackgroundEffects(settings) {
-    const blur = settings.bgBlur || 0;
-    const brightness = settings.bgBrightness || 100;
-
-    bgLayer.style.filter = `blur(${blur}px) brightness(${brightness}%)`;
-}
-
-function applyBackgroundFit(fit) {
-    if (!fit) {
-        fit = "center";
-        const settings = loadCustomSettings();
-        settings.bgFit = fit;
-        saveCustomSettings(settings);
-        document.getElementById("bg-fit").value = fit;
-    }
-
-    switch (fit) {
-        case "cover":
-            bgLayer.style.backgroundSize = "cover";
-            bgLayer.style.backgroundRepeat = "no-repeat";
-            bgLayer.style.backgroundPosition = "center";
-            break;
-        case "contain":
-            bgLayer.style.backgroundSize = "contain";
-            bgLayer.style.backgroundRepeat = "no-repeat";
-            bgLayer.style.backgroundPosition = "center";
-            break;
-        case "repeat":
-            bgLayer.style.backgroundSize = "auto";
-            bgLayer.style.backgroundRepeat = "repeat";
-            bgLayer.style.backgroundPosition = "top left";
-            break;
-        case "stretch":
-            bgLayer.style.backgroundSize = "100% 100%";
-            bgLayer.style.backgroundRepeat = "no-repeat";
-            bgLayer.style.backgroundPosition = "center";
-            break;
-        case "center":
-            bgLayer.style.backgroundSize = "auto";
-            bgLayer.style.backgroundRepeat = "no-repeat";
-            bgLayer.style.backgroundPosition = "center";
-            break;
-    }
-}
+toggleLinksCheckbox.addEventListener("change", () => {
+    const visible = toggleLinksCheckbox.checked;
+    linksContainer.style.display = visible ? "grid" : "none";
+    showLinks(visible);
+});
 
 addLinkBtn.addEventListener("click", () => {
     const links = getLinksFromStorage();
@@ -238,24 +181,27 @@ toggleBtn.addEventListener("click", () => {
 document.getElementById("reset-time-date").addEventListener("click", () => {
     const settings = loadCustomSettings();
 
-    // Удаляем настройки
-    delete settings.timeFont;
-    delete settings.timeColor;
-    delete settings.dateFont;
-    delete settings.dateColor;
+    settings.timeFont = defaultTimeAndDateFont;
+    settings.timeColor = defaultTimeColor;
+    settings.dateFont = defaultTimeAndDateFont;
+    settings.dateColor = defaultDateColor;
     saveCustomSettings(settings);
 
-    // Сброс значений
-    document.getElementById("time").style.fontFamily = "";
-    document.getElementById("time").style.color = "";
-    document.getElementById("date").style.fontFamily = "";
-    document.getElementById("date").style.color = "";
+    document.getElementById("time").style.fontFamily = settings.timeFont;
+    document.getElementById("time").style.color = settings.timeColor;
+    document.getElementById("date").style.fontFamily = settings.dateFont;
+    document.getElementById("date").style.color = settings.dateColor;
 
-    // Сброс селекторов
-    document.getElementById("time-font").value = "Arial";
-    document.getElementById("time-color").value = "#7e4600";
-    document.getElementById("date-font").value = "Arial";
-    document.getElementById("date-color").value = "#aaa";
+    document.getElementById("time-font").value = settings.timeFont;
+    document.getElementById("time-color").value = settings.timeColor;
+    document.getElementById("date-font").value = settings.dateFont;
+    document.getElementById("date-color").value = settings.dateColor;
+
+    toggleTime.checked = true;
+    toggleDate.checked = true;
+    timeElement.style.display = "block";
+    dateElement.style.display = "block";
+    resetShowAndTimeSettings();
 });
 
 // Background
@@ -281,46 +227,46 @@ document.querySelectorAll('input[name="bg-mode"]').forEach(radio => {
         gallery.innerHTML = "";
         dynamicConfig.style.display = "none";
 
-        switch(mode) {
+        switch (mode) {
             case "stars":
                 effectsPanel.style.display = "none";
-                bgLayer.style.backgroundImage = "";
-                bgLayer.style.filter = "";
+                backgroundLayer.style.backgroundImage = "";
+                backgroundLayer.style.filter = "";
                 document.body.style.backgroundColor = "#000";
                 enableStarfield();
                 break;
             case "blobFlow":
                 effectsPanel.style.display = "none";
-                bgLayer.style.backgroundImage = "";
-                bgLayer.style.filter = "";
+                backgroundLayer.style.backgroundImage = "";
+                backgroundLayer.style.filter = "";
                 document.body.style.backgroundColor = "#000";
                 enableBlobFlow();
                 break;
             case "nebulaDust":
                 effectsPanel.style.display = "none";
-                bgLayer.style.backgroundImage = "";
-                bgLayer.style.filter = "";
+                backgroundLayer.style.backgroundImage = "";
+                backgroundLayer.style.filter = "";
                 document.body.style.backgroundColor = "#000";
                 enableNebulaDust();
                 break;
             case "glassGrid":
                 effectsPanel.style.display = "none";
-                bgLayer.style.backgroundImage = "";
-                bgLayer.style.filter = "";
+                backgroundLayer.style.backgroundImage = "";
+                backgroundLayer.style.filter = "";
                 document.body.style.backgroundColor = "#000";
                 enableGlassGrid();
                 break;
             case "orbitalRings":
                 effectsPanel.style.display = "none";
-                bgLayer.style.backgroundImage = "";
-                bgLayer.style.filter = "";
+                backgroundLayer.style.backgroundImage = "";
+                backgroundLayer.style.filter = "";
                 document.body.style.backgroundColor = "#000";
                 enableOrbitalRings();
                 break;
             case "particleDrift":
                 effectsPanel.style.display = "none";
-                bgLayer.style.backgroundImage = "";
-                bgLayer.style.filter = "";
+                backgroundLayer.style.backgroundImage = "";
+                backgroundLayer.style.filter = "";
                 document.body.style.backgroundColor = "#000";
                 enableParticleDrift();
                 break;
@@ -328,7 +274,7 @@ document.querySelectorAll('input[name="bg-mode"]').forEach(radio => {
                 effectsPanel.style.display = "flex";
                 document.body.style.backgroundColor = "";
                 disableStarfield();
-                disableDynamicBackground(bgLayer)
+                disableDynamicBackground(backgroundLayer)
                 applyBackgroundEffects(settings);
                 break;
         }
@@ -343,9 +289,9 @@ document.querySelectorAll('input[name="bg-mode"]').forEach(radio => {
             const tag = searchInput.value.trim();
 
             if (settings.bgImage && settings.bgSource === "search") {
-                bgLayer.style.backgroundImage = `url(${settings.bgImage})`;
-                bgLayer.style.backgroundSize = "cover";
-                bgLayer.style.backgroundPosition = "center";
+                backgroundLayer.style.backgroundImage = `url(${settings.bgImage})`;
+                backgroundLayer.style.backgroundSize = "cover";
+                backgroundLayer.style.backgroundPosition = "center";
             }
 
             if (tag) {
@@ -376,7 +322,7 @@ document.getElementById("bg-upload").addEventListener("change", (e) => {
     if (!file) return;
     const reader = new FileReader();
     reader.onload = function (event) {
-        bgLayer.style.backgroundImage = `url(${event.target.result})`;
+        backgroundLayer.style.backgroundImage = `url(${event.target.result})`;
         document.body.style.backgroundColor = "";
 
         const settings = loadCustomSettings();
@@ -423,19 +369,16 @@ document.getElementById("bg-brightness").addEventListener("input", (e) => {
 document.getElementById("reset-bg").addEventListener("click", () => {
     const settings = loadCustomSettings();
 
-    // Удаляем все настройки фона
     delete settings.bgMode;
     delete settings.bgImage;
     delete settings.bgBlur;
     delete settings.bgBrightness;
     saveCustomSettings(settings);
 
-    // Сброс стилей
-    bgLayer.style.backgroundImage = "";
-    bgLayer.style.filter = "";
+    backgroundLayer.style.backgroundImage = "";
+    backgroundLayer.style.filter = "";
     document.body.style.backgroundColor = "#000";
 
-    // Сброс UI
     document.querySelector('input[value="stars"]').checked = true;
     document.getElementById("bg-search").style.display = "none";
     document.getElementById("bg-results").innerHTML = "";
@@ -487,13 +430,15 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     let cols = settings.cols || 3;
     colsValue.textContent = cols;
-    colsContainer.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+    linksContainer.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+
+    toggleLinksCheckbox.checked = getLinksState();
 
     document.getElementById("cols-plus").addEventListener("click", () => {
         if (cols < 10) {
             cols++;
             colsValue.textContent = cols;
-            colsContainer.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+            linksContainer.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
             settings.cols = cols;
             saveCustomSettings(settings);
         }
@@ -503,7 +448,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (cols > 1) {
             cols--;
             colsValue.textContent = cols;
-            colsContainer.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+            linksContainer.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
             settings.cols = cols;
             saveCustomSettings(settings);
         }
@@ -517,25 +462,33 @@ document.addEventListener("DOMContentLoaded", async () => {
     const dateFontSelect = document.getElementById("date-font");
     const dateColorInput = document.getElementById("date-color");
 
-    if (settings.timeFont) {
-        timeFontSelect.value = settings.timeFont;
-        timeElem.style.fontFamily = settings.timeFont;
+    if (!settings.timeFont) {
+        settings.timeFont = defaultTimeAndDateFont;
+        saveCustomSettings(settings);
     }
+    timeFontSelect.value = settings.timeFont;
+    timeElem.style.fontFamily = settings.timeFont;
 
-    if (settings.timeColor) {
-        timeColorInput.value = settings.timeColor;
-        timeElem.style.color = settings.timeColor;
+    if (!settings.timeColor) {
+        settings.timeColor = defaultTimeColor;
+        saveCustomSettings(settings);
     }
+    timeColorInput.value = settings.timeColor;
+    timeElem.style.color = settings.timeColor;
 
-    if (settings.dateFont) {
-        dateFontSelect.value = settings.dateFont;
-        dateElem.style.fontFamily = settings.dateFont;
+    if (!settings.dateFont) {
+        settings.dateFont = defaultTimeAndDateFont;
+        saveCustomSettings(settings);
     }
+    dateFontSelect.value = settings.dateFont;
+    dateElem.style.fontFamily = settings.dateFont;
 
-    if (settings.dateColor) {
-        dateColorInput.value = settings.dateColor;
-        dateElem.style.color = settings.dateColor;
+    if (!settings.dateColor) {
+        settings.dateColor = defaultDateColor;
+        saveCustomSettings(settings);
     }
+    dateColorInput.value = settings.dateColor;
+    dateElem.style.color = settings.dateColor;
 
     timeFontSelect.addEventListener("change", (e) => {
         settings.timeFont = e.target.value;
@@ -561,58 +514,61 @@ document.addEventListener("DOMContentLoaded", async () => {
         saveCustomSettings(settings);
     });
 
-    if(!settings.bgMode) {
+    if (!settings.bgMode) {
         settings.bgMode = "stars";
         enableStarfield();
     }
 
     if (settings.bgMode) {
-        document.querySelector(`input[value="${settings.bgMode}"]`).checked = true;
+        const modeInput = document.querySelector(`input[value="${settings.bgMode}"]`);
+        if (modeInput) {
+            modeInput.checked = true;
+        }
 
         const effectsPanel = document.getElementById("bg-effects-group");
         const searchInput = document.getElementById("bg-search");
         const dynamicConfig = document.getElementById("dynamic-search-config");
 
-        switch(settings.bgMode) {
+        switch (settings.bgMode) {
             case "stars":
                 effectsPanel.style.display = "none";
-                bgLayer.style.backgroundImage = "";
-                bgLayer.style.filter = "";
+                backgroundLayer.style.backgroundImage = "";
+                backgroundLayer.style.filter = "";
                 document.body.style.backgroundColor = "#000";
                 enableStarfield();
                 break;
             case "blobFlow":
                 effectsPanel.style.display = "none";
-                bgLayer.style.backgroundImage = "";
-                bgLayer.style.filter = "";
+                backgroundLayer.style.backgroundImage = "";
+                backgroundLayer.style.filter = "";
                 document.body.style.backgroundColor = "#000";
                 enableBlobFlow();
                 break;
             case "nebulaDust":
                 effectsPanel.style.display = "none";
-                bgLayer.style.backgroundImage = "";
-                bgLayer.style.filter = "";
+                backgroundLayer.style.backgroundImage = "";
+                backgroundLayer.style.filter = "";
                 document.body.style.backgroundColor = "#000";
                 enableNebulaDust();
                 break;
             case "glassGrid":
                 effectsPanel.style.display = "none";
-                bgLayer.style.backgroundImage = "";
-                bgLayer.style.filter = "";
+                backgroundLayer.style.backgroundImage = "";
+                backgroundLayer.style.filter = "";
                 document.body.style.backgroundColor = "#000";
                 enableGlassGrid();
                 break;
             case "orbitalRings":
                 effectsPanel.style.display = "none";
-                bgLayer.style.backgroundImage = "";
-                bgLayer.style.filter = "";
+                backgroundLayer.style.backgroundImage = "";
+                backgroundLayer.style.filter = "";
                 document.body.style.backgroundColor = "#000";
                 enableOrbitalRings();
                 break;
             case "particleDrift":
                 effectsPanel.style.display = "none";
-                bgLayer.style.backgroundImage = "";
-                bgLayer.style.filter = "";
+                backgroundLayer.style.backgroundImage = "";
+                backgroundLayer.style.filter = "";
                 document.body.style.backgroundColor = "#000";
                 enableParticleDrift();
                 break;
@@ -620,7 +576,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 effectsPanel.style.display = "flex";
                 document.body.style.backgroundColor = "";
                 disableStarfield();
-                disableDynamicBackground(bgLayer)
+                disableDynamicBackground(backgroundLayer)
                 applyBackgroundEffects(settings);
                 break;
         }
@@ -661,7 +617,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 (settings.bgMode === "search-image" && settings.bgSource === "search") ||
                 (settings.bgMode === "dynamic-search" && settings.bgSource === "dynamic"))
         ) {
-            bgLayer.style.backgroundImage = `url(${settings.bgImage})`;
+            backgroundLayer.style.backgroundImage = `url(${settings.bgImage})`;
             applyBackgroundFit(settings.bgFit);
         }
     }
@@ -683,6 +639,20 @@ document.addEventListener("DOMContentLoaded", async () => {
             const nowOpen = content.classList.contains("open");
             toggleBtn.textContent = nowOpen ? "−" : "+";
             localStorage.setItem(key, nowOpen);
+        });
+    });
+
+    document.getElementById("customization-title").addEventListener("click", () => {
+        document.querySelectorAll("section").forEach(section => {
+            const content = section.querySelector(".section-content");
+            const toggleBtn = section.querySelector(".toggle-section");
+            const key = "section_" + section.dataset.section;
+
+            if (content.classList.contains("open")) {
+                content.classList.remove("open");
+                toggleBtn.textContent = "+";
+                localStorage.setItem(key, false);
+            }
         });
     });
 });

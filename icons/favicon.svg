@@ -1,0 +1,13 @@
+<svg width="96" height="96" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" fill="none">
+    <defs>
+        <linearGradient id="accentGradient" x1="0" y1="0" x2="0" y2="96" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#4C6FFF"/>
+            <stop offset="1" stop-color="#7F9FFF"/>
+        </linearGradient>
+    </defs>
+
+    <g stroke="url(#accentGradient)" stroke-width="4" stroke-linecap="round">
+        <line x1="48" y1="20" x2="48" y2="76"/>
+        <line x1="20" y1="48" x2="76" y2="48"/>
+    </g>
+</svg>

@@ -1,11 +1,10 @@
 function enableGlassGrid() {
-    const container = document.getElementById("background-layer");
-    disableDynamicBackground(container);
+    disableDynamicBackground();
     const canvas = document.createElement("canvas");
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     canvas.id = "glass-canvas";
-    container.appendChild(canvas);
+    backgroundLayer.appendChild(canvas);
     const ctx = canvas.getContext("2d");
 
     const squares = Array.from({ length: 40 }, () => ({

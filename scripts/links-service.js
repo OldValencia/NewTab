@@ -1,16 +1,24 @@
-const linksContainer = "links-container"
+const linksContainer = document.getElementById("links-container")
+const defaultLinks = [
+    {url: "https://youtube.com", label: "YouTube"},
+    {url: "https://instagram.com", label: "Instagram"},
+    {url: "https://www.firefox.com/en-US/", label: "Mozilla Firefox"}
+]
 
 function getLinksFromStorage() {
     const json = localStorage.getItem("custom_links");
-    if (json) return JSON.parse(json);
-    return [  // Значения по умолчанию
-        { url: "https://youtube.com", label: "YouTube" },
-        { url: "https://instagram.com", label: "Instagram" },
-        { url: "https://translate.yandex.com/", label: "Translate" },
-        { url: "https://twitch.com", label: "Twitch" },
-        { url: "https://www.otomoto.pl/osobowe/od-2014?search[filter_enum_damaged]=0&search[filter_float_engine_power:from]=110&search[filter_float_mileage:to]=150000&search[filter_float_price:to]=65000&search[order]=created_at%3Adesc&search[private_business]=private&search[advanced_search_expanded]=true", label: "Otomoto" },
-        { url: "https://www.google.com/maps", label: "Maps" },
-    ];
+    if (!json) {
+        saveLinksToStorage(defaultLinks);
+        return defaultLinks;
+    }
+
+    try {
+        return JSON.parse(json);
+    } catch (e) {
+        console.warn("Error while reading custom_links:", e);
+        saveLinksToStorage(defaultLinks);
+        return defaultLinks;
+    }
 }
 
 function saveLinksToStorage(links) {
@@ -18,8 +26,11 @@ function saveLinksToStorage(links) {
 }
 
 function renderLinks(links) {
-    const container = document.getElementById(linksContainer);
-    container.innerHTML = ""; // Очистить старое
+    linksContainer.innerHTML = "";
+    const linksState = getLinksState();
+    linksContainer.style.display = linksState ? "grid" : "none";
+
+    const fragment = document.createDocumentFragment();
 
     links.forEach(link => {
         const a = document.createElement("a");
@@ -38,11 +49,42 @@ function renderLinks(links) {
 
         a.appendChild(img);
         a.appendChild(span);
-        container.appendChild(a);
+        fragment.appendChild(a);
     });
+
+    linksContainer.appendChild(fragment);
 }
 
-document.addEventListener("DOMContentLoaded", async () => {
+function showLinks(value) {
+    localStorage.setItem("showLinks", value);
+}
+
+function getLinksState() {
+    const value = localStorage.getItem("showLinks");
+    if (value === null) {
+        showLinks(true);
+        return true;
+    }
+    return value === "true";
+}
+
+
+function initLinks() {
     const linksData = getLinksFromStorage();
     renderLinks(linksData);
-});
+
+    const show = getLinksState();
+    linksContainer.style.display = show ? "grid" : "none";
+
+    const toggleLinksCheckbox = document.getElementById("toggle-links");
+    if (toggleLinksCheckbox) {
+        toggleLinksCheckbox.checked = show;
+        toggleLinksCheckbox.addEventListener("change", () => {
+            const show = toggleLinksCheckbox.checked;
+            linksContainer.style.display = show ? "grid" : "none";
+            showLinks(show);
+        });
+    }
+}
+
+document.addEventListener("DOMContentLoaded", initLinks);

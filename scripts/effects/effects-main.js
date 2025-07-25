@@ -1,8 +1,8 @@
-function disableDynamicBackground(container) {
-    container.innerHTML = "";
-    container.style.backgroundImage = "";
-    container.style.backgroundSize = "";
-    container.style.backgroundRepeat = "";
-    container.style.backgroundPosition = "";
+function disableDynamicBackground() {
+    backgroundLayer.innerHTML = "";
+    backgroundLayer.style.backgroundImage = "";
+    backgroundLayer.style.backgroundSize = "";
+    backgroundLayer.style.backgroundRepeat = "";
+    backgroundLayer.style.backgroundPosition = "";
     document.body.style.backgroundImage = "";
 }

@@ -1,12 +1,11 @@
 function enableOrbitalRings() {
-    const container = document.getElementById("background-layer");
-    disableDynamicBackground(container);
+    disableDynamicBackground();
 
     const canvas = document.createElement("canvas");
     canvas.id = "orbital-canvas";
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    container.appendChild(canvas);
+    backgroundLayer.appendChild(canvas);
     const ctx = canvas.getContext("2d");
 
     const rings = Array.from({ length: 5 }, (_, i) => ({

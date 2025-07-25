@@ -1,3 +1,6 @@
+/* ──────────────────────────────── */
+/* 🔘 Menu Button */
+/* ──────────────────────────────── */
 .menu-button {
     position: fixed;
     top: 10px;
@@ -7,52 +10,52 @@
     background: rgba(255, 255, 255, 0.05);
     border: none;
     padding: 8px 12px;
-    cursor: pointer;
     border-radius: 6px;
     color: white;
+    cursor: pointer;
     transition: right 0.3s ease, background 0.3s ease;
 }
-
-.menu-button:hover {
+.menu-button:hover,
+.menu-button.shifted {
     background: rgba(255, 255, 255, 0.2);
 }
-
 .menu-button.shifted {
     right: 460px;
-    background: rgba(255, 255, 255, 0.2);
 }
 
-/* Sidebar layout */
+/* ──────────────────────────────── */
+/* 📚 Sidebar */
+/* ──────────────────────────────── */
 .sidebar {
     position: fixed;
     top: 0;
     right: -450px;
     width: 400px;
     height: 100%;
-    backdrop-filter: blur(20px);
-    background: rgba(30, 30, 30, 0.6);
-    color: #fff;
     padding: 20px;
+    color: #fff;
+    background: rgba(30, 30, 30, 0.6);
+    backdrop-filter: blur(20px);
     box-shadow: -4px 0 12px rgba(0, 0, 0, 0.3);
-    transition: right 0.3s ease;
-    z-index: 999;
-    overflow-y: auto;
     border-left: 1px solid rgba(255, 255, 255, 0.1);
     font-family: 'Segoe UI', sans-serif;
+    overflow-y: auto;
+    transition: right 0.3s ease;
+    z-index: 999;
 }
-
 .sidebar.open {
     right: 0;
 }
-
 .sidebar h2 {
     font-size: 24px;
     margin-bottom: 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* Section headers with icons and toggle */
+/* ──────────────────────────────── */
+/* 📦 Section Headers & Toggles */
+/* ──────────────────────────────── */
 .section-header {
     display: flex;
     align-items: center;
@@ -62,19 +65,16 @@
     border-radius: 6px;
     margin-bottom: 8px;
 }
-
 .section-header h3 {
+    flex: 1;
     margin: 0;
     font-size: 16px;
     color: #ddd;
-    flex: 1;
 }
-
 .section-icon {
     font-size: 18px;
     margin-right: 10px;
 }
-
 .toggle-section {
     background: none;
     border: none;
@@ -83,32 +83,27 @@
     cursor: pointer;
     transition: transform 0.2s ease;
 }
-
 .toggle-section:hover {
     color: #fff;
 }
 
-/* Section content */
+/* ──────────────────────────────── */
+/* 📂 Section Content */
+/* ──────────────────────────────── */
 .section-content {
     display: none;
     flex-direction: column;
     gap: 12px;
-    background: rgba(255, 255, 255, 0.04);
     padding: 16px;
+    margin-bottom: 10px;
     border-radius: 10px;
+    background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.08);
     box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.2);
-    margin-bottom: 10px;
 }
-
-
-/* Стили для раскрытых опций — Chrome fix */
-.section-content select option {
-    color: black;
-    background-color: white;
-    cursor: pointer;
+.section-content.open {
+    display: block;
 }
-
 .section-content label {
     display: flex;
     align-items: center;
@@ -119,21 +114,18 @@
     padding: 6px 10px;
     cursor: pointer;
 }
-
+.section-content select option {
+    color: black;
+    background-color: white;
+    cursor: pointer;
+}
 .reset-button {
     width: 100%;
 }
 
-.section-content.open {
-    display: block;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-/* Controls */
+/* ──────────────────────────────── */
+/* 🎛 Controls */
+/* ──────────────────────────────── */
 .cols-control,
 .font-control {
     display: flex;
@@ -143,7 +135,13 @@
     font-size: 14px;
     color: #ccc;
 }
-
+.links-controls-row {
+    margin-top: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
 .cols-control button,
 #add-link,
 .delete-link,
@@ -157,7 +155,6 @@
     cursor: pointer;
     transition: background 0.2s ease;
 }
-
 .cols-control button:hover,
 #add-link:hover,
 .delete-link:hover,
@@ -165,18 +162,69 @@
     background: rgba(255, 255, 255, 0.3);
 }
 
+/* ──────────────────────────────── */
+/* 🔗 Link Toggle Control */
+/* ──────────────────────────────── */
+.links-toggle-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #ccc;
+}
+.links-toggle-control input[type="checkbox"],
+.section-toggle-controls input[type="checkbox"] {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #888;
+    border-radius: 4px;
+    background-color: transparent;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease;
+}
+.links-toggle-control input[type="checkbox"]:checked,
+.section-toggle-controls input[type="checkbox"]:checked {
+    background-color: #4caf50;
+    border-color: #4caf50;
+}
+.links-toggle-control input[type="checkbox"]::after,
+.section-toggle-controls input[type="checkbox"]::after {
+    content: "";
+    position: absolute;
+    top: 1px;
+    left: 5px;
+    width: 5px;
+    height: 9px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+.links-toggle-control input[type="checkbox"]:checked::after,
+.section-toggle-controls input[type="checkbox"]:checked::after {
+    opacity: 1;
+}
+
+/* ──────────────────────────────── */
+/* 🖋 Selects & Inputs */
+/* ──────────────────────────────── */
 .font-control select,
 #bg-fit,
-#dynamic-interval {
+#dynamic-interval,
+#dynamic-search-config input,
+#dynamic-search-config select,
+#bg-effects select {
     flex: 1;
     background: rgba(255, 255, 255, 0.1);
     border: none;
-    padding: 6px;
+    padding: 6px 8px;
     border-radius: 6px;
     color: white;
     font-size: 14px;
 }
-
 input[type="color"] {
     width: 40px;
     height: 30px;
@@ -184,14 +232,30 @@ input[type="color"] {
     background: none;
     cursor: pointer;
 }
+input[type="radio"] {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    margin-right: 8px;
+    background-color: transparent;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+}
+input[type="radio"]:checked {
+    border-color: #66ccff;
+    background-color: #66ccff;
+}
 
-/* Link editor */
+/* ──────────────────────────────── */
+/* ✏️ Link Editor */
+/* ──────────────────────────────── */
 #links-editor .link-edit {
     display: flex;
     gap: 5px;
     margin-bottom: 5px;
 }
-
 #links-editor .link-edit input {
     flex: 1;
     min-width: 0;
@@ -203,34 +267,30 @@ input[type="color"] {
     color: white;
     font-size: 14px;
 }
-
 #links-editor .link-edit input::placeholder {
     color: #aaa;
 }
-
 #links-editor .link-edit input:focus {
     outline: none;
     background: rgba(255, 255, 255, 0.2);
 }
-
 .link-edit.drag-over {
     border: 1px dashed #aaa;
     background-color: rgba(255, 255, 255, 0.05);
 }
-
 .link-edit.dragging {
     opacity: 0.5;
 }
 
-/* Background gallery */
+/* ──────────────────────────────── */
+/* 🖼 Background Gallery */
+/* ──────────────────────────────── */
 .bg-gallery {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin: 10px 0;
 }
-
 .bg-gallery img {
     width: 100%;
     height: auto;
@@ -238,15 +298,13 @@ input[type="color"] {
     cursor: pointer;
     transition: transform 0.2s ease;
 }
-
 .bg-gallery img:hover {
     transform: scale(1.05);
 }
 
-/* Search input */
+/* 🔍 Background Search */
 #bg-search {
     width: 100%;
-    max-width: 100%;
     box-sizing: border-box;
     padding: 8px;
     border-radius: 6px;
@@ -256,43 +314,21 @@ input[type="color"] {
     font-size: 14px;
     margin-top: 10px;
 }
-
 #bg-search::placeholder {
     color: #aaa;
 }
-
 #bg-search:focus {
     outline: none;
     background: rgba(255, 255, 255, 0.2);
 }
 
-/* Radio buttons */
-input[type="radio"] {
-    appearance: none;
-    width: 16px;
-    height: 16px;
-    border: 2px solid #ccc;
-    border-radius: 50%;
-    margin-right: 8px;
-    vertical-align: middle;
-    background-color: transparent;
-    cursor: pointer;
-    transition: border-color 0.2s ease;
-}
-
-input[type="radio"]:checked {
-    border-color: #66ccff;
-    background-color: #66ccff;
-}
-
-/* Background effects */
+/* 🌌 Background Effects */
 #bg-effects {
     margin-top: 15px;
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
-
 #bg-effects-group {
     background: rgba(255, 255, 255, 0.05);
     padding: 12px;
@@ -302,7 +338,6 @@ input[type="radio"]:checked {
     flex-direction: column;
     gap: 10px;
 }
-
 #bg-effects-group h4 {
     font-size: 15px;
     color: #ccc;
@@ -311,7 +346,6 @@ input[type="radio"]:checked {
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     padding-bottom: 4px;
 }
-
 #bg-effects label {
     display: flex;
     justify-content: space-between;
@@ -319,21 +353,11 @@ input[type="radio"]:checked {
     color: #ccc;
     font-size: 14px;
 }
-
 #bg-effects input[type="range"] {
     width: 60%;
 }
 
-#bg-effects select {
-    background: rgba(255, 255, 255, 0.1);
-    border: none;
-    padding: 6px;
-    border-radius: 6px;
-    color: white;
-    font-size: 14px;
-}
-
-/* Background layer */
+/* 🖼 Background Layer */
 #background-layer {
     position: fixed;
     top: 0;
@@ -346,14 +370,13 @@ input[type="radio"]:checked {
     background-repeat: no-repeat;
 }
 
-/* Dynamic search config */
+/* ⚙️ Dynamic Search Config */
 #dynamic-search-config {
     margin-top: 10px;
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
-
 #dynamic-search-config input,
 #dynamic-search-config select {
     background: rgba(255, 255, 255, 0.1);
@@ -364,9 +387,24 @@ input[type="radio"]:checked {
     font-size: 14px;
 }
 
-/* Loading indicator */
+/* ⏳ Loading Indicator */
 #bg-loading {
     margin-top: 10px;
     color: #ccc;
     font-size: 14px;
+}
+
+/* 🧩 Section Toggle Controls */
+.section-toggle-controls {
+    margin-top: 16px;
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    font-size: 14px;
+    color: #ccc;
+}
+.section-toggle-controls label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }

@@ -16,7 +16,7 @@
 <button id="menu-toggle" class="menu-button">☰</button>
 
 <div id="sidebar" class="sidebar">
-    <h2>Customization</h2>
+    <h2 id="customization-title">Customization</h2>
 
     <!-- 🔗 Links -->
     <section data-section="links">
@@ -32,8 +32,18 @@
                 <span id="cols-value">3</span>
                 <button id="cols-plus">+</button>
             </div>
+
             <div id="links-editor"></div>
-            <button id="add-link">Add link</button>
+
+            <div class="links-controls-row">
+                <button id="add-link">Add link</button>
+                <div class="links-toggle-control">
+                    <label>
+                        <input type="checkbox" id="toggle-links" checked>
+                        Show links
+                    </label>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -70,6 +80,17 @@
             </div>
 
             <button id="reset-time-date" class="reset-button">Reset Time & Date Settings</button>
+
+            <div class="section-toggle-controls">
+                <label>
+                    <input type="checkbox" id="toggle-time" checked>
+                    Show Time
+                </label>
+                <label>
+                    <input type="checkbox" id="toggle-date" checked>
+                    Show Date
+                </label>
+            </div>
         </div>
     </section>
 
@@ -136,7 +157,7 @@
 </div>
 
 <div class="links" id="links-container"></div>
-
+<script src="scripts/main.js"></script>
 <script src="scripts/effects/effects-main.js"></script>
 <script src="scripts/effects/star-generator.js"></script>
 <script src="scripts/effects/blob-flow.js"></script>

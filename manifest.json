@@ -1,36 +1,27 @@
 {
-  "manifest_version": 3,
+  "manifest_version": 2,
   "name": "Fresh Tab",
   "description": "An extension for about:newtab that brings life to the new tab.",
   "version": "0.1",
+  "homepage_url": "https://github.com/s0flY/NewTab",
 
   "chrome_url_overrides": {
     "newtab": "index.html"
   },
 
-  "permissions": ["storage", "webRequest"],
+  "permissions": [
+    "storage",
+    "webRequest"
+  ],
 
   "icons": {
-    "48": "icons/icon-48.png",
-    "96": "icons/icon-96.png"
+    "48": "icons/icon-48.svg",
+    "96": "icons/icon-96.svg"
   },
-
-  "content_scripts": [
-    {
-      "matches": ["about:newtab"],
-      "css": ["style.css"],
-      "js": [
-        "scripts/links-service.js",
-        "scripts/sidebar.js",
-        "scripts/star-generator.js",
-        "scripts/time.js"
-      ]
-    }
-  ],
 
   "browser_specific_settings": {
     "gecko": {
-      "id": "valik.kondakov@gmail.com"
+      "id": "sofly.scr@gmail.com"
     }
   }
 }

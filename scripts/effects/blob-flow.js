@@ -1,11 +1,10 @@
 function enableBlobFlow() {
-    const container = document.getElementById("background-layer");
-    disableDynamicBackground(container);
+    disableDynamicBackground();
     const canvas = document.createElement("canvas");
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     canvas.id = "blob-canvas";
-    container.appendChild(canvas);
+    backgroundLayer.appendChild(canvas);
     const ctx = canvas.getContext("2d");
 
     const blobs = Array.from({ length: 8 }, () => ({
