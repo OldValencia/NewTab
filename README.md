@@ -1,4 +1,6 @@
 ![alt text](Screenshots/Main_page.png "Main page")
+![alt text](Screenshots/Sidebar,_Main_page_with_image_from_Pixabay.png "Sidebar, Main page with image from Pixabay")
+![alt text](Screenshots/Sticky_notes_functionality.png "Sticky notes functionality")
 
 # 🌌 New Tab Extension
 
