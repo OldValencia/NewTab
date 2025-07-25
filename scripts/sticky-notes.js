@@ -19,7 +19,6 @@ function setStickyNotesVisibilityState(value) {
 
 function createStickyNote(data = {}) {
     const noteId = `sticky-note-${noteCounter++}`;
-    const note = document.createElement("div");
     const noteWidth = 200;
     const noteHeight = 200;
     const margin = 20;
@@ -36,64 +35,116 @@ function createStickyNote(data = {}) {
         top = 100;
     }
 
-    note.style.left = `${left}px`;
-    note.style.top = `${top}px`;
+    const note = document.createElement("div");
     note.className = "sticky-note";
     note.id = noteId;
+    note.style.left = `${left}px`;
+    note.style.top = `${top}px`;
     note.style.backgroundColor = data.bgColor || "#fff8b3";
     note.style.fontFamily = data.font || "sans-serif";
     note.style.fontSize = data.fontSize || "14px";
     note.style.color = data.textColor || "#333";
     note.style.display = getStickyNotesVisibilityState() ? "block" : "none";
 
-    note.innerHTML = `
-        <div class="controls">
-            <button class="customize-toggle">⚙️</button>
-            <button class="sticky-note-clear-btn">🗑️</button>
-            <button class="sticky-note-hide-btn">✖</button>
-        </div>
-       
-        <div class="customize-menu hidden">
-            <label>BG Color <input type="color" class="bg-color"></label>
-            <label>Font 
-                <select class="font-family">
-                    <option value="sans-serif">Sans</option>
-                    <option value="serif">Serif</option>
-                    <option value="monospace">Monospace</option>
-                    <option value="Arial">Arial</option>
-                    <option value="Courier New">Courier New</option>
-                </select>
-            </label>
-            <label>Size <input type="number" class="font-size" min="10" max="32"></label>
-            <label>Text Color <input type="color" class="text-color"></label>
-            <button class="reset-note">Reset</button>
-        </div>
-        
-        <textarea>${data.text || ""}</textarea>
-    `;
+    // Controls
+    const controls = document.createElement("div");
+    controls.className = "controls";
+
+    const customizeBtn = document.createElement("button");
+    customizeBtn.className = "customize-toggle";
+    customizeBtn.textContent = "⚙️";
+
+    const clearBtn = document.createElement("button");
+    clearBtn.className = "sticky-note-clear-btn";
+    clearBtn.textContent = "🗑️";
+
+    const hideBtn = document.createElement("button");
+    hideBtn.className = "sticky-note-hide-btn";
+    hideBtn.textContent = "✖";
+
+    controls.appendChild(customizeBtn);
+    controls.appendChild(clearBtn);
+    controls.appendChild(hideBtn);
+
+    // Customize Menu
+    const customizeMenu = document.createElement("div");
+    customizeMenu.className = "customize-menu hidden";
+
+    const bgLabel = document.createElement("label");
+    bgLabel.textContent = "BG Color ";
+    const bgInput = document.createElement("input");
+    bgInput.type = "color";
+    bgInput.className = "bg-color";
+    bgLabel.appendChild(bgInput);
+
+    const fontLabel = document.createElement("label");
+    fontLabel.textContent = "Font ";
+    const fontSelect = document.createElement("select");
+    fontSelect.className = "font-family";
+    ["sans-serif", "serif", "monospace", "Arial", "Courier New"].forEach(font => {
+        const option = document.createElement("option");
+        option.value = font;
+        option.textContent = font;
+        fontSelect.appendChild(option);
+    });
+    fontLabel.appendChild(fontSelect);
+
+    const sizeLabel = document.createElement("label");
+    sizeLabel.textContent = "Size ";
+    const sizeInput = document.createElement("input");
+    sizeInput.type = "number";
+    sizeInput.className = "font-size";
+    sizeInput.min = "10";
+    sizeInput.max = "32";
+    sizeLabel.appendChild(sizeInput);
+
+    const colorLabel = document.createElement("label");
+    colorLabel.textContent = "Text Color ";
+    const colorInput = document.createElement("input");
+    colorInput.type = "color";
+    colorInput.className = "text-color";
+    colorLabel.appendChild(colorInput);
+
+    const resetBtn = document.createElement("button");
+    resetBtn.className = "reset-note";
+    resetBtn.textContent = "Reset";
+
+    customizeMenu.appendChild(bgLabel);
+    customizeMenu.appendChild(fontLabel);
+    customizeMenu.appendChild(sizeLabel);
+    customizeMenu.appendChild(colorLabel);
+    customizeMenu.appendChild(resetBtn);
+
+    // Textarea
+    const textarea = document.createElement("textarea");
+    textarea.value = data.text || "";
+
+    // Assemble note
+    note.appendChild(controls);
+    note.appendChild(customizeMenu);
+    note.appendChild(textarea);
 
     document.getElementById("sticky-notes-container").appendChild(note);
     stickyNoteOffset += 10;
 
     makeDraggable(note);
 
-    const textarea = note.querySelector("textarea");
     textarea.addEventListener("input", () => {
         saveNote(noteId);
     });
 
     note.addEventListener("mouseenter", () => note.classList.remove("inactive"));
     note.addEventListener("mouseleave", () => note.classList.add("inactive"));
-    note.querySelector(".customize-toggle").addEventListener("click", () => {
-        const menu = note.querySelector(".customize-menu");
-        menu.classList.toggle("hidden");
+    customizeBtn.addEventListener("click", () => {
+        customizeMenu.classList.toggle("hidden");
     });
-    note.querySelector(".sticky-note-clear-btn").addEventListener("click", () => clearNote(noteId));
-    note.querySelector(".sticky-note-hide-btn").addEventListener("click", () => hideNote(noteId));
+    clearBtn.addEventListener("click", () => clearNote(noteId));
+    hideBtn.addEventListener("click", () => hideNote(noteId));
 
     loadNote(noteId);
     setupCustomization(note, noteId);
 }
+
 
 function setupCustomization(note, noteId) {
     const bgInput = note.querySelector(".bg-color");
