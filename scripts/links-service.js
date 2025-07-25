@@ -28,6 +28,7 @@ function saveLinksToStorage(links) {
 function renderLinks(links) {
     linksContainer.innerHTML = "";
     const linksState = getLinksState();
+    const openInNewTab = getOpenInNewTabState();
     linksContainer.style.display = linksState ? "grid" : "none";
 
     const fragment = document.createDocumentFragment();
@@ -36,6 +37,9 @@ function renderLinks(links) {
         const a = document.createElement("a");
         a.className = "link";
         a.href = link.url;
+        if (openInNewTab) {
+            a.target = "_blank";
+        }
 
         const img = document.createElement("img");
         img.className = "favicon";
@@ -75,7 +79,6 @@ function initLinks() {
     const show = getLinksState();
     linksContainer.style.display = show ? "grid" : "none";
 
-    const toggleLinksCheckbox = document.getElementById("toggle-links");
     if (toggleLinksCheckbox) {
         toggleLinksCheckbox.checked = show;
         toggleLinksCheckbox.addEventListener("change", () => {

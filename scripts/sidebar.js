@@ -4,6 +4,7 @@ const toggleBtn = document.getElementById("menu-toggle");
 const linksEditor = document.getElementById("links-editor");
 const addLinkBtn = document.getElementById("add-link");
 const toggleLinksCheckbox = document.getElementById("toggle-links");
+const toggleOpenInNewTab = document.getElementById("toggle-open-in-new-tab");
 
 async function applyDynamicBackground(settings) {
     const now = Date.now();
@@ -65,7 +66,6 @@ async function fetchSearchResults(tag) {
     }
 }
 
-
 async function fetchRandomImageByTag(tag) {
     const response = await fetch(`https://pixabay.com/api/?key=51460243-79e3bcc7ccd2859533aa67992&q=${encodeURIComponent(tag)}&image_type=photo`);
     const data = await response.json();
@@ -73,6 +73,24 @@ async function fetchRandomImageByTag(tag) {
     if (images.length === 0) return null;
     const random = images[Math.floor(Math.random() * images.length)];
     return random.largeImageURL;
+}
+
+function getOpenInNewTabState() {
+    const settings = loadCustomSettings();
+    if (settings.openInNewTabState === null) {
+        settings.openInNewTabState = false;
+        saveCustomSettings(settings);
+        return false;
+    }
+    return settings.openInNewTabState;
+}
+
+function setOpenInNewTabState(value) {
+    const settings = loadCustomSettings();
+    settings.openInNewTabState = value;
+    saveCustomSettings(settings);
+    const linksFromStorage = getLinksFromStorage();
+    renderLinks(linksFromStorage);
 }
 
 function renderEditor(links) {
@@ -517,6 +535,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (!settings.bgMode) {
         settings.bgMode = "stars";
         enableStarfield();
+        saveCustomSettings(settings);
     }
 
     if (settings.bgMode) {
@@ -621,6 +640,15 @@ document.addEventListener("DOMContentLoaded", async () => {
             applyBackgroundFit(settings.bgFit);
         }
     }
+
+    if (settings.openInNewTabState === undefined) {
+        settings.openInNewTabState = false;
+        saveCustomSettings(settings);
+    }
+    toggleOpenInNewTab.checked = settings.openInNewTabState;
+    toggleOpenInNewTab.addEventListener("change", () => {
+        setOpenInNewTabState(toggleOpenInNewTab.checked);
+    });
 
     document.querySelectorAll(".toggle-section").forEach(toggleBtn => {
         const section = toggleBtn.closest("section");
