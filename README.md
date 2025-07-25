@@ -1,3 +1,5 @@
+![alt text](Screenshots/Main_page.png "Main page")
+
 # 🌌 New Tab Extension
 
 A lightweight Firefox extension that replaces your default new tab with a customizable homepage featuring animated backgrounds, theme toggles, and local settings. No tracking, no ads - just beauty and control
