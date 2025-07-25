@@ -36,7 +36,6 @@ function renderLinks(links) {
         const a = document.createElement("a");
         a.className = "link";
         a.href = link.url;
-        a.target = "_blank";
 
         const img = document.createElement("img");
         img.className = "favicon";
