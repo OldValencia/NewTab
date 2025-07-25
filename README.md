@@ -2,6 +2,10 @@
 
 A lightweight Firefox extension that replaces your default new tab with a customizable homepage featuring animated backgrounds, theme toggles, and local settings. No tracking, no ads - just beauty and control
 
+# Live demo
+
+https://s0fly.github.io/NewTab/
+
 ---
 
 ## What Is This?
