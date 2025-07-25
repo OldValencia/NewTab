@@ -193,13 +193,9 @@
 }
 .links-toggle-control label:nth-child(1), .section-toggle-controls label:nth-child(1) {
     width: 45%;
-    border-bottom-left-radius: 6px;
-    border-top-left-radius: 6px;
 }
 .links-toggle-control label:nth-child(2), .section-toggle-controls label:nth-child(2) {
     width: 55%;
-    border-bottom-right-radius: 6px;
-    border-top-right-radius: 6px;
 }
 .links-toggle-control input[type="checkbox"], .section-toggle-controls input[type="checkbox"] {
     appearance: none;
@@ -417,4 +413,15 @@ input[type="radio"]:checked {
     margin-top: 10px;
     color: #ccc;
     font-size: 14px;
+}
+
+/* Sticky Notes Section */
+[data-section="sticky-notes"] {
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.section-toggle-controls .sticky-notes-toggle-label {
+    width: 100% !important;
+    justify-content: center;
 }

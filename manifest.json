@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "New Tab Extension",
   "description": "An extension for about:newtab that brings life to the new tab.",
-  "version": "0.2",
+  "version": "0.3",
   "homepage_url": "https://github.com/s0flY/NewTab",
 
   "chrome_url_overrides": {

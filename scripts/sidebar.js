@@ -5,6 +5,10 @@ const linksEditor = document.getElementById("links-editor");
 const addLinkBtn = document.getElementById("add-link");
 const toggleLinksCheckbox = document.getElementById("toggle-links");
 const toggleOpenInNewTab = document.getElementById("toggle-open-in-new-tab");
+const resetSettingsBtn = document.getElementById("reset-sticky-notes");
+const clearContentBtn = document.getElementById("clear-sticky-notes");
+const removeAllBtn = document.getElementById("remove-sticky-notes");
+const toggleStickyNotes = document.getElementById("toggle-sticky-notes");
 
 async function applyDynamicBackground(settings) {
     const now = Date.now();
@@ -683,5 +687,60 @@ document.addEventListener("DOMContentLoaded", async () => {
             }
         });
     });
-});
 
+    // Reset sticky note styles to default
+    resetSettingsBtn.addEventListener("click", () => {
+        const notes = document.querySelectorAll(".sticky-note");
+        notes.forEach(note => {
+            note.style.fontFamily = "Arial";
+            note.style.backgroundColor = "#fff8b3";
+            note.style.color = "#333333";
+            note.style.fontSize = "14px";
+            saveNote(note.id);
+        });
+    });
+
+    // Clear sticky note content
+    clearContentBtn.addEventListener("click", () => {
+        if (confirm("Clear all sticky note content?")) {
+            const notes = document.querySelectorAll(".sticky-note");
+            notes.forEach(note => {
+                const textarea = note.querySelector("textarea");
+                if (textarea) {
+                    textarea.value = "";
+                    saveNote(note.id);
+                }
+            });
+        }
+    });
+
+    // Remove all sticky notes
+    removeAllBtn.addEventListener("click", () => {
+        if (confirm("Remove all sticky notes?")) {
+            const notes = document.querySelectorAll(".sticky-note");
+            notes.forEach(note => {
+                localStorage.removeItem(note.id);
+                note.remove();
+            });
+        }
+    });
+
+    // Toggle visibility of sticky notes
+    toggleStickyNotes.addEventListener("change", () => {
+        const notes = document.querySelectorAll(".sticky-note, #add-sticky-note");
+        notes.forEach(note => {
+            note.style.display = toggleStickyNotes.checked ? "block" : "none";
+        });
+    });
+
+    // Optional: Load visibility state from localStorage
+    const savedToggle = localStorage.getItem("stickyNotesVisible");
+    if (savedToggle !== null) {
+        toggleStickyNotes.checked = savedToggle === "true";
+        toggleStickyNotes.dispatchEvent(new Event("change"));
+    }
+
+    toggleStickyNotes.addEventListener("change", () => {
+        localStorage.setItem("stickyNotesVisible", toggleStickyNotes.checked);
+    });
+});

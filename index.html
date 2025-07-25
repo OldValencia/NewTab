@@ -9,8 +9,12 @@
     <link rel="stylesheet" href="styles/time.style.css"/>
     <link rel="stylesheet" href="styles/links.style.css"/>
     <link rel="stylesheet" href="styles/sidebar.style.css"/>
+    <link rel="stylesheet" href="styles/sticky-notes.style.css"/>
 </head>
 <body>
+<div id="sticky-notes-container"></div>
+<button id="add-sticky-note">➕ Add Sticky Note</button>
+
 <div id="background-layer"></div>
 
 <button id="menu-toggle" class="menu-button">☰</button>
@@ -99,6 +103,27 @@
         </div>
     </section>
 
+    <!-- 📝 Sticky notes -->
+    <section data-section="sticky-notes">
+        <div class="section-header">
+            <span class="section-icon">📝</span>
+            <h3>Sticky notes</h3>
+            <button class="toggle-section">+</button>
+        </div>
+        <div class="section-content">
+            <button id="reset-sticky-notes" class="reset-button">Reset Sticky Notes Settings</button>
+            <button id="clear-sticky-notes" class="reset-button">Clear Sticky Notes content</button>
+            <button id="remove-sticky-notes" class="reset-button">Remove all Sticky Notes</button>
+
+            <div class="section-toggle-controls">
+                <label class="sticky-notes-toggle-label">
+                    <input type="checkbox" id="toggle-sticky-notes">
+                    Show sticky notes
+                </label>
+            </div>
+        </div>
+    </section>
+
     <!-- 🌌 Background -->
     <section data-section="background">
         <div class="section-header">
@@ -141,7 +166,8 @@
             <div id="bg-effects-group">
                 <h4>Background Effects</h4>
                 <label>Blur: <input type="range" id="bg-blur" min="0" max="20" step="1" value="0"></label>
-                <label>Brightness: <input type="range" id="bg-brightness" min="50" max="150" step="1" value="100"></label>
+                <label>Brightness: <input type="range" id="bg-brightness" min="50" max="150" step="1"
+                                          value="100"></label>
                 <label>Image Fit:
                     <select id="bg-fit">
                         <option value="cover">Cover</option>
@@ -173,5 +199,6 @@
 <script src="scripts/time.js"></script>
 <script src="scripts/links-service.js"></script>
 <script src="scripts/sidebar.js"></script>
+<script src="scripts/sticky-notes.js"></script>
 </body>
 </html>
