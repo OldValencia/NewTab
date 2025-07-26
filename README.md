@@ -8,7 +8,7 @@ A lightweight Firefox extension that replaces your default new tab with a custom
 
 # Live demo
 
-https://s0fly.github.io/NewTab/
+[[https://oldvalencia.github.io/NewTab/]()](https://oldvalencia.github.io/NewTab/)
 
 # Addon on Addons.Mozilla.org 
 
