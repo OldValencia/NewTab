@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="styles/sticky-notes.style.css"/>
     <link rel="stylesheet" href="styles/weather.style.css"/>
     <link rel="stylesheet" href="styles/greeting.style.css"/>
+    <link rel="stylesheet" href="styles/quotes.style.css"/>
 
     <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Open+Sans&family=Lato&family=Quicksand&family=Fira+Sans&display=swap" rel="stylesheet">
 </head>
@@ -22,6 +23,7 @@
 <button id="add-sticky-note">➕ Add Sticky Note</button>
 
 <div id="background-layer"></div>
+<div id="vignette-layer"></div>
 
 <button id="menu-toggle" class="menu-button">☰</button>
 
@@ -215,6 +217,7 @@
                 <label>Blur: <input type="range" id="bg-blur" min="0" max="40" step="1" value="0"></label>
                 <label>Brightness: <input type="range" id="bg-brightness" min="20" max="150" step="1"
                                           value="100"></label>
+                <label>Vignette Intensity: <input type="range" id="bg-vignette" min="0" max="100" step="1" value="0"></label>
                 <label>Image Fit:
                     <select id="bg-fit">
                         <option value="cover">Cover</option>
@@ -299,13 +302,72 @@
             </div>
         </div>
     </section>
+
+    <!-- 🗣️ Daily Quote Widget -->
+    <section data-section="quote-widget">
+        <div class="section-header">
+            <span class="section-icon">🗣️</span>
+            <h3>Daily Quote widget</h3>
+            <button class="toggle-section">+</button>
+        </div>
+        <div class="section-content">
+            <div class="font-control">
+                <label>Font:</label>
+                <select id="quote-font">
+                    <option value="Arial">Arial (default)</option>
+                    <option value="Segoe UI">Segoe UI</option>
+                    <option value="Georgia">Georgia</option>
+                    <option value="Courier New">Courier New</option>
+                    <option value="Roboto">Roboto</option>
+                    <option value="Helvetica">Helvetica</option>
+                    <option value="Verdana">Verdana</option>
+                    <option value="Tahoma">Tahoma</option>
+                    <option value="Trebuchet MS">Trebuchet MS</option>
+                    <option value="Lucida Sans">Lucida Sans</option>
+                    <option value="Times New Roman">Times New Roman</option>
+                    <option value="Fira Sans">Fira Sans</option>
+                    <option value="Open Sans">Open Sans</option>
+                    <option value="Lato">Lato</option>
+                    <option value="Quicksand">Quicksand</option>
+                    <option value="Monaco">Monaco</option>
+                </select>
+            </div>
+            <div class="font-control">
+                <label>Text color:</label>
+                <input type="color" id="quote-color">
+            </div>
+            <div class="font-control">
+                <label>Quote size:</label>
+                <input type="number" id="quote-size" min="10" max="48" value="18"> px
+            </div>
+
+            <button id="reset-quote-widget" class="reset-button">Reset Time & Date Settings</button>
+
+            <div class="section-toggle-controls">
+                <label>
+                    <input type="checkbox" id="toggle-quote">
+                    Show Quote
+                </label>
+            </div>
+        </div>
+    </section>
+
+    <div id="version-info">
+        Version: loading...
+    </div>
 </div>
+
+<div class="greeting" id="greeting"></div>
 
 <div class="time-container">
     <div class="time" id="time">00:00</div>
     <div class="date" id="date" data-tooltip="01-15-2025">July 20 2025</div>
+
+    <div class="quote-container" id="quote-container">
+        <div class="quote-text" id="quote-text">Loading quote...</div>
+        <div class="quote-author" id="quote-author"></div>
+    </div>
 </div>
-<div class="greeting" id="greeting"></div>
 
 <div class="links" id="links-container"></div>
 
@@ -320,6 +382,7 @@
 
 <script src="scripts/config.js"></script>
 <script src="scripts/main.js"></script>
+<script src="scripts/version.js"></script>
 <script src="scripts/effects/effects-main.js"></script>
 <script src="scripts/effects/star-generator.js"></script>
 <script src="scripts/effects/blob-flow.js"></script>
@@ -333,5 +396,6 @@
 <script src="scripts/sticky-notes.js"></script>
 <script src="scripts/weather.js"></script>
 <script src="scripts/greeting.js"></script>
+<script src="scripts/quotes.js"></script>
 </body>
 </html>

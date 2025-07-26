@@ -18,13 +18,19 @@ const dateColorInput = document.getElementById("date-color");
 const toggleWeatherWidget = document.getElementById("toggle-weather-widget");
 const weatherWidget = document.getElementById("weather-widget");
 const resetWeatherBtn = document.getElementById("reset-weather-settings");
+const brightnessControl = document.getElementById("bg-brightness");
+const blurControl = document.getElementById("bg-blur");
+const vignetteControl = document.getElementById("bg-vignette");
+const vignetteLayer = document.getElementById("vignette-layer");
 
 async function applyDynamicBackground(settings) {
     const now = Date.now();
     const lastChange = parseInt(localStorage.getItem("dynamic_bg_last") || "0");
     const interval = settings.dynamicInterval;
+    const force = settings.force || false;
 
     const shouldChange =
+        force ||
         interval === "onload" ||
         (interval !== "onload" && now - lastChange > interval * 60 * 1000);
 
@@ -384,7 +390,7 @@ document.getElementById("bg-search").addEventListener("input", (e) => {
     debouncedSearch(e.target.value);
 });
 
-document.getElementById("bg-blur").addEventListener("input", (e) => {
+blurControl.addEventListener("input", (e) => {
     const blur = parseInt(e.target.value);
     const settings = loadCustomSettings();
     settings.bgBlur = blur;
@@ -392,10 +398,18 @@ document.getElementById("bg-blur").addEventListener("input", (e) => {
     applyBackgroundEffects(settings);
 });
 
-document.getElementById("bg-brightness").addEventListener("input", (e) => {
+brightnessControl.addEventListener("input", (e) => {
     const brightness = parseInt(e.target.value);
     const settings = loadCustomSettings();
     settings.bgBrightness = brightness;
+    saveCustomSettings(settings);
+    applyBackgroundEffects(settings);
+});
+
+vignetteControl.addEventListener("input", (e) => {
+    const vignette = parseInt(e.target.value);
+    const settings = loadCustomSettings();
+    settings.bgVignette = vignette;
     saveCustomSettings(settings);
     applyBackgroundEffects(settings);
 });
@@ -407,10 +421,15 @@ document.getElementById("reset-bg").addEventListener("click", () => {
     delete settings.bgImage;
     delete settings.bgBlur;
     delete settings.bgBrightness;
+    delete settings.bgVignette;
     saveCustomSettings(settings);
 
     backgroundLayer.style.backgroundImage = "";
     backgroundLayer.style.filter = "";
+    vignetteLayer.style.background = "";
+    blurControl.value = 0;
+    brightnessControl.value = 0;
+    vignetteControl.value = 0;
     document.body.style.backgroundColor = "#000";
 
     document.querySelector('input[value="stars"]').checked = true;
@@ -421,13 +440,27 @@ document.getElementById("reset-bg").addEventListener("click", () => {
     enableStarfield();
 });
 
-document.querySelector('input[value="dynamic-search"]').addEventListener("change", () => {
+document.querySelector('input[value="dynamic-search"]').addEventListener("change", async () => {
     document.getElementById("dynamic-search-config").style.display = "flex";
     document.getElementById("bg-effects-group").style.display = "flex";
     document.getElementById("bg-search").style.display = "none";
     document.getElementById("bg-results").innerHTML = "";
     document.body.style.backgroundColor = "";
     disableStarfield();
+
+    const settings = loadCustomSettings();
+    if (settings.bgSource !== "dynamic") {
+        delete settings.bgImage;
+    }
+    settings.bgSource = "dynamic";
+    settings.bgMode = "dynamic-search";
+
+    if (!settings.dynamicInterval) {
+        settings.dynamicInterval = "onload";
+    }
+    saveCustomSettings(settings);
+
+    await applyDynamicBackground({...settings, force: true});
 });
 
 document.getElementById("dynamic-tag").addEventListener("input", async (e) => {
@@ -609,11 +642,15 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
 
         if (settings.bgBlur !== undefined) {
-            document.getElementById("bg-blur").value = settings.bgBlur;
+            blurControl.value = settings.bgBlur;
         }
 
         if (settings.bgBrightness !== undefined) {
-            document.getElementById("bg-brightness").value = settings.bgBrightness;
+            brightnessControl.value = settings.bgBrightness;
+        }
+
+        if (settings.bgVignette !== undefined) {
+            vignetteControl.value = settings.bgVignette;
         }
 
         if (settings.bgFit) {

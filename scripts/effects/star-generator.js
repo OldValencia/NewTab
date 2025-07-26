@@ -32,7 +32,7 @@ function enableStarfield() {
 }
 
 function createShootingStar() {
-    const { innerWidth: width } = window;
+    const {innerWidth: width} = window;
     const star = document.createElement('div');
     starObserver.observe(star);
     star.classList.add('shooting-star');
@@ -42,8 +42,8 @@ function createShootingStar() {
     setTimeout(() => star.remove(), STARFIELD_CONFIG.shootingStarLifetime);
 }
 
-function createStar({ mini = false } = {}) {
-    const { innerWidth: width, innerHeight: height } = window;
+function createStar({mini = false} = {}) {
+    const {innerWidth: width, innerHeight: height} = window;
     const star = document.createElement('div');
     starObserver.observe(star);
     star.classList.add(mini ? 'mini-star' : 'star');
@@ -80,6 +80,9 @@ function throttle(fn, delay) {
 }
 
 window.addEventListener('resize', throttle(() => {
-    disableStarfield();
-    enableStarfield();
+    const settings = loadCustomSettings();
+    if (settings.bgMode === "stars") {
+        disableStarfield();
+        enableStarfield();
+    }
 }, 500));
