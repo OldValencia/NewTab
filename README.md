@@ -6,10 +6,6 @@
 
 A lightweight Firefox extension that replaces your default new tab with a customizable homepage featuring animated backgrounds, theme toggles, and local settings. No tracking, no ads - just beauty and control
 
-# Live demo
-
-https://oldvalencia.github.io/NewTab/
-
 # Addon on Addons.Mozilla.org 
 
 https://addons.mozilla.org/en-US/firefox/addon/new_tab_extension/
