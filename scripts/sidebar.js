@@ -9,6 +9,17 @@ const resetSettingsBtn = document.getElementById("reset-sticky-notes");
 const clearContentBtn = document.getElementById("clear-sticky-notes");
 const removeAllBtn = document.getElementById("remove-sticky-notes");
 const toggleStickyNotes = document.getElementById("toggle-sticky-notes");
+const timeFormatSelect = document.getElementById("time-format");
+const dateFormatSelect = document.getElementById("date-format");
+const timeFontSelect = document.getElementById("time-font");
+const timeColorInput = document.getElementById("time-color");
+const dateFontSelect = document.getElementById("date-font");
+const dateColorInput = document.getElementById("date-color");
+const toggleWeatherWidget = document.getElementById("toggle-weather-widget");
+const weatherWidget = document.getElementById("weather-widget");
+const resetWeatherBtn = document.getElementById("reset-weather-settings");
+const clearWeatherCacheBtn = document.getElementById("clear-weather-cache");
+const removeWeatherWidgetBtn = document.getElementById("remove-weather-widget");
 
 async function applyDynamicBackground(settings) {
     const now = Date.now();
@@ -44,7 +55,7 @@ async function fetchSearchResults(tag) {
     gallery.innerHTML = "";
 
     try {
-        const response = await fetch(`https://pixabay.com/api/?key=51460243-79e3bcc7ccd2859533aa67992&q=${encodeURIComponent(tag)}&image_type=photo`);
+        const response = await fetch(`https://pixabay.com/api/?key=${PIXABAY_API_KEY}&q=${encodeURIComponent(tag)}&image_type=photo`);
         const data = await response.json();
 
         data.hits.slice(0, 6).forEach(img => {
@@ -71,7 +82,7 @@ async function fetchSearchResults(tag) {
 }
 
 async function fetchRandomImageByTag(tag) {
-    const response = await fetch(`https://pixabay.com/api/?key=51460243-79e3bcc7ccd2859533aa67992&q=${encodeURIComponent(tag)}&image_type=photo`);
+    const response = await fetch(`https://pixabay.com/api/?key=${PIXABAY_API_KEY}&q=${encodeURIComponent(tag)}&image_type=photo`);
     const data = await response.json();
     const images = data.hits;
     if (images.length === 0) return null;
@@ -202,28 +213,32 @@ toggleBtn.addEventListener("click", () => {
 
 document.getElementById("reset-time-date").addEventListener("click", () => {
     const settings = loadCustomSettings();
-
     settings.timeFont = defaultTimeAndDateFont;
     settings.timeColor = defaultTimeColor;
     settings.dateFont = defaultTimeAndDateFont;
     settings.dateColor = defaultDateColor;
+    settings.showTime = true;
+    settings.showDate = true;
+    settings.timeFormat = defaultTimeFormat;
+    settings.dateFormat = defaultDateFormat;
     saveCustomSettings(settings);
 
-    document.getElementById("time").style.fontFamily = settings.timeFont;
-    document.getElementById("time").style.color = settings.timeColor;
-    document.getElementById("date").style.fontFamily = settings.dateFont;
-    document.getElementById("date").style.color = settings.dateColor;
-
-    document.getElementById("time-font").value = settings.timeFont;
-    document.getElementById("time-color").value = settings.timeColor;
-    document.getElementById("date-font").value = settings.dateFont;
-    document.getElementById("date-color").value = settings.dateColor;
-
+    timeFontSelect.value = settings.timeFont;
+    timeColorInput.value = settings.timeColor;
+    dateFontSelect.value = settings.dateFont;
+    dateColorInput.value = settings.dateColor;
     toggleTime.checked = true;
     toggleDate.checked = true;
     timeElement.style.display = "block";
     dateElement.style.display = "block";
-    resetShowAndTimeSettings();
+    dateElement.style.fontFamily = settings.dateFont;
+    dateElement.style.color = settings.dateColor;
+    timeElement.style.fontFamily = settings.timeFont;
+    timeElement.style.color = settings.timeColor;
+    timeFormatSelect.value = settings.timeFormat;
+    dateFormatSelect.value = settings.dateFormat;
+
+    updateTime();
 });
 
 // Background
@@ -312,8 +327,7 @@ document.querySelectorAll('input[name="bg-mode"]').forEach(radio => {
 
             if (settings.bgImage && settings.bgSource === "search") {
                 backgroundLayer.style.backgroundImage = `url(${settings.bgImage})`;
-                backgroundLayer.style.backgroundSize = "cover";
-                backgroundLayer.style.backgroundPosition = "center";
+                applyBackgroundFit(settings.bgFit)
             }
 
             if (tag) {
@@ -476,63 +490,55 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     });
 
-    const timeElem = document.getElementById("time");
-    const dateElem = document.getElementById("date");
-
-    const timeFontSelect = document.getElementById("time-font");
-    const timeColorInput = document.getElementById("time-color");
-    const dateFontSelect = document.getElementById("date-font");
-    const dateColorInput = document.getElementById("date-color");
-
     if (!settings.timeFont) {
         settings.timeFont = defaultTimeAndDateFont;
         saveCustomSettings(settings);
     }
     timeFontSelect.value = settings.timeFont;
-    timeElem.style.fontFamily = settings.timeFont;
+    timeElement.style.fontFamily = settings.timeFont;
 
     if (!settings.timeColor) {
         settings.timeColor = defaultTimeColor;
         saveCustomSettings(settings);
     }
     timeColorInput.value = settings.timeColor;
-    timeElem.style.color = settings.timeColor;
+    timeElement.style.color = settings.timeColor;
 
     if (!settings.dateFont) {
         settings.dateFont = defaultTimeAndDateFont;
         saveCustomSettings(settings);
     }
     dateFontSelect.value = settings.dateFont;
-    dateElem.style.fontFamily = settings.dateFont;
+    dateElement.style.fontFamily = settings.dateFont;
 
     if (!settings.dateColor) {
         settings.dateColor = defaultDateColor;
         saveCustomSettings(settings);
     }
     dateColorInput.value = settings.dateColor;
-    dateElem.style.color = settings.dateColor;
+    dateElement.style.color = settings.dateColor;
 
     timeFontSelect.addEventListener("change", (e) => {
         settings.timeFont = e.target.value;
-        timeElem.style.fontFamily = settings.timeFont;
+        timeElement.style.fontFamily = settings.timeFont;
         saveCustomSettings(settings);
     });
 
     timeColorInput.addEventListener("input", (e) => {
         settings.timeColor = e.target.value;
-        timeElem.style.color = settings.timeColor;
+        timeElement.style.color = settings.timeColor;
         saveCustomSettings(settings);
     });
 
     dateFontSelect.addEventListener("change", (e) => {
         settings.dateFont = e.target.value;
-        dateElem.style.fontFamily = settings.dateFont;
+        dateElement.style.fontFamily = settings.dateFont;
         saveCustomSettings(settings);
     });
 
     dateColorInput.addEventListener("input", (e) => {
         settings.dateColor = e.target.value;
-        dateElem.style.color = settings.dateColor;
+        dateElement.style.color = settings.dateColor;
         saveCustomSettings(settings);
     });
 
@@ -739,5 +745,49 @@ document.addEventListener("DOMContentLoaded", async () => {
     const notes = document.querySelectorAll(".sticky-note, #add-sticky-note");
     notes.forEach(note => {
         note.style.display = stickyNotesVisibilityState ? "block" : "none";
+    });
+
+    if (!settings.timeFormat) {
+        settings.timeFormat = "24";
+    }
+    timeFormatSelect.value = settings.timeFormat;
+    if (!settings.dateFormat) {
+        settings.dateFormat = "day-month-year";
+    }
+    dateFormatSelect.value = settings.dateFormat;
+
+    timeFormatSelect.addEventListener("change", () => {
+        const settings = loadCustomSettings();
+        settings.timeFormat = timeFormatSelect.value;
+        saveCustomSettings(settings);
+        updateTime();
+    });
+
+    dateFormatSelect.addEventListener("change", () => {
+        const settings = loadCustomSettings();
+        settings.dateFormat = dateFormatSelect.value;
+        saveCustomSettings(settings);
+        updateTime();
+    });
+
+
+    toggleWeatherWidget.addEventListener("change", () => {
+        const settings = loadCustomSettings();
+        settings.showWeather = toggleWeatherWidget.checked;
+        saveCustomSettings(settings);
+        weatherWidget.style.display = toggleWeatherWidget.checked ? "block" : "none";
+    });
+
+    resetWeatherBtn.addEventListener("click", () => {
+        const settings = loadCustomSettings();
+        settings.weatherCity = "";
+        settings.cachedWeather = "";
+        settings.showWeather = true;
+        saveCustomSettings(settings);
+
+        weatherInput.value = "";
+        weatherSummary.textContent = DEFAULT_WEATHER_SUMMARY_VALUE;
+        weatherWidget.style.display = "block";
+        toggleWeatherWidget.checked = true;
     });
 });

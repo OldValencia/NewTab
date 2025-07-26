@@ -81,7 +81,28 @@ function createStickyNote(data = {}) {
     fontLabel.textContent = "Font ";
     const fontSelect = document.createElement("select");
     fontSelect.className = "font-family";
-    ["sans-serif", "serif", "monospace", "Arial", "Courier New"].forEach(font => {
+    const fonts = [
+        "sans-serif",
+        "serif",
+        "monospace",
+        "Arial",
+        "Courier New",
+        "Segoe UI",
+        "Georgia",
+        "Roboto",
+        "Helvetica",
+        "Verdana",
+        "Tahoma",
+        "Trebuchet MS",
+        "Lucida Sans",
+        "Times New Roman",
+        "Fira Sans",
+        "Open Sans",
+        "Lato",
+        "Quicksand",
+        "Monaco"
+    ];
+    fonts.forEach(font => {
         const option = document.createElement("option");
         option.value = font;
         option.textContent = font;
@@ -192,7 +213,6 @@ function setupCustomization(note, noteId) {
         sizeInput.value = 14;
         textColorInput.value = "#333";
 
-        note.querySelector("textarea").value = "";
         saveNote(noteId);
     });
 }

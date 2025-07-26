@@ -26,7 +26,7 @@ function applyBackgroundEffects(settings) {
 
 function applyBackgroundFit(fit) {
     if (!fit) {
-        fit = "center";
+        fit = "cover";
         const settings = loadCustomSettings();
         settings.bgFit = fit;
         saveCustomSettings(settings);
