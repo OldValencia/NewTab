@@ -22,6 +22,9 @@ function applyBackgroundEffects(settings) {
     const brightness = settings.bgBrightness || 100;
 
     backgroundLayer.style.filter = `blur(${blur}px) brightness(${brightness}%)`;
+    const intensity = settings.bgVignette;
+    const alpha = intensity / 100 * 0.8;
+    vignetteLayer.style.background = `radial-gradient(ellipse at center, rgba(0,0,0,0) 60%, rgba(0,0,0,${alpha}) 100%)`;
 }
 
 function applyBackgroundFit(fit) {

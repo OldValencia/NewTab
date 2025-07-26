@@ -378,19 +378,6 @@ input[type="radio"]:checked {
     width: 60%;
 }
 
-/* 🖼 Background Layer */
-#background-layer {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: -1;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
 /* ⚙️ Dynamic Search Config */
 #dynamic-search-config {
     margin-top: 10px;

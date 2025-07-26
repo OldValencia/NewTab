@@ -1,7 +1,4 @@
 ![Main page](Screenshots/Main_page.png "Main page")
-![Sidebar, Main page with image from Pixabay](Screenshots/Sidebar,_Main_page_with_image_from_Pixabay.png "Sidebar, Main page with image from Pixabay")
-![Sticky notes functionality](Screenshots/Sticky_notes_functionality.png "Sticky notes functionality")
-![Weather widget](Screenshots/Weather_widget.png "Weather widget")
 ![Greeting, time and date format, sidebar](Screenshots/Greeting%2C_time_and_date_format%2C_sidebar.png "Greeting, time and date format, sidebar")
 
 # 🌌 New Tab Extension ([Addons.Mozilla.org](https://addons.mozilla.org/en-US/firefox/addon/new_tab_extension/))
@@ -49,6 +46,12 @@ To make the extension your homepage:
 - 💾 Settings saved locally - no cloud, no sync required
 - ⚡ Fast and lightweight - no performance impact
 - 🔒 Private — no data collection, no analytics
+
+
+![Sidebar, Main page with image from Pixabay](Screenshots/Sidebar,_Main_page_with_image_from_Pixabay.png "Sidebar, Main page with image from Pixabay")
+![Sticky notes functionality](Screenshots/Sticky_notes_functionality.png "Sticky notes functionality")
+![Weather widget](Screenshots/Weather_widget.png "Weather widget")
+![Quotes widget](Screenshots/Quote_with_customization.png "Quotes widget with customization")
 
 ---
 
