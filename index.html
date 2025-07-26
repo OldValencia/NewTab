@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="styles/sidebar.style.css"/>
     <link rel="stylesheet" href="styles/sticky-notes.style.css"/>
     <link rel="stylesheet" href="styles/weather.style.css"/>
+    <link rel="stylesheet" href="styles/greeting.style.css"/>
 
     <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Open+Sans&family=Lato&family=Quicksand&family=Fira+Sans&display=swap" rel="stylesheet">
 </head>
@@ -245,12 +246,66 @@
             </div>
         </div>
     </section>
+
+    <!-- 👋 Greeting Widget -->
+    <section data-section="greeting-widget">
+        <div class="section-header">
+            <span class="section-icon">👋</span>
+            <h3>Greeting widget</h3>
+            <button class="toggle-section">+</button>
+        </div>
+        <div class="section-content">
+            <div class="font-control">
+                <label>Font:</label>
+                <select id="greeting-font">
+                    <option value="Arial">Arial (default)</option>
+                    <option value="Segoe UI">Segoe UI</option>
+                    <option value="Georgia">Georgia</option>
+                    <option value="Courier New">Courier New</option>
+                    <option value="Roboto">Roboto</option>
+                    <option value="Helvetica">Helvetica</option>
+                    <option value="Verdana">Verdana</option>
+                    <option value="Tahoma">Tahoma</option>
+                    <option value="Trebuchet MS">Trebuchet MS</option>
+                    <option value="Lucida Sans">Lucida Sans</option>
+                    <option value="Times New Roman">Times New Roman</option>
+                    <option value="Fira Sans">Fira Sans</option>
+                    <option value="Open Sans">Open Sans</option>
+                    <option value="Lato">Lato</option>
+                    <option value="Quicksand">Quicksand</option>
+                    <option value="Monaco">Monaco</option>
+                </select>
+            </div>
+            <div class="font-control">
+                <label>Text color:</label>
+                <input type="color" id="greeting-color">
+            </div>
+            <div class="font-control">
+                <label>Greeting size:</label>
+                <input type="number" id="greeting-size" min="10" max="48" value="18"> px
+            </div>
+            <div class="font-control">
+                <label>Username:</label>
+                <input type="text" id="greeting-username" placeholder="Enter your name">
+            </div>
+
+            <button id="reset-greeting-widget" class="reset-button">Reset Time & Date Settings</button>
+
+            <div class="section-toggle-controls">
+                <label>
+                    <input type="checkbox" id="toggle-greeting">
+                    Show Greeting
+                </label>
+            </div>
+        </div>
+    </section>
 </div>
 
 <div class="time-container">
     <div class="time" id="time">00:00</div>
     <div class="date" id="date" data-tooltip="01-15-2025">July 20 2025</div>
 </div>
+<div class="greeting" id="greeting"></div>
 
 <div class="links" id="links-container"></div>
 
@@ -277,5 +332,6 @@
 <script src="scripts/sidebar.js"></script>
 <script src="scripts/sticky-notes.js"></script>
 <script src="scripts/weather.js"></script>
+<script src="scripts/greeting.js"></script>
 </body>
 </html>

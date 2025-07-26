@@ -7,10 +7,10 @@ const DEFAULT_WEATHER_SUMMARY_VALUE = "🌦️ —";
 const CACHE_DURATION_MS = 60 * 60 * 1000;
 
 function loadCachedWeather() {
-    const { cachedWeather } = loadCustomSettings();
+    const {cachedWeather} = loadCustomSettings();
     if (!cachedWeather) return false;
 
-    const { data, timestamp } = JSON.parse(cachedWeather);
+    const {data, timestamp} = JSON.parse(cachedWeather);
     if (Date.now() - timestamp < CACHE_DURATION_MS) {
         updateWeather(data);
         return true;
@@ -19,20 +19,23 @@ function loadCachedWeather() {
 }
 
 function applyWeatherVisibilitySetting() {
-    const { showWeather = true } = loadCustomSettings();
-    toggleWeatherWidget.checked = showWeather;
-    weatherWidget.style.display = showWeather ? "block" : "none";
+    const settings = loadCustomSettings();
+    if (settings.showWeather === undefined || settings.showWeather === null) {
+        settings.showWeather = false;
+    }
+    toggleWeatherWidget.checked = settings.showWeather;
+    weatherWidget.style.display = settings.showWeather ? "block" : "none";
 }
 
 function saveWeatherData(data, city) {
     const settings = loadCustomSettings();
-    settings.cachedWeather = JSON.stringify({ data, timestamp: Date.now() });
+    settings.cachedWeather = JSON.stringify({data, timestamp: Date.now()});
     settings.weatherCity = city;
     saveCustomSettings(settings);
 }
 
 function loadSavedCity() {
-    const { weatherCity } = loadCustomSettings();
+    const {weatherCity} = loadCustomSettings();
     if (weatherCity) {
         weatherInput.value = weatherCity;
         fetchWeatherByCity(weatherCity);
@@ -55,7 +58,7 @@ function getWeatherByGeolocation() {
     }
 
     navigator.geolocation.getCurrentPosition(
-        ({ coords: { latitude, longitude } }) => {
+        ({coords: {latitude, longitude}}) => {
             const location = `${latitude},${longitude}`;
             fetchWeather(`q=${location}`, location);
         },
@@ -74,12 +77,12 @@ function fetchWeather(query, cityLabel) {
 }
 
 function updateWeather(data) {
-    const { showWeather = true } = loadCustomSettings();
+    const {showWeather = true} = loadCustomSettings();
     if (!showWeather) return;
 
     const emoji = getWeatherEmoji(data.current.condition.code);
     const temp = Math.round(data.current.temp_c);
-    const { name: city, country } = data.location;
+    const {name: city, country} = data.location;
     weatherSummary.textContent = `${emoji} ${temp}°C — ${city}, ${country}`;
 
     const bg = window.getComputedStyle(document.body).backgroundColor;
@@ -117,4 +120,7 @@ function getBrightness(rgb) {
 cityBtn.addEventListener("click", getWeatherByCity);
 geoBtn.addEventListener("click", getWeatherByGeolocation);
 
-if (!loadCachedWeather()) loadSavedCity();
+document.addEventListener("DOMContentLoaded", () => {
+    applyWeatherVisibilitySetting();
+    if (!loadCachedWeather()) loadSavedCity();
+});

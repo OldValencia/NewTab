@@ -1,0 +1,6 @@
+.greeting {
+    text-align: center;
+    margin-top: 8px;
+    color: #ffffff;
+    transition: all 0.3s ease;
+}

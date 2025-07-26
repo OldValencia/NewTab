@@ -18,8 +18,6 @@ const dateColorInput = document.getElementById("date-color");
 const toggleWeatherWidget = document.getElementById("toggle-weather-widget");
 const weatherWidget = document.getElementById("weather-widget");
 const resetWeatherBtn = document.getElementById("reset-weather-settings");
-const clearWeatherCacheBtn = document.getElementById("clear-weather-cache");
-const removeWeatherWidgetBtn = document.getElementById("remove-weather-widget");
 
 async function applyDynamicBackground(settings) {
     const now = Date.now();
