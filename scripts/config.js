@@ -1,0 +1,2 @@
+const WEATHER_API_KEY = "YOUR_KEY";
+const PIXABAY_API_KEY = "YOUR_KEY";
