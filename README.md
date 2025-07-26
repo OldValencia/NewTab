@@ -2,19 +2,13 @@
 ![alt text](Screenshots/Sidebar,_Main_page_with_image_from_Pixabay.png "Sidebar, Main page with image from Pixabay")
 ![alt text](Screenshots/Sticky_notes_functionality.png "Sticky notes functionality")
 
-# 🌌 New Tab Extension
-
-A lightweight Firefox extension that replaces your default new tab with a customizable homepage featuring animated backgrounds, theme toggles, and local settings. No tracking, no ads - just beauty and control
-
-# Addon on Addons.Mozilla.org 
-
-https://addons.mozilla.org/en-US/firefox/addon/new_tab_extension/
+# 🌌 New Tab Extension ([Addons.Mozilla.org](https://addons.mozilla.org/en-US/firefox/addon/new_tab_extension/))
 
 ---
 
 ## What Is This?
 
-**Custom New Tab Extension** is a minimalist browser extension that:
+**New Tab Extension** is a minimalist browser extension that:
 
 - Replaces Firefox's default new tab page
 - Lets you choose from multiple animated or static backgrounds
