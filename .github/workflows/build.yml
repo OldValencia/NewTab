@@ -14,12 +14,12 @@ jobs:
 
       - name: Replace API keys in config.js
         run: |
-          sed -e "s/__WEATHER_API_KEY__/${{ secrets.WEATHER_API_KEY }}/g" \
-              -e "s/__PIXABAY_API_KEY__/${{ secrets.PIXABAY_API_KEY }}/g" \
-              scripts/config.template.js > scripts/config.js
+          mkdir -p dist/scripts
+          echo "const WEATHER_API_KEY = '${{ secrets.WEATHER_API_KEY }}';" > dist/scripts/config.js
+          echo "const PIXABAY_API_KEY = '${{ secrets.PIXABAY_API_KEY }}';" >> dist/scripts/config.js
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: .
+          publish_dir: ./dist
