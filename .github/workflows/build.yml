@@ -1,0 +1,25 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Replace API keys in config.js
+        run: |
+          sed -e "s/__WEATHER_API_KEY__/${{ secrets.WEATHER_API_KEY }}/g" \
+              -e "s/__PIXABAY_API_KEY__/${{ secrets.PIXABAY_API_KEY }}/g" \
+              scripts/config.template.js > scripts/config.js
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .
