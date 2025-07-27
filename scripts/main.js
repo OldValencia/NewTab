@@ -64,3 +64,12 @@ function applyBackgroundFit(fit) {
             break;
     }
 }
+
+function adjustColor(hex, percent) {
+    const rgb = hex.replace("#", "").match(/.{2}/g).map(x => parseInt(x, 16));
+    const adjusted = rgb.map(c => {
+        const delta = Math.round(255 * percent);
+        return Math.min(255, Math.max(0, c + delta));
+    });
+    return "#" + adjusted.map(x => x.toString(16).padStart(2, "0")).join("");
+}

@@ -40,7 +40,11 @@ function createStickyNote(data = {}) {
     note.id = noteId;
     note.style.left = `${left}px`;
     note.style.top = `${top}px`;
-    note.style.backgroundColor = data.bgColor || "#fff8b3";
+    note.style.background = `linear-gradient(135deg, ${adjustColor(data.bgColor || "#fff8b3", 0.2)} 60%, ${adjustColor(data.bgColor || "#fff8b3", -0.2)} 100%)`;
+    note.style.border = `1px solid ${data.bgColor || "#fff8b3"}`
+    note.style.setProperty("--hover-box-shadow", `0 4px 16px 0 ${adjustColor(data.bgColor || "#fff8b3", -0.2)}, 0 2px 12px 0 rgba(0,0,0,0.13)`);
+    note.style.setProperty("--hover-background", `linear-gradient(135deg, ${adjustColor(data.bgColor || "#fff8b3", 0.2)} 70%, ${adjustColor(data.bgColor || "#fff8b3", -0.2)} 100%)`);
+    note.setAttribute("data-bg-color", data.bgColor || "#fff8b3");
     note.style.fontFamily = data.font || "sans-serif";
     note.style.fontSize = data.fontSize || "14px";
     note.style.color = data.textColor || "#333";
@@ -58,13 +62,13 @@ function createStickyNote(data = {}) {
     clearBtn.className = "sticky-note-clear-btn";
     clearBtn.textContent = "🗑️";
 
-    const hideBtn = document.createElement("button");
-    hideBtn.className = "sticky-note-hide-btn";
-    hideBtn.textContent = "✖";
+    const removeBtn = document.createElement("button");
+    removeBtn.className = "sticky-note-hide-btn";
+    removeBtn.textContent = "✖";
 
     controls.appendChild(customizeBtn);
     controls.appendChild(clearBtn);
-    controls.appendChild(hideBtn);
+    controls.appendChild(removeBtn);
 
     // Customize Menu
     const customizeMenu = document.createElement("div");
@@ -150,6 +154,10 @@ function createStickyNote(data = {}) {
 
     makeDraggable(note);
 
+    note.addEventListener("mouseup", () => {
+        saveNote(noteId);
+    });
+
     textarea.addEventListener("input", () => {
         saveNote(noteId);
     });
@@ -160,7 +168,7 @@ function createStickyNote(data = {}) {
         customizeMenu.classList.toggle("hidden");
     });
     clearBtn.addEventListener("click", () => clearNote(noteId));
-    hideBtn.addEventListener("click", () => hideNote(noteId));
+    removeBtn.addEventListener("click", () => removeNote(noteId));
 
     loadNote(noteId);
     setupCustomization(note, noteId);
@@ -182,7 +190,11 @@ function setupCustomization(note, noteId) {
 
     // Обработчики изменений
     bgInput.addEventListener("input", () => {
-        note.style.backgroundColor = bgInput.value;
+        note.style.background = `linear-gradient(135deg, ${adjustColor(bgInput.value || "#fff8b3", 0.2)} 60%, ${adjustColor(bgInput.value || "#fff8b3", -0.2)} 100%)`;
+        note.style.border = `1px solid ${bgInput.value || "#fff8b3"}`
+        note.style.setProperty("--hover-box-shadow", `0 4px 16px 0 ${adjustColor(bgInput.value || "#fff8b3", -0.2)}, 0 2px 12px 0 rgba(0,0,0,0.13)`);
+        note.style.setProperty("--hover-background", `linear-gradient(135deg, ${adjustColor(bgInput.value || "#fff8b3", 0.2)} 70%, ${adjustColor(bgInput.value || "#fff8b3", -0.2)} 100%)`);
+        note.setAttribute("data-bg-color", bgInput.value || "#fff8b3");
         saveNote(noteId);
     });
 
@@ -204,6 +216,7 @@ function setupCustomization(note, noteId) {
     // Reset
     resetBtn.addEventListener("click", () => {
         note.style.backgroundColor = "#fff8b3";
+        note.style.border = `1px solid #fff8b3`
         note.style.fontFamily = "sans-serif";
         note.style.fontSize = "14px";
         note.style.color = "#333";
@@ -250,7 +263,9 @@ function saveNote(id) {
         text: el.querySelector("textarea").value,
         left: el.style.left,
         top: el.style.top,
-        bgColor: el.style.backgroundColor,
+        width: el.style.width,
+        height: el.style.height,
+        bgColor: el.getAttribute("data-bg-color"),
         font: el.style.fontFamily,
         fontSize: el.style.fontSize,
         textColor: el.style.color
@@ -266,6 +281,8 @@ function loadNote(id) {
         el.querySelector("textarea").value = parsed.text;
         el.style.left = parsed.left;
         el.style.top = parsed.top;
+        el.style.width = parsed.width || "200px";
+        el.style.height = parsed.height || "200px";
         el.style.backgroundColor = parsed.bgColor;
         el.style.fontFamily = parsed.font;
         el.style.fontSize = parsed.fontSize;
@@ -287,9 +304,11 @@ function clearNote(id) {
     }
 }
 
-function hideNote(id) {
+function removeNote(id) {
     const el = document.getElementById(id);
-    el.style.display = "none";
+    if (el) {
+        el.remove();
+    }
     localStorage.removeItem(id);
 }
 

@@ -731,6 +731,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         const notes = document.querySelectorAll(".sticky-note");
         notes.forEach(note => {
             note.style.fontFamily = "Arial";
+            note.style.background = `linear-gradient(135deg, ${adjustColor("#fff8b3", 0.2)} 60%, ${adjustColor("#fff8b3", -0.2)} 100%)`;
+            note.style.border = "1px solid #fff8b3";
+            note.style.setProperty("--hover-box-shadow", `0 4px 16px 0 ${adjustColor("#fff8b3", -0.2)}, 0 2px 12px 0 rgba(0,0,0,0.13)`);
+            note.style.setProperty("--hover-background", `linear-gradient(135deg, ${adjustColor("#fff8b3", 0.2)} 70%, ${adjustColor("#fff8b3", -0.2)} 100%)`);
+            note.setAttribute("data-bg-color", "#fff8b3");
             note.style.backgroundColor = "#fff8b3";
             note.style.color = "#333333";
             note.style.fontSize = "14px";
