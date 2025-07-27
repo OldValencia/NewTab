@@ -85,4 +85,4 @@ window.addEventListener('resize', throttle(() => {
         disableStarfield();
         enableStarfield();
     }
-}, 500));
+}, 1500));

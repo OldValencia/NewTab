@@ -35,22 +35,31 @@
     width: 200px;
     min-height: 200px !important;
     min-width: 140px !important;
-    background-color: #fff8b3;
-    font-family: sans-serif;
-    font-size: 14px;
+    background: linear-gradient(135deg, #fffbe6 60%, #ffe066 100%);
+    border-radius: 18px 18px 24px 18px;
+    border: 1.5px solid #f7e9a0;
+    padding: 0 16px 16px;
     color: #333;
-    border: 1px solid #ccc;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
-    resize: both;
+    font-family: 'Segoe UI', 'Inter', Arial, sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    transition: box-shadow 0.2s, transform 0.15s, background 0.3s;
+    filter: drop-shadow(0 2px 8px rgba(255, 224, 102, 0.08));
+    user-select: text;
+    backdrop-filter: blur(2px);
     overflow: auto;
     z-index: 10000;
-    transition: opacity 0.3s ease;
-    display: flex;
-    flex-direction: column;
+    resize: both;
 }
 
-.sticky-note.inactive {
-    opacity: 0.4;
+.sticky-note:hover {
+    box-shadow: var(--hover-box-shadow);
+    background: var(--hover-background);
+}
+
+.sticky-note:active {
+    transform: scale(0.98);
+    box-shadow: 0 1px 4px var(--hover-background);
 }
 
 .sticky-note textarea {
@@ -69,7 +78,7 @@
 .sticky-note .controls {
     cursor: move;
     width: 100%;
-    padding-top: 4px;
+    padding-top: 16px;
     margin-bottom: 4px;
     display: flex;
     justify-content: space-around;

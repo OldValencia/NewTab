@@ -245,6 +245,74 @@ document.getElementById("reset-time-date").addEventListener("click", () => {
     updateTime();
 });
 
+// Utility: Set element display
+function setDisplay(element, value) {
+    if (element) element.style.display = value;
+}
+
+// Utility: Reset background controls
+function resetBackgroundControls() {
+    blurControl.value = 0;
+    brightnessControl.value = 0;
+    vignetteControl.value = 0;
+}
+
+// Utility: Apply background mode
+function applyBackgroundMode(mode, settings) {
+    const effectsPanel = document.getElementById("bg-effects-group");
+    switch (mode) {
+        case "stars":
+            effectsPanel.style.display = "none";
+            backgroundLayer.style.backgroundImage = "";
+            backgroundLayer.style.filter = "";
+            document.body.style.backgroundColor = "#000";
+            enableStarfield();
+            break;
+        case "blobFlow":
+            effectsPanel.style.display = "none";
+            backgroundLayer.style.backgroundImage = "";
+            backgroundLayer.style.filter = "";
+            document.body.style.backgroundColor = "#000";
+            enableBlobFlow();
+            break;
+        case "nebulaDust":
+            effectsPanel.style.display = "none";
+            backgroundLayer.style.backgroundImage = "";
+            backgroundLayer.style.filter = "";
+            document.body.style.backgroundColor = "#000";
+            enableNebulaDust();
+            break;
+        case "glassGrid":
+            effectsPanel.style.display = "none";
+            backgroundLayer.style.backgroundImage = "";
+            backgroundLayer.style.filter = "";
+            document.body.style.backgroundColor = "#000";
+            enableGlassGrid();
+            break;
+        case "orbitalRings":
+            effectsPanel.style.display = "none";
+            backgroundLayer.style.backgroundImage = "";
+            backgroundLayer.style.filter = "";
+            document.body.style.backgroundColor = "#000";
+            enableOrbitalRings();
+            break;
+        case "particleDrift":
+            effectsPanel.style.display = "none";
+            backgroundLayer.style.backgroundImage = "";
+            backgroundLayer.style.filter = "";
+            document.body.style.backgroundColor = "#000";
+            enableParticleDrift();
+            break;
+        default:
+            effectsPanel.style.display = "flex";
+            document.body.style.backgroundColor = "";
+            disableStarfield();
+            disableDynamicBackground(backgroundLayer);
+            applyBackgroundEffects(settings);
+            break;
+    }
+}
+
 // Background
 document.querySelectorAll('input[name="bg-mode"]').forEach(radio => {
     radio.addEventListener("change", async (e) => {
@@ -252,100 +320,31 @@ document.querySelectorAll('input[name="bg-mode"]').forEach(radio => {
         const searchInput = document.getElementById("bg-search");
         const gallery = document.getElementById("bg-results");
         const fileInput = document.getElementById("bg-upload");
-        const effectsPanel = document.getElementById("bg-effects-group");
         const dynamicConfig = document.getElementById("dynamic-search-config");
-
         const settings = loadCustomSettings();
         settings.bgMode = mode;
-
-        // 🧹 Очищаем dynamic_bg_last при смене режима
-        if (mode !== "dynamic-search") {
-            localStorage.removeItem("dynamic_bg_last");
-        }
-
-        // Сброс UI
-        searchInput.style.display = "none";
+        if (mode !== "dynamic-search") localStorage.removeItem("dynamic_bg_last");
+        setDisplay(searchInput, "none");
         gallery.innerHTML = "";
         dynamicConfig.style.display = "none";
-
-        switch (mode) {
-            case "stars":
-                effectsPanel.style.display = "none";
-                backgroundLayer.style.backgroundImage = "";
-                backgroundLayer.style.filter = "";
-                document.body.style.backgroundColor = "#000";
-                enableStarfield();
-                break;
-            case "blobFlow":
-                effectsPanel.style.display = "none";
-                backgroundLayer.style.backgroundImage = "";
-                backgroundLayer.style.filter = "";
-                document.body.style.backgroundColor = "#000";
-                enableBlobFlow();
-                break;
-            case "nebulaDust":
-                effectsPanel.style.display = "none";
-                backgroundLayer.style.backgroundImage = "";
-                backgroundLayer.style.filter = "";
-                document.body.style.backgroundColor = "#000";
-                enableNebulaDust();
-                break;
-            case "glassGrid":
-                effectsPanel.style.display = "none";
-                backgroundLayer.style.backgroundImage = "";
-                backgroundLayer.style.filter = "";
-                document.body.style.backgroundColor = "#000";
-                enableGlassGrid();
-                break;
-            case "orbitalRings":
-                effectsPanel.style.display = "none";
-                backgroundLayer.style.backgroundImage = "";
-                backgroundLayer.style.filter = "";
-                document.body.style.backgroundColor = "#000";
-                enableOrbitalRings();
-                break;
-            case "particleDrift":
-                effectsPanel.style.display = "none";
-                backgroundLayer.style.backgroundImage = "";
-                backgroundLayer.style.filter = "";
-                document.body.style.backgroundColor = "#000";
-                enableParticleDrift();
-                break;
-            default:
-                effectsPanel.style.display = "flex";
-                document.body.style.backgroundColor = "";
-                disableStarfield();
-                disableDynamicBackground(backgroundLayer)
-                applyBackgroundEffects(settings);
-                break;
-        }
-
+        applyBackgroundMode(mode, settings);
         if (mode === "custom-image") {
             fileInput.value = "";
             fileInput.click();
         }
-
         if (mode === "search-image") {
-            searchInput.style.display = "block";
-            const tag = searchInput.value.trim();
-
+            setDisplay(searchInput, "block");
             if (settings.bgImage && settings.bgSource === "search") {
                 backgroundLayer.style.backgroundImage = `url(${settings.bgImage})`;
-                applyBackgroundFit(settings.bgFit)
+                applyBackgroundFit(settings.bgFit);
             }
-
-            if (tag) {
-                await fetchSearchResults(tag);
-            }
+            const tag = searchInput.value.trim();
+            if (tag) await fetchSearchResults(tag);
         }
-
         if (mode === "dynamic-search") {
-            dynamicConfig.style.display = "flex";
-            if (settings.dynamicTag) {
-                await applyDynamicBackground(settings);
-            }
+            setDisplay(dynamicConfig, "flex");
+            if (settings.dynamicTag) await applyDynamicBackground(settings);
         }
-
         saveCustomSettings(settings);
     });
 });
@@ -427,9 +426,7 @@ document.getElementById("reset-bg").addEventListener("click", () => {
     backgroundLayer.style.backgroundImage = "";
     backgroundLayer.style.filter = "";
     vignetteLayer.style.background = "";
-    blurControl.value = 0;
-    brightnessControl.value = 0;
-    vignetteControl.value = 0;
+    resetBackgroundControls();
     document.body.style.backgroundColor = "#000";
 
     document.querySelector('input[value="stars"]').checked = true;
@@ -734,6 +731,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         const notes = document.querySelectorAll(".sticky-note");
         notes.forEach(note => {
             note.style.fontFamily = "Arial";
+            note.style.background = `linear-gradient(135deg, ${adjustColor("#fff8b3", 0.2)} 60%, ${adjustColor("#fff8b3", -0.2)} 100%)`;
+            note.style.border = "1px solid #fff8b3";
+            note.style.setProperty("--hover-box-shadow", `0 4px 16px 0 ${adjustColor("#fff8b3", -0.2)}, 0 2px 12px 0 rgba(0,0,0,0.13)`);
+            note.style.setProperty("--hover-background", `linear-gradient(135deg, ${adjustColor("#fff8b3", 0.2)} 70%, ${adjustColor("#fff8b3", -0.2)} 100%)`);
+            note.setAttribute("data-bg-color", "#fff8b3");
             note.style.backgroundColor = "#fff8b3";
             note.style.color = "#333333";
             note.style.fontSize = "14px";
