@@ -100,24 +100,33 @@ function getWeatherEmoji(code) {
         partlyCloudy: { codes: [1003], day: "🌤️", night: "🌥️" },
         cloudy: { codes: [1006, 1009], day: "☁️", night: "☁️" },
         mist: { codes: [1030], day: "🌁", night: "🌁" },
+        patchyRain: { codes: [1063, 1180, 1273], day: "🌦️", night: "🌧️" },
+        patchySnow: { codes: [1066, 1210, 1279], day: "❄️", night: "❄️" },
+        patchySleet: { codes: [1069], day: "🌨️🧊", night: "🌨️🧊" },
+        patchyFreezingDrizzle: { codes: [1072], day: "🌧️🧊", night: "🌧️🧊" },
+        thunder: { codes: [1087, 1276, 1282], day: "⛈️", night: "🌩️" },
+        blowingSnow: { codes: [1114], day: "🌬️❄️", night: "🌬️❄️" },
+        blizzard: { codes: [1117], day: "🌬️❄️", night: "🌬️❄️" },
         fog: { codes: [1135, 1147], day: "🌫️", night: "🌫️" },
-        drizzle: { codes: [1150, 1153, 1168, 1171], day: "🌦️", night: "🌧️" },
-        lightRain: { codes: [1180, 1183, 1240], day: "🌧️", night: "🌧️" },
+        drizzle: { codes: [1150, 1153], day: "🌦️", night: "🌧️" },
+        freezingDrizzle: { codes: [1168, 1171], day: "🌧️🧊", night: "🌧️🧊" },
+        lightRain: { codes: [1183, 1240], day: "🌧️", night: "🌧️" },
         moderateRain: { codes: [1186, 1189, 1243], day: "🌧️", night: "🌧️" },
         heavyRain: { codes: [1192, 1195, 1246], day: "🌧️💦", night: "🌧️💦" },
         freezingRain: { codes: [1198, 1201], day: "🧊🌧️", night: "🧊🌧️" },
-        sleet: { codes: [1069, 1072, 1204, 1207, 1249, 1252], day: "🌨️🧊", night: "🌨️🧊" },
-        snow: { codes: [1066, 1114, 1117, 1210, 1213, 1216, 1219, 1222, 1225, 1255, 1258], day: "❄️", night: "❄️" },
-        icePellets: { codes: [1237, 1261, 1264], day: "🧊", night: "🧊" },
-        thunderRain: { codes: [1087, 1273, 1276], day: "⛈️", night: "🌩️" },
-        thunderSnow: { codes: [1279, 1282], day: "🌩️❄️", night: "🌩️❄️" },
-        blizzard: { codes: [1117], day: "🌬️❄️", night: "🌬️❄️" },
+        lightSleet: { codes: [1204], day: "🌨️🧊", night: "🌨️🧊" },
+        heavySleet: { codes: [1207], day: "🌨️🧊", night: "🌨️🧊" },
+        lightSnow: { codes: [1213], day: "❄️", night: "❄️" },
+        moderateSnow: { codes: [1216, 1219], day: "❄️", night: "❄️" },
+        heavySnow: { codes: [1222, 1225], day: "❄️❄️", night: "❄️❄️" },
+        icePellets: { codes: [1237], day: "🧊", night: "🧊" },
         showerRain: { codes: [1240, 1243, 1246], day: "🌦️", night: "🌧️" },
         showerSleet: { codes: [1249, 1252], day: "🌨️🧊", night: "🌨️🧊" },
         showerSnow: { codes: [1255, 1258], day: "🌨️", night: "🌨️" },
-        showerIce: { codes: [1261, 1264], day: "🧊🌨️", night: "🧊🌨️" }
+        showerIce: { codes: [1261, 1264], day: "🧊🌨️", night: "🧊🌨️" },
+        thunderRain: { codes: [1273, 1276], day: "⛈️", night: "🌩️" },
+        thunderSnow: { codes: [1279, 1282], day: "🌩️❄️", night: "🌩️❄️" }
     };
-
     for (const key in emojiMap) {
         if (emojiMap[key].codes.includes(code)) {
             return isDay ? emojiMap[key].day : emojiMap[key].night;
