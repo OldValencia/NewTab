@@ -17,6 +17,18 @@ function setStickyNotesVisibilityState(value) {
     saveCustomSettings(settings);
 }
 
+function getContrastYIQ(hexcolor) {
+    hexcolor = hexcolor.replace('#', '');
+    if (hexcolor.length === 3) {
+        hexcolor = hexcolor[0]+hexcolor[0]+hexcolor[1]+hexcolor[1]+hexcolor[2]+hexcolor[2];
+    }
+    const r = parseInt(hexcolor.substr(0,2),16);
+    const g = parseInt(hexcolor.substr(2,2),16);
+    const b = parseInt(hexcolor.substr(4,2),16);
+    const yiq = ((r*299)+(g*587)+(b*114))/1000;
+    return (yiq >= 180) ? '#222' : '#fff';
+}
+
 function createStickyNote(data = {}) {
     const noteId = `sticky-note-${noteCounter++}`;
     const noteWidth = 200;
@@ -44,7 +56,13 @@ function createStickyNote(data = {}) {
     note.style.border = `1px solid ${data.bgColor || "#fff8b3"}`
     note.style.setProperty("--hover-box-shadow", `0 4px 16px 0 ${adjustColor(data.bgColor || "#fff8b3", -0.2)}, 0 2px 12px 0 rgba(0,0,0,0.13)`);
     note.style.setProperty("--hover-background", `linear-gradient(135deg, ${adjustColor(data.bgColor || "#fff8b3", 0.2)} 70%, ${adjustColor(data.bgColor || "#fff8b3", -0.2)} 100%)`);
+    note.style.setProperty("--background-main-color-darken", adjustColor(data.bgColor || "#fff8b3", -0.1));
     note.setAttribute("data-bg-color", data.bgColor || "#fff8b3");
+    note.style.setProperty('--todo-bg', adjustColor(data.bgColor || "#fff8b3", 0.3));
+    note.style.setProperty('--todo-bg-hover', adjustColor(data.bgColor || "#fff8b3", 0.5));
+    note.style.setProperty('--todo-checkbox', adjustColor(data.bgColor || "#fff8b3", -0.05));
+    note.style.setProperty('--todo-checkbox-checked', adjustColor(data.bgColor || "#fff8b3", -0.1));
+    note.style.setProperty('--notes-text-color', getContrastYIQ(data.bgColor || "#fff8b3"));
     note.style.fontFamily = data.font || "sans-serif";
     note.style.fontSize = data.fontSize || "14px";
     note.style.color = data.textColor || "#333";
@@ -54,18 +72,38 @@ function createStickyNote(data = {}) {
     const controls = document.createElement("div");
     controls.className = "controls";
 
+    // Content controls
+    const todoBtn = document.createElement("button");
+    todoBtn.className = "create-todo-btn";
+    todoBtn.textContent = "📝";
+    const boldBtn = document.createElement("button");
+    boldBtn.className = "create-bold-btn";
+    boldBtn.textContent = "B";
+    const italicBtn = document.createElement("button");
+    italicBtn.className = "create-italic-btn";
+    italicBtn.textContent = "I";
+    const underlineBtn = document.createElement("button");
+    underlineBtn.className = "create-underline-btn";
+    underlineBtn.textContent = "U";
+    const strikethroughBtn = document.createElement("button");
+    strikethroughBtn.className = "create-strikethrough-btn";
+    strikethroughBtn.textContent = "S";
+    controls.appendChild(todoBtn);
+    controls.appendChild(boldBtn);
+    controls.appendChild(italicBtn);
+    controls.appendChild(underlineBtn);
+    controls.appendChild(strikethroughBtn);
+
+    // Top right buttons
     const customizeBtn = document.createElement("button");
     customizeBtn.className = "customize-toggle";
     customizeBtn.textContent = "⚙️";
-
     const clearBtn = document.createElement("button");
     clearBtn.className = "sticky-note-clear-btn";
     clearBtn.textContent = "🗑️";
-
     const removeBtn = document.createElement("button");
-    removeBtn.className = "sticky-note-hide-btn";
+    removeBtn.className = "sticky-note-remove-btn";
     removeBtn.textContent = "✖";
-
     controls.appendChild(customizeBtn);
     controls.appendChild(clearBtn);
     controls.appendChild(removeBtn);
@@ -144,34 +182,172 @@ function createStickyNote(data = {}) {
     const textarea = document.createElement("textarea");
     textarea.value = data.text || "";
 
+    // Rendered div-duplicate of textarea
+    const renderedDiv = document.createElement("div");
+    renderedDiv.className = "sticky-note-rendered-duplicate hidden";
+    renderedDiv.tabIndex = 0;
+
     // Assemble note
     note.appendChild(controls);
     note.appendChild(customizeMenu);
     note.appendChild(textarea);
+    note.appendChild(renderedDiv);
 
     document.getElementById("sticky-notes-container").appendChild(note);
     stickyNoteOffset += 10;
 
     makeDraggable(note);
 
-    note.addEventListener("mouseup", () => {
-        saveNote(noteId);
-    });
+    function syncRenderedDiv() {
+        renderedDiv.innerHTML = parseTextTags(textarea.value);
+        renderedDiv.style.fontFamily = note.style.fontFamily;
+        renderedDiv.style.fontSize = note.style.fontSize;
+        renderedDiv.style.color = note.style.color;
+    }
 
     textarea.addEventListener("input", () => {
+        syncRenderedDiv();
         saveNote(noteId);
     });
+    note.addEventListener("input", syncRenderedDiv, true);
+    note.addEventListener("change", syncRenderedDiv, true);
 
-    note.addEventListener("mouseenter", () => note.classList.remove("inactive"));
-    note.addEventListener("mouseleave", () => note.classList.add("inactive"));
+    renderedDiv.addEventListener("dblclick", (e) => {
+        if (e.target === renderedDiv) {
+            textarea.classList.remove("hidden");
+            renderedDiv.classList.add("hidden");
+            note.classList.toggle("editing");
+            textarea.focus();
+        }
+    });
     customizeBtn.addEventListener("click", () => {
         customizeMenu.classList.toggle("hidden");
     });
-    clearBtn.addEventListener("click", () => clearNote(noteId));
-    removeBtn.addEventListener("click", () => removeNote(noteId));
+    clearBtn.addEventListener("click", () => {
+        clearNote(noteId)
+        syncRenderedDiv();
+    });
+    removeBtn.addEventListener("mousedown", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        removeNote(noteId);
+    });
+    textarea.addEventListener("focusout", () => {
+        textarea.classList.add("hidden");
+        note.classList.toggle("editing");
+        renderedDiv.classList.remove("hidden");
+        syncRenderedDiv();
+    });
+
+    todoBtn.addEventListener("click", () => {
+        const tag = '[todo type="unchecked"][/todo]';
+        const openTag = '[todo';
+        const closeTag = '[/todo]';
+
+        toggleTextStyle(tag, openTag, closeTag);
+    });
+
+    boldBtn.addEventListener("click", () => {
+        const tag = '[bold][/bold]';
+        const openTag = '[bold';
+        const closeTag = '[/bold]';
+
+        toggleTextStyle(tag, openTag, closeTag);
+    });
+
+    italicBtn.addEventListener("click", () => {
+        const tag = '[italic][/italic]';
+        const openTag = '[italic';
+        const closeTag = '[/italic]';
+
+        toggleTextStyle(tag, openTag, closeTag);
+    });
+
+    underlineBtn.addEventListener("click", () => {
+        const tag = '[underline][/underline]';
+        const openTag = '[underline';
+        const closeTag = '[/underline]';
+
+        toggleTextStyle(tag, openTag, closeTag);
+    });
+
+    strikethroughBtn.addEventListener("click", () => {
+        const tag = '[strikethrough][/strikethrough]';
+        const openTag = '[strikethrough';
+        const closeTag = '[/strikethrough]';
+
+        toggleTextStyle(tag, openTag, closeTag);
+    });
+
+    function toggleTextStyle(tag, openTag, closeTag) {
+        let start = textarea.selectionStart;
+        let end = textarea.selectionEnd;
+        let value = textarea.value;
+        const before = value.substring(0, start);
+        const selected = value.substring(start, end);
+        const after = value.substring(end);
+
+        if (tag.startsWith('[todo')) {
+            let insertText = (before.endsWith('\n') || before.length === 0) ? tag : '\n' + tag;
+            textarea.value = before + insertText + after;
+            const cursorPos = before.length + insertText.length - 7;
+            textarea.setSelectionRange(cursorPos, cursorPos);
+        } else {
+            if (selected.length > 0) {
+                textarea.value = before + openTag + ']' + selected + closeTag + after;
+                textarea.setSelectionRange(before.length + openTag.length + 1, before.length + openTag.length + 1 + selected.length);
+            } else {
+                textarea.value = before + openTag + ']' + closeTag + after;
+                textarea.setSelectionRange(before.length + openTag.length + 1, before.length + openTag.length + 1);
+            }
+        }
+        syncRenderedDiv();
+        saveNote(noteId);
+        textarea.focus();
+    }
+
+
+    function parseTextTags(text) {
+        text = text.replace(/\[todo type="(checked|unchecked)"\](.*?)\[\/todo\]/gs, (match, type, content) => {
+            const checked = type === 'checked';
+            return `<span class="todo-element" data-type="${type}"><span class="todo-checkbox${checked ? ' checked' : ''}"></span><span class="todo-text">${content || ''}</span></span>`;
+        });
+
+        text = text.replace(/\[bold\](.*?)\[\/bold\]/gs, '<strong>$1</strong>');
+        text = text.replace(/\[italic\](.*?)\[\/italic\]/gs, '<em>$1</em>');
+        text = text.replace(/\[underline\](.*?)\[\/underline\]/gs, '<u>$1</u>');
+        text = text.replace(/\[strikethrough\](.*?)\[\/strikethrough\]/gs, '<s>$1</s>');
+        return text;
+    }
+
+    renderedDiv.addEventListener("click", (e) => {
+        const todoEl = e.target.closest('.todo-element');
+        if (todoEl) {
+            const type = todoEl.getAttribute('data-type');
+            const newType = type === 'checked' ? 'unchecked' : 'checked';
+            const todos = Array.from(renderedDiv.querySelectorAll('.todo-element'));
+            const idx = todos.indexOf(todoEl);
+            if (idx !== -1) {
+                let n = -1;
+                textarea.value = textarea.value.replace(/\[todo type="(checked|unchecked)"\](.*?)\[\/todo\]/gs, (match, t, c) => {
+                    n++;
+                    if (n === idx) {
+                        return `[todo type="${newType}"]${c}[/todo]`;
+                    }
+                    return match;
+                });
+                syncRenderedDiv();
+                saveNote(noteId);
+            }
+        }
+    });
 
     loadNote(noteId);
     setupCustomization(note, noteId);
+
+    textarea.classList.add("hidden");
+    renderedDiv.classList.remove("hidden");
+    syncRenderedDiv();
 }
 
 
@@ -181,20 +357,27 @@ function setupCustomization(note, noteId) {
     const sizeInput = note.querySelector(".font-size");
     const textColorInput = note.querySelector(".text-color");
     const resetBtn = note.querySelector(".reset-note");
+    const noteBackgroundColor = note.getAttribute("data-bg-color");
 
     // Установка начальных значений
-    bgInput.value = rgbToHex(note.style.backgroundColor);
+    bgInput.value = noteBackgroundColor ? noteBackgroundColor : "#fff8b3";
     fontSelect.value = note.style.fontFamily;
     sizeInput.value = parseInt(note.style.fontSize);
-    textColorInput.value = rgbToHex(note.style.color);
+    textColorInput.value = note.style.color ? rgbToHex(note.style.color) : "#333";
 
-    // Обработчики изменений
+    // Event Listeners
     bgInput.addEventListener("input", () => {
         note.style.background = `linear-gradient(135deg, ${adjustColor(bgInput.value || "#fff8b3", 0.2)} 60%, ${adjustColor(bgInput.value || "#fff8b3", -0.2)} 100%)`;
         note.style.border = `1px solid ${bgInput.value || "#fff8b3"}`
         note.style.setProperty("--hover-box-shadow", `0 4px 16px 0 ${adjustColor(bgInput.value || "#fff8b3", -0.2)}, 0 2px 12px 0 rgba(0,0,0,0.13)`);
         note.style.setProperty("--hover-background", `linear-gradient(135deg, ${adjustColor(bgInput.value || "#fff8b3", 0.2)} 70%, ${adjustColor(bgInput.value || "#fff8b3", -0.2)} 100%)`);
+        note.style.setProperty("--background-main-color-darken", adjustColor(bgInput.value || "#fff8b3", -0.1));
         note.setAttribute("data-bg-color", bgInput.value || "#fff8b3");
+        note.style.setProperty('--todo-bg', adjustColor(bgInput.value || "#fff8b3", 0.3));
+        note.style.setProperty('--todo-bg-hover', adjustColor(bgInput.value || "#fff8b3", 0.5));
+        note.style.setProperty('--todo-checkbox', adjustColor(bgInput.value || "#fff8b3", -0.05));
+        note.style.setProperty('--todo-checkbox-checked', adjustColor(bgInput.value || "#fff8b3", -0.1));
+        note.style.setProperty('--notes-text-color', getContrastYIQ(bgInput.value || "#fff8b3"));
         saveNote(noteId);
     });
 
@@ -213,7 +396,6 @@ function setupCustomization(note, noteId) {
         saveNote(noteId);
     });
 
-    // Reset
     resetBtn.addEventListener("click", () => {
         note.style.backgroundColor = "#fff8b3";
         note.style.border = `1px solid #fff8b3`
@@ -225,6 +407,18 @@ function setupCustomization(note, noteId) {
         fontSelect.value = "sans-serif";
         sizeInput.value = 14;
         textColorInput.value = "#333";
+
+        note.style.background = `linear-gradient(135deg, ${adjustColor("#fff8b3", 0.2)} 60%, ${adjustColor("#fff8b3", -0.2)} 100%)`;
+        note.style.border = `1px solid ${"#fff8b3"}`
+        note.style.setProperty("--hover-box-shadow", `0 4px 16px 0 ${adjustColor("#fff8b3", -0.2)}, 0 2px 12px 0 rgba(0,0,0,0.13)`);
+        note.style.setProperty("--hover-background", `linear-gradient(135deg, ${adjustColor("#fff8b3", 0.2)} 70%, ${adjustColor("#fff8b3", -0.2)} 100%)`);
+        note.style.setProperty("--background-main-color-darken", adjustColor("#fff8b3", -0.1));
+        note.setAttribute("data-bg-color", "#fff8b3");
+        note.style.setProperty('--todo-bg', adjustColor("#fff8b3", 0.3));
+        note.style.setProperty('--todo-bg-hover', adjustColor("#fff8b3", 0.5));
+        note.style.setProperty('--todo-checkbox', adjustColor("#fff8b3", -0.05));
+        note.style.setProperty('--todo-checkbox-checked', adjustColor("#fff8b3", -0.1));
+        note.style.setProperty('--notes-text-color', "#333");
 
         saveNote(noteId);
     });
@@ -281,12 +475,24 @@ function loadNote(id) {
         el.querySelector("textarea").value = parsed.text;
         el.style.left = parsed.left;
         el.style.top = parsed.top;
-        el.style.width = parsed.width || "200px";
+        el.style.width = parsed.width || "250px";
         el.style.height = parsed.height || "200px";
-        el.style.backgroundColor = parsed.bgColor;
+        const bgColor = parsed.bgColor || "#fff8b3";
+        el.style.background = `linear-gradient(135deg, ${adjustColor(bgColor, 0.2)} 60%, ${adjustColor(bgColor, -0.2)} 100%)`;
+        el.style.border = `1px solid ${bgColor}`;
+        el.style.setProperty("--hover-box-shadow", `0 4px 16px 0 ${adjustColor(bgColor, -0.2)}, 0 2px 12px 0 rgba(0,0,0,0.13)`);
+        el.style.setProperty("--hover-background", `linear-gradient(135deg, ${adjustColor(bgColor, 0.2)} 70%, ${adjustColor(bgColor, -0.2)} 100%)`);
+        el.style.setProperty("--background-main-color-darken", adjustColor(bgColor, -0.1));
+        el.setAttribute("data-bg-color", bgColor);
+        el.style.setProperty('--todo-bg', adjustColor(bgColor, 0.3));
+        el.style.setProperty('--todo-bg-hover', adjustColor(bgColor, 0.5));
+        el.style.setProperty('--todo-checkbox', adjustColor(bgColor, -0.05));
+        el.style.setProperty('--todo-checkbox-checked', adjustColor(bgColor, -0.1));
         el.style.fontFamily = parsed.font;
         el.style.fontSize = parsed.fontSize;
         el.style.color = parsed.textColor;
+        const todoTextColor = getContrastYIQ(bgColor);
+        el.style.setProperty('--notes-text-color', todoTextColor);
     }
 }
 
@@ -319,10 +525,16 @@ document.getElementById("add-sticky-note").addEventListener("click", () => {
 
 // Load existing notes on page load
 window.addEventListener("DOMContentLoaded", () => {
+    const loaded = new Set();
     Object.keys(localStorage).forEach(key => {
-        if (key.startsWith("sticky-note-")) {
+        if (key.startsWith("sticky-note-") && !loaded.has(key)) {
             const data = JSON.parse(localStorage.getItem(key));
             createStickyNote(data);
+            loaded.add(key);
         }
     });
+    const maxId = Array.from(loaded).map(k => parseInt(k.replace("sticky-note-", ""), 10)).filter(Number.isFinite);
+    if (maxId.length) {
+        noteCounter = Math.max(...maxId) + 1;
+    }
 });
