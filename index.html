@@ -72,70 +72,8 @@
             <button class="toggle-section">+</button>
         </div>
         <div class="section-content">
-            <div class="font-control">
-                <label>Time:</label>
-                <select id="time-font">
-                    <option value="Arial">Arial (default)</option>
-                    <option value="Segoe UI">Segoe UI</option>
-                    <option value="Georgia">Georgia</option>
-                    <option value="Courier New">Courier New</option>
-                    <option value="Roboto">Roboto</option>
-                    <option value="Helvetica">Helvetica</option>
-                    <option value="Verdana">Verdana</option>
-                    <option value="Tahoma">Tahoma</option>
-                    <option value="Trebuchet MS">Trebuchet MS</option>
-                    <option value="Lucida Sans">Lucida Sans</option>
-                    <option value="Times New Roman">Times New Roman</option>
-                    <option value="Fira Sans">Fira Sans</option>
-                    <option value="Open Sans">Open Sans</option>
-                    <option value="Lato">Lato</option>
-                    <option value="Quicksand">Quicksand</option>
-                    <option value="Monaco">Monaco</option>
-                </select>
-                <input type="color" id="time-color">
-            </div>
-
-            <div class="font-control">
-                <label>Date:</label>
-                <select id="date-font">
-                    <option value="Arial">Arial (default)</option>
-                    <option value="Segoe UI">Segoe UI</option>
-                    <option value="Georgia">Georgia</option>
-                    <option value="Courier New">Courier New</option>
-                    <option value="Roboto">Roboto</option>
-                    <option value="Helvetica">Helvetica</option>
-                    <option value="Verdana">Verdana</option>
-                    <option value="Tahoma">Tahoma</option>
-                    <option value="Trebuchet MS">Trebuchet MS</option>
-                    <option value="Lucida Sans">Lucida Sans</option>
-                    <option value="Times New Roman">Times New Roman</option>
-                    <option value="Fira Sans">Fira Sans</option>
-                    <option value="Open Sans">Open Sans</option>
-                    <option value="Lato">Lato</option>
-                    <option value="Quicksand">Quicksand</option>
-                    <option value="Monaco">Monaco</option>
-                </select>
-                <input type="color" id="date-color">
-            </div>
-
-            <div class="format-control">
-                <label for="time-format">Time format:</label>
-                <select id="time-format">
-                    <option value="24">24-hour</option>
-                    <option value="12">12-hour (AM/PM)</option>
-                </select>
-            </div>
-
-            <div class="format-control">
-                <label for="date-format">Date format:</label>
-                <select id="date-format">
-                    <option value="month-day-year">July 20 2025</option>
-                    <option value="day-month-year">20 July 2025</option>
-                    <option value="year-month-day">2025 July 20</option>
-                    <option value="dd-mm-yyyy">20-07-2025</option>
-                    <option value="mm-dd-yyyy">07-20-2025</option>
-                </select>
-            </div>
+            <div id="time-and-date-controls"></div>
+            <button id="add-clock" class="add-clock">Add clock</button>
 
             <button id="reset-time-date" class="reset-button">Reset Time & Date Settings</button>
 
@@ -360,8 +298,7 @@
 <div class="greeting" id="greeting"></div>
 
 <div class="time-container">
-    <div class="time" id="time">00:00</div>
-    <div class="date" id="date" data-tooltip="01-15-2025">July 20 2025</div>
+    <div id="multiple-clocks"></div>
 
     <div class="quote-container" id="quote-container">
         <div class="quote-text" id="quote-text">Loading quote...</div>

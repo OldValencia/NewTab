@@ -1,3 +1,8 @@
+#multiple-clocks {
+    display: inline-flex;
+    column-gap: 20px;
+}
+
 .time-container {
     position: absolute;
     top: 35%;
