@@ -6,17 +6,19 @@
 
     <link rel="icon" type="image/x-icon" href="icons/favicon.ico">
 
-    <link rel="stylesheet" href="styles/main.style.css"/>
-    <link rel="stylesheet" href="styles/starfield.style.css"/>
-    <link rel="stylesheet" href="styles/time.style.css"/>
-    <link rel="stylesheet" href="styles/links.style.css"/>
-    <link rel="stylesheet" href="styles/sidebar.style.css"/>
-    <link rel="stylesheet" href="styles/sticky-notes.style.css"/>
-    <link rel="stylesheet" href="styles/weather.style.css"/>
-    <link rel="stylesheet" href="styles/greeting.style.css"/>
-    <link rel="stylesheet" href="styles/quotes.style.css"/>
+    <link rel="stylesheet" href="styles/main.css"/>
+    <link rel="stylesheet" href="styles/starfield.css"/>
+    <link rel="stylesheet" href="styles/time.css"/>
+    <link rel="stylesheet" href="styles/links.css"/>
+    <link rel="stylesheet" href="styles/sidebar.css"/>
+    <link rel="stylesheet" href="styles/sidebar.homepage.css"/>
+    <link rel="stylesheet" href="styles/sticky-notes.css"/>
+    <link rel="stylesheet" href="styles/weather.css"/>
+    <link rel="stylesheet" href="styles/greeting.css"/>
+    <link rel="stylesheet" href="styles/quotes.css"/>
 
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Open+Sans&family=Lato&family=Quicksand&family=Fira+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Open+Sans&family=Lato&family=Quicksand&family=Fira+Sans&display=swap"
+          rel="stylesheet">
 </head>
 <body>
 <div id="sticky-notes-container"></div>
@@ -28,6 +30,26 @@
 <button id="menu-toggle" class="menu-button">☰</button>
 
 <div id="sidebar" class="sidebar">
+    <section data-section="links">
+        <div class="section-header">
+            <span class="section-icon">🏠</span>
+            <h3>Set extension as Homepage</h3>
+            <button class="toggle-section">+</button>
+        </div>
+        <div class="section-content">
+            <div id="instructions">
+                <h3>How to set this page as your Homepage in Firefox:</h3>
+                <ol>
+                    <li>Open Firefox Settings (Menu → Settings).</li>
+                    <li>Go to the <strong>Home</strong> section.</li>
+                    <li>In the <strong>Homepage</strong> field, paste this URL:</li>
+                    <input type="text" id="homepage-url-input" readonly>
+                    <button id="copy-homepage-url">Copy URL</button>
+                    <li>Press Enter and close the settings tab.</li>
+                </ol>
+            </div>
+        </div>
+    </section>
     <h2 id="customization-title">Customization</h2>
 
     <!-- 🔗 Links -->
@@ -155,7 +177,8 @@
                 <label>Blur: <input type="range" id="bg-blur" min="0" max="40" step="1" value="0"></label>
                 <label>Brightness: <input type="range" id="bg-brightness" min="20" max="150" step="1"
                                           value="100"></label>
-                <label>Vignette Intensity: <input type="range" id="bg-vignette" min="0" max="100" step="1" value="0"></label>
+                <label>Vignette Intensity: <input type="range" id="bg-vignette" min="0" max="100" step="1"
+                                                  value="0"></label>
                 <label>Image Fit:
                     <select id="bg-fit">
                         <option value="cover">Cover</option>
@@ -336,6 +359,7 @@
 <script src="scripts/widgets/time.js"></script>
 <script src="scripts/widgets/links-service.js"></script>
 
+<script src="scripts/sidebar/homepage.js"></script>
 <script src="scripts/sidebar/background.js"></script>
 <script src="scripts/sidebar/dateandtime.js"></script>
 <script src="scripts/sidebar/links.js"></script>

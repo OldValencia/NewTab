@@ -1,0 +1,51 @@
+#instructions {
+    border: 1px solid #ddd;
+    padding: 25px;
+    border-radius: 8px;
+    max-width: 600px;
+    font-family: "Segoe UI", sans-serif;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+#instructions h3 {
+    margin-top: 0;
+    font-size: 18px;
+}
+
+#instructions ol {
+    padding-left: 20px;
+    margin: 0;
+}
+
+#instructions li {
+    margin-bottom: 12px;
+    font-size: 14px;
+}
+
+#homepage-url-input {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: #fff;
+    color: #222;
+}
+
+#copy-homepage-url {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-bottom: 6px;
+}
+
+#copy-homepage-url:hover {
+    background-color: #005fa3;
+}
