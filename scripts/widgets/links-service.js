@@ -5,6 +5,16 @@ const defaultLinks = [
     {url: "https://www.firefox.com/en-US/", label: "Mozilla Firefox"}
 ]
 
+function getOpenInNewTabState() {
+    const settings = loadCustomSettings();
+    if (settings.openInNewTabState === null) {
+        settings.openInNewTabState = false;
+        saveCustomSettings(settings);
+        return false;
+    }
+    return settings.openInNewTabState;
+}
+
 function getLinksFromStorage() {
     const json = localStorage.getItem("custom_links");
     if (!json) {

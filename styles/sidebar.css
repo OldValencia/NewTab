@@ -123,6 +123,9 @@
     color: #ccc;
     background: rgba(255, 255, 255, 0.05);
     padding: 6px 10px;
+}
+
+.section-content select {
     cursor: pointer;
 }
 
@@ -139,6 +142,11 @@
 /* ──────────────────────────────── */
 /* 🎛 Controls */
 /* ──────────────────────────────── */
+.time-and-date-wrapper {
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    padding: 16px;
+}
+
 .cols-control,
 .font-control {
     display: flex;
@@ -157,9 +165,9 @@
 }
 
 .cols-control button,
-#add-link,
+#add-link, #add-clock,
 .delete-link,
-.reset-button {
+.reset-button, .remove-element {
     background: rgba(255, 255, 255, 0.1);
     border: none;
     border-radius: 6px;
@@ -171,18 +179,30 @@
 }
 
 .cols-control button:hover,
-#add-link:hover,
+#add-link:hover, #add-clock:hover,
 .delete-link:hover,
-.reset-button:hover {
+.reset-button:hover, .remove-element:hover {
     background: rgba(255, 255, 255, 0.3);
 }
 
 .reset-button {
-    margin-top: 12px;
+    margin-top: 14px;
 }
 
-#add-link {
+#add-link, #add-clock {
     width: 100%;
+}
+
+#add-clock {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.remove-element {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 2px 3px;
 }
 
 /* ──────────────────────────────── */
