@@ -30,6 +30,12 @@ function loadStickyNotes() {
                 if (textarea) {
                     textarea.value = "";
                     saveNote(note.id);
+                    const renderedDiv = note.querySelector(".sticky-note-rendered-duplicate");
+                    renderedDiv.textContent = "";
+                    renderedDiv.innerHTML = parseTextTags(textarea.value);
+                    renderedDiv.style.fontFamily = note.style.fontFamily;
+                    renderedDiv.style.fontSize = note.style.fontSize;
+                    renderedDiv.style.color = note.style.color;
                 }
             });
         }

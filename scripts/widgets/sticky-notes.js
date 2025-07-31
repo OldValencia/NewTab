@@ -307,19 +307,6 @@ function createStickyNote(data = {}) {
     }
 
 
-    function parseTextTags(text) {
-        text = text.replace(/\[todo type="(checked|unchecked)"\](.*?)\[\/todo\]/gs, (match, type, content) => {
-            const checked = type === 'checked';
-            return `<span class="todo-element" data-type="${type}"><span class="todo-checkbox${checked ? ' checked' : ''}"></span><span class="todo-text">${content || ''}</span></span>`;
-        });
-
-        text = text.replace(/\[bold\](.*?)\[\/bold\]/gs, '<strong>$1</strong>');
-        text = text.replace(/\[italic\](.*?)\[\/italic\]/gs, '<em>$1</em>');
-        text = text.replace(/\[underline\](.*?)\[\/underline\]/gs, '<u>$1</u>');
-        text = text.replace(/\[strikethrough\](.*?)\[\/strikethrough\]/gs, '<s>$1</s>');
-        return text;
-    }
-
     renderedDiv.addEventListener("click", (e) => {
         const todoEl = e.target.closest('.todo-element');
         if (todoEl) {
@@ -350,6 +337,18 @@ function createStickyNote(data = {}) {
     syncRenderedDiv();
 }
 
+function parseTextTags(text) {
+    text = text.replace(/\[todo type="(checked|unchecked)"\](.*?)\[\/todo\]/gs, (match, type, content) => {
+        const checked = type === 'checked';
+        return `<span class="todo-element" data-type="${type}"><span class="todo-checkbox${checked ? ' checked' : ''}"></span><span class="todo-text">${content || ''}</span></span>`;
+    });
+
+    text = text.replace(/\[bold\](.*?)\[\/bold\]/gs, '<strong>$1</strong>');
+    text = text.replace(/\[italic\](.*?)\[\/italic\]/gs, '<em>$1</em>');
+    text = text.replace(/\[underline\](.*?)\[\/underline\]/gs, '<u>$1</u>');
+    text = text.replace(/\[strikethrough\](.*?)\[\/strikethrough\]/gs, '<s>$1</s>');
+    return text;
+}
 
 function setupCustomization(note, noteId) {
     const bgInput = note.querySelector(".bg-color");

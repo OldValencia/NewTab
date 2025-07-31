@@ -20,6 +20,8 @@ function updateTime() {
         settings.clocks = [];
     }
 
+    initializeTimeAndDateState(settings);
+
     multipleClocksWrapper.innerHTML = "";
     for (let i = 0; i < settings.timeAndDateElements; i++) {
         if (!settings.clocks[i] || Object.keys(settings.clocks[i]).length === 0) {
@@ -128,6 +130,7 @@ function updateTime() {
         // Apply font and color settings for time
         timeElement.style.fontFamily = settings.clocks[i].timeFont || defaultTimeAndDateFont;
         timeElement.style.color = settings.clocks[i].timeColor || defaultTimeColor;
+        timeElement.style.display = settings.showTime ? "block" : "none";
         timeAndDateElement.appendChild(timeElement);
         const dateElement = document.createElement("div");
         dateElement.className = "date";
@@ -137,17 +140,13 @@ function updateTime() {
         // Apply font and color settings for date
         dateElement.style.fontFamily = settings.clocks[i].dateFont || defaultTimeAndDateFont;
         dateElement.style.color = settings.clocks[i].dateColor || defaultDateColor;
+        dateElement.style.display = settings.showDate ? "block" : "none";
         timeAndDateElement.appendChild(dateElement);
         multipleClocksWrapper.appendChild(timeAndDateElement);
     }
 }
 
-updateTime();
-setInterval(updateTime, 60000);
-
-document.addEventListener("DOMContentLoaded", () => {
-    const settings = loadCustomSettings();
-
+function initializeTimeAndDateState(settings) {
     if (settings.showTime === undefined || settings.showTime === null) {
         settings.showTime = true;
         saveCustomSettings(settings);
@@ -167,6 +166,14 @@ document.addEventListener("DOMContentLoaded", () => {
     dateElements.forEach(date => {
         date.style.display = settings.showDate ? "block" : "none";
     });
+}
+
+updateTime();
+setInterval(updateTime, 60000);
+
+document.addEventListener("DOMContentLoaded", () => {
+    const settings = loadCustomSettings();
+    initializeTimeAndDateState(settings);
 
     toggleTime.addEventListener("change", () => {
         const settings = loadCustomSettings();
