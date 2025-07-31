@@ -54,7 +54,7 @@ function createStickyNote(data = {}) {
     note.style.top = `${top}px`;
     note.style.background = `linear-gradient(135deg, ${adjustColor(data.bgColor || "#fff8b3", 0.2)} 60%, ${adjustColor(data.bgColor || "#fff8b3", -0.2)} 100%)`;
     note.style.border = `1px solid ${data.bgColor || "#fff8b3"}`
-    note.style.setProperty("--hover-box-shadow", `0 4px 16px 0 ${adjustColor(data.bgColor || "#fff8b3", -0.2)}, 0 2px 12px 0 rgba(0,0,0,0.13)`);
+    note.style.setProperty("--hover-box-shadow", `0 2px 6px 0 ${adjustColor(data.bgColor || "#fff8b3", -0.2)}, 0 2px 12px 0 rgba(0,0,0,0.13)`);
     note.style.setProperty("--hover-background", `linear-gradient(135deg, ${adjustColor(data.bgColor || "#fff8b3", 0.2)} 70%, ${adjustColor(data.bgColor || "#fff8b3", -0.2)} 100%)`);
     note.style.setProperty("--background-main-color-darken", adjustColor(data.bgColor || "#fff8b3", -0.1));
     note.setAttribute("data-bg-color", data.bgColor || "#fff8b3");
@@ -369,7 +369,7 @@ function setupCustomization(note, noteId) {
     bgInput.addEventListener("input", () => {
         note.style.background = `linear-gradient(135deg, ${adjustColor(bgInput.value || "#fff8b3", 0.2)} 60%, ${adjustColor(bgInput.value || "#fff8b3", -0.2)} 100%)`;
         note.style.border = `1px solid ${bgInput.value || "#fff8b3"}`
-        note.style.setProperty("--hover-box-shadow", `0 4px 16px 0 ${adjustColor(bgInput.value || "#fff8b3", -0.2)}, 0 2px 12px 0 rgba(0,0,0,0.13)`);
+        note.style.setProperty("--hover-box-shadow", `0 2px 6px 0 ${adjustColor(bgInput.value || "#fff8b3", -0.2)}, 0 2px 12px 0 rgba(0,0,0,0.13)`);
         note.style.setProperty("--hover-background", `linear-gradient(135deg, ${adjustColor(bgInput.value || "#fff8b3", 0.2)} 70%, ${adjustColor(bgInput.value || "#fff8b3", -0.2)} 100%)`);
         note.style.setProperty("--background-main-color-darken", adjustColor(bgInput.value || "#fff8b3", -0.1));
         note.setAttribute("data-bg-color", bgInput.value || "#fff8b3");
@@ -410,7 +410,7 @@ function setupCustomization(note, noteId) {
 
         note.style.background = `linear-gradient(135deg, ${adjustColor("#fff8b3", 0.2)} 60%, ${adjustColor("#fff8b3", -0.2)} 100%)`;
         note.style.border = `1px solid ${"#fff8b3"}`
-        note.style.setProperty("--hover-box-shadow", `0 4px 16px 0 ${adjustColor("#fff8b3", -0.2)}, 0 2px 12px 0 rgba(0,0,0,0.13)`);
+        note.style.setProperty("--hover-box-shadow", `0 2px 6px 0 ${adjustColor("#fff8b3", -0.2)}, 0 2px 12px 0 rgba(0,0,0,0.13)`);
         note.style.setProperty("--hover-background", `linear-gradient(135deg, ${adjustColor("#fff8b3", 0.2)} 70%, ${adjustColor("#fff8b3", -0.2)} 100%)`);
         note.style.setProperty("--background-main-color-darken", adjustColor("#fff8b3", -0.1));
         note.setAttribute("data-bg-color", "#fff8b3");
