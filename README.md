@@ -44,6 +44,12 @@ To make the extension your homepage:
 
 - 🎨 Multiple background modes: stars, particles, grids, images, and more
 - 💾 Settings saved locally - no cloud, no sync required
+- 📅 Customizable time and date formats
+- 📝 Sidebar with:
+  - Sticky notes for quick reminders
+  - Weather widget with location support
+  - Quotes widget with customization options
+- ⏰ Time customization (12/24 hour format, date format)
 - ⚡ Fast and lightweight - no performance impact
 - 🔒 Private — no data collection, no analytics
 
@@ -60,4 +66,7 @@ To make the extension your homepage:
 
 - Built with vanilla JavaScript, HTML, and CSS
 - Uses `localStorage` for persistent settings
+- Supports multiple background modes: stars, particles, grids, images, and more
+- Includes a sidebar with sticky notes, weather widget, quotes widget, and time customization
+- Designed to be lightweight and fast, with no external dependencies
 - Designed to be easily modifiable
