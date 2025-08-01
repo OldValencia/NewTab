@@ -83,14 +83,14 @@ function renderBookmarkTree(nodes, container, depth = 0) {
 
             container.appendChild(folder);
         } else if (node.url) {
-            const item = createBookmarkItem(node, { draggable: false });
+            const item = createBookmarkItem(node, {draggable: false});
             item.style.marginLeft = `${depth * 12}px`;
             container.appendChild(item);
         }
     });
 }
 
-function createBookmarkItem(bookmark, { draggable = false } = {}) {
+function createBookmarkItem(bookmark, {draggable = false} = {}) {
     const item = document.createElement("label");
     item.className = "bookmark-item";
     item.draggable = draggable;
@@ -163,8 +163,14 @@ function pinBookmark(bookmark) {
 
 function renderPinned() {
     pinnedSection.innerHTML = "";
+    const pinnedBookmarks = getPinned();
+    if (pinnedBookmarks.length === 0) {
+        pinnedSection.style.display = "none";
+        return;
+    }
 
-    getPinned().forEach((bookmark, index) => {
+    pinnedSection.style.display = "flex";
+    pinnedBookmarks.forEach((bookmark, index) => {
         const item = document.createElement("label");
         item.className = "bookmark-item";
         item.draggable = true;
