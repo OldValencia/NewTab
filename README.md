@@ -1,5 +1,6 @@
 ![Main page](Screenshots/Main_page.png "Main page")
 ![Greeting, time and date format, sidebar](Screenshots/Greeting%2C_time_and_date_format%2C_sidebar.png "Greeting, time and date format, sidebar")
+![Bookmarks widget](Screenshots/Bookmarks_widget.png "Bookmarks widget")
 
 # 🌌 New Tab Extension ([Addons.Mozilla.org](https://addons.mozilla.org/en-US/firefox/addon/new_tab_extension/))
 
