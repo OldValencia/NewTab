@@ -31,6 +31,7 @@ function saveWeatherData(data, city) {
     const settings = loadCustomSettings();
     settings.weatherWidget.cachedWeather = JSON.stringify({data, timestamp: Date.now()});
     settings.weatherWidget.weatherCity = city;
+    weatherInput.value = settings.weatherWidget.weatherCity ;
     saveCustomSettings(settings);
 }
 
