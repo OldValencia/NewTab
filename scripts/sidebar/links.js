@@ -5,14 +5,6 @@ const toggleLinksCheckbox = document.getElementById("toggle-links");
 const toggleOpenInNewTab = document.getElementById("toggle-open-in-new-tab");
 const toggleUnderlineLinksOnHover = document.getElementById("toggle-links-underline");
 
-function setOpenInNewTabState(value) {
-    const settings = loadCustomSettings();
-    settings.openInNewTabState = value;
-    saveCustomSettings(settings);
-    const linksFromStorage = getLinksFromStorage();
-    renderLinks(linksFromStorage);
-}
-
 function renderEditor(links) {
     linksEditor.innerHTML = "";
 
@@ -100,7 +92,9 @@ function loadLinks(settings) {
     const links = getLinksFromStorage();
     if(!settings.links) {
         settings.links = {
-            underlineLinksOnHover: false
+            underlineLinksOnHover: false,
+            showLinks: true,
+            openInNewTabState: false
         };
         saveCustomSettings(settings);
     }
@@ -134,22 +128,24 @@ function loadLinks(settings) {
         }
     });
 
-    toggleLinksCheckbox.checked = getLinksState();
-
-    if (settings.openInNewTabState === undefined) {
-        settings.openInNewTabState = false;
-        saveCustomSettings(settings);
-    }
-    toggleOpenInNewTab.checked = settings.openInNewTabState;
-    toggleOpenInNewTab.addEventListener("change", () => {
-        setOpenInNewTabState(toggleOpenInNewTab.checked);
-    });
+    toggleLinksCheckbox.checked = settings.links.showLinks === "true";
+    toggleOpenInNewTab.checked = settings.links.openInNewTabState === "true";
 }
 
+toggleOpenInNewTab.addEventListener("change", () => {
+    const settings = loadCustomSettings();
+    settings.links.openInNewTabState = toggleOpenInNewTab.checked;
+    saveCustomSettings(settings);
+    const linksFromStorage = getLinksFromStorage();
+    renderLinks(linksFromStorage);
+});
+
 toggleLinksCheckbox.addEventListener("change", () => {
+    const settings = loadCustomSettings();
     const visible = toggleLinksCheckbox.checked;
     linksContainer.style.display = visible ? "grid" : "none";
-    showLinks(visible);
+    settings.links.showLinks = visible.toString();
+    saveCustomSettings(settings);
 });
 
 addLinkBtn.addEventListener("click", () => {

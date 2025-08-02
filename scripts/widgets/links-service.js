@@ -5,16 +5,6 @@ const defaultLinks = [
     {url: "https://www.firefox.com/en-US/", label: "Mozilla Firefox"}
 ]
 
-function getOpenInNewTabState() {
-    const settings = loadCustomSettings();
-    if (settings.openInNewTabState === null) {
-        settings.openInNewTabState = false;
-        saveCustomSettings(settings);
-        return false;
-    }
-    return settings.openInNewTabState;
-}
-
 function getLinksFromStorage() {
     const json = localStorage.getItem("custom_links");
     if (!json) {
@@ -36,9 +26,10 @@ function saveLinksToStorage(links) {
 }
 
 function renderLinks(links) {
+    const settings = loadCustomSettings();
     linksContainer.innerHTML = "";
-    const linksState = getLinksState();
-    const openInNewTab = getOpenInNewTabState();
+    const linksState = settings.links.showLinks === "true";
+    const openInNewTab = settings.links.openInNewTabState === "true";
     linksContainer.style.display = linksState ? "grid" : "none";
 
     const fragment = document.createDocumentFragment();
@@ -68,33 +59,21 @@ function renderLinks(links) {
     linksContainer.appendChild(fragment);
 }
 
-function showLinks(value) {
-    localStorage.setItem("showLinks", value);
-}
-
-function getLinksState() {
-    const value = localStorage.getItem("showLinks");
-    if (value === null) {
-        showLinks(true);
-        return true;
-    }
-    return value === "true";
-}
-
-
 function initLinks() {
     const linksData = getLinksFromStorage();
     renderLinks(linksData);
 
-    const show = getLinksState();
-    linksContainer.style.display = show ? "grid" : "none";
+    const settings = loadCustomSettings();
+    const showLinks = settings.links.showLinks === "true";
+    linksContainer.style.display = showLinks ? "grid" : "none";
 
     if (toggleLinksCheckbox) {
-        toggleLinksCheckbox.checked = show;
+        toggleLinksCheckbox.checked = showLinks;
         toggleLinksCheckbox.addEventListener("change", () => {
             const show = toggleLinksCheckbox.checked;
             linksContainer.style.display = show ? "grid" : "none";
-            showLinks(show);
+            settings.links.showLinks = show.toString();
+            saveCustomSettings()
         });
     }
 }

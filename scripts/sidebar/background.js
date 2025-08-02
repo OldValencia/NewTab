@@ -264,7 +264,10 @@ document.querySelectorAll('input[name="bg-mode"]').forEach(radio => {
         const dynamicConfig = document.getElementById("dynamic-search-config");
         const settings = loadCustomSettings();
         settings.bg.bgMode = mode;
-        if (mode !== "dynamic-search") localStorage.removeItem("dynamic_bg_last");
+        if (mode !== "dynamic-search") {
+            delete settings.bg.dynamicBgLast;
+            saveCustomSettings(settings);
+        }
         setDisplay(backgroundSearchInput, "none");
         gallery.innerHTML = "";
         dynamicConfig.style.display = "none";
