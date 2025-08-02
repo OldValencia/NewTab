@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="styles/weather.css"/>
     <link rel="stylesheet" href="styles/greeting.css"/>
     <link rel="stylesheet" href="styles/quotes.css"/>
+    <link rel="stylesheet" href="styles/bookmarks.css"/>
+    <link rel="stylesheet" href="styles/search.css"/>
 
     <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Open+Sans&family=Lato&family=Quicksand&family=Fira+Sans&display=swap"
           rel="stylesheet">
@@ -27,8 +29,37 @@
 <div id="background-layer"></div>
 <div id="vignette-layer"></div>
 
-<button id="menu-toggle" class="menu-button">☰</button>
+<button id="bookmark-toggle" class="sidebar-menu-button">📚</button>
+<div id="bookmark-sidebar" class="hidden">
+    <h2>Bookmarks</h2>
 
+    <div class="bookmark-section-header">
+        <h3>Search</h3>
+    </div>
+    <div class="bookmark-section-content open bookmark-style-gap">
+        <input type="text" id="bookmark-search" placeholder="🔍 Find bookmark..."/>
+        <label for="toggle-empty-folders">
+            <input type="checkbox" id="toggle-empty-folders"/>
+            Show empty bookmark folders
+        </label>
+        <label for="open-bookmark-in-new-tab">
+            <input type="checkbox" id="open-bookmark-in-new-tab"/>
+            Open bookmarks in new tab
+        </label>
+    </div>
+
+    <div class="bookmark-section-header">
+        <h3>⭐ Pinned</h3>
+    </div>
+    <div class="bookmark-section-content open" id="pinned-section"></div>
+
+    <div class="bookmark-section-header">
+        <h3>📁 All bookmarks</h3>
+    </div>
+    <div class="bookmark-section-content open" id="bookmark-tree"></div>
+</div>
+
+<button id="menu-toggle" class="menu-button">☰</button>
 <div id="sidebar" class="sidebar">
     <section data-section="links">
         <div class="section-header">
@@ -43,7 +74,7 @@
                     <li>Open Firefox Settings (Menu → Settings).</li>
                     <li>Go to the <strong>Home</strong> section.</li>
                     <li>In the <strong>Homepage</strong> field, paste this URL:</li>
-                    <input type="text" id="homepage-url-input" readonly>
+                    <input type="text" id="homepage-url-input" readonly/>
                     <button id="copy-homepage-url">Copy URL</button>
                     <li>Press Enter and close the settings tab.</li>
                 </ol>
@@ -72,12 +103,12 @@
             <div class="links-controls-row">
                 <button id="add-link">Add link</button>
                 <div class="links-toggle-control">
-                    <label>
+                    <label for="toggle-links">
                         <input type="checkbox" id="toggle-links" checked>
                         Show links
                     </label>
 
-                    <label>
+                    <label for="toggle-open-in-new-tab">
                         <input type="checkbox" id="toggle-open-in-new-tab">
                         Open links in new tab
                     </label>
@@ -100,11 +131,11 @@
             <button id="reset-time-date" class="reset-button">Reset Time & Date Settings</button>
 
             <div class="section-toggle-controls">
-                <label>
+                <label for="toggle-time">
                     <input type="checkbox" id="toggle-time" checked>
                     Show Time
                 </label>
-                <label>
+                <label for="toggle-date">
                     <input type="checkbox" id="toggle-date" checked>
                     Show Date
                 </label>
@@ -125,7 +156,7 @@
             <button id="remove-sticky-notes" class="reset-button">Remove all Sticky Notes</button>
 
             <div class="section-toggle-controls">
-                <label class="sticky-notes-toggle-label">
+                <label for="toggle-sticky-notes" class="sticky-notes-toggle-label">
                     <input type="checkbox" id="toggle-sticky-notes">
                     Show sticky notes
                 </label>
@@ -179,7 +210,7 @@
                                           value="100"></label>
                 <label>Vignette Intensity: <input type="range" id="bg-vignette" min="0" max="100" step="1"
                                                   value="0"></label>
-                <label>Image Fit:
+                <label for="bg-fit">Image Fit:
                     <select id="bg-fit">
                         <option value="cover">Cover</option>
                         <option value="contain">Contain</option>
@@ -220,37 +251,41 @@
         </div>
         <div class="section-content">
             <div class="font-control">
-                <label>Font:</label>
-                <select id="greeting-font">
-                    <option value="Arial">Arial (default)</option>
-                    <option value="Segoe UI">Segoe UI</option>
-                    <option value="Georgia">Georgia</option>
-                    <option value="Courier New">Courier New</option>
-                    <option value="Roboto">Roboto</option>
-                    <option value="Helvetica">Helvetica</option>
-                    <option value="Verdana">Verdana</option>
-                    <option value="Tahoma">Tahoma</option>
-                    <option value="Trebuchet MS">Trebuchet MS</option>
-                    <option value="Lucida Sans">Lucida Sans</option>
-                    <option value="Times New Roman">Times New Roman</option>
-                    <option value="Fira Sans">Fira Sans</option>
-                    <option value="Open Sans">Open Sans</option>
-                    <option value="Lato">Lato</option>
-                    <option value="Quicksand">Quicksand</option>
-                    <option value="Monaco">Monaco</option>
-                </select>
+                <label for="greeting-font">Font:
+                    <select id="greeting-font">
+                        <option value="Arial">Arial (default)</option>
+                        <option value="Segoe UI">Segoe UI</option>
+                        <option value="Georgia">Georgia</option>
+                        <option value="Courier New">Courier New</option>
+                        <option value="Roboto">Roboto</option>
+                        <option value="Helvetica">Helvetica</option>
+                        <option value="Verdana">Verdana</option>
+                        <option value="Tahoma">Tahoma</option>
+                        <option value="Trebuchet MS">Trebuchet MS</option>
+                        <option value="Lucida Sans">Lucida Sans</option>
+                        <option value="Times New Roman">Times New Roman</option>
+                        <option value="Fira Sans">Fira Sans</option>
+                        <option value="Open Sans">Open Sans</option>
+                        <option value="Lato">Lato</option>
+                        <option value="Quicksand">Quicksand</option>
+                        <option value="Monaco">Monaco</option>
+                    </select>
+                </label>
             </div>
             <div class="font-control">
-                <label>Text color:</label>
-                <input type="color" id="greeting-color">
+                <label for="greeting-color">Text color:
+                    <input type="color" id="greeting-color">
+                </label>
             </div>
             <div class="font-control">
-                <label>Greeting size:</label>
-                <input type="number" id="greeting-size" min="10" max="48" value="18"> px
+                <label for="greeting-size">Greeting size:
+                    <input type="number" id="greeting-size" min="10" max="48" value="18"> px
+                </label>
             </div>
             <div class="font-control">
-                <label>Username:</label>
-                <input type="text" id="greeting-username" placeholder="Enter your name">
+                <label for="greeting-username">Username:
+                    <input type="text" id="greeting-username" placeholder="Enter your name">
+                </label>
             </div>
 
             <button id="reset-greeting-widget" class="reset-button">Reset Greeting Widget Settings</button>
@@ -273,39 +308,42 @@
         </div>
         <div class="section-content">
             <div class="font-control">
-                <label>Font:</label>
-                <select id="quote-font">
-                    <option value="Arial">Arial (default)</option>
-                    <option value="Segoe UI">Segoe UI</option>
-                    <option value="Georgia">Georgia</option>
-                    <option value="Courier New">Courier New</option>
-                    <option value="Roboto">Roboto</option>
-                    <option value="Helvetica">Helvetica</option>
-                    <option value="Verdana">Verdana</option>
-                    <option value="Tahoma">Tahoma</option>
-                    <option value="Trebuchet MS">Trebuchet MS</option>
-                    <option value="Lucida Sans">Lucida Sans</option>
-                    <option value="Times New Roman">Times New Roman</option>
-                    <option value="Fira Sans">Fira Sans</option>
-                    <option value="Open Sans">Open Sans</option>
-                    <option value="Lato">Lato</option>
-                    <option value="Quicksand">Quicksand</option>
-                    <option value="Monaco">Monaco</option>
-                </select>
+                <label for="quote-font">Font:
+                    <select id="quote-font">
+                        <option value="Arial">Arial (default)</option>
+                        <option value="Segoe UI">Segoe UI</option>
+                        <option value="Georgia">Georgia</option>
+                        <option value="Courier New">Courier New</option>
+                        <option value="Roboto">Roboto</option>
+                        <option value="Helvetica">Helvetica</option>
+                        <option value="Verdana">Verdana</option>
+                        <option value="Tahoma">Tahoma</option>
+                        <option value="Trebuchet MS">Trebuchet MS</option>
+                        <option value="Lucida Sans">Lucida Sans</option>
+                        <option value="Times New Roman">Times New Roman</option>
+                        <option value="Fira Sans">Fira Sans</option>
+                        <option value="Open Sans">Open Sans</option>
+                        <option value="Lato">Lato</option>
+                        <option value="Quicksand">Quicksand</option>
+                        <option value="Monaco">Monaco</option>
+                    </select>
+                </label>
             </div>
             <div class="font-control">
-                <label>Text color:</label>
-                <input type="color" id="quote-color">
+                <label for="quote-color">Text color:
+                    <input type="color" id="quote-color">
+                </label>
             </div>
             <div class="font-control">
-                <label>Quote size:</label>
-                <input type="number" id="quote-size" min="10" max="48" value="18"> px
+                <label for="quote-size">Quote size:
+                    <input type="number" id="quote-size" min="10" max="48" value="18"> px
+                </label>
             </div>
 
             <button id="reset-quote-widget" class="reset-button">Reset Daily Quote Widget Settings</button>
 
             <div class="section-toggle-controls">
-                <label>
+                <label for="toggle-quote">
                     <input type="checkbox" id="toggle-quote">
                     Show Quote
                 </label>
@@ -313,6 +351,49 @@
         </div>
     </section>
 
+    <!-- 📂 Bookmarks -->
+    <section data-section="bookmarks-widget">
+        <div class="section-header">
+            <span class="section-icon">📂</span>
+            <h3>Bookmarks</h3>
+            <button class="toggle-section">+</button>
+        </div>
+        <div class="section-content bookmarks-widget">
+            <div class="section-toggle-controls bookmarks-widget">
+                <label class="bookmarks-toggle-label bookmarks-widget">
+                    <input type="checkbox" id="toggle-bookmarks-widget">
+                    Show bookmarks widget
+                </label>
+                <label class="bookmarks-toggle-label bookmarks-widget">
+                    <input type="checkbox" id="toggle-bookmarks-widget-always-open">
+                    Open bookmarks widget by default
+                </label>
+            </div>
+        </div>
+    </section>
+
+    <!-- 🔍 Search bar -->
+    <section data-section="search-bar-widget">
+        <div class="section-header">
+            <span class="section-icon">🔍</span>
+            <h3>Search bar</h3>
+            <button class="toggle-section">+</button>
+        </div>
+        <div class="section-content">
+            <button id="reset-search-bar-widget" class="reset-button">Reset Search Bar Widget Settings</button>
+
+            <div class="section-toggle-controls">
+                <label>
+                    <input type="checkbox" id="toggle-search-bar">
+                    Show Search Bar
+                </label>
+                <label>
+                    <input type="checkbox" id="toggle-search-open-in-new-tab">
+                    Open search results in new tab
+                </label>
+            </div>
+        </div>
+    </section>
     <div id="version-info">
         Version: loading...
     </div>
@@ -327,6 +408,24 @@
         <div class="quote-text" id="quote-text">Loading quote...</div>
         <div class="quote-author" id="quote-author"></div>
     </div>
+</div>
+
+<div class="search-bar-container" id="search-bar">
+    <input type="text" id="universal-search" placeholder="🔍 Search the web..." list="search-history"/>
+    <datalist id="search-history"></datalist>
+
+    <select id="search-engine-select">
+        <option value="google">Google</option>
+        <option value="duckduckgo">DuckDuckGo</option>
+        <option value="bing">Bing</option>
+        <option value="brave">Brave</option>
+        <option value="yandex">Yandex</option>
+        <option value="ecosia">Ecosia</option>
+        <option value="startpage">Startpage</option>
+        <option value="qwant">Qwant</option>
+    </select>
+
+    <button id="search-button">Go</button>
 </div>
 
 <div class="links" id="links-container"></div>
@@ -358,6 +457,8 @@
 <script src="scripts/widgets/quotes.js"></script>
 <script src="scripts/widgets/time.js"></script>
 <script src="scripts/widgets/links-service.js"></script>
+<script src="scripts/widgets/bookmarks.js"></script>
+<script src="scripts/widgets/search.js"></script>
 
 <script src="scripts/sidebar/homepage.js"></script>
 <script src="scripts/sidebar/background.js"></script>
@@ -365,6 +466,8 @@
 <script src="scripts/sidebar/links.js"></script>
 <script src="scripts/sidebar/stickynotes.js"></script>
 <script src="scripts/sidebar/weather.js"></script>
+<script src="scripts/sidebar/bookmarks.js"></script>
+<script src="scripts/sidebar/search.js"></script>
 <script src="scripts/sidebar/sidebar.js"></script>
 </body>
 </html>

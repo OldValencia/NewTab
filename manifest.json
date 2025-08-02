@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "New Tab Extension",
   "description": "An extension for about:newtab that brings life to the new tab.",
-  "version": "0.6",
+  "version": "0.7",
   "homepage_url": "https://github.com/OldValencia/NewTab",
 
   "chrome_url_overrides": {
@@ -11,7 +11,8 @@
 
   "permissions": [
     "storage",
-    "webRequest"
+    "webRequest",
+    "bookmarks"
   ],
 
   "icons": {

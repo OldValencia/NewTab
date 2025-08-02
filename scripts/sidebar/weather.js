@@ -2,19 +2,31 @@ const toggleWeatherWidget = document.getElementById("toggle-weather-widget");
 const weatherWidget = document.getElementById("weather-widget");
 const resetWeatherBtn = document.getElementById("reset-weather-settings");
 
-function loadWeatherWidget() {
+function loadWeatherWidget(settings) {
+    if(!settings.weatherWidget) {
+        settings.weatherWidget = {
+            showWeather: false,
+            weatherCity: "",
+            cachedWeather: ""
+        };
+        saveCustomSettings(settings);
+    }
+
+    applyWeatherVisibilitySetting();
+    if (!loadCachedWeather()) loadSavedCity();
+
     toggleWeatherWidget.addEventListener("change", () => {
         const settings = loadCustomSettings();
-        settings.showWeather = toggleWeatherWidget.checked;
+        settings.weatherWidget.showWeather = toggleWeatherWidget.checked;
         saveCustomSettings(settings);
         weatherWidget.style.display = toggleWeatherWidget.checked ? "block" : "none";
     });
 
     resetWeatherBtn.addEventListener("click", () => {
         const settings = loadCustomSettings();
-        settings.weatherCity = "";
-        settings.cachedWeather = "";
-        settings.showWeather = true;
+        settings.weatherWidget.weatherCity = "";
+        settings.weatherWidget.cachedWeather = "";
+        settings.weatherWidget.showWeather = true;
         saveCustomSettings(settings);
 
         weatherInput.value = "";

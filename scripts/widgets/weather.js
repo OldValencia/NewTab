@@ -7,10 +7,10 @@ const DEFAULT_WEATHER_SUMMARY_VALUE = "🌦️ —";
 const CACHE_DURATION_MS = 60 * 60 * 1000;
 
 function loadCachedWeather() {
-    const {cachedWeather} = loadCustomSettings();
-    if (!cachedWeather) return false;
+    const {weatherWidget} = loadCustomSettings();
+    if (!weatherWidget.cachedWeather) return false;
 
-    const {data, timestamp} = JSON.parse(cachedWeather);
+    const {data, timestamp} = JSON.parse(weatherWidget.cachedWeather);
     if (Date.now() - timestamp < CACHE_DURATION_MS) {
         updateWeather(data);
         return true;
@@ -20,25 +20,25 @@ function loadCachedWeather() {
 
 function applyWeatherVisibilitySetting() {
     const settings = loadCustomSettings();
-    if (settings.showWeather === undefined || settings.showWeather === null) {
-        settings.showWeather = false;
+    if (settings.weatherWidget.showWeather === undefined || settings.weatherWidget.showWeather === null) {
+        settings.weatherWidget.showWeather = false;
     }
-    toggleWeatherWidget.checked = settings.showWeather;
-    weatherWidget.style.display = settings.showWeather ? "block" : "none";
+    toggleWeatherWidget.checked = settings.weatherWidget.showWeather;
+    weatherWidget.style.display = settings.weatherWidget.showWeather ? "block" : "none";
 }
 
 function saveWeatherData(data, city) {
     const settings = loadCustomSettings();
-    settings.cachedWeather = JSON.stringify({data, timestamp: Date.now()});
-    settings.weatherCity = city;
+    settings.weatherWidget.cachedWeather = JSON.stringify({data, timestamp: Date.now()});
+    settings.weatherWidget.weatherCity = city;
     saveCustomSettings(settings);
 }
 
 function loadSavedCity() {
-    const {weatherCity} = loadCustomSettings();
-    if (weatherCity) {
-        weatherInput.value = weatherCity;
-        fetchWeatherByCity(weatherCity);
+    const {weatherWidget} = loadCustomSettings();
+    if (weatherWidget.weatherCity) {
+        weatherInput.value = weatherWidget.weatherCity;
+        fetchWeatherByCity(weatherWidget.weatherCity);
     }
 }
 
@@ -77,8 +77,8 @@ function fetchWeather(query, cityLabel) {
 }
 
 function updateWeather(data) {
-    const {showWeather = true} = loadCustomSettings();
-    if (!showWeather) return;
+    const {weatherWidget} = loadCustomSettings();
+    if (!weatherWidget.showWeather) return;
 
     const emoji = getWeatherEmoji(data.current.condition.code);
     const temp = Math.round(data.current.temp_c);
@@ -143,8 +143,3 @@ function getBrightness(rgb) {
 
 cityBtn.addEventListener("click", getWeatherByCity);
 geoBtn.addEventListener("click", getWeatherByGeolocation);
-
-document.addEventListener("DOMContentLoaded", () => {
-    applyWeatherVisibilitySetting();
-    if (!loadCachedWeather()) loadSavedCity();
-});
