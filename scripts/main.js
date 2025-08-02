@@ -18,11 +18,11 @@ function loadCustomSettings() {
 }
 
 function applyBackgroundEffects(settings) {
-    const blur = settings.bgBlur || 0;
-    const brightness = settings.bgBrightness || 100;
+    const blur = settings.bg.bgBlur || 0;
+    const brightness = settings.bg.bgBrightness || 100;
 
     backgroundLayer.style.filter = `blur(${blur}px) brightness(${brightness}%)`;
-    const intensity = settings.bgVignette;
+    const intensity = settings.bg.bgVignette;
     const alpha = intensity / 100 * 0.8;
     vignetteLayer.style.background = `radial-gradient(ellipse at center, rgba(0,0,0,0) 60%, rgba(0,0,0,${alpha}) 100%)`;
 }
@@ -31,7 +31,7 @@ function applyBackgroundFit(fit) {
     if (!fit) {
         fit = "cover";
         const settings = loadCustomSettings();
-        settings.bgFit = fit;
+        settings.bg.bgFit = fit;
         saveCustomSettings(settings);
         document.getElementById("bg-fit").value = fit;
     }

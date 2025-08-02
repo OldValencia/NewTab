@@ -81,7 +81,7 @@ function throttle(fn, delay) {
 
 window.addEventListener('resize', throttle(() => {
     const settings = loadCustomSettings();
-    if (settings.bgMode === "stars") {
+    if (settings.bg.bgMode === "stars") {
         disableStarfield();
         enableStarfield();
     }

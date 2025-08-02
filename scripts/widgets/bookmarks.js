@@ -4,7 +4,7 @@ const toggleEmptyFoldersCheckbox = document.getElementById("toggle-empty-folders
 const openBookmarksInNewTabCheckbox = document.getElementById("open-bookmark-in-new-tab");
 const bookmarkTree = document.getElementById("bookmark-tree");
 const pinnedSection = document.getElementById("pinned-section");
-const searchInput = document.getElementById("bookmark-search");
+const bookmarksSearchInput = document.getElementById("bookmark-search");
 
 let allBookmarks = [];
 
@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
         renderPinned();
     });
 
-    searchInput.addEventListener("input", e => {
+    bookmarksSearchInput.addEventListener("input", e => {
         const query = e.target.value.toLowerCase();
         filterBookmarks(query);
     });

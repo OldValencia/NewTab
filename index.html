@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="styles/greeting.css"/>
     <link rel="stylesheet" href="styles/quotes.css"/>
     <link rel="stylesheet" href="styles/bookmarks.css"/>
+    <link rel="stylesheet" href="styles/search.css"/>
 
     <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Open+Sans&family=Lato&family=Quicksand&family=Fira+Sans&display=swap"
           rel="stylesheet">
@@ -57,7 +58,6 @@
     </div>
     <div class="bookmark-section-content open" id="bookmark-tree"></div>
 </div>
-
 
 <button id="menu-toggle" class="menu-button">☰</button>
 <div id="sidebar" class="sidebar">
@@ -371,6 +371,29 @@
             </div>
         </div>
     </section>
+
+    <!-- 🔍 Search bar -->
+    <section data-section="search-bar-widget">
+        <div class="section-header">
+            <span class="section-icon">🔍</span>
+            <h3>Search bar</h3>
+            <button class="toggle-section">+</button>
+        </div>
+        <div class="section-content">
+            <button id="reset-search-bar-widget" class="reset-button">Reset Search Bar Widget Settings</button>
+
+            <div class="section-toggle-controls">
+                <label>
+                    <input type="checkbox" id="toggle-search-bar">
+                    Show Search Bar
+                </label>
+                <label>
+                    <input type="checkbox" id="toggle-search-open-in-new-tab">
+                    Open search results in new tab
+                </label>
+            </div>
+        </div>
+    </section>
     <div id="version-info">
         Version: loading...
     </div>
@@ -385,6 +408,24 @@
         <div class="quote-text" id="quote-text">Loading quote...</div>
         <div class="quote-author" id="quote-author"></div>
     </div>
+</div>
+
+<div class="search-bar-container" id="search-bar">
+    <input type="text" id="universal-search" placeholder="🔍 Search the web..." list="search-history"/>
+    <datalist id="search-history"></datalist>
+
+    <select id="search-engine-select">
+        <option value="google">Google</option>
+        <option value="duckduckgo">DuckDuckGo</option>
+        <option value="bing">Bing</option>
+        <option value="brave">Brave</option>
+        <option value="yandex">Yandex</option>
+        <option value="ecosia">Ecosia</option>
+        <option value="startpage">Startpage</option>
+        <option value="qwant">Qwant</option>
+    </select>
+
+    <button id="search-button">Go</button>
 </div>
 
 <div class="links" id="links-container"></div>
@@ -417,6 +458,7 @@
 <script src="scripts/widgets/time.js"></script>
 <script src="scripts/widgets/links-service.js"></script>
 <script src="scripts/widgets/bookmarks.js"></script>
+<script src="scripts/widgets/search.js"></script>
 
 <script src="scripts/sidebar/homepage.js"></script>
 <script src="scripts/sidebar/background.js"></script>
@@ -425,6 +467,7 @@
 <script src="scripts/sidebar/stickynotes.js"></script>
 <script src="scripts/sidebar/weather.js"></script>
 <script src="scripts/sidebar/bookmarks.js"></script>
+<script src="scripts/sidebar/search.js"></script>
 <script src="scripts/sidebar/sidebar.js"></script>
 </body>
 </html>

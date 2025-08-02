@@ -3,30 +3,28 @@ const blurControl = document.getElementById("bg-blur");
 const vignetteControl = document.getElementById("bg-vignette");
 const vignetteLayer = document.getElementById("vignette-layer");
 
-async function applyDynamicBackground(settings) {
+async function applyDynamicBackground(settings, force = false) {
     const now = Date.now();
-    const lastChange = parseInt(localStorage.getItem("dynamic_bg_last") || "0");
-    const interval = settings.dynamicInterval;
-    const force = settings.force || false;
+    const lastChange = parseInt(settings.bg.dynamicBgLast || "0");
+    const interval = settings.bg.dynamicInterval;
 
-    const shouldChange =
-        force ||
+    const shouldChange = force ||
         interval === "onload" ||
         (interval !== "onload" && now - lastChange > interval * 60 * 1000);
 
-    if (!shouldChange && settings.bgImage) {
-        backgroundLayer.style.backgroundImage = `url(${settings.bgImage})`;
-        applyBackgroundFit(settings.bgFit);
+    if (!shouldChange && settings.bg.bgImage) {
+        backgroundLayer.style.backgroundImage = `url(${settings.bg.bgImage})`;
+        applyBackgroundFit(settings.bg.bgFit);
         return;
     }
 
-    const imageUrl = await fetchRandomImageByTag(settings.dynamicTag);
+    const imageUrl = await fetchRandomImageByTag(settings.bg.dynamicTag);
     if (imageUrl) {
         backgroundLayer.style.backgroundImage = `url(${imageUrl})`;
-        settings.bgImage = imageUrl;
-        settings.bgSource = "dynamic";
-        localStorage.setItem("dynamic_bg_last", now.toString());
-        applyBackgroundFit(settings.bgFit);
+        settings.bg.bgImage = imageUrl;
+        settings.bg.bgSource = "dynamic";
+        settings.bg.dynamicBgLast = now.toString();
+        applyBackgroundFit(settings.bg.bgFit);
         saveCustomSettings(settings);
     }
 }
@@ -51,9 +49,9 @@ async function fetchSearchResults(tag) {
                 document.body.style.backgroundColor = "";
 
                 const settings = loadCustomSettings();
-                settings.bgImage = img.largeImageURL;
-                settings.bgSource = "search";
-                applyBackgroundFit(settings.bgFit);
+                settings.bg.bgImage = img.largeImageURL;
+                settings.bg.bgSource = "search";
+                applyBackgroundFit(settings.bg.bgFit);
                 saveCustomSettings(settings);
             });
             gallery.appendChild(image);
@@ -140,117 +138,114 @@ function applyBackgroundMode(mode, settings) {
 }
 
 async function loadBackground(settings) {
-    if (!settings.bgMode) {
-        settings.bgMode = "stars";
-        enableStarfield();
+    if (!settings.bg) {
+        settings.bg = {
+            bgMode: "stars",
+            bgImage: "",
+            bgSource: "",
+            bgBlur: 20,
+            bgBrightness: 100,
+            bgVignette: 5,
+            bgFit: "cover",
+            dynamicTag: "",
+            dynamicInterval: ""
+        }
         saveCustomSettings(settings);
+        enableStarfield();
     }
 
-    if (settings.bgMode) {
-        const modeInput = document.querySelector(`input[value="${settings.bgMode}"]`);
-        if (modeInput) {
-            modeInput.checked = true;
-        }
+    const modeInput = document.querySelector(`input[value="${settings.bg.bgMode}"]`);
+    if (modeInput) {
+        modeInput.checked = true;
+    }
 
-        const effectsPanel = document.getElementById("bg-effects-group");
-        const searchInput = document.getElementById("bg-search");
-        const dynamicConfig = document.getElementById("dynamic-search-config");
+    const effectsPanel = document.getElementById("bg-effects-group");
+    const backgroundSearchInput = document.getElementById("bg-search");
+    const dynamicConfig = document.getElementById("dynamic-search-config");
 
-        switch (settings.bgMode) {
-            case "stars":
-                effectsPanel.style.display = "none";
-                backgroundLayer.style.backgroundImage = "";
-                backgroundLayer.style.filter = "";
-                document.body.style.backgroundColor = "#000";
-                enableStarfield();
-                break;
-            case "blobFlow":
-                effectsPanel.style.display = "none";
-                backgroundLayer.style.backgroundImage = "";
-                backgroundLayer.style.filter = "";
-                document.body.style.backgroundColor = "#000";
-                enableBlobFlow();
-                break;
-            case "nebulaDust":
-                effectsPanel.style.display = "none";
-                backgroundLayer.style.backgroundImage = "";
-                backgroundLayer.style.filter = "";
-                document.body.style.backgroundColor = "#000";
-                enableNebulaDust();
-                break;
-            case "glassGrid":
-                effectsPanel.style.display = "none";
-                backgroundLayer.style.backgroundImage = "";
-                backgroundLayer.style.filter = "";
-                document.body.style.backgroundColor = "#000";
-                enableGlassGrid();
-                break;
-            case "orbitalRings":
-                effectsPanel.style.display = "none";
-                backgroundLayer.style.backgroundImage = "";
-                backgroundLayer.style.filter = "";
-                document.body.style.backgroundColor = "#000";
-                enableOrbitalRings();
-                break;
-            case "particleDrift":
-                effectsPanel.style.display = "none";
-                backgroundLayer.style.backgroundImage = "";
-                backgroundLayer.style.filter = "";
-                document.body.style.backgroundColor = "#000";
-                enableParticleDrift();
-                break;
-            default:
-                effectsPanel.style.display = "flex";
-                document.body.style.backgroundColor = "";
-                disableStarfield();
-                disableDynamicBackground(backgroundLayer)
-                applyBackgroundEffects(settings);
-                break;
-        }
+    switch (settings.bg.bgMode) {
+        case "stars":
+            effectsPanel.style.display = "none";
+            backgroundLayer.style.backgroundImage = "";
+            backgroundLayer.style.filter = "";
+            document.body.style.backgroundColor = "#000";
+            enableStarfield();
+            break;
+        case "blobFlow":
+            effectsPanel.style.display = "none";
+            backgroundLayer.style.backgroundImage = "";
+            backgroundLayer.style.filter = "";
+            document.body.style.backgroundColor = "#000";
+            enableBlobFlow();
+            break;
+        case "nebulaDust":
+            effectsPanel.style.display = "none";
+            backgroundLayer.style.backgroundImage = "";
+            backgroundLayer.style.filter = "";
+            document.body.style.backgroundColor = "#000";
+            enableNebulaDust();
+            break;
+        case "glassGrid":
+            effectsPanel.style.display = "none";
+            backgroundLayer.style.backgroundImage = "";
+            backgroundLayer.style.filter = "";
+            document.body.style.backgroundColor = "#000";
+            enableGlassGrid();
+            break;
+        case "orbitalRings":
+            effectsPanel.style.display = "none";
+            backgroundLayer.style.backgroundImage = "";
+            backgroundLayer.style.filter = "";
+            document.body.style.backgroundColor = "#000";
+            enableOrbitalRings();
+            break;
+        case "particleDrift":
+            effectsPanel.style.display = "none";
+            backgroundLayer.style.backgroundImage = "";
+            backgroundLayer.style.filter = "";
+            document.body.style.backgroundColor = "#000";
+            enableParticleDrift();
+            break;
+        default:
+            effectsPanel.style.display = "flex";
+            document.body.style.backgroundColor = "";
+            disableStarfield();
+            disableDynamicBackground(backgroundLayer)
+            applyBackgroundEffects(settings);
+            break;
+    }
 
-        if (settings.bgBlur !== undefined) {
-            blurControl.value = settings.bgBlur;
-        }
+    blurControl.value = settings.bg.bgBlur;
+    brightnessControl.value = settings.bg.bgBrightness;
+    vignetteControl.value = settings.bg.bgVignette;
 
-        if (settings.bgBrightness !== undefined) {
-            brightnessControl.value = settings.bgBrightness;
-        }
+    document.getElementById("bg-fit").value = settings.bg.bgFit;
+    applyBackgroundFit(settings.bg.bgFit);
 
-        if (settings.bgVignette !== undefined) {
-            vignetteControl.value = settings.bgVignette;
-        }
+    if (settings.bg.bgMode === "search-image") {
+        backgroundSearchInput.style.display = "block";
+        const tag = backgroundSearchInput.value.trim();
+        if (tag) await fetchSearchResults(tag);
+    }
 
-        if (settings.bgFit) {
-            document.getElementById("bg-fit").value = settings.bgFit;
-            applyBackgroundFit(settings.bgFit);
+    if (settings.bg.bgMode === "dynamic-search") {
+        dynamicConfig.style.display = "flex";
+        if (settings.bg.dynamicTag) {
+            document.getElementById("dynamic-tag").value = settings.bg.dynamicTag;
+            await applyDynamicBackground(settings);
         }
+        if (settings.bg.dynamicInterval) {
+            document.getElementById("dynamic-interval").value = settings.bg.dynamicInterval;
+        }
+    }
 
-        if (settings.bgMode === "search-image") {
-            searchInput.style.display = "block";
-            const tag = searchInput.value.trim();
-            if (tag) await fetchSearchResults(tag);
-        }
-
-        if (settings.bgMode === "dynamic-search") {
-            dynamicConfig.style.display = "flex";
-            if (settings.dynamicTag) {
-                document.getElementById("dynamic-tag").value = settings.dynamicTag;
-                await applyDynamicBackground(settings);
-            }
-            if (settings.dynamicInterval) {
-                document.getElementById("dynamic-interval").value = settings.dynamicInterval;
-            }
-        }
-
-        if (
-            settings.bgImage &&
-            ((settings.bgMode === "custom-image" && settings.bgSource === "custom") ||
-                (settings.bgMode === "search-image" && settings.bgSource === "search") ||
-                (settings.bgMode === "dynamic-search" && settings.bgSource === "dynamic"))
-        ) {
-            backgroundLayer.style.backgroundImage = `url(${settings.bgImage})`;
-            applyBackgroundFit(settings.bgFit);
-        }
+    if (settings.bg.bgImage &&
+        ((settings.bg.bgMode === "custom-image" && settings.bg.bgSource === "custom") ||
+            (settings.bg.bgMode === "search-image" && settings.bg.bgSource === "search") ||
+            (settings.bg.bgMode === "dynamic-search" && settings.bg.bgSource === "dynamic"))
+    ) {
+        backgroundLayer.style.backgroundImage = `url(${settings.bg.bgImage})`;
+        applyBackgroundFit(settings.bg.bgFit);
     }
 }
 
@@ -263,14 +258,14 @@ const debouncedSearch = debounce(async (query) => {
 document.querySelectorAll('input[name="bg-mode"]').forEach(radio => {
     radio.addEventListener("change", async (e) => {
         const mode = e.target.value;
-        const searchInput = document.getElementById("bg-search");
+        const backgroundSearchInput = document.getElementById("bg-search");
         const gallery = document.getElementById("bg-results");
         const fileInput = document.getElementById("bg-upload");
         const dynamicConfig = document.getElementById("dynamic-search-config");
         const settings = loadCustomSettings();
-        settings.bgMode = mode;
+        settings.bg.bgMode = mode;
         if (mode !== "dynamic-search") localStorage.removeItem("dynamic_bg_last");
-        setDisplay(searchInput, "none");
+        setDisplay(backgroundSearchInput, "none");
         gallery.innerHTML = "";
         dynamicConfig.style.display = "none";
         applyBackgroundMode(mode, settings);
@@ -279,17 +274,17 @@ document.querySelectorAll('input[name="bg-mode"]').forEach(radio => {
             fileInput.click();
         }
         if (mode === "search-image") {
-            setDisplay(searchInput, "block");
-            if (settings.bgImage && settings.bgSource === "search") {
-                backgroundLayer.style.backgroundImage = `url(${settings.bgImage})`;
-                applyBackgroundFit(settings.bgFit);
+            setDisplay(backgroundSearchInput, "block");
+            if (settings.bg.bgImage && settings.bg.bgSource === "search") {
+                backgroundLayer.style.backgroundImage = `url(${settings.bg.bgImage})`;
+                applyBackgroundFit(settings.bg.bgFit);
             }
-            const tag = searchInput.value.trim();
+            const tag = backgroundSearchInput.value.trim();
             if (tag) await fetchSearchResults(tag);
         }
         if (mode === "dynamic-search") {
             setDisplay(dynamicConfig, "flex");
-            if (settings.dynamicTag) await applyDynamicBackground(settings);
+            if (settings.bg.dynamicTag) await applyDynamicBackground(settings);
         }
         saveCustomSettings(settings);
     });
@@ -311,9 +306,9 @@ document.getElementById("bg-upload").addEventListener("change", (e) => {
         document.body.style.backgroundColor = "";
 
         const settings = loadCustomSettings();
-        settings.bgImage = event.target.result;
-        settings.bgSource = "custom";
-        applyBackgroundFit(settings.bgFit);
+        settings.bg.bgImage = event.target.result;
+        settings.bg.bgSource = "custom";
+        applyBackgroundFit(settings.bg.bgFit);
         saveCustomSettings(settings);
     };
 
@@ -332,7 +327,7 @@ document.getElementById("bg-search").addEventListener("input", (e) => {
 blurControl.addEventListener("input", (e) => {
     const blur = parseInt(e.target.value);
     const settings = loadCustomSettings();
-    settings.bgBlur = blur;
+    settings.bg.bgBlur = blur;
     saveCustomSettings(settings);
     applyBackgroundEffects(settings);
 });
@@ -340,7 +335,7 @@ blurControl.addEventListener("input", (e) => {
 brightnessControl.addEventListener("input", (e) => {
     const brightness = parseInt(e.target.value);
     const settings = loadCustomSettings();
-    settings.bgBrightness = brightness;
+    settings.bg.bgBrightness = brightness;
     saveCustomSettings(settings);
     applyBackgroundEffects(settings);
 });
@@ -348,19 +343,17 @@ brightnessControl.addEventListener("input", (e) => {
 vignetteControl.addEventListener("input", (e) => {
     const vignette = parseInt(e.target.value);
     const settings = loadCustomSettings();
-    settings.bgVignette = vignette;
+    settings.bg.bgVignette = vignette;
     saveCustomSettings(settings);
     applyBackgroundEffects(settings);
 });
 
 document.getElementById("reset-bg").addEventListener("click", () => {
     const settings = loadCustomSettings();
-
-    delete settings.bgMode;
-    delete settings.bgImage;
-    delete settings.bgBlur;
-    delete settings.bgBrightness;
-    delete settings.bgVignette;
+    settings.bg.bgMode = "stars";
+    settings.bg.bgBlur = 0;
+    settings.bg.bgBrightness = 100;
+    settings.bg.bgVignette = 0;
     saveCustomSettings(settings);
 
     backgroundLayer.style.backgroundImage = "";
@@ -386,24 +379,24 @@ document.querySelector('input[value="dynamic-search"]').addEventListener("change
     disableStarfield();
 
     const settings = loadCustomSettings();
-    if (settings.bgSource !== "dynamic") {
-        delete settings.bgImage;
+    if (settings.bg.bgSource !== "dynamic") {
+        delete settings.bg.bgImage;
     }
-    settings.bgSource = "dynamic";
-    settings.bgMode = "dynamic-search";
+    settings.bg.bgSource = "dynamic";
+    settings.bg.bgMode = "dynamic-search";
 
-    if (!settings.dynamicInterval) {
-        settings.dynamicInterval = "onload";
+    if (!settings.bg.dynamicInterval) {
+        settings.bg.dynamicInterval = "onload";
     }
     saveCustomSettings(settings);
 
-    await applyDynamicBackground({...settings, force: true});
+    await applyDynamicBackground(settings, true);
 });
 
 document.getElementById("dynamic-tag").addEventListener("input", async (e) => {
     const tag = e.target.value.trim();
     const settings = loadCustomSettings();
-    settings.dynamicTag = tag;
+    settings.bg.dynamicTag = tag;
     saveCustomSettings(settings);
 
     if (tag) {
@@ -413,7 +406,7 @@ document.getElementById("dynamic-tag").addEventListener("input", async (e) => {
 
 document.getElementById("dynamic-interval").addEventListener("change", async (e) => {
     const settings = loadCustomSettings();
-    settings.dynamicInterval = e.target.value;
+    settings.bg.dynamicInterval = e.target.value;
     saveCustomSettings(settings);
     await applyDynamicBackground(settings);
 });
@@ -421,7 +414,7 @@ document.getElementById("dynamic-interval").addEventListener("change", async (e)
 document.getElementById("bg-fit").addEventListener("change", (e) => {
     const fit = e.target.value;
     const settings = loadCustomSettings();
-    settings.bgFit = fit;
+    settings.bg.bgFit = fit;
     saveCustomSettings(settings);
     applyBackgroundFit(fit);
 });
