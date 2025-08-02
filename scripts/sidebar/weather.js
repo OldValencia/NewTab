@@ -13,7 +13,8 @@ function loadWeatherWidget(settings) {
     }
 
     applyWeatherVisibilitySetting();
-    if (!loadCachedWeather()) loadSavedCity();
+    loadCachedWeather();
+    loadSavedCity();
 
     toggleWeatherWidget.addEventListener("change", () => {
         const settings = loadCustomSettings();

@@ -13,9 +13,7 @@ function loadCachedWeather() {
     const {data, timestamp} = JSON.parse(weatherWidget.cachedWeather);
     if (Date.now() - timestamp < CACHE_DURATION_MS) {
         updateWeather(data);
-        return true;
     }
-    return false;
 }
 
 function applyWeatherVisibilitySetting() {
