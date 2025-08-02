@@ -3,6 +3,7 @@ const linksEditor = document.getElementById("links-editor");
 const addLinkBtn = document.getElementById("add-link");
 const toggleLinksCheckbox = document.getElementById("toggle-links");
 const toggleOpenInNewTab = document.getElementById("toggle-open-in-new-tab");
+const toggleUnderlineLinksOnHover = document.getElementById("toggle-links-underline");
 
 function setOpenInNewTabState(value) {
     const settings = loadCustomSettings();
@@ -97,11 +98,21 @@ function renderEditor(links) {
 
 function loadLinks(settings) {
     const links = getLinksFromStorage();
+    if(!settings.links) {
+        settings.links = {
+            underlineLinksOnHover: false
+        };
+        saveCustomSettings(settings);
+    }
     renderLinks(links);
     renderEditor(links);
     let cols = settings.cols || 3;
     colsValue.textContent = cols;
     linksContainer.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+    toggleUnderlineLinksOnHover.checked = settings.links.underlineLinksOnHover;
+    document.querySelectorAll(".link").forEach(link => {
+        link.classList.toggle("underline", settings.links.underlineLinksOnHover);
+    });
 
     document.getElementById("cols-plus").addEventListener("click", () => {
         if (cols < 10) {
@@ -149,3 +160,12 @@ addLinkBtn.addEventListener("click", () => {
     renderLinks(links);
     renderEditor(links);
 });
+
+toggleUnderlineLinksOnHover.addEventListener("click", () => {
+    const settings = loadCustomSettings();
+    settings.links.underlineLinksOnHover = toggleUnderlineLinksOnHover.checked;
+    saveCustomSettings(settings);
+    document.querySelectorAll(".link").forEach(link => {
+        link.classList.toggle("underline", settings.links.underlineLinksOnHover);
+    });
+})

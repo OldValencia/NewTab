@@ -23,6 +23,11 @@
 .link:hover {
     color: white;
     opacity: 1;
+    text-decoration: none;
+}
+
+.link.underline:hover {
+    text-decoration: underline;
 }
 
 .favicon {
