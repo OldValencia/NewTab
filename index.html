@@ -34,7 +34,7 @@
     <h2>Bookmarks</h2>
 
     <div class="bookmark-section-header">
-        <h3>Search</h3>
+        <h3>🔍 Search</h3>
     </div>
     <div class="bookmark-section-content open bookmark-style-gap">
         <input type="text" id="bookmark-search" placeholder="🔍 Find bookmark..."/>
@@ -61,7 +61,7 @@
 
 <button id="menu-toggle" class="menu-button">☰</button>
 <div id="sidebar" class="sidebar">
-    <section data-section="links">
+    <section data-section="homepage-section">
         <div class="section-header">
             <span class="section-icon">🏠</span>
             <h3>Set extension as Homepage</h3>
@@ -103,14 +103,21 @@
             <div class="links-controls-row">
                 <button id="add-link">Add link</button>
                 <div class="links-toggle-control">
-                    <label for="toggle-links">
-                        <input type="checkbox" id="toggle-links" checked>
-                        Show links
-                    </label>
+                    <div class="toggle-control-first-line">
+                        <label for="toggle-links">
+                            <input type="checkbox" id="toggle-links" checked>
+                            Show links
+                        </label>
 
-                    <label for="toggle-open-in-new-tab">
-                        <input type="checkbox" id="toggle-open-in-new-tab">
-                        Open links in new tab
+                        <label for="toggle-open-in-new-tab">
+                            <input type="checkbox" id="toggle-open-in-new-tab">
+                            Open links in new tab
+                        </label>
+                    </div>
+
+                    <label class="toggle-control-second-line" for="toggle-links-underline">
+                        <input type="checkbox" id="toggle-links-underline">
+                        Underline links on hover
                     </label>
                 </div>
             </div>

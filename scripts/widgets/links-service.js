@@ -5,16 +5,6 @@ const defaultLinks = [
     {url: "https://www.firefox.com/en-US/", label: "Mozilla Firefox"}
 ]
 
-function getOpenInNewTabState() {
-    const settings = loadCustomSettings();
-    if (settings.openInNewTabState === null) {
-        settings.openInNewTabState = false;
-        saveCustomSettings(settings);
-        return false;
-    }
-    return settings.openInNewTabState;
-}
-
 function getLinksFromStorage() {
     const json = localStorage.getItem("custom_links");
     if (!json) {
@@ -36,10 +26,9 @@ function saveLinksToStorage(links) {
 }
 
 function renderLinks(links) {
+    const settings = loadCustomSettings();
     linksContainer.innerHTML = "";
-    const linksState = getLinksState();
-    const openInNewTab = getOpenInNewTabState();
-    linksContainer.style.display = linksState ? "grid" : "none";
+    linksContainer.style.display = settings.links.showLinks ? "grid" : "none";
 
     const fragment = document.createDocumentFragment();
 
@@ -47,7 +36,7 @@ function renderLinks(links) {
         const a = document.createElement("a");
         a.className = "link";
         a.href = link.url;
-        if (openInNewTab) {
+        if (settings.links.openInNewTabState) {
             a.target = "_blank";
         }
 
@@ -67,36 +56,3 @@ function renderLinks(links) {
 
     linksContainer.appendChild(fragment);
 }
-
-function showLinks(value) {
-    localStorage.setItem("showLinks", value);
-}
-
-function getLinksState() {
-    const value = localStorage.getItem("showLinks");
-    if (value === null) {
-        showLinks(true);
-        return true;
-    }
-    return value === "true";
-}
-
-
-function initLinks() {
-    const linksData = getLinksFromStorage();
-    renderLinks(linksData);
-
-    const show = getLinksState();
-    linksContainer.style.display = show ? "grid" : "none";
-
-    if (toggleLinksCheckbox) {
-        toggleLinksCheckbox.checked = show;
-        toggleLinksCheckbox.addEventListener("change", () => {
-            const show = toggleLinksCheckbox.checked;
-            linksContainer.style.display = show ? "grid" : "none";
-            showLinks(show);
-        });
-    }
-}
-
-document.addEventListener("DOMContentLoaded", initLinks);

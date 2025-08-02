@@ -3,14 +3,7 @@ const linksEditor = document.getElementById("links-editor");
 const addLinkBtn = document.getElementById("add-link");
 const toggleLinksCheckbox = document.getElementById("toggle-links");
 const toggleOpenInNewTab = document.getElementById("toggle-open-in-new-tab");
-
-function setOpenInNewTabState(value) {
-    const settings = loadCustomSettings();
-    settings.openInNewTabState = value;
-    saveCustomSettings(settings);
-    const linksFromStorage = getLinksFromStorage();
-    renderLinks(linksFromStorage);
-}
+const toggleUnderlineLinksOnHover = document.getElementById("toggle-links-underline");
 
 function renderEditor(links) {
     linksEditor.innerHTML = "";
@@ -97,12 +90,22 @@ function renderEditor(links) {
 
 function loadLinks(settings) {
     const links = getLinksFromStorage();
+    if (!settings.links) {
+        settings.links = {
+            underlineLinksOnHover: false,
+            showLinks: true,
+            openInNewTabState: false
+        };
+        saveCustomSettings(settings);
+    }
     renderLinks(links);
     renderEditor(links);
+
+    linksContainer.style.display = settings.links.showLinks ? "grid" : "none";
+
     let cols = settings.cols || 3;
     colsValue.textContent = cols;
     linksContainer.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
-
     document.getElementById("cols-plus").addEventListener("click", () => {
         if (cols < 10) {
             cols++;
@@ -123,22 +126,29 @@ function loadLinks(settings) {
         }
     });
 
-    toggleLinksCheckbox.checked = getLinksState();
-
-    if (settings.openInNewTabState === undefined) {
-        settings.openInNewTabState = false;
-        saveCustomSettings(settings);
-    }
-    toggleOpenInNewTab.checked = settings.openInNewTabState;
-    toggleOpenInNewTab.addEventListener("change", () => {
-        setOpenInNewTabState(toggleOpenInNewTab.checked);
+    toggleUnderlineLinksOnHover.checked = settings.links.underlineLinksOnHover;
+    document.querySelectorAll(".link").forEach(link => {
+        link.classList.toggle("underline", settings.links.underlineLinksOnHover);
     });
+
+    toggleLinksCheckbox.checked = settings.links.showLinks;
+    toggleOpenInNewTab.checked = settings.links.openInNewTabState;
 }
 
+toggleOpenInNewTab.addEventListener("change", () => {
+    const settings = loadCustomSettings();
+    settings.links.openInNewTabState = toggleOpenInNewTab.checked;
+    saveCustomSettings(settings);
+    const linksFromStorage = getLinksFromStorage();
+    renderLinks(linksFromStorage);
+});
+
 toggleLinksCheckbox.addEventListener("change", () => {
+    const settings = loadCustomSettings();
     const visible = toggleLinksCheckbox.checked;
     linksContainer.style.display = visible ? "grid" : "none";
-    showLinks(visible);
+    settings.links.showLinks = visible.toString();
+    saveCustomSettings(settings);
 });
 
 addLinkBtn.addEventListener("click", () => {
@@ -149,3 +159,12 @@ addLinkBtn.addEventListener("click", () => {
     renderLinks(links);
     renderEditor(links);
 });
+
+toggleUnderlineLinksOnHover.addEventListener("click", () => {
+    const settings = loadCustomSettings();
+    settings.links.underlineLinksOnHover = toggleUnderlineLinksOnHover.checked;
+    saveCustomSettings(settings);
+    document.querySelectorAll(".link").forEach(link => {
+        link.classList.toggle("underline", settings.links.underlineLinksOnHover);
+    });
+})

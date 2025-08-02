@@ -16,7 +16,7 @@
     border-right: 1px solid rgba(255, 255, 255, 0.1);
     font-family: 'Segoe UI', sans-serif;
     overflow-y: auto;
-    transition: left 0.3s ease;
+    transition: left 0.15s ease;
     z-index: 999;
 }
 
@@ -43,7 +43,7 @@
     border-radius: 6px;
     color: white;
     cursor: pointer;
-    transition: left 0.3s ease, background 0.3s ease;
+    transition: left 0.15s ease, background 0.15s ease;
 }
 
 .sidebar-menu-button:hover,
