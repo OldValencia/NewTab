@@ -91,7 +91,7 @@ function renderBookmarkTree(nodes, container, depth = 0) {
 }
 
 function createBookmarkItem(bookmark, {draggable = false} = {}) {
-    const item = document.createElement("label");
+    const item = document.createElement("div");
     item.className = "bookmark-item";
     item.draggable = draggable;
 
@@ -115,7 +115,12 @@ function createButton(text, onClick) {
     const btn = document.createElement("button");
     btn.textContent = text;
     btn.className = "pin-button";
-    btn.onclick = onClick;
+    if (onClick) {
+        btn.onclick = function (e) {
+            e.stopPropagation();
+            onClick(e);
+        };
+    }
     return btn;
 }
 
@@ -171,7 +176,7 @@ function renderPinned() {
 
     pinnedSection.style.display = "flex";
     pinnedBookmarks.forEach((bookmark, index) => {
-        const item = document.createElement("label");
+        const item = document.createElement("div"); // заменено с label на div
         item.className = "bookmark-item";
         item.draggable = true;
         item.dataset.index = index;
@@ -223,7 +228,11 @@ function enableDragAndDrop(container) {
     let dragged;
 
     container.querySelectorAll(".bookmark-item").forEach(item => {
-        item.addEventListener("dragstart", () => {
+        item.addEventListener("dragstart", (e) => {
+            if (e.target.closest("button")) {
+                e.preventDefault();
+                return;
+            }
             dragged = item;
         });
 
@@ -235,6 +244,8 @@ function enableDragAndDrop(container) {
             const items = Array.from(container.children);
             const draggedIndex = items.indexOf(dragged);
             const targetIndex = items.indexOf(item);
+
+            if (draggedIndex === -1 || targetIndex === -1) return;
 
             const pinned = getPinned();
             const moved = pinned.splice(draggedIndex, 1)[0];
