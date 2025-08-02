@@ -90,7 +90,7 @@ function renderEditor(links) {
 
 function loadLinks(settings) {
     const links = getLinksFromStorage();
-    if(!settings.links) {
+    if (!settings.links) {
         settings.links = {
             underlineLinksOnHover: false,
             showLinks: true,
@@ -100,14 +100,12 @@ function loadLinks(settings) {
     }
     renderLinks(links);
     renderEditor(links);
+
+    linksContainer.style.display = settings.links.showLinks ? "grid" : "none";
+
     let cols = settings.cols || 3;
     colsValue.textContent = cols;
     linksContainer.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
-    toggleUnderlineLinksOnHover.checked = settings.links.underlineLinksOnHover;
-    document.querySelectorAll(".link").forEach(link => {
-        link.classList.toggle("underline", settings.links.underlineLinksOnHover);
-    });
-
     document.getElementById("cols-plus").addEventListener("click", () => {
         if (cols < 10) {
             cols++;
@@ -128,8 +126,13 @@ function loadLinks(settings) {
         }
     });
 
-    toggleLinksCheckbox.checked = settings.links.showLinks === "true";
-    toggleOpenInNewTab.checked = settings.links.openInNewTabState === "true";
+    toggleUnderlineLinksOnHover.checked = settings.links.underlineLinksOnHover;
+    document.querySelectorAll(".link").forEach(link => {
+        link.classList.toggle("underline", settings.links.underlineLinksOnHover);
+    });
+
+    toggleLinksCheckbox.checked = settings.links.showLinks;
+    toggleOpenInNewTab.checked = settings.links.openInNewTabState;
 }
 
 toggleOpenInNewTab.addEventListener("change", () => {

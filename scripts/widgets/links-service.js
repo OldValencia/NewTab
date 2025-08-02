@@ -28,9 +28,7 @@ function saveLinksToStorage(links) {
 function renderLinks(links) {
     const settings = loadCustomSettings();
     linksContainer.innerHTML = "";
-    const linksState = settings.links.showLinks === "true";
-    const openInNewTab = settings.links.openInNewTabState === "true";
-    linksContainer.style.display = linksState ? "grid" : "none";
+    linksContainer.style.display = settings.links.showLinks ? "grid" : "none";
 
     const fragment = document.createDocumentFragment();
 
@@ -38,7 +36,7 @@ function renderLinks(links) {
         const a = document.createElement("a");
         a.className = "link";
         a.href = link.url;
-        if (openInNewTab) {
+        if (settings.links.openInNewTabState) {
             a.target = "_blank";
         }
 
@@ -58,24 +56,3 @@ function renderLinks(links) {
 
     linksContainer.appendChild(fragment);
 }
-
-function initLinks() {
-    const linksData = getLinksFromStorage();
-    renderLinks(linksData);
-
-    const settings = loadCustomSettings();
-    const showLinks = settings.links.showLinks === "true";
-    linksContainer.style.display = showLinks ? "grid" : "none";
-
-    if (toggleLinksCheckbox) {
-        toggleLinksCheckbox.checked = showLinks;
-        toggleLinksCheckbox.addEventListener("change", () => {
-            const show = toggleLinksCheckbox.checked;
-            linksContainer.style.display = show ? "grid" : "none";
-            settings.links.showLinks = show.toString();
-            saveCustomSettings()
-        });
-    }
-}
-
-document.addEventListener("DOMContentLoaded", initLinks);
