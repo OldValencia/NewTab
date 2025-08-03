@@ -1,5 +1,5 @@
 function enableOrbitalRings() {
-    disableDynamicBackground();
+    cleanupBeforeEnableBackground("orbital-canvas");
 
     const canvas = document.createElement("canvas");
     canvas.id = "orbital-canvas";

@@ -1,5 +1,5 @@
 function enableParticleDrift() {
-    disableDynamicBackground();
+    cleanupBeforeEnableBackground("particle-canvas");
 
     const canvas = document.createElement("canvas");
     canvas.id = "particle-canvas";

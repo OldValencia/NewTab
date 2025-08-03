@@ -1,7 +1,19 @@
+const proceduralModes = [
+    "stars",
+    "blobFlow",
+    "nebulaDust",
+    "glassGrid",
+    "orbitalRings",
+    "particleDrift"
+];
 const brightnessControl = document.getElementById("bg-brightness");
 const blurControl = document.getElementById("bg-blur");
 const vignetteControl = document.getElementById("bg-vignette");
 const vignetteLayer = document.getElementById("vignette-layer");
+const proceduralControls = document.getElementById("procedural-controls");
+const regenerateBackgroundBtn = document.getElementById("regenerate-bg");
+const nightModeBackgroundToggle = document.getElementById("bg-theme-toggle");
+const effectsPanel = document.getElementById("bg-effects-group");
 
 async function applyDynamicBackground(settings, force = false) {
     const now = Date.now();
@@ -131,7 +143,7 @@ function applyBackgroundMode(mode, settings) {
             effectsPanel.style.display = "flex";
             document.body.style.backgroundColor = "";
             disableStarfield();
-            disableDynamicBackground(backgroundLayer);
+            cleanupBeforeEnableBackground();
             applyBackgroundEffects(settings);
             break;
     }
@@ -148,7 +160,9 @@ async function loadBackground(settings) {
             bgVignette: 5,
             bgFit: "cover",
             dynamicTag: "",
-            dynamicInterval: ""
+            dynamicInterval: "",
+            nightMode: true,
+
         }
         saveCustomSettings(settings);
         enableStarfield();
@@ -159,11 +173,57 @@ async function loadBackground(settings) {
         modeInput.checked = true;
     }
 
-    const effectsPanel = document.getElementById("bg-effects-group");
     const backgroundSearchInput = document.getElementById("bg-search");
     const dynamicConfig = document.getElementById("dynamic-search-config");
 
-    switch (settings.bg.bgMode) {
+    if (proceduralModes.includes(settings.bg.bgMode)) {
+        enableProceduralBackground(settings.bg.bgMode);
+    } else {
+        effectsPanel.style.display = "flex";
+        document.body.style.backgroundColor = "";
+        disableStarfield();
+        cleanupBeforeEnableBackground();
+        applyBackgroundEffects(settings);
+    }
+
+    proceduralControls.style.display = proceduralModes.includes(settings.bg.bgMode) ? "block" : "none";
+
+    blurControl.value = settings.bg.bgBlur;
+    brightnessControl.value = settings.bg.bgBrightness;
+    vignetteControl.value = settings.bg.bgVignette;
+
+    document.getElementById("bg-fit").value = settings.bg.bgFit;
+    applyBackgroundFit(settings.bg.bgFit);
+
+    if (settings.bg.bgMode === "search-image") {
+        backgroundSearchInput.style.display = "block";
+        const tag = backgroundSearchInput.value.trim();
+        if (tag) await fetchSearchResults(tag);
+    }
+
+    if (settings.bg.bgMode === "dynamic-search") {
+        dynamicConfig.style.display = "flex";
+        if (settings.bg.dynamicTag) {
+            document.getElementById("dynamic-tag").value = settings.bg.dynamicTag;
+            await applyDynamicBackground(settings);
+        }
+        if (settings.bg.dynamicInterval) {
+            document.getElementById("dynamic-interval").value = settings.bg.dynamicInterval;
+        }
+    }
+
+    if (settings.bg.bgImage &&
+        ((settings.bg.bgMode === "custom-image" && settings.bg.bgSource === "custom") ||
+            (settings.bg.bgMode === "search-image" && settings.bg.bgSource === "search") ||
+            (settings.bg.bgMode === "dynamic-search" && settings.bg.bgSource === "dynamic"))
+    ) {
+        backgroundLayer.style.backgroundImage = `url(${settings.bg.bgImage})`;
+        applyBackgroundFit(settings.bg.bgFit);
+    }
+}
+
+function enableProceduralBackground(mode) {
+    switch (mode) {
         case "stars":
             effectsPanel.style.display = "none";
             backgroundLayer.style.backgroundImage = "";
@@ -206,46 +266,6 @@ async function loadBackground(settings) {
             document.body.style.backgroundColor = "#000";
             enableParticleDrift();
             break;
-        default:
-            effectsPanel.style.display = "flex";
-            document.body.style.backgroundColor = "";
-            disableStarfield();
-            disableDynamicBackground(backgroundLayer)
-            applyBackgroundEffects(settings);
-            break;
-    }
-
-    blurControl.value = settings.bg.bgBlur;
-    brightnessControl.value = settings.bg.bgBrightness;
-    vignetteControl.value = settings.bg.bgVignette;
-
-    document.getElementById("bg-fit").value = settings.bg.bgFit;
-    applyBackgroundFit(settings.bg.bgFit);
-
-    if (settings.bg.bgMode === "search-image") {
-        backgroundSearchInput.style.display = "block";
-        const tag = backgroundSearchInput.value.trim();
-        if (tag) await fetchSearchResults(tag);
-    }
-
-    if (settings.bg.bgMode === "dynamic-search") {
-        dynamicConfig.style.display = "flex";
-        if (settings.bg.dynamicTag) {
-            document.getElementById("dynamic-tag").value = settings.bg.dynamicTag;
-            await applyDynamicBackground(settings);
-        }
-        if (settings.bg.dynamicInterval) {
-            document.getElementById("dynamic-interval").value = settings.bg.dynamicInterval;
-        }
-    }
-
-    if (settings.bg.bgImage &&
-        ((settings.bg.bgMode === "custom-image" && settings.bg.bgSource === "custom") ||
-            (settings.bg.bgMode === "search-image" && settings.bg.bgSource === "search") ||
-            (settings.bg.bgMode === "dynamic-search" && settings.bg.bgSource === "dynamic"))
-    ) {
-        backgroundLayer.style.backgroundImage = `url(${settings.bg.bgImage})`;
-        applyBackgroundFit(settings.bg.bgFit);
     }
 }
 
@@ -289,6 +309,13 @@ document.querySelectorAll('input[name="bg-mode"]').forEach(radio => {
             setDisplay(dynamicConfig, "flex");
             if (settings.bg.dynamicTag) await applyDynamicBackground(settings);
         }
+
+        if (proceduralModes.includes(mode)) {
+            proceduralControls.style.display = "block";
+        } else {
+            proceduralControls.style.display = "none";
+        }
+
         saveCustomSettings(settings);
     });
 });
@@ -320,6 +347,7 @@ document.getElementById("bg-upload").addEventListener("change", (e) => {
 
 document.querySelector('input[value="search-image"]').addEventListener("change", () => {
     disableStarfield();
+    cleanupBeforeEnableBackground();
     document.getElementById("bg-search").style.display = "block";
 });
 
@@ -380,6 +408,7 @@ document.querySelector('input[value="dynamic-search"]').addEventListener("change
     document.getElementById("bg-results").innerHTML = "";
     document.body.style.backgroundColor = "";
     disableStarfield();
+    cleanupBeforeEnableBackground();
 
     const settings = loadCustomSettings();
     if (settings.bg.bgSource !== "dynamic") {
@@ -420,4 +449,34 @@ document.getElementById("bg-fit").addEventListener("change", (e) => {
     settings.bg.bgFit = fit;
     saveCustomSettings(settings);
     applyBackgroundFit(fit);
+});
+
+regenerateBackgroundBtn.addEventListener("click", () => {
+    const settings = loadCustomSettings();
+
+    effectsPanel.style.display = "none";
+    backgroundLayer.style.backgroundImage = "";
+    backgroundLayer.style.filter = "";
+    document.body.style.backgroundColor = "#000";
+
+    switch (settings.bg.bgMode) {
+        case "stars":
+            enableStarfield();
+            break;
+        case "blobFlow":
+            enableBlobFlow();
+            break;
+        case "nebulaDust":
+            enableNebulaDust();
+            break;
+        case "glassGrid":
+            enableGlassGrid();
+            break;
+        case "orbitalRings":
+            enableOrbitalRings();
+            break;
+        case "particleDrift":
+            enableParticleDrift();
+            break;
+    }
 });
