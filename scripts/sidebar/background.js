@@ -25,18 +25,16 @@ async function applyDynamicBackground(settings, force = false) {
         (interval !== "onload" && now - lastChange > interval * 60 * 1000);
 
     if (!shouldChange && settings.bg.bgImage) {
-        backgroundLayer.style.backgroundImage = `url(${settings.bg.bgImage})`;
-        applyBackgroundFit(settings.bg.bgFit);
+        await setBackgroundImageWithFade(settings.bg.bgImage, settings.bg.bgFit);
         return;
     }
 
     const imageUrl = await fetchRandomImageByTag(settings.bg.dynamicTag);
     if (imageUrl) {
-        backgroundLayer.style.backgroundImage = `url(${imageUrl})`;
+        await setBackgroundImageWithFade(imageUrl, settings.bg.bgFit);
         settings.bg.bgImage = imageUrl;
         settings.bg.bgSource = "dynamic";
         settings.bg.dynamicBgLast = now.toString();
-        applyBackgroundFit(settings.bg.bgFit);
         saveCustomSettings(settings);
     }
 }
@@ -56,11 +54,12 @@ async function fetchSearchResults(tag) {
             const image = document.createElement("img");
             image.src = img.webformatURL;
             image.alt = img.tags;
-            image.addEventListener("click", () => {
-                backgroundLayer.style.backgroundImage = `url(${img.largeImageURL})`;
+            image.addEventListener("click", async () => {
+                const settings = loadCustomSettings();
+
+                await setBackgroundImageWithFade(img.largeImageURL, settings.bg.bgFit);
                 document.body.style.backgroundColor = "";
 
-                const settings = loadCustomSettings();
                 settings.bg.bgImage = img.largeImageURL;
                 settings.bg.bgSource = "search";
                 applyBackgroundFit(settings.bg.bgFit);
@@ -94,58 +93,62 @@ function resetBackgroundControls() {
     vignetteControl.value = 0;
 }
 
-function applyBackgroundMode(mode, settings) {
+function fadeBackground(callback) {
+    backgroundLayer.style.opacity = "0";
+    setTimeout(() => {
+        callback();
+        setTimeout(() => {
+            backgroundLayer.style.opacity = "1";
+        }, 50);
+    }, 600);
+}
+
+function setBackgroundImageWithFade(url, fit, useFade = true) {
+    if (!useFade) {
+        backgroundLayer.style.opacity = "1";
+        backgroundLayer.style.backgroundImage = `url(${url})`;
+        applyBackgroundFit(fit);
+        return;
+    }
+    fadeBackground(() => {
+        backgroundLayer.style.backgroundImage = `url(${url})`;
+        applyBackgroundFit(fit);
+    });
+}
+
+function applyProceduralBackground(enableFn, useFade) {
+    const apply = () => {
+        backgroundLayer.style.backgroundImage = "";
+        backgroundLayer.style.filter = "";
+        document.body.style.backgroundColor = "#000";
+        enableFn();
+    };
+
+    if (useFade) fadeBackground(apply);
+    else apply();
+}
+
+function applyBackgroundMode(mode, settings, useFade = true) {
     const effectsPanel = document.getElementById("bg-effects-group");
-    switch (mode) {
-        case "stars":
-            effectsPanel.style.display = "none";
-            backgroundLayer.style.backgroundImage = "";
-            backgroundLayer.style.filter = "";
-            document.body.style.backgroundColor = "#000";
-            enableStarfield();
-            break;
-        case "blobFlow":
-            effectsPanel.style.display = "none";
-            backgroundLayer.style.backgroundImage = "";
-            backgroundLayer.style.filter = "";
-            document.body.style.backgroundColor = "#000";
-            enableBlobFlow();
-            break;
-        case "nebulaDust":
-            effectsPanel.style.display = "none";
-            backgroundLayer.style.backgroundImage = "";
-            backgroundLayer.style.filter = "";
-            document.body.style.backgroundColor = "#000";
-            enableNebulaDust();
-            break;
-        case "glassGrid":
-            effectsPanel.style.display = "none";
-            backgroundLayer.style.backgroundImage = "";
-            backgroundLayer.style.filter = "";
-            document.body.style.backgroundColor = "#000";
-            enableGlassGrid();
-            break;
-        case "orbitalRings":
-            effectsPanel.style.display = "none";
-            backgroundLayer.style.backgroundImage = "";
-            backgroundLayer.style.filter = "";
-            document.body.style.backgroundColor = "#000";
-            enableOrbitalRings();
-            break;
-        case "particleDrift":
-            effectsPanel.style.display = "none";
-            backgroundLayer.style.backgroundImage = "";
-            backgroundLayer.style.filter = "";
-            document.body.style.backgroundColor = "#000";
-            enableParticleDrift();
-            break;
-        default:
-            effectsPanel.style.display = "flex";
-            document.body.style.backgroundColor = "";
-            disableStarfield();
-            cleanupBeforeEnableBackground();
-            applyBackgroundEffects(settings);
-            break;
+    const proceduralMap = {
+        stars: enableStarfield,
+        blobFlow: enableBlobFlow,
+        nebulaDust: enableNebulaDust,
+        glassGrid: enableGlassGrid,
+        orbitalRings: enableOrbitalRings,
+        particleDrift: enableParticleDrift
+    };
+
+    if (proceduralMap[mode]) {
+        effectsPanel.style.display = "none";
+        applyProceduralBackground(proceduralMap[mode], useFade);
+    } else {
+        effectsPanel.style.display = "flex";
+        document.body.style.backgroundColor = "";
+        disableStarfield();
+        cleanupBeforeEnableBackground();
+        if (useFade) fadeBackground(() => applyBackgroundEffects(settings));
+        else applyBackgroundEffects(settings);
     }
 }
 
@@ -217,8 +220,7 @@ async function loadBackground(settings) {
             (settings.bg.bgMode === "search-image" && settings.bg.bgSource === "search") ||
             (settings.bg.bgMode === "dynamic-search" && settings.bg.bgSource === "dynamic"))
     ) {
-        backgroundLayer.style.backgroundImage = `url(${settings.bg.bgImage})`;
-        applyBackgroundFit(settings.bg.bgFit);
+        setBackgroundImageWithFade(settings.bg.bgImage, settings.bg.bgFit, false); // no fade on DOMContentLoaded
     }
 }
 
@@ -291,7 +293,7 @@ document.querySelectorAll('input[name="bg-mode"]').forEach(radio => {
         setDisplay(backgroundSearchInput, "none");
         gallery.innerHTML = "";
         dynamicConfig.style.display = "none";
-        applyBackgroundMode(mode, settings);
+        applyBackgroundMode(mode, settings, true);
         if (mode === "custom-image") {
             fileInput.value = "";
             fileInput.click();
@@ -299,8 +301,7 @@ document.querySelectorAll('input[name="bg-mode"]').forEach(radio => {
         if (mode === "search-image") {
             setDisplay(backgroundSearchInput, "block");
             if (settings.bg.bgImage && settings.bg.bgSource === "search") {
-                backgroundLayer.style.backgroundImage = `url(${settings.bg.bgImage})`;
-                applyBackgroundFit(settings.bg.bgFit);
+                setBackgroundImageWithFade(settings.bg.bgImage, settings.bg.bgFit);
             }
             const tag = backgroundSearchInput.value.trim();
             if (tag) await fetchSearchResults(tag);
@@ -332,10 +333,11 @@ document.getElementById("bg-upload").addEventListener("change", (e) => {
     if (!file) return;
     const reader = new FileReader();
     reader.onload = function (event) {
-        backgroundLayer.style.backgroundImage = `url(${event.target.result})`;
+        const settings = loadCustomSettings();
+
+        setBackgroundImageWithFade(event.target.result, settings.bg.bgFit);
         document.body.style.backgroundColor = "";
 
-        const settings = loadCustomSettings();
         settings.bg.bgImage = event.target.result;
         settings.bg.bgSource = "custom";
         applyBackgroundFit(settings.bg.bgFit);
