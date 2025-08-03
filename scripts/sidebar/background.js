@@ -4,7 +4,12 @@ const proceduralModes = [
     "nebulaDust",
     "glassGrid",
     "orbitalRings",
-    "particleDrift"
+    "particleDrift",
+    "cloudySpiral",
+    "solarSystem",
+    "waves",
+    "fallingLines",
+    "floatingCircles"
 ];
 const brightnessControl = document.getElementById("bg-brightness");
 const blurControl = document.getElementById("bg-blur");
@@ -136,7 +141,12 @@ function applyBackgroundMode(mode, settings, useFade = true) {
         nebulaDust: enableNebulaDust,
         glassGrid: enableGlassGrid,
         orbitalRings: enableOrbitalRings,
-        particleDrift: enableParticleDrift
+        particleDrift: enableParticleDrift,
+        cloudySpiral: enableCloudySpiral,
+        solarSystem: enableSolarSystem,
+        waves: enableWavesBackground,
+        fallingLines: enableFallingLinesBackground,
+        floatingCircles: enableFloatingCirclesBackground
     };
 
     if (proceduralMap[mode]) {
@@ -225,48 +235,43 @@ async function loadBackground(settings) {
 }
 
 function enableProceduralBackground(mode) {
+    effectsPanel.style.display = "none";
+    backgroundLayer.style.backgroundImage = "";
+    backgroundLayer.style.filter = "";
+    document.body.style.backgroundColor = "#000";
     switch (mode) {
         case "stars":
-            effectsPanel.style.display = "none";
-            backgroundLayer.style.backgroundImage = "";
-            backgroundLayer.style.filter = "";
-            document.body.style.backgroundColor = "#000";
             enableStarfield();
             break;
         case "blobFlow":
-            effectsPanel.style.display = "none";
-            backgroundLayer.style.backgroundImage = "";
-            backgroundLayer.style.filter = "";
-            document.body.style.backgroundColor = "#000";
             enableBlobFlow();
             break;
         case "nebulaDust":
-            effectsPanel.style.display = "none";
-            backgroundLayer.style.backgroundImage = "";
-            backgroundLayer.style.filter = "";
-            document.body.style.backgroundColor = "#000";
             enableNebulaDust();
             break;
         case "glassGrid":
-            effectsPanel.style.display = "none";
-            backgroundLayer.style.backgroundImage = "";
-            backgroundLayer.style.filter = "";
-            document.body.style.backgroundColor = "#000";
             enableGlassGrid();
             break;
         case "orbitalRings":
-            effectsPanel.style.display = "none";
-            backgroundLayer.style.backgroundImage = "";
-            backgroundLayer.style.filter = "";
-            document.body.style.backgroundColor = "#000";
             enableOrbitalRings();
             break;
         case "particleDrift":
-            effectsPanel.style.display = "none";
-            backgroundLayer.style.backgroundImage = "";
-            backgroundLayer.style.filter = "";
-            document.body.style.backgroundColor = "#000";
             enableParticleDrift();
+            break;
+        case "cloudySpiral":
+            enableCloudySpiral();
+            break;
+        case "solarSystem":
+            enableSolarSystem();
+            break;
+        case "waves":
+            enableWavesBackground();
+            break;
+        case "fallingLines":
+            enableFallingLinesBackground();
+            break;
+        case "floatingCircles":
+            enableFloatingCirclesBackground();
             break;
     }
 }

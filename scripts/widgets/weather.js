@@ -13,9 +13,9 @@ function loadCachedWeather() {
     const {data, timestamp} = JSON.parse(weatherWidget.cachedWeather);
     if (Date.now() - timestamp < CACHE_DURATION_MS) {
         updateWeather(data);
-        return true;
+        return false;
     }
-    return false;
+    return true;
 }
 
 function applyWeatherVisibilitySetting() {
@@ -31,7 +31,7 @@ function saveWeatherData(data, city) {
     const settings = loadCustomSettings();
     settings.weatherWidget.cachedWeather = JSON.stringify({data, timestamp: Date.now()});
     settings.weatherWidget.weatherCity = city;
-    weatherInput.value = settings.weatherWidget.weatherCity ;
+    weatherInput.value = settings.weatherWidget.weatherCity;
     saveCustomSettings(settings);
 }
 

@@ -1,0 +1,9 @@
+@keyframes spin {
+    from {
+        opacity: 0.0;
+    }
+    to {
+        opacity: 0.6;
+        transform: translate3d(-4px, -4px, 570px);
+    }
+}

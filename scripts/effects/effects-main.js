@@ -4,6 +4,7 @@ function disableDynamicBackground() {
     backgroundLayer.style.backgroundSize = "";
     backgroundLayer.style.backgroundRepeat = "";
     backgroundLayer.style.backgroundPosition = "";
+    backgroundLayer.style.background = "#000";
     document.body.style.backgroundImage = "";
     vignetteLayer.style.background = "";
 }

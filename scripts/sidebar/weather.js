@@ -3,7 +3,7 @@ const weatherWidget = document.getElementById("weather-widget");
 const resetWeatherBtn = document.getElementById("reset-weather-settings");
 
 function loadWeatherWidget(settings) {
-    if(!settings.weatherWidget) {
+    if (!settings.weatherWidget) {
         settings.weatherWidget = {
             showWeather: false,
             weatherCity: "",
