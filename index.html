@@ -184,19 +184,43 @@
             <button class="toggle-section">+</button>
         </div>
         <div class="section-content">
-            <button id="reset-bg" class="reset-button">Reset Background</button>
+            <button id="reset-bg" class="reset-button">Reset All Backgrounds</button>
 
             <label><input type="radio" name="bg-mode" value="stars" checked> Starfield (default)</label>
             <label><input type="radio" name="bg-mode" value="blobFlow"> Blob Flow</label>
+            <div id="procedural-controls--blobFlow" class="procedural-controls-element" style="display: none;"></div>
+
             <label><input type="radio" name="bg-mode" value="nebulaDust"> Nebula Dust</label>
+            <div id="procedural-controls--nebulaDust" class="procedural-controls-element" style="display: none;"></div>
+
             <label><input type="radio" name="bg-mode" value="glassGrid"> Glass Grid</label>
+            <div id="procedural-controls--glassGrid" class="procedural-controls-element" style="display: none;"></div>
+
             <label><input type="radio" name="bg-mode" value="orbitalRings"> Orbital Rings</label>
+            <div id="procedural-controls--orbitalRings" class="procedural-controls-element"
+                 style="display: none;"></div>
+
             <label><input type="radio" name="bg-mode" value="particleDrift"> Particle Drift</label>
+            <div id="procedural-controls--particleDrift" class="procedural-controls-element"
+                 style="display: none;"></div>
+
             <label><input type="radio" name="bg-mode" value="cloudySpiral"> Cloudy Spiral</label>
+            <div id="procedural-controls--cloudySpiral" class="procedural-controls-element"
+                 style="display: none;"></div>
+
             <label><input type="radio" name="bg-mode" value="solarSystem"> Solar System</label>
+
             <label><input type="radio" name="bg-mode" value="waves"> Waves</label>
+            <div id="procedural-controls--waves" class="procedural-controls-element" style="display: none;"></div>
+
             <label><input type="radio" name="bg-mode" value="fallingLines"> Falling Lines</label>
+            <div id="procedural-controls--fallingLines" class="procedural-controls-element"
+                 style="display: none;"></div>
+
             <label><input type="radio" name="bg-mode" value="floatingCircles"> Floating Circles</label>
+            <div id="procedural-controls--floatingCircles" class="procedural-controls-element"
+                 style="display: none;"></div>
+
             <label><input type="radio" name="bg-mode" value="custom-image"> Custom Image</label>
             <input type="file" id="bg-upload" accept="image/*" style="display: none;">
 
@@ -213,14 +237,6 @@
                         <option value="30">Every 30 min</option>
                         <option value="60">Every 60 min</option>
                     </select>
-                </label>
-            </div>
-
-            <div id="procedural-controls" style="display: none;">
-                <button id="regenerate-bg" class="reset-button">Regenerate Background</button>
-                <label>
-                    <input type="checkbox" id="bg-theme-toggle">
-                    Night Mode
                 </label>
             </div>
 

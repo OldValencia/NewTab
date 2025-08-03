@@ -1,13 +1,9 @@
-/*
-* Background color
-* Circles color
-* */
-
-function enableFloatingCirclesBackground() {
+function enableFloatingCirclesBackground(settings) {
     cleanupBeforeEnableBackground();
 
     const area = document.createElement("div");
     area.className = "area";
+    area.style.backgroundColor = settings.bg.floatingCircles.backgroundColor;
 
     const ul = document.createElement("ul");
     ul.className = "circles";
@@ -32,6 +28,7 @@ function enableFloatingCirclesBackground() {
         li.style.left = config.left;
         li.style.animation = `animate ${config.duration || "25s"} ease infinite`;
         li.style.animationDelay = config.delay;
+        li.style.background = hexToRgba(settings.bg.floatingCircles.particlesColor, 0.2)
         ul.appendChild(li);
     });
 

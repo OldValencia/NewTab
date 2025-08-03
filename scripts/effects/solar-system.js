@@ -1,7 +1,3 @@
-/*
-* No customization needed
-* */
-
 function enableSolarSystem() {
     cleanupBeforeEnableBackground();
 

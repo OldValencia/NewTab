@@ -1,8 +1,4 @@
-/* Wave color
-Background color
-* */
-
-function enableWavesBackground() {
+function enableWavesBackground(settings) {
     cleanupBeforeEnableBackground();
 
     const innerHeader = document.createElement("div");
@@ -20,7 +16,6 @@ function enableWavesBackground() {
     svg.setAttribute("preserveAspectRatio", "none");
     svg.setAttribute("shape-rendering", "auto");
 
-    // <defs>
     const defs = document.createElementNS(svgNS, "defs");
     const path = document.createElementNS(svgNS, "path");
     path.setAttribute("id", "gentle-wave");
@@ -28,15 +23,14 @@ function enableWavesBackground() {
     defs.appendChild(path);
     svg.appendChild(defs);
 
-    // <g class="parallax">
     const g = document.createElementNS(svgNS, "g");
     g.classList.add("parallax");
 
     const waveConfigs = [
-        { y: "0", fill: "rgba(255,255,255,0.7)" },
-        { y: "3", fill: "rgba(255,255,255,0.5)" },
-        { y: "5", fill: "rgba(255,255,255,0.3)" },
-        { y: "7", fill: "#fff" }
+        { y: "0", fill: hexToRgba(settings.bg.waves.firstWaveColor, 0.7) },
+        { y: "3", fill: hexToRgba(settings.bg.waves.useOnlyFirstWaveColor ? settings.bg.waves.firstWaveColor : settings.bg.waves.secondWaveColor, 0.5) },
+        { y: "5", fill: hexToRgba(settings.bg.waves.useOnlyFirstWaveColor ? settings.bg.waves.firstWaveColor :settings.bg.waves.thirdWaveColor, 0.3) },
+        { y: "7", fill: settings.bg.waves.useOnlyFirstWaveColor ? settings.bg.waves.firstWaveColor : settings.bg.waves.fourthWaveColor }
     ];
 
     waveConfigs.forEach(config => {
@@ -51,5 +45,5 @@ function enableWavesBackground() {
     svg.appendChild(g);
 
     backgroundLayer.appendChild(svg);
-    backgroundLayer.style.background = "linear-gradient(60deg, rgba(84,58,183,1) 0%, rgba(0,172,193,1) 100%)";
+    backgroundLayer.style.background = `linear-gradient(60deg, ${settings.bg.waves.leftBackgroundColor} 0%, ${settings.bg.waves.rightBackgroundColor} 100%)`;
 }

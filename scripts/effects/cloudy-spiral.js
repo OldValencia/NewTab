@@ -1,16 +1,9 @@
-/*
-* lapDuration (1500-5000)
-* particleSize (5-10)
-* radius (50-140)
-* backgroundColor
-* */
-
-function enableCloudySpiral() {
+function enableCloudySpiral(settings) {
     cleanupBeforeEnableBackground();
-    const particles = 62;
-    const particleSize = 8;
-    const radius = 80;
-    const lapDuration = 3000;
+    const particles = settings.bg.cloudySpiral.numberOfParticles;
+    const particleSize = settings.bg.cloudySpiral.particleSize;
+    const radius = settings.bg.cloudySpiral.radius;
+    const lapDuration = settings.bg.cloudySpiral.lapDuration;
 
     const wrapper = document.createElement("div");
     wrapper.classList.add("cloudy-spiral-wrapper");
@@ -27,8 +20,8 @@ function enableCloudySpiral() {
         particle.style.height = `${particleSize}px`;
         particle.style.borderRadius = "50%";
         particle.style.opacity = "0";
-        particle.style.background = "rgba(255,255,255,0.5)";
-        particle.style.boxShadow = "0px 0px 10px rgba(255,255,255,1)";
+        particle.style.background = hexToRgba(settings.bg.cloudySpiral.particlesColor, 0.5);
+        particle.style.boxShadow = `0px 0px 10px ${settings.bg.cloudySpiral.particlesColor}`;
         particle.style.animationName = "spin";
         particle.style.animationDuration = `${lapDuration}ms`;
         particle.style.animationIterationCount = "infinite";
@@ -42,5 +35,5 @@ function enableCloudySpiral() {
     }
 
     backgroundLayer.appendChild(wrapper);
-    backgroundLayer.style.background = "#3e6fa3";
+    backgroundLayer.style.background = settings.bg.cloudySpiral.backgroundColor;
 }

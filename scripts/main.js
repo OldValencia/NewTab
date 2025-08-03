@@ -73,3 +73,86 @@ function adjustColor(hex, percent) {
     });
     return "#" + adjusted.map(x => x.toString(16).padStart(2, "0")).join("");
 }
+
+function hexToRgba(hex, alpha = 1) {
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
+function createColorInput(labelText, labelId, defaultColor, bgMode, bgModeVariable, onChangeCallback) {
+    const colorLabel = document.createElement("label");
+    colorLabel.setAttribute("for", labelId);
+    colorLabel.textContent = labelText;
+    const colorInput = document.createElement("input");
+    colorInput.type = "color";
+    colorInput.id = labelId;
+    colorInput.value = defaultColor;
+    const debounceColorHandler = debounce((e) => {
+        const settings = loadCustomSettings();
+        settings.bg[bgMode][bgModeVariable] = e.target.value;
+        colorInput.value = e.target.value;
+        saveCustomSettings(settings);
+
+        if (typeof onChangeCallback === "function") {
+            onChangeCallback(settings);
+        }
+    }, 200);
+    colorInput.addEventListener("input", debounceColorHandler);
+    colorLabel.appendChild(colorInput);
+
+    return colorLabel;
+}
+
+function createRangeInput(labelText, labelId, labelMin, labelMax, labelStep, defaultValue, bgMode, bgModeVariable, onChangeCallback) {
+    const rangeLabel = document.createElement("label");
+    rangeLabel.setAttribute("for", labelId);
+    rangeLabel.textContent = labelText;
+    const rangeInput = document.createElement("input");
+    rangeInput.type = "range";
+    rangeInput.id = labelId;
+    rangeInput.min = labelMin;
+    rangeInput.max = labelMax;
+    rangeInput.step = labelStep;
+    rangeInput.value = defaultValue;
+    const debounceSizeHandler = debounce((e) => {
+        const settings = loadCustomSettings();
+        settings.bg[bgMode][bgModeVariable] = e.target.value;
+        rangeInput.value = e.target.value;
+        saveCustomSettings(settings);
+
+        if (typeof onChangeCallback === "function") {
+            onChangeCallback(settings);
+        }
+    }, 200);
+    rangeInput.addEventListener("input", debounceSizeHandler);
+    rangeLabel.appendChild(rangeInput);
+
+    return rangeLabel;
+}
+
+function createCheckbox(labelText, labelId, defaultValue, bgMode, bgModeVariable, onChangeCallback) {
+    const rangeLabel = document.createElement("label");
+    rangeLabel.setAttribute("for", labelId);
+    rangeLabel.textContent = labelText;
+    const checkboxInput = document.createElement("input");
+    checkboxInput.type = "checkbox";
+    checkboxInput.id = labelId;
+    checkboxInput.checked = defaultValue;
+    const debounceSizeHandler = debounce((e) => {
+        const settings = loadCustomSettings();
+        settings.bg[bgMode][bgModeVariable] = e.target.checked;
+        checkboxInput.checked = e.target.checked;
+        saveCustomSettings(settings);
+
+        if (typeof onChangeCallback === "function") {
+            onChangeCallback(settings);
+        }
+    }, 200);
+    checkboxInput.addEventListener("change", debounceSizeHandler);
+    rangeLabel.appendChild(checkboxInput);
+
+    return rangeLabel;
+}
+

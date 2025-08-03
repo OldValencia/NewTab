@@ -551,3 +551,8 @@ input[type="radio"]:checked {
     margin-top: 12px;
     padding-bottom: 40px;
 }
+
+.procedural-controls-element {
+    margin-bottom: 10px;
+    padding-left: 30px;
+}
