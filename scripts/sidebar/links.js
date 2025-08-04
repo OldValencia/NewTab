@@ -169,7 +169,17 @@ linksColorInput.addEventListener("input", () => {
     saveCustomSettings(settings);
     const links = getLinksFromStorage();
     renderLinks(links);
-})
+});
+
+linksColorInput.addEventListener("contextmenu", (e) => {
+    e.preventDefault();
+    linksColorInput.value = "#cccccc";
+    const settings = loadCustomSettings();
+    settings.links.linkColor = linksColorInput.value;
+    saveCustomSettings(settings);
+    const links = getLinksFromStorage();
+    renderLinks(links);
+});
 
 toggleUnderlineLinksOnHover.addEventListener("click", () => {
     const settings = loadCustomSettings();
