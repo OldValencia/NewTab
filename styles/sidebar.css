@@ -227,6 +227,15 @@
     justify-content: center;
     width: 100% !important;
     padding: 6px 0;
+    gap: 5px;
+}
+
+.links-toggle-control .toggle-control-second-line label:nth-child(1) {
+    width: 60% !important;
+}
+
+.links-toggle-control .toggle-control-second-line label:nth-child(2) {
+    width: 40% !important;
 }
 
 .links-toggle-control, .section-toggle-controls {

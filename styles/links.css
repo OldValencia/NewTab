@@ -14,14 +14,13 @@
     align-items: center;
     gap: 6px;
     font-size: 16px;
-    color: #ccc;
     text-decoration: none;
     opacity: 0.9;
-    transition: opacity 0.2s;
+    transition: opacity 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
 .link:hover {
-    color: white;
+    color: var(--link-hover-color) !important;
     opacity: 1;
     text-decoration: none;
 }

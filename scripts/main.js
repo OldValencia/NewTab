@@ -65,7 +65,7 @@ function applyBackgroundFit(fit) {
     }
 }
 
-function adjustColor(hex, percent) {
+function adjustColor(hex, percent) {//percent positive - lightens the color, negative - darkens it
     const rgb = hex.replace("#", "").match(/.{2}/g).map(x => parseInt(x, 16));
     const adjusted = rgb.map(c => {
         const delta = Math.round(255 * percent);
