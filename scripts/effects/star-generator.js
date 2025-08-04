@@ -27,7 +27,7 @@ function disableStarfield() {
 
 function enableStarfield() {
     disableStarfield();
-    disableDynamicBackground();
+    cleanupBeforeEnableBackground();
     for (let i = 0; i < STARFIELD_CONFIG.numStars; i++) createStar();
     for (let i = 0; i < STARFIELD_CONFIG.numMiniStars; i++) createStar({mini: true});
     window.starfieldInterval = setInterval(() => {

@@ -56,11 +56,9 @@ function enableSolarSystem() {
             body.style.marginLeft = `${-p.size / 2}px`;
             body.style.background = p.color;
             if (p.belt) {
-                // Удаляем boxShadow у body
                 body.style.background = "transparent";
                 body.style.boxShadow = "none";
 
-                // Создаём отдельный элемент для астероидов
                 const beltCore = document.createElement("div");
                 beltCore.style.position = "absolute";
                 beltCore.style.top = "50%";
@@ -74,7 +72,6 @@ function enableSolarSystem() {
                 beltCore.style.boxShadow = generateAsteroidBelt();
                 planet.appendChild(beltCore);
             } else {
-                // Обычные планеты
                 body.style.boxShadow = "inset 0 6px 0 -2px rgba(0, 0, 0, 0.25)";
             }
             planet.appendChild(body);

@@ -212,11 +212,9 @@ function enableProceduralBackground(mode) {
     document.body.style.backgroundColor = "#000";
 
     const allProceduralControls = document.querySelectorAll(".procedural-controls-element");
-    if (allProceduralControls.length > 0) {
-        allProceduralControls.forEach(control => {
-            control.style.display = "none";
-        });
-    }
+    allProceduralControls.forEach(control => {
+        control.style.display = "none";
+    });
 
     const proceduralControls = document.getElementById(`procedural-controls--${mode}`);
     if (proceduralControls) {
@@ -224,40 +222,22 @@ function enableProceduralBackground(mode) {
         proceduralControls.style.display = "block";
     }
 
-    switch (mode) {
-        case "stars":
-            enableStarfield();
-            break;
-        case "blobFlow":
-            enableBlowFlowWithProceduralControls(proceduralControls);
-            break;
-        case "nebulaDust":
-            enableNebulaDustWithProceduralControls(proceduralControls);
-            break;
-        case "glassGrid":
-            enableGlassGridWithProceduralControls(proceduralControls);
-            break;
-        case "orbitalRings":
-            enableOrbitalRingsWithProceduralControls(proceduralControls);
-            break;
-        case "particleDrift":
-            enableParticleDriftWithProceduralControls(proceduralControls);
-            break;
-        case "cloudySpiral":
-            enableCloudySpiralWithProceduralControls(proceduralControls);
-            break;
-        case "solarSystem":
-            enableSolarSystem();
-            break;
-        case "waves":
-            enableWavesBackgroundWithProceduralControls(proceduralControls);
-            break;
-        case "fallingLines":
-            enableFallingLinesBackgroundWithProceduralControls(proceduralControls);
-            break;
-        case "floatingCircles":
-            enableFloatingCirclesBackgroundWithProceduralControls(proceduralControls);
-            break;
+    const modeHandlers = {
+        "stars": () => enableStarfield(),
+        "solarSystem": () => enableSolarSystem(),
+        "blobFlow": () => enableBlowFlowWithProceduralControls(proceduralControls),
+        "nebulaDust": () => enableNebulaDustWithProceduralControls(proceduralControls),
+        "glassGrid": () => enableGlassGridWithProceduralControls(proceduralControls),
+        "orbitalRings": () => enableOrbitalRingsWithProceduralControls(proceduralControls),
+        "particleDrift": () => enableParticleDriftWithProceduralControls(proceduralControls),
+        "cloudySpiral": () => enableCloudySpiralWithProceduralControls(proceduralControls),
+        "waves": () => enableWavesBackgroundWithProceduralControls(proceduralControls),
+        "fallingLines": () => enableFallingLinesBackgroundWithProceduralControls(proceduralControls),
+        "floatingCircles": () => enableFloatingCirclesBackgroundWithProceduralControls(proceduralControls)
+    };
+
+    if (modeHandlers[mode.toString()]) {
+        modeHandlers[mode.toString()]();
     }
 }
 
