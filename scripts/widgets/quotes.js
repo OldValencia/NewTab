@@ -80,27 +80,31 @@ function applyQuoteSettings() {
     quoteToggleElement.checked = settings.quoteShowState;
 }
 
-function setupQuoteWidgetControls() {
-    quoteFontElement.addEventListener("change", e => {
+function setupQuoteWidgetControlListener(element, jsonVariable, defaultValue) {
+    element.addEventListener("change", e => {
         const settings = loadCustomSettings();
-        settings.quoteFont = e.target.value;
+        settings[jsonVariable] = e.target.value;
         saveCustomSettings(settings);
         applyQuoteSettings();
     });
 
-    quoteColorElement.addEventListener("input", e => {
+    element.addEventListener("contextmenu", (e) => {
+        e.preventDefault();
         const settings = loadCustomSettings();
-        settings.quoteColor = e.target.value;
+        settings[jsonVariable] = defaultValue;
+        element.value = defaultValue;
         saveCustomSettings(settings);
         applyQuoteSettings();
     });
+}
 
-    quoteSizeElement.addEventListener("input", e => {
-        const settings = loadCustomSettings();
-        settings.quoteSize = e.target.value;
-        saveCustomSettings(settings);
-        applyQuoteSettings();
-    });
+document.addEventListener("DOMContentLoaded", () => {
+    loadQuoteOfTheDay();
+    applyQuoteSettings();
+
+    setupQuoteWidgetControlListener(quoteFontElement, "quoteFont", quoteDefaultFont);
+    setupQuoteWidgetControlListener(quoteColorElement, "quoteColor", quoteDefaultColor);
+    setupQuoteWidgetControlListener(quoteSizeElement, "quoteSize", quoteDefaultTextSize);
 
     quoteToggleElement.addEventListener("change", e => {
         const settings = loadCustomSettings();
@@ -118,10 +122,4 @@ function setupQuoteWidgetControls() {
         saveCustomSettings(settings);
         applyQuoteSettings();
     });
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-    loadQuoteOfTheDay();
-    applyQuoteSettings();
-    setupQuoteWidgetControls();
 });

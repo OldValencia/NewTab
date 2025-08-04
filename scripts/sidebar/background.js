@@ -753,6 +753,25 @@ function resetBgSettings() {
     applyProceduralBackground("stars");
 }
 
+function addListenerForInputControl(control, jsonVariable, defaultValue) {
+    control.addEventListener("input", (e) => {
+        const blur = parseInt(e.target.value);
+        const settings = loadCustomSettings();
+        settings.bg[jsonVariable] = blur;
+        saveCustomSettings(settings);
+        applyBackgroundEffects(settings);
+    });
+
+    control.addEventListener("contextmenu", (e) => {
+        e.preventDefault();
+        const settings = loadCustomSettings();
+        settings.bg[jsonVariable] = defaultValue;
+        control.value = settings.bg[jsonVariable];
+        saveCustomSettings(settings);
+        applyBackgroundEffects(settings);
+    });
+}
+
 const debouncedSearch = debounce(async (query) => {
     if (query.trim()) {
         await fetchSearchResults(query.trim());
@@ -833,29 +852,9 @@ document.getElementById("bg-search").addEventListener("input", (e) => {
     debouncedSearch(e.target.value);
 });
 
-blurControl.addEventListener("input", (e) => {
-    const blur = parseInt(e.target.value);
-    const settings = loadCustomSettings();
-    settings.bg.bgBlur = blur;
-    saveCustomSettings(settings);
-    applyBackgroundEffects(settings);
-});
-
-brightnessControl.addEventListener("input", (e) => {
-    const brightness = parseInt(e.target.value);
-    const settings = loadCustomSettings();
-    settings.bg.bgBrightness = brightness;
-    saveCustomSettings(settings);
-    applyBackgroundEffects(settings);
-});
-
-vignetteControl.addEventListener("input", (e) => {
-    const vignette = parseInt(e.target.value);
-    const settings = loadCustomSettings();
-    settings.bg.bgVignette = vignette;
-    saveCustomSettings(settings);
-    applyBackgroundEffects(settings);
-});
+addListenerForInputControl(blurControl, "bgBlur", 20);
+addListenerForInputControl(brightnessControl, "bgBrightness", 100);
+addListenerForInputControl(vignetteControl, "bgVignette", 5);
 
 document.getElementById("reset-bg").addEventListener("click", resetBgSettings);
 

@@ -100,6 +100,19 @@ function createColorInput(labelText, labelId, defaultColor, bgMode, bgModeVariab
         }
     }, 200);
     colorInput.addEventListener("input", debounceColorHandler);
+
+    colorInput.addEventListener("contextmenu", (e) => {
+        e.preventDefault();
+        const settings = loadCustomSettings();
+        settings.bg[bgMode][bgModeVariable] = defaultColor;
+        colorInput.value = settings.bg[bgMode][bgModeVariable];
+        saveCustomSettings(settings);
+
+        if (typeof onChangeCallback === "function") {
+            onChangeCallback(settings);
+        }
+    });
+
     colorLabel.appendChild(colorInput);
 
     return colorLabel;
@@ -127,6 +140,19 @@ function createRangeInput(labelText, labelId, labelMin, labelMax, labelStep, def
         }
     }, 200);
     rangeInput.addEventListener("input", debounceSizeHandler);
+
+    rangeInput.addEventListener("contextmenu", (e) => {
+        e.preventDefault();
+        const settings = loadCustomSettings();
+        settings.bg[bgMode][bgModeVariable] = defaultValue;
+        rangeInput.value = settings.bg[bgMode][bgModeVariable];
+        saveCustomSettings(settings);
+
+        if (typeof onChangeCallback === "function") {
+            onChangeCallback(settings);
+        }
+    });
+
     rangeLabel.appendChild(rangeInput);
 
     return rangeLabel;
