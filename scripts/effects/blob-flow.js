@@ -1,16 +1,18 @@
-function enableBlobFlow() {
-    disableDynamicBackground();
+function enableBlobFlow(settings) {
+    cleanupBeforeEnableBackground("blob-canvas");
+
     const canvas = document.createElement("canvas");
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     canvas.id = "blob-canvas";
     backgroundLayer.appendChild(canvas);
+    backgroundLayer.style.backgroundColor = settings.bg.blobFlow.backgroundColor;
     const ctx = canvas.getContext("2d");
 
     const blobs = Array.from({ length: 8 }, () => ({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        r: 80 + Math.random() * 60,
+        r: 80 + Math.random() * settings.bg.blobFlow.size,
         vx: (Math.random() - 0.5) * 0.5,
         vy: (Math.random() - 0.5) * 0.5,
         color: `hsla(${Math.random() * 360}, 70%, 80%, 0.4)`
@@ -18,7 +20,7 @@ function enableBlobFlow() {
 
     function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.filter = "blur(40px)";
+        ctx.filter = `blur(${settings.bg.blobFlow.blur}px)`;
         blobs.forEach(b => {
             b.x += b.vx;
             b.y += b.vy;

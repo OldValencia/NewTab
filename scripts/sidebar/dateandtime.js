@@ -130,6 +130,26 @@ function loadTimeAndDate(settings) {
     }
     // Attach event listeners for each clock
     const wrappers = timeAndDateControlsContainer.querySelectorAll('.time-and-date-wrapper');
+
+    function addEventListenerFor(element, inputEventType, i, jsonVariable, defaultValue) {
+        element.addEventListener(inputEventType, (e) => {
+            const settings = loadCustomSettings();
+            const clockSettings = settings.clocks[i];
+            clockSettings[jsonVariable] = e.target.value;
+            saveCustomSettings(settings);
+            updateTime();
+        });
+        element.addEventListener("contextmenu", (e) => {
+            e.preventDefault();
+            const settings = loadCustomSettings();
+            const clockSettings = settings.clocks[i];
+            clockSettings[jsonVariable] = defaultValue;
+            element.value = clockSettings[jsonVariable];
+            saveCustomSettings(settings);
+            updateTime();
+        });
+    }
+
     for (let i = 0; i < wrappers.length; i++) {
         const wrapper = wrappers[i];
         const timeFontSelect = wrapper.querySelector(`#time-font-${i}`);
@@ -162,55 +182,14 @@ function loadTimeAndDate(settings) {
         saveCustomSettings(settings);
 
         // Save changes
-        timeFontSelect.addEventListener("change", (e) => {
-            const settings = loadCustomSettings();
-            const clockSettings = settings.clocks[i];
-            clockSettings.timeFont = e.target.value;
-            saveCustomSettings(settings);
-            updateTime();
-        });
-        timeColorInput.addEventListener("input", (e) => {
-            const settings = loadCustomSettings();
-            const clockSettings = settings.clocks[i];
-            clockSettings.timeColor = e.target.value;
-            saveCustomSettings(settings);
-            updateTime();
-        });
-        dateFontSelect.addEventListener("change", (e) => {
-            const settings = loadCustomSettings();
-            const clockSettings = settings.clocks[i];
-            clockSettings.dateFont = e.target.value;
-            saveCustomSettings(settings);
-            updateTime();
-        });
-        dateColorInput.addEventListener("input", (e) => {
-            const settings = loadCustomSettings();
-            const clockSettings = settings.clocks[i];
-            clockSettings.dateColor = e.target.value;
-            saveCustomSettings(settings);
-            updateTime();
-        });
-        timeFormatSelect.addEventListener("change", (e) => {
-            const settings = loadCustomSettings();
-            const clockSettings = settings.clocks[i];
-            clockSettings.timeFormat = e.target.value;
-            saveCustomSettings(settings);
-            updateTime();
-        });
-        timezoneSelect.addEventListener("change", (e) => {
-            const settings = loadCustomSettings();
-            const clockSettings = settings.clocks[i];
-            clockSettings.timezone = e.target.value;
-            saveCustomSettings(settings);
-            updateTime();
-        });
-        dateFormatSelect.addEventListener("change", (e) => {
-            const settings = loadCustomSettings();
-            const clockSettings = settings.clocks[i];
-            clockSettings.dateFormat = e.target.value;
-            saveCustomSettings(settings);
-            updateTime();
-        });
+        addEventListenerFor(timeFontSelect, "input", i, "timeFont", defaultTimeAndDateFont);
+        addEventListenerFor(timeColorInput, "input", i, "timeColor", defaultTimeColor);
+        addEventListenerFor(dateFontSelect, "change", i, "dateFont", defaultTimeAndDateFont);
+        addEventListenerFor(dateColorInput, "input", i, "dateColor", defaultDateColor);
+        addEventListenerFor(timeFormatSelect, "change", i, "timeFormat", "24");
+        addEventListenerFor(timezoneSelect, "change", i, "timezone", "local");
+        addEventListenerFor(dateFormatSelect, "change", i, "dateFormat", "day-month-year");
+
         removeElementBtn.addEventListener("click", () => {
             const settings = loadCustomSettings();
             if (timeAndDateControlsContainer.childNodes.length > 1) {

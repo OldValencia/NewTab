@@ -4,6 +4,7 @@ const addLinkBtn = document.getElementById("add-link");
 const toggleLinksCheckbox = document.getElementById("toggle-links");
 const toggleOpenInNewTab = document.getElementById("toggle-open-in-new-tab");
 const toggleUnderlineLinksOnHover = document.getElementById("toggle-links-underline");
+const linksColorInput = document.getElementById("links-color");
 
 function renderEditor(links) {
     linksEditor.innerHTML = "";
@@ -94,7 +95,8 @@ function loadLinks(settings) {
         settings.links = {
             underlineLinksOnHover: false,
             showLinks: true,
-            openInNewTabState: false
+            openInNewTabState: false,
+            linkColor: "#ccc"
         };
         saveCustomSettings(settings);
     }
@@ -102,6 +104,7 @@ function loadLinks(settings) {
     renderEditor(links);
 
     linksContainer.style.display = settings.links.showLinks ? "grid" : "none";
+    linksColorInput.value = settings.links.linkColor;
 
     let cols = settings.cols || 3;
     colsValue.textContent = cols;
@@ -158,6 +161,24 @@ addLinkBtn.addEventListener("click", () => {
     saveLinksToStorage(links);
     renderLinks(links);
     renderEditor(links);
+});
+
+linksColorInput.addEventListener("input", () => {
+    const settings = loadCustomSettings();
+    settings.links.linkColor = linksColorInput.value;
+    saveCustomSettings(settings);
+    const links = getLinksFromStorage();
+    renderLinks(links);
+});
+
+linksColorInput.addEventListener("contextmenu", (e) => {
+    e.preventDefault();
+    linksColorInput.value = "#cccccc";
+    const settings = loadCustomSettings();
+    settings.links.linkColor = linksColorInput.value;
+    saveCustomSettings(settings);
+    const links = getLinksFromStorage();
+    renderLinks(links);
 });
 
 toggleUnderlineLinksOnHover.addEventListener("click", () => {

@@ -1,19 +1,26 @@
-function enableParticleDrift() {
-    disableDynamicBackground();
+function enableParticleDrift(settings) {
+    cleanupBeforeEnableBackground("particle-canvas");
+
+    const dpr = window.devicePixelRatio || 1;
 
     const canvas = document.createElement("canvas");
     canvas.id = "particle-canvas";
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth * dpr;
+    canvas.height = window.innerHeight * dpr;
+    canvas.style.width = `${window.innerWidth}px`;
+    canvas.style.height = `${window.innerHeight}px`;
     backgroundLayer.appendChild(canvas);
+    backgroundLayer.style.backgroundColor = settings.bg.particleDrift.backgroundColor;
     const ctx = canvas.getContext("2d");
 
-    const particles = Array.from({ length: 100 }, () => ({
+    const particles = Array.from({ length: settings.bg.particleDrift.numberOfParticles }, () => ({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
         vx: (Math.random() - 0.5) * 0.5,
         vy: (Math.random() - 0.5) * 0.5
     }));
+    const fillStyle = hexToRgba(settings.bg.particleDrift.particlesColor, 0.7);
+
 
     function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -26,7 +33,7 @@ function enableParticleDrift() {
 
             ctx.beginPath();
             ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
-            ctx.fillStyle = "rgba(255,255,255,0.7)";
+            ctx.fillStyle = fillStyle;
             ctx.fill();
 
             particles.forEach(other => {
@@ -37,7 +44,7 @@ function enableParticleDrift() {
                     ctx.beginPath();
                     ctx.moveTo(p.x, p.y);
                     ctx.lineTo(other.x, other.y);
-                    ctx.strokeStyle = `rgba(255,255,255,${1 - dist / 100})`;
+                    ctx.strokeStyle = `${hexToRgba(settings.bg.particleDrift.particlesColor, 1 - dist / 100)}`;
                     ctx.lineWidth = 0.5;
                     ctx.stroke();
                 }

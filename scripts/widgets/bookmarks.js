@@ -12,10 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
     loadBookmarks();
     renderPinned();
 
-    openBookmarksSidebarBtn.addEventListener("click", () => {
-        bookmarkSidebar.classList.toggle("hidden");
-        openBookmarksSidebarBtn.classList.toggle("shifted");
-    });
+    openBookmarksSidebarBtn.addEventListener("click", openBookmarksSidebar);
 
     setupCheckbox(toggleEmptyFoldersCheckbox, "showEmptyFolders", true, () => {
         renderBookmarkTree(allBookmarks, bookmarkTree);
@@ -31,6 +28,11 @@ document.addEventListener("DOMContentLoaded", () => {
         filterBookmarks(query);
     });
 });
+
+function openBookmarksSidebar() {
+    bookmarkSidebar.classList.toggle("hidden");
+    openBookmarksSidebarBtn.classList.toggle("shifted");
+}
 
 function getBookmarkSetting(key, defaultValue) {
     const settings = loadCustomSettings();

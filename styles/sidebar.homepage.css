@@ -1,4 +1,4 @@
-#instructions {
+.section-content.instructions {
     border: 1px solid #ddd;
     padding: 25px;
     border-radius: 8px;
@@ -7,17 +7,22 @@
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
-#instructions h3 {
+.section-content.instructions h3 {
     margin-top: 0;
     font-size: 18px;
 }
 
-#instructions ol {
+.section-content.instructions ol {
     padding-left: 20px;
     margin: 0;
 }
 
-#instructions li {
+.section-content.instructions ul {
+     padding-left: 20px;
+     margin: 0;
+ }
+
+.section-content.instructions li {
     margin-bottom: 12px;
     font-size: 14px;
 }

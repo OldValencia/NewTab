@@ -1,10 +1,12 @@
 const sidebar = document.getElementById("sidebar");
 const toggleBtn = document.getElementById("menu-toggle");
 
-toggleBtn.addEventListener("click", () => {
+function openMainSidebar() {
     sidebar.classList.toggle("open");
     toggleBtn.classList.toggle("shifted");
-});
+}
+
+toggleBtn.addEventListener("click", openMainSidebar);
 
 document.addEventListener("DOMContentLoaded", async () => {
     const settings = loadCustomSettings();

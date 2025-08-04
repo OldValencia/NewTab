@@ -86,6 +86,10 @@
     display: none;
 }
 
+.template-popup.hidden {
+    display: none;
+}
+
 .sticky-note .controls {
     cursor: move;
     width: 100%;

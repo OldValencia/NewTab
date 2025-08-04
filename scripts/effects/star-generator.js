@@ -18,12 +18,16 @@ const starObserver = new IntersectionObserver((entries) => {
 });
 
 function disableStarfield() {
-    document.querySelectorAll(".star, .mini-star, .shooting-star").forEach(el => el.remove());
+    document.querySelectorAll(".star, .mini-star, .shooting-star").forEach(el => {
+        starObserver.unobserve(el);
+        el.remove();
+    });
     clearInterval(window.starfieldInterval);
 }
 
 function enableStarfield() {
-    disableDynamicBackground();
+    disableStarfield();
+    cleanupBeforeEnableBackground();
     for (let i = 0; i < STARFIELD_CONFIG.numStars; i++) createStar();
     for (let i = 0; i < STARFIELD_CONFIG.numMiniStars; i++) createStar({mini: true});
     window.starfieldInterval = setInterval(() => {
@@ -82,7 +86,6 @@ function throttle(fn, delay) {
 window.addEventListener('resize', throttle(() => {
     const settings = loadCustomSettings();
     if (settings.bg.bgMode === "stars") {
-        disableStarfield();
         enableStarfield();
     }
 }, 1500));

@@ -125,6 +125,17 @@ function updateGreeting() {
     greetingElement.style.color = settings.greetingColor;
 }
 
+function addListenerForInputControl(control, jsonVariable, defaultValue) {
+    control.addEventListener("contextmenu", (e) => {
+        e.preventDefault();
+        const settings = loadCustomSettings();
+        settings[jsonVariable] = defaultValue;
+        control.value = defaultValue;
+        saveCustomSettings(settings);
+        updateGreeting();
+    });
+}
+
 // Reset button
 greetingResetButton.addEventListener("click", () => {
     greetingFontSelect.value = defaultGreetingFont;
@@ -139,6 +150,13 @@ greetingResetButton.addEventListener("click", () => {
 [greetingFontSelect, greetingColorInput, greetingSizeInput, greetingToggleCheckbox, greetingUsernameInput].forEach(el => {
     el.addEventListener("input", saveGreetingSettings);
 });
+
+[
+    [greetingFontSelect, "greetingFont", defaultGreetingFont],
+    [greetingColorInput, "greetingColor", defaultGreetingColor],
+    [greetingSizeInput, "greetingSize", defaultGreetingTextSize],
+    [greetingUsernameInput, "userName", defaultGreetingUsername]
+].forEach(args => addListenerForInputControl(...args));
 
 document.addEventListener("DOMContentLoaded", () => {
     loadGreetingSettings();

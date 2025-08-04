@@ -36,6 +36,8 @@ function renderLinks(links) {
         const a = document.createElement("a");
         a.className = "link";
         a.href = link.url;
+        a.style.color = adjustColor(settings.links.linkColor, -0.2);
+        a.style.setProperty("--link-hover-color", adjustColor(settings.links.linkColor, 0.3));
         if (settings.links.openInNewTabState) {
             a.target = "_blank";
         }

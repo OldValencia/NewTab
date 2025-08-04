@@ -49,6 +49,13 @@ function loadStickyNotes() {
                 localStorage.removeItem(note.id);
                 note.remove();
             });
+            const foundNotesInLocalStorage = Object.keys(localStorage).filter(key => key.startsWith("sticky-note-"));
+            foundNotesInLocalStorage.forEach(foundNoteInLocalStorage => {
+                localStorage.removeItem(foundNoteInLocalStorage);
+            });
+
+            noteCounter = 0;
+            stickyNoteOffset = 0;
         }
     });
 
