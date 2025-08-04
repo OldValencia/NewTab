@@ -29,8 +29,29 @@ function getContrastYIQ(hexcolor) {
     return (yiq >= 180) ? '#222' : '#fff';
 }
 
-function createStickyNote(data = {}) {
-    const noteId = `sticky-note-${noteCounter++}`;
+function createStickyNote(key, data = {}) {
+    const existingIds = new Set(
+        Array.from(document.querySelectorAll(".sticky-note")).map(note => note.id)
+    );
+
+    let noteId = key || `sticky-note-${noteCounter++}`;
+    let shouldMoveData = false;
+    if (key && existingIds.has(key)) {
+        shouldMoveData = true;
+    }
+
+    while (existingIds.has(noteId)) {
+        noteId = `sticky-note-${noteCounter++}`;
+    }
+
+    if (shouldMoveData) {
+        const oldData = localStorage.getItem(key);
+        if (oldData) {
+            localStorage.removeItem(key);
+            localStorage.setItem(noteId, data);
+        }
+    }
+
     const noteWidth = 200;
     const noteHeight = 200;
     const margin = 20;
@@ -83,7 +104,7 @@ function createStickyNote(data = {}) {
     const templateBtn = createBtn("create-template-btn", "📄");
     const todoBtn = createBtn("create-todo-btn", "📝");
     const boldBtn = createBtn("create-bold-btn", "B");
-    const italicBtn = createBtn( "create-italic-btn", "I");
+    const italicBtn = createBtn("create-italic-btn", "I");
     const underlineBtn = createBtn("create-underline-btn", "U");
     const strikethroughBtn = createBtn("create-strikethrough-btn", "S");
 
@@ -579,6 +600,15 @@ function removeNote(id) {
         el.remove();
     }
     localStorage.removeItem(id);
+
+    // clear all if all visible notes are removed
+    const notes = document.querySelectorAll(".sticky-note");
+    if (notes.length === 0) {
+        const foundNotesInLocalStorage = Object.keys(localStorage).filter(key => key.startsWith("sticky-note-"));
+        foundNotesInLocalStorage.forEach(foundNoteInLocalStorage => {
+            localStorage.removeItem(foundNoteInLocalStorage);
+        });
+    }
 }
 
 document.getElementById("add-sticky-note").addEventListener("click", () => {
@@ -592,7 +622,7 @@ window.addEventListener("DOMContentLoaded", () => {
     Object.keys(localStorage).forEach(key => {
         if (key.startsWith("sticky-note-") && !loaded.has(key)) {
             const data = JSON.parse(localStorage.getItem(key));
-            createStickyNote(data);
+            createStickyNote(key, data);
             loaded.add(key);
         }
     });
