@@ -166,6 +166,20 @@ function createStickyNote(key, data = {}) {
         templatePopup.appendChild(btn);
     });
 
+    const closeBtn = createBtn("template-option-btn", "Close templates");
+    closeBtn.style.display = "block";
+    closeBtn.style.width = "100%";
+    closeBtn.style.marginTop = "10px";
+    closeBtn.addEventListener("click", () => {
+        syncRenderedDiv();
+        templatePopup.classList.add("hidden");
+        textarea.classList.remove("hidden");
+        renderedDiv.classList.add("hidden");
+        note.classList.add("editing");
+        textarea.focus();
+    });
+    templatePopup.appendChild(closeBtn);
+
 
     controls.appendChild(templateBtn);
     controls.appendChild(todoBtn);
