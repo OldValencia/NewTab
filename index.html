@@ -73,7 +73,7 @@
             <button class="toggle-section">+</button>
         </div>
         <div class="section-content">
-            <div id="instructions">
+            <div class="instructions">
                 <h3>How to set this page as your Homepage in Firefox:</h3>
                 <ol>
                     <li>Open Firefox Settings (Menu → Settings).</li>
@@ -82,6 +82,24 @@
                     <input type="text" id="homepage-url-input" readonly/>
                     <button id="copy-homepage-url">Copy URL</button>
                     <li>Press Enter and close the settings tab.</li>
+                </ol>
+            </div>
+        </div>
+    </section>
+    <section data-section="hotkeys-section">
+        <div class="section-header">
+            <span class="section-icon">⌨️</span>
+            <h3>Hotkeys</h3>
+            <button class="toggle-section">+</button>
+        </div>
+        <div class="section-content">
+            <div class="instructions">
+                <h3>List of hotkeys available in the extension:</h3>
+                <ol>
+                    <li><strong>Right Mouse Click</strong> on any input field (color, font, or text input) - the field will revert to default setting</li>
+                    <li><strong>Ctrl + Shift + Left</strong> to open the bookmarks sidebar (if it is enabled in the settings)</li>
+                    <li><strong>Ctrl + Shift + Right</strong> to open the main sidebar</li>
+                    <li><strong>Ctrl + Shift + Up</strong> to create a sticky note (if it is enabled in the settings)</li>
                 </ol>
             </div>
         </div>
@@ -521,5 +539,7 @@
 <script src="scripts/sidebar/bookmarks.js"></script>
 <script src="scripts/sidebar/search.js"></script>
 <script src="scripts/sidebar/sidebar.js"></script>
+
+<script src="scripts/hotkeys.js"></script>
 </body>
 </html>
