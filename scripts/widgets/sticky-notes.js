@@ -73,26 +73,86 @@ function createStickyNote(data = {}) {
     controls.className = "controls";
 
     // Content controls
-    const todoBtn = document.createElement("button");
-    todoBtn.className = "create-todo-btn";
-    todoBtn.textContent = "📝";
-    const boldBtn = document.createElement("button");
-    boldBtn.className = "create-bold-btn";
-    boldBtn.textContent = "B";
-    const italicBtn = document.createElement("button");
-    italicBtn.className = "create-italic-btn";
-    italicBtn.textContent = "I";
-    const underlineBtn = document.createElement("button");
-    underlineBtn.className = "create-underline-btn";
-    underlineBtn.textContent = "U";
-    const strikethroughBtn = document.createElement("button");
-    strikethroughBtn.className = "create-strikethrough-btn";
-    strikethroughBtn.textContent = "S";
+    const createBtn = (className, textContent) => {
+        const btn = document.createElement("button");
+        btn.className = className;
+        btn.textContent = textContent;
+        return btn;
+    }
+
+    const templateBtn = createBtn("create-template-btn", "📄");
+    const todoBtn = createBtn("create-todo-btn", "📝");
+    const boldBtn = createBtn("create-bold-btn", "B");
+    const italicBtn = createBtn( "create-italic-btn", "I");
+    const underlineBtn = createBtn("create-underline-btn", "U");
+    const strikethroughBtn = createBtn("create-strikethrough-btn", "S");
+
+    // Template selection popup
+    const templatePopup = document.createElement("div");
+    templatePopup.className = "template-popup hidden";
+    templatePopup.style.position = "absolute";
+    templatePopup.style.top = "40px";
+    templatePopup.style.left = "0";
+    templatePopup.style.background = "#fff";
+    templatePopup.style.border = "1px solid #ccc";
+    templatePopup.style.boxShadow = "0 2px 8px rgba(0,0,0,0.15)";
+    templatePopup.style.zIndex = "10002";
+    templatePopup.style.padding = "8px";
+    templatePopup.style.minWidth = "180px";
+
+    const templates = [
+        {
+            name: "To-Do List",
+            value: '[bold]To-Do List[/bold]\n' + Array.from({length: 10}, (_, i) => `${i + 1}. [todo type="unchecked"] [/todo]`).join("\n")
+        },
+        {
+            name: "Article Link",
+            value: '[bold]Article Title[/bold]\n[italic]Link:[/italic] https://'
+        },
+        {
+            name: "Meeting Notes",
+            value: `[bold]Meeting Notes[/bold]\n[italic]Date:[/italic] \n[italic]Attendees:[/italic] \n- \n[italic]Summary:[/italic] `
+        },
+        {
+            name: "Shopping List",
+            value: '[bold]Shopping List[/bold]\n' + Array.from({length: 5}, (_, i) => `${i + 1}. [todo type="unchecked"][/todo]`).join("\n")
+        },
+        {
+            name: "Quick Reminder",
+            value: '[bold]Reminder[/bold]\n[italic]Don\'t forget to:[/italic] '
+        },
+        {
+            name: "Project Plan",
+            value: `[bold]Project Plan[/bold]\n[italic]Goal:[/italic] \n[italic]Steps:[/italic] \n- `
+        }
+    ];
+
+    templates.forEach(t => {
+        const btn = createBtn("template-option-btn", t.name);
+        btn.style.display = "block";
+        btn.style.width = "100%";
+        btn.style.margin = "2px 0";
+        btn.addEventListener("click", () => {
+            textarea.value = t.value;
+            syncRenderedDiv();
+            saveNote(noteId);
+            templatePopup.classList.add("hidden");
+            textarea.classList.remove("hidden");
+            renderedDiv.classList.add("hidden");
+            note.classList.add("editing");
+            textarea.focus();
+        });
+        templatePopup.appendChild(btn);
+    });
+
+
+    controls.appendChild(templateBtn);
     controls.appendChild(todoBtn);
     controls.appendChild(boldBtn);
     controls.appendChild(italicBtn);
     controls.appendChild(underlineBtn);
     controls.appendChild(strikethroughBtn);
+    controls.appendChild(templatePopup);
 
     // Top right buttons
     const customizeBtn = document.createElement("button");
@@ -237,6 +297,10 @@ function createStickyNote(data = {}) {
         note.classList.toggle("editing");
         renderedDiv.classList.remove("hidden");
         syncRenderedDiv();
+    });
+
+    templateBtn.addEventListener("click", () => {
+        templatePopup.classList.toggle("hidden");
     });
 
     todoBtn.addEventListener("click", () => {
