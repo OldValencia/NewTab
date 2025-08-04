@@ -282,6 +282,15 @@ function createStickyNote(key, data = {}) {
     renderedDiv.className = "sticky-note-rendered-duplicate hidden";
     renderedDiv.tabIndex = 0;
 
+    renderedDiv.addEventListener("mouseup", () => {
+        const selection = window.getSelection();
+        if (!selection || selection.rangeCount === 0) return;
+        textarea.classList.remove("hidden");
+        renderedDiv.classList.add("hidden");
+        note.classList.add("editing");
+        textarea.focus();
+    });
+
     // Assemble note
     note.appendChild(controls);
     note.appendChild(customizeMenu);

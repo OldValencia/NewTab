@@ -131,8 +131,8 @@ function loadTimeAndDate(settings) {
     // Attach event listeners for each clock
     const wrappers = timeAndDateControlsContainer.querySelectorAll('.time-and-date-wrapper');
 
-    function addEventListenerFor(element, i, jsonVariable, defaultValue) {
-        element.addEventListener("change", (e) => {
+    function addEventListenerFor(element, inputEventType, i, jsonVariable, defaultValue) {
+        element.addEventListener(inputEventType, (e) => {
             const settings = loadCustomSettings();
             const clockSettings = settings.clocks[i];
             clockSettings[jsonVariable] = e.target.value;
@@ -182,13 +182,13 @@ function loadTimeAndDate(settings) {
         saveCustomSettings(settings);
 
         // Save changes
-        addEventListenerFor(timeFontSelect, i, "timeFont", defaultTimeAndDateFont);
-        addEventListenerFor(timeColorInput, i, "timeColor", defaultTimeColor);
-        addEventListenerFor(dateFontSelect, i, "dateFont", defaultTimeAndDateFont);
-        addEventListenerFor(dateColorInput, i, "dateColor", defaultDateColor);
-        addEventListenerFor(timeFormatSelect, i, "timeFormat", "24");
-        addEventListenerFor(timezoneSelect, i, "timezone", "local");
-        addEventListenerFor(dateFormatSelect, i, "dateFormat", "day-month-year");
+        addEventListenerFor(timeFontSelect, "input", i, "timeFont", defaultTimeAndDateFont);
+        addEventListenerFor(timeColorInput, "input", i, "timeColor", defaultTimeColor);
+        addEventListenerFor(dateFontSelect, "change", i, "dateFont", defaultTimeAndDateFont);
+        addEventListenerFor(dateColorInput, "input", i, "dateColor", defaultDateColor);
+        addEventListenerFor(timeFormatSelect, "change", i, "timeFormat", "24");
+        addEventListenerFor(timezoneSelect, "change", i, "timezone", "local");
+        addEventListenerFor(dateFormatSelect, "change", i, "dateFormat", "day-month-year");
 
         removeElementBtn.addEventListener("click", () => {
             const settings = loadCustomSettings();

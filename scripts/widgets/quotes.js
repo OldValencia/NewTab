@@ -80,8 +80,8 @@ function applyQuoteSettings() {
     quoteToggleElement.checked = settings.quoteShowState;
 }
 
-function setupQuoteWidgetControlListener(element, jsonVariable, defaultValue) {
-    element.addEventListener("change", e => {
+function setupQuoteWidgetControlListener(element, inputEventType, jsonVariable, defaultValue) {
+    element.addEventListener(inputEventType, e => {
         const settings = loadCustomSettings();
         settings[jsonVariable] = e.target.value;
         saveCustomSettings(settings);
@@ -102,9 +102,9 @@ document.addEventListener("DOMContentLoaded", () => {
     loadQuoteOfTheDay();
     applyQuoteSettings();
 
-    setupQuoteWidgetControlListener(quoteFontElement, "quoteFont", quoteDefaultFont);
-    setupQuoteWidgetControlListener(quoteColorElement, "quoteColor", quoteDefaultColor);
-    setupQuoteWidgetControlListener(quoteSizeElement, "quoteSize", quoteDefaultTextSize);
+    setupQuoteWidgetControlListener(quoteFontElement, "change", "quoteFont", quoteDefaultFont);
+    setupQuoteWidgetControlListener(quoteColorElement, "input", "quoteColor", quoteDefaultColor);
+    setupQuoteWidgetControlListener(quoteSizeElement, "input", "quoteSize", quoteDefaultTextSize);
 
     quoteToggleElement.addEventListener("change", e => {
         const settings = loadCustomSettings();
