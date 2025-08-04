@@ -274,6 +274,8 @@ function startFogEffect() {
         fogWrapper.appendChild(fogCloud);
     }
 
+    cityBtn.style.color = "#000";
+    geoBtn.style.color = "#000";
     weatherWidgetElement.appendChild(fogWrapper);
 }
 
@@ -326,6 +328,8 @@ function startWindEffect() {
 function clearWeatherEffects() {
     const effects = document.querySelectorAll(".weather-effect");
     effects.forEach(el => el.remove());
+    cityBtn.style.color = "#fff";
+    geoBtn.style.color = "#fff";
 }
 
 cityBtn.addEventListener("click", getWeatherByCity);
