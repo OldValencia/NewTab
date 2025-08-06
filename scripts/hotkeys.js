@@ -24,3 +24,19 @@ document.addEventListener("keydown", (e) => {
         }
     }
 });
+
+document.addEventListener('paste', (e) => {
+    const target = e.target;
+
+    const isEditableElement =
+        target.tagName === 'INPUT' ||
+        target.tagName === 'TEXTAREA' ||
+        target.isContentEditable;
+
+    if (isEditableElement) return;
+    if (!getStickyNotesVisibilityState()) return;
+
+    const pastedText = e.clipboardData.getData('text');
+    const noteId = createStickyNote({ text: pastedText });
+    saveNote(noteId);
+});

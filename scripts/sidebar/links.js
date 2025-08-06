@@ -96,7 +96,7 @@ function loadLinks(settings) {
             underlineLinksOnHover: false,
             showLinks: true,
             openInNewTabState: false,
-            linkColor: "#aaaaaa"
+            linkColor: "#dbdbdb"
         };
         saveCustomSettings(settings);
     }
@@ -173,7 +173,7 @@ linksColorInput.addEventListener("input", () => {
 
 linksColorInput.addEventListener("contextmenu", (e) => {
     e.preventDefault();
-    linksColorInput.value = "#aaaaaa";
+    linksColorInput.value = "#dbdbdb";
     const settings = loadCustomSettings();
     settings.links.linkColor = linksColorInput.value;
     saveCustomSettings(settings);

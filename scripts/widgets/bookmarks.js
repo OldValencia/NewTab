@@ -32,6 +32,9 @@ document.addEventListener("DOMContentLoaded", () => {
 function openBookmarksSidebar() {
     bookmarkSidebar.classList.toggle("hidden");
     openBookmarksSidebarBtn.classList.toggle("shifted");
+    if (!bookmarkSidebar.classList.contains("hidden")) {
+        bookmarksSearchInput.focus();
+    }
 }
 
 function getBookmarkSetting(key, defaultValue) {
