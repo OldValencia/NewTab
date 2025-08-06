@@ -34,6 +34,7 @@ document.addEventListener('paste', (e) => {
         target.isContentEditable;
 
     if (isEditableElement) return;
+    if (!getStickyNotesVisibilityState()) return;
 
     const pastedText = e.clipboardData.getData('text');
     const noteId = createStickyNote({ text: pastedText });
