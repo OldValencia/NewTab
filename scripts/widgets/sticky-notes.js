@@ -29,7 +29,7 @@ function getContrastYIQ(hexcolor) {
     return (yiq >= 180) ? '#222' : '#fff';
 }
 
-function createStickyNote(key, data = {}) {
+function createStickyNote(data = {}, key) {
     const existingIds = new Set(
         Array.from(document.querySelectorAll(".sticky-note")).map(note => note.id)
     );
@@ -443,6 +443,7 @@ function createStickyNote(key, data = {}) {
     textarea.classList.add("hidden");
     renderedDiv.classList.remove("hidden");
     syncRenderedDiv();
+    return noteId;
 }
 
 function parseTextTags(text) {
@@ -645,7 +646,7 @@ window.addEventListener("DOMContentLoaded", () => {
     Object.keys(localStorage).forEach(key => {
         if (key.startsWith("sticky-note-") && !loaded.has(key)) {
             const data = JSON.parse(localStorage.getItem(key));
-            createStickyNote(key, data);
+            createStickyNote(data, key);
             loaded.add(key);
         }
     });

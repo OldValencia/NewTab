@@ -24,3 +24,9 @@ document.addEventListener("keydown", (e) => {
         }
     }
 });
+
+document.addEventListener('paste', (e) => {
+    const pastedText = e.clipboardData.getData('text');
+    const noteId = createStickyNote({ text: pastedText });
+    saveNote(noteId);
+});
