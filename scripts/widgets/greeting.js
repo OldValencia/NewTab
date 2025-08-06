@@ -91,6 +91,11 @@ function loadGreetingSettings() {
     }
     greetingToggleCheckbox.checked = settings.greetingEnabled;
 
+    if (settings.userName === undefined || settings.userName === null) {
+        settings.userName = defaultGreetingUsername;
+    }
+    greetingUsernameInput.value = defaultGreetingUsername;
+
     saveCustomSettings(settings);
 }
 
@@ -108,10 +113,6 @@ function saveGreetingSettings() {
 function updateGreeting() {
     loadGreetingSettings();
     const settings = loadCustomSettings();
-    if (!settings.userName) {
-        settings.userName = defaultGreetingUsername;
-        saveCustomSettings(settings);
-    }
 
     if (!settings.greetingEnabled) {
         greetingElement.textContent = "";
