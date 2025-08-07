@@ -1,19 +1,46 @@
 const timeAndDateControlsContainer = document.getElementById("time-and-date-controls");
 const addClockButton = document.getElementById("add-clock");
+const defaultTimeFormat = "24";
+const defaultDateFormat = "day-month-year";
+const defaultTimezone = "local";
 
 function loadTimeAndDate(settings) {
-    if (!settings.timeAndDateElements) {
-        settings.timeAndDateElements = 1;
+    if (!settings.timeAndDate) {
+        settings.timeAndDate = {
+            elements: 1,
+            showTime: true,
+            showDate: true,
+            clocks: [
+                {
+                    timeFont: defaultTimeAndDateFont,
+                    timeColor: defaultTimeColor,
+                    dateFont: defaultTimeAndDateFont,
+                    dateColor: defaultDateColor,
+                    timeFormat: defaultTimeFormat,
+                    dateFormat: defaultDateFormat,
+                    timezone: defaultTimezone
+                }
+            ]
+        }
         saveCustomSettings(settings);
-    }
-    if (!settings.clocks) {
-        settings.clocks = [];
     }
 
     // Clear container
     timeAndDateControlsContainer.innerHTML = "";
+
+    toggleTime.checked = settings.timeAndDate.showTime;
+    const timeElements = multipleClocksWrapper.querySelectorAll('.time');
+    timeElements.forEach(time => {
+        time.style.display = settings.timeAndDate.showTime ? "block" : "none";
+    });
+
+    toggleDate.checked = settings.timeAndDate.showDate;
+    const dateElements = multipleClocksWrapper.querySelectorAll('.date');
+    dateElements.forEach(date => {
+        date.style.display = settings.timeAndDate.showDate ? "block" : "none";
+    });
     // Render controls for each clock
-    for (let i = 0; i < settings.timeAndDateElements; i++) {
+    for (let i = 0; i < settings.timeAndDate.elements; i++) {
         const element = document.createElement("div");
         element.className = `time-and-date-wrapper`;
         element.style.position = "relative";
@@ -134,7 +161,7 @@ function loadTimeAndDate(settings) {
     function addEventListenerFor(element, inputEventType, i, jsonVariable, defaultValue) {
         element.addEventListener(inputEventType, (e) => {
             const settings = loadCustomSettings();
-            const clockSettings = settings.clocks[i];
+            const clockSettings = settings.timeAndDate.clocks[i];
             clockSettings[jsonVariable] = e.target.value;
             saveCustomSettings(settings);
             updateTime();
@@ -142,7 +169,7 @@ function loadTimeAndDate(settings) {
         element.addEventListener("contextmenu", (e) => {
             e.preventDefault();
             const settings = loadCustomSettings();
-            const clockSettings = settings.clocks[i];
+            const clockSettings = settings.timeAndDate.clocks[i];
             clockSettings[jsonVariable] = defaultValue;
             element.value = clockSettings[jsonVariable];
             saveCustomSettings(settings);
@@ -161,24 +188,26 @@ function loadTimeAndDate(settings) {
         const timezoneSelect = wrapper.querySelector(`#timezone-${i}`);
         const removeElementBtn = wrapper.querySelector('.remove-element');
         // Load settings for each clock
-        if (!settings.clocks) {
-            settings.clocks = [];
+        if (!settings.timeAndDate.clocks[i]) {
+            settings.timeAndDate.clocks[i] = {
+                timeFont: defaultTimeAndDateFont,
+                timeColor: defaultTimeColor,
+                dateFont: defaultTimeAndDateFont,
+                dateColor: defaultDateColor,
+                timeFormat: defaultTimeFormat,
+                dateFormat: defaultDateFormat,
+                timezone: defaultTimezone
+            };
             saveCustomSettings(settings);
-
         }
-
-        if (!settings.clocks[i]) {
-            settings.clocks[i] = {};
-            saveCustomSettings(settings);
-        }
-        const clockSettings = settings.clocks[i];
-        timeFontSelect.value = clockSettings.timeFont || defaultTimeAndDateFont;
-        timeColorInput.value = clockSettings.timeColor || defaultTimeColor;
-        dateFontSelect.value = clockSettings.dateFont || defaultTimeAndDateFont;
-        dateColorInput.value = clockSettings.dateColor || defaultDateColor;
-        timeFormatSelect.value = clockSettings.timeFormat || '24';
-        timezoneSelect.value = clockSettings.timezone || 'local';
-        dateFormatSelect.value = clockSettings.dateFormat || 'day-month-year';
+        const clockSettings = settings.timeAndDate.clocks[i];
+        timeFontSelect.value = clockSettings.timeFont;
+        timeColorInput.value = clockSettings.timeColor;
+        dateFontSelect.value = clockSettings.dateFont;
+        dateColorInput.value = clockSettings.dateColor;
+        timeFormatSelect.value = clockSettings.timeFormat ;
+        timezoneSelect.value = clockSettings.timezone;
+        dateFormatSelect.value = clockSettings.dateFormat;
         saveCustomSettings(settings);
 
         // Save changes
@@ -193,21 +222,23 @@ function loadTimeAndDate(settings) {
         removeElementBtn.addEventListener("click", () => {
             const settings = loadCustomSettings();
             if (timeAndDateControlsContainer.childNodes.length > 1) {
-                settings.clocks.splice(i, 1);
-                settings.timeAndDateElements--;
+                settings.timeAndDate.clocks.splice(i, 1);
+                settings.timeAndDate.elements--;
                 saveCustomSettings(settings);
                 loadTimeAndDate(settings);
                 updateTime();
             }
         });
     }
+
+    updateTime();
 }
 
 addClockButton.addEventListener("click", () => {
     const settings = loadCustomSettings();
-    if (!settings.timeAndDateElements) settings.timeAndDateElements = 1;
-    if (settings.timeAndDateElements < 3) {
-        settings.timeAndDateElements++;
+    if (!settings.timeAndDate.elements) settings.timeAndDate.elements = 1;
+    if (settings.timeAndDate.elements < 3) {
+        settings.timeAndDate.elements++;
         saveCustomSettings(settings);
         loadTimeAndDate(settings);
         updateTime();
@@ -216,14 +247,15 @@ addClockButton.addEventListener("click", () => {
 
 document.getElementById("reset-time-date").addEventListener("click", () => {
     const settings = loadCustomSettings();
-    settings.timeAndDateElements = 1;
-    settings.clocks = [{
+    settings.timeAndDate.elements = 1;
+    settings.timeAndDate.clocks = [{
         timeFont: defaultTimeAndDateFont,
         timeColor: defaultTimeColor,
         dateFont: defaultTimeAndDateFont,
         dateColor: defaultDateColor,
-        timeFormat: '24',
-        dateFormat: 'day-month-year'
+        timeFormat: defaultTimeFormat,
+        dateFormat: defaultDateFormat,
+        timezone: defaultTimezone
     }];
     saveCustomSettings(settings);
     loadTimeAndDate(settings);
