@@ -5,7 +5,6 @@
     z-index: 1000;
     font-family: 'Segoe UI', sans-serif;
     border-radius: 16px;
-    mix-blend-mode: difference;
 }
 
 .weather-summary {
@@ -17,6 +16,7 @@
     backdrop-filter: blur(20px);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
     transition: all 0.3s ease;
+    text-shadow: 0 0 3px rgba(0, 0, 0, 0.7);
 }
 
 .weather-panel {
@@ -45,15 +45,17 @@
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
-    background: rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(10px);
     color: #ffffff;
-    transition: background 0.3s ease, color 0.3s ease;
+    text-shadow: 0 0 3px rgba(0, 0, 0, 0.7);
+    transition: background 0.3s ease, color 0.3s ease, text-shadow 0.3s ease;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
 #weather-panel button:hover {
     background: rgba(255, 255, 255, 0.7);
+    text-shadow: 0 0 3px rgba(0, 0, 0, 0.9);
     color: #000000;
 }
 
