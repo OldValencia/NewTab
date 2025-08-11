@@ -7,7 +7,6 @@ let lastX = null;
 let lastTime = null;
 let velocityX = 0;
 
-// Делаем дебаунс один раз
 const debounceMainSidebar = debounce(openMainSidebar, 500);
 const debounceBookmarksSidebar = debounce(openBookmarksSidebar, 500);
 
