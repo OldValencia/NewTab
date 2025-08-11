@@ -147,30 +147,3 @@ toggleDate.addEventListener("change", () => {
 });
 
 setInterval(updateTime, 60000);
-
-document.addEventListener("DOMContentLoaded", () => {
-    const settings = loadCustomSettings();
-    initializeTimeAndDateState(settings);
-
-    toggleTime.addEventListener("change", () => {
-        const settings = loadCustomSettings();
-        const visible = toggleTime.checked;
-        const timeElements = multipleClocksWrapper.querySelectorAll('.time');
-        timeElements.forEach(time => {
-            time.style.display = visible ? "block" : "none";
-        });
-        settings.showTime = visible;
-        saveCustomSettings(settings);
-    });
-
-    toggleDate.addEventListener("change", () => {
-        const settings = loadCustomSettings();
-        const visible = toggleDate.checked;
-        const dateElements = multipleClocksWrapper.querySelectorAll('.date');
-        dateElements.forEach(date => {
-           date.style.display = visible ? "block" : "none";
-        });
-        settings.showDate = visible;
-        saveCustomSettings(settings);
-    });
-});
