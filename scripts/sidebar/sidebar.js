@@ -9,16 +9,14 @@ function openMainSidebar() {
 toggleBtn.addEventListener("click", openMainSidebar);
 
 document.addEventListener("DOMContentLoaded", async () => {
-    const settings = loadCustomSettings();
-
-    await loadBackground(settings);
-    loadTimeAndDate(settings);
-    loadLinks(settings);
+    loadTimeAndDate();
+    await loadLocalization();
+    await loadBackground();
+    loadLinks();
     loadStickyNotes();
-    loadWeatherWidget(settings);
-    loadBookmarksWidget(settings);
-    loadSearchBarWidget(settings);
-    saveCustomSettings(settings);
+    loadWeatherWidget();
+    loadBookmarksWidget();
+    loadSearchBarWidget();
 
     document.querySelectorAll(".toggle-section").forEach(toggleBtn => {
         const section = toggleBtn.closest("section");

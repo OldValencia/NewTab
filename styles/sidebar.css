@@ -157,6 +157,14 @@
     color: #ccc;
 }
 
+.font-control.localization-fix {
+    width: 100% !important;
+}
+
+.font-control.localization-fix label {
+    width: 100% !important;
+}
+
 .links-controls-row {
     display: flex;
     flex-direction: column;

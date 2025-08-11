@@ -148,11 +148,12 @@ function applyBackgroundMode(mode, settings, useFade = true) {
     }
 }
 
-async function loadBackground(settings) {
+async function loadBackground() {
+    let settings = loadCustomSettings();
+
     if (!settings.bg) {
-        resetBgSettings();
+        settings = resetBgSettings();
     }
-    settings = loadCustomSettings();
 
     const modeInput = document.querySelector(`input[value="${settings.bg.bgMode}"]`);
     if (modeInput) {
@@ -225,15 +226,15 @@ function enableProceduralBackground(mode) {
     const modeHandlers = {
         "stars": () => enableStarfield(),
         "solarSystem": () => enableSolarSystem(),
-        "blobFlow": () => enableBlowFlowWithProceduralControls(proceduralControls),
-        "nebulaDust": () => enableNebulaDustWithProceduralControls(proceduralControls),
-        "glassGrid": () => enableGlassGridWithProceduralControls(proceduralControls),
-        "orbitalRings": () => enableOrbitalRingsWithProceduralControls(proceduralControls),
-        "particleDrift": () => enableParticleDriftWithProceduralControls(proceduralControls),
-        "cloudySpiral": () => enableCloudySpiralWithProceduralControls(proceduralControls),
-        "waves": () => enableWavesBackgroundWithProceduralControls(proceduralControls),
-        "fallingLines": () => enableFallingLinesBackgroundWithProceduralControls(proceduralControls),
-        "floatingCircles": () => enableFloatingCirclesBackgroundWithProceduralControls(proceduralControls)
+        "blobFlow": async () => await enableBlowFlowWithProceduralControls(proceduralControls),
+        "nebulaDust": async () => await enableNebulaDustWithProceduralControls(proceduralControls),
+        "glassGrid": async () => await enableGlassGridWithProceduralControls(proceduralControls),
+        "orbitalRings": async () => await enableOrbitalRingsWithProceduralControls(proceduralControls),
+        "particleDrift": async () => await enableParticleDriftWithProceduralControls(proceduralControls),
+        "cloudySpiral": async () => await enableCloudySpiralWithProceduralControls(proceduralControls),
+        "waves": async () => await enableWavesBackgroundWithProceduralControls(proceduralControls),
+        "fallingLines": async () => await enableFallingLinesBackgroundWithProceduralControls(proceduralControls),
+        "floatingCircles": async () => await enableFloatingCirclesBackgroundWithProceduralControls(proceduralControls)
     };
 
     if (modeHandlers[mode.toString()]) {
@@ -241,11 +242,11 @@ function enableProceduralBackground(mode) {
     }
 }
 
-function enableBlowFlowWithProceduralControls(proceduralControls) {
+async function enableBlowFlowWithProceduralControls(proceduralControls) {
     const settings = loadCustomSettings();
 
-    const backgroundColorLabel = createColorInput(
-        "Background color: ",
+    const backgroundColorLabel = await createColorInput(
+        "procedural_controls_background_color_input",
         "bg-color",
         settings.bg.blobFlow.backgroundColor,
         "blobFlow",
@@ -253,8 +254,8 @@ function enableBlowFlowWithProceduralControls(proceduralControls) {
         enableBlobFlow
     );
 
-    const backgroundSizeLabel = createRangeInput(
-        "Size: ",
+    const backgroundSizeLabel = await createRangeInput(
+        "procedural_controls_size_input",
         "bg-blob-size",
         "30",
         "150",
@@ -264,8 +265,8 @@ function enableBlowFlowWithProceduralControls(proceduralControls) {
         "size",
         enableBlobFlow
     );
-    const backgroundBlurLabel = createRangeInput(
-        "Blur: ",
+    const backgroundBlurLabel = await createRangeInput(
+        "procedural_controls_blur_input",
         "bg-blob-blur",
         "0",
         "50",
@@ -283,19 +284,19 @@ function enableBlowFlowWithProceduralControls(proceduralControls) {
     enableBlobFlow(settings);
 }
 
-function enableNebulaDustWithProceduralControls(proceduralControls) {
+async function enableNebulaDustWithProceduralControls(proceduralControls) {
     const settings = loadCustomSettings();
 
-    const backgroundColorLabel = createColorInput(
-        "Background color: ",
+    const backgroundColorLabel = await createColorInput(
+        "procedural_controls_background_color_input",
         "bg-color",
         settings.bg.nebulaDust.backgroundColor,
         "nebulaDust",
         "backgroundColor",
         enableNebulaDust
     );
-    const particlesColorLabel = createColorInput(
-        "Particles color: ",
+    const particlesColorLabel = await createColorInput(
+        "procedural_controls_particles_color_input",
         "bg-particles-color",
         settings.bg.nebulaDust.particlesColor,
         "nebulaDust",
@@ -303,8 +304,8 @@ function enableNebulaDustWithProceduralControls(proceduralControls) {
         enableNebulaDust
     );
 
-    const backgroundParticlesNumberLabel = createRangeInput(
-        "Number of particles: ",
+    const backgroundParticlesNumberLabel = await createRangeInput(
+        "procedural_controls_number_of_particles_input",
         "bg-number-of-particles",
         "30",
         "300",
@@ -322,19 +323,19 @@ function enableNebulaDustWithProceduralControls(proceduralControls) {
     enableNebulaDust(settings);
 }
 
-function enableGlassGridWithProceduralControls(proceduralControls) {
+async function enableGlassGridWithProceduralControls(proceduralControls) {
     const settings = loadCustomSettings();
 
-    const backgroundColorLabel = createColorInput(
-        "Background color: ",
+    const backgroundColorLabel = await createColorInput(
+        "procedural_controls_background_color_input",
         "bg-color",
         settings.bg.glassGrid.backgroundColor,
         "glassGrid",
         "backgroundColor",
         enableGlassGrid
     );
-    const particlesColorLabel = createColorInput(
-        "Particles color: ",
+    const particlesColorLabel = await createColorInput(
+        "procedural_controls_particles_color_input",
         "bg-particles-color",
         settings.bg.glassGrid.particlesColor,
         "glassGrid",
@@ -343,8 +344,8 @@ function enableGlassGridWithProceduralControls(proceduralControls) {
     );
 
 
-    const backgroundParticlesNumberLabel = createRangeInput(
-        "Number of particles: ",
+    const backgroundParticlesNumberLabel = await createRangeInput(
+        "procedural_controls_number_of_particles_input",
         "bg-glass-particles",
         "20",
         "100",
@@ -354,8 +355,8 @@ function enableGlassGridWithProceduralControls(proceduralControls) {
         "numberOfParticles",
         enableGlassGrid
     );
-    const particlesTransparencyLabel = createRangeInput(
-        "Particles transparency: ",
+    const particlesTransparencyLabel = await createRangeInput(
+        "procedural_controls_particles_transparency_input",
         "bg-glass-transparency",
         "0",
         "1",
@@ -374,19 +375,19 @@ function enableGlassGridWithProceduralControls(proceduralControls) {
     enableGlassGrid(settings);
 }
 
-function enableOrbitalRingsWithProceduralControls(proceduralControls) {
+async function enableOrbitalRingsWithProceduralControls(proceduralControls) {
     const settings = loadCustomSettings();
 
-    const backgroundColorLabel = createColorInput(
-        "Background color: ",
+    const backgroundColorLabel = await createColorInput(
+        "procedural_controls_background_color_input",
         "bg-color",
         settings.bg.orbitalRings.backgroundColor,
         "orbitalRings",
         "backgroundColor",
         enableOrbitalRings
     );
-    const particlesColorLabel = createColorInput(
-        "Particles color: ",
+    const particlesColorLabel = await createColorInput(
+        "procedural_controls_particles_color_input",
         "bg-particles-color",
         settings.bg.orbitalRings.particlesColor,
         "orbitalRings",
@@ -394,8 +395,8 @@ function enableOrbitalRingsWithProceduralControls(proceduralControls) {
         enableOrbitalRings
     );
 
-    const backgroundParticlesNumberLabel = createRangeInput(
-        "Number of particles: ",
+    const backgroundParticlesNumberLabel = await createRangeInput(
+        "procedural_controls_number_of_particles_input",
         "bg-orbital-particles",
         "3",
         "30",
@@ -413,19 +414,19 @@ function enableOrbitalRingsWithProceduralControls(proceduralControls) {
     enableOrbitalRings(settings);
 }
 
-function enableParticleDriftWithProceduralControls(proceduralControls) {
+async function enableParticleDriftWithProceduralControls(proceduralControls) {
     const settings = loadCustomSettings();
 
-    const backgroundColorLabel = createColorInput(
-        "Background color: ",
+    const backgroundColorLabel = await createColorInput(
+        "procedural_controls_background_color_input",
         "bg-color",
         settings.bg.particleDrift.backgroundColor,
         "particleDrift",
         "backgroundColor",
         enableParticleDrift
     );
-    const particlesColorLabel = createColorInput(
-        "Particles color: ",
+    const particlesColorLabel = await createColorInput(
+        "procedural_controls_particles_color_input",
         "bg-particles-color",
         settings.bg.particleDrift.particlesColor,
         "particleDrift",
@@ -433,8 +434,8 @@ function enableParticleDriftWithProceduralControls(proceduralControls) {
         enableParticleDrift
     );
 
-    const backgroundParticlesNumberLabel = createRangeInput(
-        "Number of particles: ",
+    const backgroundParticlesNumberLabel = await createRangeInput(
+        "procedural_controls_number_of_particles_input",
         "bg-drift-particles",
         "70",
         "250",
@@ -452,19 +453,19 @@ function enableParticleDriftWithProceduralControls(proceduralControls) {
     enableParticleDrift(settings);
 }
 
-function enableCloudySpiralWithProceduralControls(proceduralControls) {
+async function enableCloudySpiralWithProceduralControls(proceduralControls) {
     const settings = loadCustomSettings();
 
-    const backgroundColorLabel = createColorInput(
-        "Background color: ",
+    const backgroundColorLabel = await createColorInput(
+        "procedural_controls_background_color_input",
         "bg-color",
         settings.bg.cloudySpiral.backgroundColor,
         "cloudySpiral",
         "backgroundColor",
         enableCloudySpiral
     );
-    const particlesColorLabel = createColorInput(
-        "Particles color: ",
+    const particlesColorLabel = await createColorInput(
+        "procedural_controls_particles_color_input",
         "bg-particles-color",
         settings.bg.cloudySpiral.particlesColor,
         "cloudySpiral",
@@ -472,8 +473,8 @@ function enableCloudySpiralWithProceduralControls(proceduralControls) {
         enableCloudySpiral
     );
 
-    const backgroundParticlesNumberLabel = createRangeInput(
-        "Number of particles: ",
+    const backgroundParticlesNumberLabel = await createRangeInput(
+        "procedural_controls_number_of_particles_input",
         "bg-cloudy-particles",
         "50",
         "100",
@@ -484,8 +485,8 @@ function enableCloudySpiralWithProceduralControls(proceduralControls) {
         enableCloudySpiral
     );
 
-    const particleSizeNumberLabel = createRangeInput(
-        "Size of particles: ",
+    const particleSizeNumberLabel = await createRangeInput(
+        "procedural_controls_size_of_particles_input",
         "bg-cloudy-particles-size",
         "5",
         "15",
@@ -496,8 +497,8 @@ function enableCloudySpiralWithProceduralControls(proceduralControls) {
         enableCloudySpiral
     );
 
-    const particleRadiusNumberLabel = createRangeInput(
-        "Radius of particles: ",
+    const particleRadiusNumberLabel = await createRangeInput(
+        "procedural_controls_radius_of_particles_input",
         "bg-cloudy-particles-radius",
         "50",
         "200",
@@ -508,8 +509,8 @@ function enableCloudySpiralWithProceduralControls(proceduralControls) {
         enableCloudySpiral
     );
 
-    const lapDurationNumberLabel = createRangeInput(
-        "Lap duration: ",
+    const lapDurationNumberLabel = await createRangeInput(
+        "procedural_controls_lap_duration_input",
         "bg-cloudy-particles-lap-duration",
         "3000",
         "6000",
@@ -530,19 +531,19 @@ function enableCloudySpiralWithProceduralControls(proceduralControls) {
     enableCloudySpiral(settings);
 }
 
-function enableWavesBackgroundWithProceduralControls(proceduralControls) {
+async function enableWavesBackgroundWithProceduralControls(proceduralControls) {
     const settings = loadCustomSettings();
 
-    const leftBackgroundColorLabel = createColorInput(
-        "Left Background color: ",
+    const leftBackgroundColorLabel = await createColorInput(
+        "procedural_controls_left_background_color_input",
         "bg-left-color",
         settings.bg.waves.leftBackgroundColor,
         "waves",
         "leftBackgroundColor",
         enableWavesBackground
     );
-    const rightBackgroundColorLabel = createColorInput(
-        "Right Background color: ",
+    const rightBackgroundColorLabel = await createColorInput(
+        "procedural_controls_right_background_color_input",
         "bg-right-color",
         settings.bg.waves.rightBackgroundColor,
         "waves",
@@ -551,32 +552,32 @@ function enableWavesBackgroundWithProceduralControls(proceduralControls) {
     );
 
 
-    const firstWaveColorLabel = createColorInput(
-        "First Wave color: ",
+    const firstWaveColorLabel = await createColorInput(
+        "procedural_controls_first_wave_color_input",
         "bg-first-wave-color",
         settings.bg.waves.firstWaveColor,
         "waves",
         "firstWaveColor",
         enableWavesBackground
     );
-    const secondWaveColorLabel = createColorInput(
-        "Second Wave color: ",
+    const secondWaveColorLabel = await createColorInput(
+        "procedural_controls_second_wave_color_input",
         "bg-second-wave-color",
         settings.bg.waves.secondWaveColor,
         "waves",
         "secondWaveColor",
         enableWavesBackground
     );
-    const thirdWaveColorLabel = createColorInput(
-        "Third Wave color: ",
+    const thirdWaveColorLabel = await createColorInput(
+        "procedural_controls_third_wave_color_input",
         "bg-third-wave-color",
         settings.bg.waves.thirdWaveColor,
         "waves",
         "thirdWaveColor",
         enableWavesBackground
     );
-    const fourthWaveColorLabel = createColorInput(
-        "Fourth Wave color: ",
+    const fourthWaveColorLabel = await createColorInput(
+        "procedural_controls_fourth_wave_color_input",
         "bg-fourth-wave-color",
         settings.bg.waves.fourthWaveColor,
         "waves",
@@ -584,8 +585,8 @@ function enableWavesBackgroundWithProceduralControls(proceduralControls) {
         enableWavesBackground
     );
 
-    const useOnlyFirstWaveLabel = createCheckbox(
-        "Use only first wave color: ",
+    const useOnlyFirstWaveLabel = await createCheckbox(
+        "procedural_controls_use_only_first_wave_color_input",
         "bg-use-only-first-wave-color",
         settings.bg.waves.useOnlyFirstWaveColor,
         "waves",
@@ -606,19 +607,19 @@ function enableWavesBackgroundWithProceduralControls(proceduralControls) {
     enableWavesBackground(settings);
 }
 
-function enableFallingLinesBackgroundWithProceduralControls(proceduralControls) {
+async function enableFallingLinesBackgroundWithProceduralControls(proceduralControls) {
     const settings = loadCustomSettings();
 
-    const backgroundColorLabel = createColorInput(
-        "Background color: ",
+    const backgroundColorLabel = await createColorInput(
+        "procedural_controls_background_color_input",
         "bg-color",
         settings.bg.fallingLines.backgroundColor,
         "fallingLines",
         "backgroundColor",
         enableFallingLinesBackground
     );
-    const particlesColorLabel = createColorInput(
-        "Particles color: ",
+    const particlesColorLabel = await createColorInput(
+        "procedural_controls_particles_color_input",
         "bg-particles-color",
         settings.bg.fallingLines.particlesColor,
         "fallingLines",
@@ -626,8 +627,8 @@ function enableFallingLinesBackgroundWithProceduralControls(proceduralControls) 
         enableFallingLinesBackground
     );
 
-    const backgroundParticlesNumberLabel = createRangeInput(
-        "Number of lines: ",
+    const backgroundParticlesNumberLabel = await createRangeInput(
+        "procedural_controls_number_of_lines_input",
         "bg-fallingLines-particles",
         "3",
         "5",
@@ -645,19 +646,19 @@ function enableFallingLinesBackgroundWithProceduralControls(proceduralControls) 
     enableFallingLinesBackground(settings);
 }
 
-function enableFloatingCirclesBackgroundWithProceduralControls(proceduralControls) {
+async function enableFloatingCirclesBackgroundWithProceduralControls(proceduralControls) {
     const settings = loadCustomSettings();
 
-    const backgroundColorLabel = createColorInput(
-        "Background color: ",
+    const backgroundColorLabel = await createColorInput(
+        "procedural_controls_background_color_input",
         "bg-color",
         settings.bg.floatingCircles.backgroundColor,
         "floatingCircles",
         "backgroundColor",
         enableFloatingCirclesBackground
     );
-    const particlesColorLabel = createColorInput(
-        "Particles color: ",
+    const particlesColorLabel = await createColorInput(
+        "procedural_controls_particles_color_input",
         "bg-particles-color",
         settings.bg.floatingCircles.particlesColor,
         "floatingCircles",
@@ -751,6 +752,8 @@ function resetBgSettings() {
     document.getElementById("bg-effects-group").style.display = "none";
 
     applyProceduralBackground("stars");
+
+    return settings;
 }
 
 function addListenerForInputControl(control, jsonVariable, defaultValue) {

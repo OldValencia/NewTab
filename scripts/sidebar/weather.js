@@ -2,7 +2,9 @@ const toggleWeatherWidget = document.getElementById("toggle-weather-widget");
 const weatherWidgetElement = document.getElementById("weather-widget");
 const resetWeatherBtn = document.getElementById("reset-weather-settings");
 
-function loadWeatherWidget(settings) {
+function loadWeatherWidget() {
+    const settings = loadCustomSettings();
+
     if (!settings.weatherWidget) {
         settings.weatherWidget = {
             showWeather: false,

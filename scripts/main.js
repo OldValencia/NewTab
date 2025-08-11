@@ -81,10 +81,11 @@ function hexToRgba(hex, alpha = 1) {
     return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 }
 
-function createColorInput(labelText, labelId, defaultColor, bgMode, bgModeVariable, onChangeCallback) {
+async function createColorInput(localizationKey, labelId, defaultColor, bgMode, bgModeVariable, onChangeCallback) {
     const colorLabel = document.createElement("label");
     colorLabel.setAttribute("for", labelId);
-    colorLabel.textContent = labelText;
+    const settings = loadCustomSettings();
+    colorLabel.textContent = await getLocalizationByKey(localizationKey, settings.locale);
     const colorInput = document.createElement("input");
     colorInput.type = "color";
     colorInput.id = labelId;
@@ -118,10 +119,11 @@ function createColorInput(labelText, labelId, defaultColor, bgMode, bgModeVariab
     return colorLabel;
 }
 
-function createRangeInput(labelText, labelId, labelMin, labelMax, labelStep, defaultValue, bgMode, bgModeVariable, onChangeCallback) {
+async function createRangeInput(localizationKey, labelId, labelMin, labelMax, labelStep, defaultValue, bgMode, bgModeVariable, onChangeCallback) {
     const rangeLabel = document.createElement("label");
     rangeLabel.setAttribute("for", labelId);
-    rangeLabel.textContent = labelText;
+    const settings = loadCustomSettings();
+    rangeLabel.textContent = await getLocalizationByKey(localizationKey, settings.locale);
     const rangeInput = document.createElement("input");
     rangeInput.type = "range";
     rangeInput.id = labelId;
@@ -158,10 +160,11 @@ function createRangeInput(labelText, labelId, labelMin, labelMax, labelStep, def
     return rangeLabel;
 }
 
-function createCheckbox(labelText, labelId, defaultValue, bgMode, bgModeVariable, onChangeCallback) {
-    const rangeLabel = document.createElement("label");
-    rangeLabel.setAttribute("for", labelId);
-    rangeLabel.textContent = labelText;
+async function createCheckbox(localizationKey, labelId, defaultValue, bgMode, bgModeVariable, onChangeCallback) {
+    const checkboxLabel = document.createElement("label");
+    checkboxLabel.setAttribute("for", labelId);
+    const settings = loadCustomSettings();
+    checkboxLabel.textContent = await getLocalizationByKey(localizationKey, settings.locale);
     const checkboxInput = document.createElement("input");
     checkboxInput.type = "checkbox";
     checkboxInput.id = labelId;
@@ -177,7 +180,7 @@ function createCheckbox(labelText, labelId, defaultValue, bgMode, bgModeVariable
         }
     }, 200);
     checkboxInput.addEventListener("change", debounceSizeHandler);
-    rangeLabel.appendChild(checkboxInput);
+    checkboxLabel.appendChild(checkboxInput);
 
-    return rangeLabel;
+    return checkboxLabel;
 }

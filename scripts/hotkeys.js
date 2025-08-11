@@ -1,4 +1,4 @@
-document.addEventListener("keydown", (e) => {
+document.addEventListener("keydown", async (e) => {
     if (e.ctrlKey && e.shiftKey) {
         const settings = loadCustomSettings();
         switch (e.code) {
@@ -18,7 +18,7 @@ document.addEventListener("keydown", (e) => {
                 const isStickyNotesActive = getStickyNotesVisibilityState();
 
                 if (isStickyNotesActive) {
-                    createStickyNote();
+                    await createStickyNote();
                 }
                 break;
         }
