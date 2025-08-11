@@ -181,4 +181,3 @@ function createCheckbox(labelText, labelId, defaultValue, bgMode, bgModeVariable
 
     return rangeLabel;
 }
-

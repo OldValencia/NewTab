@@ -4,42 +4,16 @@ const multipleClocksWrapper = document.getElementById("multiple-clocks");
 const defaultTimeAndDateFont = "Arial";
 const defaultTimeColor = "#7e4600";
 const defaultDateColor = "#aaaaaa";
-const defaultTimeFormat = "24";
-const defaultDateFormat = "day-month-year";
-const defaultTimezone = "local";
 
 function updateTime() {
     const now = new Date();
     const settings = loadCustomSettings();
-    if (!settings.timeAndDateElements) {
-        settings.timeAndDateElements = 1;
-        saveCustomSettings(settings);
-    }
-
-    if (!settings.clocks) {
-        settings.clocks = [];
-    }
-
-    initializeTimeAndDateState(settings);
-
+    if (!settings.timeAndDate) return;
     multipleClocksWrapper.innerHTML = "";
-    for (let i = 0; i < settings.timeAndDateElements; i++) {
-        if (!settings.clocks[i] || Object.keys(settings.clocks[i]).length === 0) {
-            settings.clocks[i] = {
-                timeFont: defaultTimeAndDateFont,
-                timeColor: defaultTimeColor,
-                dateFont: defaultTimeAndDateFont,
-                dateColor: defaultDateColor,
-                timeFormat: defaultTimeFormat,
-                dateFormat: defaultDateFormat,
-                timezone: defaultTimezone
-            };
-            saveCustomSettings(settings);
-        }
-
+    for (let i = 0; i < settings.timeAndDate.elements; i++) {
         // Get correct date for timezone
         let clockDate = new Date(now);
-        let tz = settings.clocks[i].timezone || 'local';
+        let tz = settings.timeAndDate.clocks[i].timezone || 'local';
         if (tz && tz !== 'local') {
             // tz is like '+3', '-5', etc.
             let offset = parseInt(tz, 10);
@@ -60,7 +34,7 @@ function updateTime() {
 
         // Time format
         let timeString;
-        switch (settings.clocks[i].timeFormat) {
+        switch (settings.timeAndDate.clocks[i].timeFormat) {
             case "12": {
                 const ampm = hours >= 12 ? "PM" : "AM";
                 let h = hours % 12 || 12;
@@ -69,7 +43,7 @@ function updateTime() {
             }
             case "arabic": {
                 // Arabic numerals
-                const arabicDigits = ["٠","١","٢","٣","٤","٥","٦","٧","٨","٩"];
+                const arabicDigits = ["٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"];
                 const toArabic = n => n.toString().split("").map(d => arabicDigits[+d]).join("");
                 timeString = `${toArabic(hours)}:${toArabic(minutes)}`;
                 break;
@@ -92,7 +66,11 @@ function updateTime() {
             }
             case "custom": {
                 // Use browser locale and timezone
-                timeString = clockDate.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', timeZone: tz !== 'local' ? tz : undefined });
+                timeString = clockDate.toLocaleTimeString(undefined, {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    timeZone: tz !== 'local' ? tz : undefined
+                });
                 break;
             }
             case "24":
@@ -102,7 +80,7 @@ function updateTime() {
 
         // Date format
         let dateString = "";
-        switch (settings.clocks[i].dateFormat) {
+        switch (settings.timeAndDate.clocks[i].dateFormat) {
             case "month-day-year":
                 dateString = `${monthName} ${day} ${year}`;
                 break;
@@ -128,9 +106,9 @@ function updateTime() {
         timeElement.id = `time-${i}`;
         timeElement.innerText = timeString;
         // Apply font and color settings for time
-        timeElement.style.fontFamily = settings.clocks[i].timeFont || defaultTimeAndDateFont;
-        timeElement.style.color = settings.clocks[i].timeColor || defaultTimeColor;
-        timeElement.style.display = settings.showTime ? "block" : "none";
+        timeElement.style.fontFamily = settings.timeAndDate.clocks[i].timeFont || defaultTimeAndDateFont;
+        timeElement.style.color = settings.timeAndDate.clocks[i].timeColor || defaultTimeColor;
+        timeElement.style.display = settings.timeAndDate.showTime ? "block" : "none";
         timeAndDateElement.appendChild(timeElement);
         const dateElement = document.createElement("div");
         dateElement.className = "date";
@@ -138,62 +116,34 @@ function updateTime() {
         dateElement.innerText = dateString;
         dateElement.setAttribute("data-tooltip", `${day}-${monthNum}-${year}`);
         // Apply font and color settings for date
-        dateElement.style.fontFamily = settings.clocks[i].dateFont || defaultTimeAndDateFont;
-        dateElement.style.color = settings.clocks[i].dateColor || defaultDateColor;
-        dateElement.style.display = settings.showDate ? "block" : "none";
+        dateElement.style.fontFamily = settings.timeAndDate.clocks[i].dateFont || defaultTimeAndDateFont;
+        dateElement.style.color = settings.timeAndDate.clocks[i].dateColor || defaultDateColor;
+        dateElement.style.display = settings.timeAndDate.showDate ? "block" : "none";
         timeAndDateElement.appendChild(dateElement);
         multipleClocksWrapper.appendChild(timeAndDateElement);
     }
 }
 
-function initializeTimeAndDateState(settings) {
-    if (settings.showTime === undefined || settings.showTime === null) {
-        settings.showTime = true;
-        saveCustomSettings(settings);
-    }
-    toggleTime.checked = settings.showTime;
+toggleTime.addEventListener("change", () => {
+    const settings = loadCustomSettings();
+    const visible = toggleTime.checked;
     const timeElements = multipleClocksWrapper.querySelectorAll('.time');
     timeElements.forEach(time => {
-        time.style.display = settings.showTime ? "block" : "none";
+        time.style.display = visible ? "block" : "none";
     });
+    settings.timeAndDate.showTime = visible;
+    saveCustomSettings(settings);
+});
 
-    if (settings.showDate === undefined || settings.showDate === null) {
-        settings.showDate = true;
-        saveCustomSettings(settings);
-    }
-    toggleDate.checked = settings.showDate;
+toggleDate.addEventListener("change", () => {
+    const settings = loadCustomSettings();
+    const visible = toggleDate.checked;
     const dateElements = multipleClocksWrapper.querySelectorAll('.date');
     dateElements.forEach(date => {
-        date.style.display = settings.showDate ? "block" : "none";
+        date.style.display = visible ? "block" : "none";
     });
-}
-
-updateTime();
-setInterval(updateTime, 60000);
-
-document.addEventListener("DOMContentLoaded", () => {
-    const settings = loadCustomSettings();
-    initializeTimeAndDateState(settings);
-
-    toggleTime.addEventListener("change", () => {
-        const settings = loadCustomSettings();
-        const visible = toggleTime.checked;
-        const timeElements = multipleClocksWrapper.querySelectorAll('.time');
-        timeElements.forEach(time => {
-            time.style.display = visible ? "block" : "none";
-        });
-        settings.showTime = visible;
-        saveCustomSettings(settings);
-    });
-
-    toggleDate.addEventListener("change", () => {
-        const settings = loadCustomSettings();
-        const visible = toggleDate.checked;
-        const dateElements = multipleClocksWrapper.querySelectorAll('.date');
-        dateElements.forEach(date => {
-           date.style.display = visible ? "block" : "none";
-        });
-        settings.showDate = visible;
-        saveCustomSettings(settings);
-    });
+    settings.timeAndDate.showDate = visible;
+    saveCustomSettings(settings);
 });
+
+setInterval(updateTime, 60000);
