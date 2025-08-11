@@ -50,33 +50,33 @@ function loadTimeAndDate(settings) {
         }
         // Build controls
         const timezoneOptions = [
-            { value: "-12", label: "UTC-12 (Baker Island)" },
-            { value: "-11", label: "UTC-11 (Pago Pago, Niue)" },
-            { value: "-10", label: "UTC-10 (Honolulu, Papeete)" },
-            { value: "-9", label: "UTC-9 (Anchorage, Gambier Islands)" },
-            { value: "-8", label: "UTC-8 (Los Angeles, Vancouver)" },
-            { value: "-7", label: "UTC-7 (Denver, Phoenix)" },
-            { value: "-6", label: "UTC-6 (Mexico City, Chicago, Guatemala)" },
-            { value: "-5", label: "UTC-5 (New York, Lima, Toronto)" },
-            { value: "-4", label: "UTC-4 (Santiago, Caracas, La Paz)" },
-            { value: "-3", label: "UTC-3 (Buenos Aires, São Paulo, Montevideo)" },
-            { value: "-2", label: "UTC-2 (South Georgia)" },
-            { value: "-1", label: "UTC-1 (Azores, Cape Verde)" },
-            { value: "0", label: "UTC±0 (London, Lisbon, Accra)" },
-            { value: "+1", label: "UTC+1 (Berlin, Lagos, Rome)" },
-            { value: "+2", label: "UTC+2 (Cairo, Johannesburg, Athens)" },
-            { value: "+3", label: "UTC+3 (Moscow, Nairobi, Baghdad)" },
-            { value: "+4", label: "UTC+4 (Dubai, Baku, Samara)" },
-            { value: "+5", label: "UTC+5 (Tashkent, Karachi, Yekaterinburg)" },
-            { value: "+6", label: "UTC+6 (Dhaka, Omsk, Almaty)" },
-            { value: "+7", label: "UTC+7 (Bangkok, Krasnoyarsk, Jakarta)" },
-            { value: "+8", label: "UTC+8 (Beijing, Perth, Irkutsk)" },
-            { value: "+9", label: "UTC+9 (Tokyo, Seoul, Yakutsk)" },
-            { value: "+10", label: "UTC+10 (Sydney, Vladivostok, Guam)" },
-            { value: "+11", label: "UTC+11 (Magadan, Solomon Islands, Nouméa)" },
-            { value: "+12", label: "UTC+12 (Auckland, Fiji, Kamchatka)" },
-            { value: "+13", label: "UTC+13 (Samoa, Tonga)" },
-            { value: "+14", label: "UTC+14 (Kiritimati)" }
+            {value: "-12", label: "UTC-12 (Baker Island)"},
+            {value: "-11", label: "UTC-11 (Pago Pago, Niue)"},
+            {value: "-10", label: "UTC-10 (Honolulu, Papeete)"},
+            {value: "-9", label: "UTC-9 (Anchorage, Gambier Islands)"},
+            {value: "-8", label: "UTC-8 (Los Angeles, Vancouver)"},
+            {value: "-7", label: "UTC-7 (Denver, Phoenix)"},
+            {value: "-6", label: "UTC-6 (Mexico City, Chicago, Guatemala)"},
+            {value: "-5", label: "UTC-5 (New York, Lima, Toronto)"},
+            {value: "-4", label: "UTC-4 (Santiago, Caracas, La Paz)"},
+            {value: "-3", label: "UTC-3 (Buenos Aires, São Paulo, Montevideo)"},
+            {value: "-2", label: "UTC-2 (South Georgia)"},
+            {value: "-1", label: "UTC-1 (Azores, Cape Verde)"},
+            {value: "0", label: "UTC±0 (London, Lisbon, Accra)"},
+            {value: "+1", label: "UTC+1 (Berlin, Lagos, Rome)"},
+            {value: "+2", label: "UTC+2 (Cairo, Johannesburg, Athens)"},
+            {value: "+3", label: "UTC+3 (Moscow, Nairobi, Baghdad)"},
+            {value: "+4", label: "UTC+4 (Dubai, Baku, Samara)"},
+            {value: "+5", label: "UTC+5 (Tashkent, Karachi, Yekaterinburg)"},
+            {value: "+6", label: "UTC+6 (Dhaka, Omsk, Almaty)"},
+            {value: "+7", label: "UTC+7 (Bangkok, Krasnoyarsk, Jakarta)"},
+            {value: "+8", label: "UTC+8 (Beijing, Perth, Irkutsk)"},
+            {value: "+9", label: "UTC+9 (Tokyo, Seoul, Yakutsk)"},
+            {value: "+10", label: "UTC+10 (Sydney, Vladivostok, Guam)"},
+            {value: "+11", label: "UTC+11 (Magadan, Solomon Islands, Nouméa)"},
+            {value: "+12", label: "UTC+12 (Auckland, Fiji, Kamchatka)"},
+            {value: "+13", label: "UTC+13 (Samoa, Tonga)"},
+            {value: "+14", label: "UTC+14 (Kiritimati)"}
         ];
         element.innerHTML = `
             <button class="remove-element" data-index="${i}">✖</button>
@@ -205,7 +205,7 @@ function loadTimeAndDate(settings) {
         timeColorInput.value = clockSettings.timeColor;
         dateFontSelect.value = clockSettings.dateFont;
         dateColorInput.value = clockSettings.dateColor;
-        timeFormatSelect.value = clockSettings.timeFormat ;
+        timeFormatSelect.value = clockSettings.timeFormat;
         timezoneSelect.value = clockSettings.timezone;
         dateFormatSelect.value = clockSettings.dateFormat;
         saveCustomSettings(settings);
@@ -226,7 +226,6 @@ function loadTimeAndDate(settings) {
                 settings.timeAndDate.elements--;
                 saveCustomSettings(settings);
                 loadTimeAndDate(settings);
-                updateTime();
             }
         });
     }
@@ -241,13 +240,14 @@ addClockButton.addEventListener("click", () => {
         settings.timeAndDate.elements++;
         saveCustomSettings(settings);
         loadTimeAndDate(settings);
-        updateTime();
     }
 });
 
 document.getElementById("reset-time-date").addEventListener("click", () => {
     const settings = loadCustomSettings();
     settings.timeAndDate.elements = 1;
+    settings.timeAndDate.showTime = true;
+    settings.timeAndDate.showDate = true;
     settings.timeAndDate.clocks = [{
         timeFont: defaultTimeAndDateFont,
         timeColor: defaultTimeColor,
@@ -259,5 +259,4 @@ document.getElementById("reset-time-date").addEventListener("click", () => {
     }];
     saveCustomSettings(settings);
     loadTimeAndDate(settings);
-    updateTime();
 });

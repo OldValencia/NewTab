@@ -43,7 +43,7 @@ function updateTime() {
             }
             case "arabic": {
                 // Arabic numerals
-                const arabicDigits = ["٠","١","٢","٣","٤","٥","٦","٧","٨","٩"];
+                const arabicDigits = ["٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"];
                 const toArabic = n => n.toString().split("").map(d => arabicDigits[+d]).join("");
                 timeString = `${toArabic(hours)}:${toArabic(minutes)}`;
                 break;
@@ -66,7 +66,11 @@ function updateTime() {
             }
             case "custom": {
                 // Use browser locale and timezone
-                timeString = clockDate.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', timeZone: tz !== 'local' ? tz : undefined });
+                timeString = clockDate.toLocaleTimeString(undefined, {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    timeZone: tz !== 'local' ? tz : undefined
+                });
                 break;
             }
             case "24":
