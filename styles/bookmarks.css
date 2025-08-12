@@ -149,9 +149,9 @@
 }
 
 /* ──────────────────────────────── */
-/* ⭐ Pin & 🗑️ Remove Buttons */
+/* Buttons */
 /* ──────────────────────────────── */
-.pin-button {
+.bookmark-button {
     background: none;
     border: none;
     font-size: 16px;
@@ -160,8 +160,19 @@
     transition: color 0.2s ease;
 }
 
-.pin-button:hover {
+.bookmark-button:hover {
     color: #fff;
+}
+
+#bookmark-sidebar .bookmark-item button {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+}
+
+#bookmark-sidebar .bookmark-item:hover button {
+    opacity: 1;
+    pointer-events: auto;
 }
 
 /* ──────────────────────────────── */

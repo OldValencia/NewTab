@@ -9,9 +9,9 @@ function openMainSidebar() {
 toggleBtn.addEventListener("click", openMainSidebar);
 
 document.addEventListener("DOMContentLoaded", async () => {
-    loadTimeAndDate();
     await loadLocalization();
     await loadBackground();
+    loadTimeAndDate();
     loadLinks();
     loadStickyNotes();
     loadWeatherWidget();

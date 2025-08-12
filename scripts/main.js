@@ -184,3 +184,45 @@ async function createCheckbox(localizationKey, labelId, defaultValue, bgMode, bg
 
     return checkboxLabel;
 }
+
+function showConfirmation(message, onConfirm, onCancel = {}) {
+    const modal = document.getElementById("confirm-modal");
+    const msg = document.getElementById("confirm-message");
+    const yesBtn = document.getElementById("confirm-yes");
+    const noBtn = document.getElementById("confirm-no");
+
+    msg.textContent = message;
+    modal.classList.remove("hidden");
+
+    const cleanup = () => {
+        modal.classList.add("hidden");
+        yesBtn.onclick = null;
+        noBtn.onclick = null;
+    };
+
+    const handleKey = (e) => {
+        if (e.key === "Escape") {
+            e.preventDefault();
+            cleanup();
+            setTimeout(() => onCancel(), 50);
+        } else if (e.key === "Enter") {
+            e.preventDefault();
+            cleanup();
+            setTimeout(() => onConfirm(), 50);
+        }
+    };
+
+    yesBtn.onclick = () => {
+        cleanup();
+        onConfirm();
+    };
+
+    noBtn.onclick = () => {
+        cleanup();
+        onCancel();
+    };
+
+    document.addEventListener("keydown", handleKey);
+
+    setTimeout(cleanup, 60000);
+}

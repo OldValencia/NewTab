@@ -1,8 +1,15 @@
 document.addEventListener("keydown", async (e) => {
     if (e.ctrlKey && e.shiftKey) {
         const settings = loadCustomSettings();
+        const target = e.target;
+        const isEditableElement =
+            target.tagName === 'INPUT' ||
+            target.tagName === 'TEXTAREA' ||
+            target.isContentEditable;
+
         switch (e.code) {
             case "ArrowLeft":
+                if (isEditableElement) return;
                 e.preventDefault();
                 const isBookmarksActive = settings.bookmarks?.show ?? false;
                 if (isBookmarksActive) {
@@ -10,6 +17,7 @@ document.addEventListener("keydown", async (e) => {
                 }
                 break;
             case "ArrowRight":
+                if (isEditableElement) return;
                 e.preventDefault();
                 openMainSidebar();
                 break;

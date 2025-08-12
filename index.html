@@ -637,13 +637,22 @@
 <div id="weather-widget">
     <div class="weather-summary" id="weather-summary">🌦️ —</div>
     <div class="weather-panel" id="weather-panel">
-        <input type="text" id="location-input" data-placeholder-localization-key="weather_widget_input_placeholder_city" placeholder="Enter your city...">
+        <input type="text" id="location-input" data-placeholder-localization-key="weather_widget_input_placeholder_city"
+               placeholder="Enter your city...">
         <button id="weather-city-btn" data-value-localization-key="weather_widget_button_show_weather">
             🌍 Show weather
         </button>
         <button id="weather-geo-btn" data-value-localization-key="weather_widget_button_my_geolocation">
             📍 My Geolocation
         </button>
+    </div>
+</div>
+
+<div id="confirm-modal" class="hidden confirm-modal">
+    <div class="confirm-box">
+        <p id="confirm-message" data-value-localization-key="modal_confirm_message_html_default">Are you sure?</p>
+        <button id="confirm-yes" data-value-localization-key="modal_confirm_yes_button_html_default">Yes</button>
+        <button id="confirm-no" data-value-localization-key="modal_confirm_no_button_html_default">No</button>
     </div>
 </div>
 

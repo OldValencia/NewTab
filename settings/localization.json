@@ -1384,5 +1384,59 @@
     "es": "Versión",
     "be": "Версія",
     "uk": "Версія"
+  },
+  "delete_bookmark_confirmation_window_text": {
+    "en": "Delete this bookmark?",
+    "ru": "Удалить эту закладку?",
+    "pl": "Usunąć tę zakładkę?",
+    "de": "Dieses Lesezeichen löschen?",
+    "es": "¿Eliminar este marcador?",
+    "be": "Выдаліць гэтую закладку?",
+    "uk": "Видалити цю закладку?"
+  },
+  "rename_bookmark_confirmation_window_text_first_part": {
+    "en": "Rename this bookmark?\n\nOld name:",
+    "ru": "Переименовать эту закладку?\n\nПредыдущее название:",
+    "pl": "Zmień nazwę tej zakładki?\n\nPoprzednia nazwa:",
+    "de": "Dieses Lesezeichen umbenennen?\n\nAlter Name:",
+    "es": "¿Renombrar este marcador?\n\nNombre anterior:",
+    "be": "Перайменаваць гэтую закладку?\n\nСтарая назва:",
+    "uk": "Перейменувати цю закладку?\n\nСтара назва:"
+  },
+  "rename_bookmark_confirmation_window_text_second_part": {
+    "en": "New name:",
+    "ru": "Новое название:",
+    "pl": "Nowa nazwa:",
+    "de": "Neuer Name:",
+    "es": "Nuevo nombre:",
+    "be": "Новая назва:",
+    "uk": "Нова назва:"
+  },
+  "modal_confirm_message_html_default": {
+    "en": "Are you sure?",
+    "ru": "Вы уверены?",
+    "pl": "Jesteś pewien?",
+    "de": "Bist du sicher?",
+    "es": "¿Estás seguro?",
+    "be": "Вы ўпэўнены?",
+    "uk": "Ви впевнені?"
+  },
+  "modal_confirm_yes_button_html_default": {
+    "en": "Yes",
+    "ru": "Да",
+    "pl": "Tak",
+    "de": "Ja",
+    "es": "Sí",
+    "be": "Так",
+    "uk": "Так"
+  },
+  "modal_confirm_no_button_html_default": {
+    "en": "No",
+    "ru": "Нет",
+    "pl": "Nie",
+    "de": "Nein",
+    "es": "No",
+    "be": "Не",
+    "uk": "Ні"
   }
 }
