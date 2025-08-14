@@ -1,0 +1,1442 @@
+{
+  "add_sticky_note": {
+    "en": "➕ Add Sticky Note",
+    "ru": "➕ Добавить заметку",
+    "pl": "➕ Dodaj notatkę",
+    "de": "➕ Haftnotiz hinzufügen",
+    "es": "➕ Añadir nota adhesiva",
+    "be": "➕ Дадаць нататку",
+    "uk": "➕ Додати нотатку"
+  },
+  "bookmark_sidebar_header": {
+    "en": "Bookmarks",
+    "ru": "Закладки",
+    "pl": "Zakładki",
+    "de": "Lesezeichen",
+    "es": "Marcadores",
+    "be": "Закладкі",
+    "uk": "Закладки"
+  },
+  "bookmarks_search_input_placeholder": {
+    "en": "🔍 Find bookmark...",
+    "ru": "🔍 Найти закладку...",
+    "pl": "🔍 Znajdź zakładkę...",
+    "de": "🔍 Lesezeichen finden...",
+    "es": "🔍 Buscar marcador...",
+    "be": "🔍 Знайсці закладку...",
+    "uk": "🔍 Знайти закладку..."
+  },
+  "bookmarks_search_input_empty_folders": {
+    "en": "Show empty bookmark folders",
+    "ru": "Показывать пустые папки",
+    "pl": "Pokaż puste foldery zakładek",
+    "de": "Leere Lesezeichenordner anzeigen",
+    "es": "Mostrar carpetas de marcadores vacías",
+    "be": "Паказваць пустыя тэчкі закладак",
+    "uk": "Показувати порожні папки закладок"
+  },
+  "bookmarks_search_input_open_bookmark_in_new_tab": {
+    "en": "Open bookmarks in new tab",
+    "ru": "Открывать закладки в новой вкладке",
+    "pl": "Otwieraj zakładki w nowej karcie",
+    "de": "Lesezeichen in neuem Tab öffnen",
+    "es": "Abrir marcadores en nueva pestaña",
+    "be": "Адкрываць закладкі ў новай укладцы",
+    "uk": "Відкривати закладки в новій вкладці"
+  },
+  "bookmark_pinned_section_header": {
+    "en": "⭐ Pinned",
+    "ru": "⭐ Закреплённое",
+    "pl": "⭐ Przypięte",
+    "de": "⭐ Angeheftet",
+    "es": "⭐ Fijado",
+    "be": "⭐ Прымацаванае",
+    "uk": "⭐ Прикріплене"
+  },
+  "bookmark_all_bookmarks_section_header": {
+    "en": "📁 All bookmarks",
+    "ru": "📁 Все закладки",
+    "pl": "📁 Wszystkie zakładki",
+    "de": "📁 Alle Lesezeichen",
+    "es": "📁 Todos los marcadores",
+    "be": "📁 Усе закладкі",
+    "uk": "📁 Усі закладки"
+  },
+  "main_sidebar_hotkeys_header": {
+    "en": "Hotkeys",
+    "ru": "Горячие клавиши",
+    "pl": "Skróty klawiszowe",
+    "de": "Tastenkürzel",
+    "es": "Atajos de teclado",
+    "be": "Гарачыя клавішы",
+    "uk": "Гарячі клавіші"
+  },
+  "main_sidebar_hotkeys_instructions_header": {
+    "en": "List of hotkeys available:",
+    "ru": "Список доступных горячих клавиш:",
+    "pl": "Lista dostępnych skrótów:",
+    "de": "Liste verfügbarer Tastenkürzel:",
+    "es": "Lista de atajos disponibles:",
+    "be": "Спіс даступных гарачых клавіш:",
+    "uk": "Список доступних гарячих клавіш:"
+  },
+  "hotkeys_first_line": {
+    "en": "<strong>Right Mouse Click</strong> on any input field (color, font, or text input) resets it to default",
+    "ru": "<strong>ПКМ</strong> на любом поле ввода (цвет, шрифт или текст) — сбросит его к настройкам по умолчанию",
+    "pl": "<strong>Prawy klik</strong> na dowolnym polu (kolor, czcionka, tekst) — przywraca domyślne ustawienia",
+    "de": "<strong>Rechtsklick</strong> auf ein Eingabefeld (Farbe, Schriftart oder Text) setzt es zurück",
+    "es": "<strong>Clic derecho</strong> en cualquier campo (color, fuente o texto) lo restablece",
+    "be": "<strong>Права кнопка мышы</strong> на полі (колер, шрыфт, тэкст) — скід да стандартных налад",
+    "uk": "<strong>Правий клік</strong> на полі (колір, шрифт, текст) — скидає до стандартних налаштувань"
+  },
+  "hotkeys_second_line": {
+    "en": "<strong>Ctrl + Shift + Left</strong> opens the bookmarks sidebar (if enabled)",
+    "ru": "<strong>Ctrl + Shift + Left</strong> откроет боковое меню закладок (если включено)",
+    "pl": "<strong>Ctrl + Shift + Lewo</strong> otwiera panel zakładek (jeśli włączony)",
+    "de": "<strong>Strg + Umschalt + Links</strong> öffnet die Lesezeichen-Seitenleiste (wenn aktiviert)",
+    "es": "<strong>Ctrl + Shift + Izquierda</strong> abre la barra de marcadores (si está activada)",
+    "be": "<strong>Ctrl + Shift + Left</strong> адкрые бакавое меню закладак (калі ўключана)",
+    "uk": "<strong>Ctrl + Shift + Left</strong> відкриває бокове меню закладок (якщо увімкнено)"
+  },
+  "hotkeys_third_line": {
+    "en": "<strong>Ctrl + Shift + Right</strong> opens the main sidebar",
+    "ru": "<strong>Ctrl + Shift + Right</strong> откроет основное боковое меню",
+    "pl": "<strong>Ctrl + Shift + Prawo</strong> otwiera główny panel boczny",
+    "de": "<strong>Strg + Umschalt + Rechts</strong> öffnet die Hauptseitenleiste",
+    "es": "<strong>Ctrl + Shift + Derecha</strong> abre la barra lateral principal",
+    "be": "<strong>Ctrl + Shift + Right</strong> адкрые галоўнае бакавое меню",
+    "uk": "<strong>Ctrl + Shift + Right</strong> відкриває головне бокове меню"
+  },
+  "hotkeys_fourth_line": {
+    "en": "<strong>Ctrl + Shift + Up</strong> creates a sticky note (if enabled)",
+    "ru": "<strong>Ctrl + Shift + Up</strong> создаст заметку (если включено)",
+    "pl": "<strong>Ctrl + Shift + Góra</strong> tworzy notatkę (jeśli włączone)",
+    "de": "<strong>Strg + Umschalt + Oben</strong> erstellt eine Haftnotiz (wenn aktiviert)",
+    "es": "<strong>Ctrl + Shift + Arriba</strong> crea una nota adhesiva (si está activado)",
+    "be": "<strong>Ctrl + Shift + Up</strong> стварае нататку (калі ўключана)",
+    "uk": "<strong>Ctrl + Shift + Up</strong> створює нотатку (якщо увімкнено)"
+  },
+  "hotkeys_fifth_line": {
+    "en": "<strong>Ctrl + V</strong> creates a sticky note from clipboard (if enabled)",
+    "ru": "<strong>Ctrl + V</strong> создаёт заметку из буфера обмена (если включено)",
+    "pl": "<strong>Ctrl + V</strong> tworzy notatkę z schowka (jeśli włączone)",
+    "de": "<strong>Strg + V</strong> erstellt eine Haftnotiz aus der Zwischenablage (wenn aktiviert)",
+    "es": "<strong>Ctrl + V</strong> crea una nota desde el portapapeles (si está activado)",
+    "be": "<strong>Ctrl + V</strong> стварае нататку з буфера абмену (калі ўключана)",
+    "uk": "<strong>Ctrl + V</strong> створює нотатку з буфера обміну (якщо увімкнено)"
+  },
+  "hotkeys_sixth_line": {
+    "en": "Click on the <strong>Customization</strong> header below to collapse all sections in this sidebar",
+    "ru": "Нажмите на заголовок <strong>Кастомизация</strong> ниже, чтобы свернуть все секции в боковом меню",
+    "pl": "Kliknij nagłówek <strong>Personalizacja</strong> poniżej, aby zwinąć wszystkie sekcje w tym panelu",
+    "de": "Klicke auf die Überschrift <strong>Anpassung</strong> unten, um alle Bereiche in dieser Seitenleiste zu schließen",
+    "es": "Haz clic en el encabezado <strong>Personalización</strong> abajo para contraer todas las secciones de esta barra lateral",
+    "be": "Націсніце на загаловак <strong>Кастомізацыя</strong> ніжэй, каб згарнуць усе секцыі ў бакавым меню",
+    "uk": "Натисніть на заголовок <strong>Налаштування</strong> нижче, щоб згорнути всі секції в цій боковій панелі"
+  },
+  "main_sidebar_customization_header": {
+    "en": "Customization",
+    "ru": "Кастомизация",
+    "pl": "Personalizacja",
+    "de": "Anpassung",
+    "es": "Personalización",
+    "be": "Кастомізацыя",
+    "uk": "Налаштування"
+  },
+  "main_sidebar_links_section_header": {
+    "en": "Links",
+    "ru": "Ссылки",
+    "pl": "Linki",
+    "de": "Links",
+    "es": "Enlaces",
+    "be": "Спасылкі",
+    "uk": "Посилання"
+  },
+  "links_section_columns": {
+    "en": "Columns:",
+    "ru": "Колонки:",
+    "pl": "Kolumny:",
+    "de": "Spalten:",
+    "es": "Columnas:",
+    "be": "Калонкі:",
+    "uk": "Колонки:"
+  },
+  "links_section_add_link_button": {
+    "en": "Add link",
+    "ru": "Добавить ссылку",
+    "pl": "Dodaj link",
+    "de": "Link hinzufügen",
+    "es": "Añadir enlace",
+    "be": "Дадаць спасылку",
+    "uk": "Додати посилання"
+  },
+  "links_section_toggle_show_links": {
+    "en": "Show links",
+    "ru": "Показывать ссылки",
+    "pl": "Pokaż linki",
+    "de": "Links anzeigen",
+    "es": "Mostrar enlaces",
+    "be": "Паказваць спасылкі",
+    "uk": "Показувати посилання"
+  },
+  "links_section_toggle_open_in_new_tab": {
+    "en": "Open links in new tab",
+    "ru": "Открывать ссылки в новой вкладке",
+    "pl": "Otwieraj linki w nowej karcie",
+    "de": "Links in neuem Tab öffnen",
+    "es": "Abrir enlaces en nueva pestaña",
+    "be": "Адкрываць спасылкі ў новай укладцы",
+    "uk": "Відкривати посилання в новій вкладці"
+  },
+  "links_section_toggle_underline_underline": {
+    "en": "Underline links on hover",
+    "ru": "Подчёркивать ссылки при наведении",
+    "pl": "Podkreślaj linki po najechaniu",
+    "de": "Links beim Überfahren unterstreichen",
+    "es": "Subrayar enlaces al pasar el cursor",
+    "be": "Падкрэсліваць спасылкі пры навядзенні",
+    "uk": "Підкреслювати посилання при наведенні"
+  },
+  "links_section_color_input_label": {
+    "en": "Links color:",
+    "ru": "Цвет ссылок:",
+    "pl": "Kolor linków:",
+    "de": "Linkfarbe:",
+    "es": "Color de enlaces:",
+    "be": "Колер спасылак:",
+    "uk": "Колір посилань:"
+  },
+  "time_and_date_section_header": {
+    "en": "Time and date",
+    "ru": "Время и дата",
+    "pl": "Czas i data",
+    "de": "Zeit und Datum",
+    "es": "Hora y fecha",
+    "be": "Час і дата",
+    "uk": "Час і дата"
+  },
+  "time_and_date_section_add_clock_button": {
+    "en": "Add clock",
+    "ru": "Добавить часы",
+    "pl": "Dodaj zegar",
+    "de": "Uhr hinzufügen",
+    "es": "Añadir reloj",
+    "be": "Дадаць гадзіннік",
+    "uk": "Додати годинник"
+  },
+  "time_and_date_section_reset_button": {
+    "en": "Reset Time & Date Settings",
+    "ru": "Сбросить настройки виджета",
+    "pl": "Zresetuj ustawienia czasu i daty",
+    "de": "Zeit- und Datumseinstellungen zurücksetzen",
+    "es": "Restablecer configuración de hora y fecha",
+    "be": "Скінуць налады часу і даты",
+    "uk": "Скинути налаштування часу і дати"
+  },
+  "time_and_date_section_toggle_show_time": {
+    "en": "Show Time",
+    "ru": "Показывать время",
+    "pl": "Pokaż czas",
+    "de": "Zeit anzeigen",
+    "es": "Mostrar hora",
+    "be": "Паказваць час",
+    "uk": "Показувати час"
+  },
+  "time_and_date_section_toggle_show_date": {
+    "en": "Show Date",
+    "ru": "Показывать дату",
+    "pl": "Pokaż datę",
+    "de": "Datum anzeigen",
+    "es": "Mostrar fecha",
+    "be": "Паказваць дату",
+    "uk": "Показувати дату"
+  },
+  "sticky_notes_section_header": {
+    "en": "Sticky Notes",
+    "ru": "Заметки",
+    "pl": "Notatki",
+    "de": "Haftnotizen",
+    "es": "Notas adhesivas",
+    "be": "Нататкі",
+    "uk": "Нотатки"
+  },
+  "sticky_notes_section_reset_button": {
+    "en": "Reset Sticky Notes Settings",
+    "ru": "Сбросить настройки заметок",
+    "pl": "Zresetuj ustawienia notatek",
+    "de": "Haftnotizen-Einstellungen zurücksetzen",
+    "es": "Restablecer configuración de notas",
+    "be": "Скінуць налады нататак",
+    "uk": "Скинути налаштування нотаток"
+  },
+  "sticky_notes_section_clear_button": {
+    "en": "Clear Sticky Notes Content",
+    "ru": "Удалить содержимое всех заметок",
+    "pl": "Wyczyść treść notatek",
+    "de": "Inhalt der Haftnotizen löschen",
+    "es": "Borrar contenido de las notas",
+    "be": "Ачысціць змест нататак",
+    "uk": "Очистити вміст нотаток"
+  },
+  "sticky_notes_section_remove_all_button": {
+    "en": "Remove All Sticky Notes",
+    "ru": "Удалить все заметки",
+    "pl": "Usuń wszystkie notatki",
+    "de": "Alle Haftnotizen entfernen",
+    "es": "Eliminar todas las notas",
+    "be": "Выдаліць усе нататкі",
+    "uk": "Видалити всі нотатки"
+  },
+  "sticky_notes_section_toggle_show_sticky_notes": {
+    "en": "Show Sticky Notes",
+    "ru": "Показывать заметки",
+    "pl": "Pokaż notatki",
+    "de": "Haftnotizen anzeigen",
+    "es": "Mostrar notas adhesivas",
+    "be": "Паказваць нататкі",
+    "uk": "Показувати нотатки"
+  },
+  "background_section_header": {
+    "en": "Background",
+    "ru": "Фон",
+    "pl": "Tło",
+    "de": "Hintergrund",
+    "es": "Fondo",
+    "be": "Фон",
+    "uk": "Фон"
+  },
+  "background_section_reset_button": {
+    "en": "Reset All Backgrounds",
+    "ru": "Сбросить настройки фона",
+    "pl": "Zresetuj wszystkie tła",
+    "de": "Alle Hintergründe zurücksetzen",
+    "es": "Restablecer todos los fondos",
+    "be": "Скінуць усе налады фону",
+    "uk": "Скинути всі налаштування фону"
+  },
+  "background_section_stars_background": {
+    "en": "Starfield (default)",
+    "ru": "Звёздное небо (по умолчанию)",
+    "pl": "Pole gwiazd (domyślne)",
+    "de": "Sternenfeld (Standard)",
+    "es": "Campo estelar (predeterminado)",
+    "be": "Зорнае неба (стандарт)",
+    "uk": "Зоряне небо (типове)"
+  },
+  "background_section_blob_flow": {
+    "en": "Blob Flow",
+    "ru": "Поток капель",
+    "pl": "Przepływ kropli",
+    "de": "Tropfenfluss",
+    "es": "Flujo de burbujas",
+    "be": "Плынь кропель",
+    "uk": "Потік крапель"
+  },
+  "background_section_nebula_dust": {
+    "en": "Nebula Dust",
+    "ru": "Пыль туманности",
+    "pl": "Pył mgławicy",
+    "de": "Nebelstaub",
+    "es": "Polvo de nebulosa",
+    "be": "Пыл туманнасці",
+    "uk": "Пил туманності"
+  },
+  "background_section_glass_grid": {
+    "en": "Glass Grid",
+    "ru": "Стеклянная сетка",
+    "pl": "Szklana siatka",
+    "de": "Glasgitter",
+    "es": "Rejilla de vidrio",
+    "be": "Шкляная сетка",
+    "uk": "Скляна сітка"
+  },
+  "background_section_orbital_rings": {
+    "en": "Orbital Rings",
+    "ru": "Орбитальные кольца",
+    "pl": "Pierścienie orbitalne",
+    "de": "Orbitalringe",
+    "es": "Anillos orbitales",
+    "be": "Арбітальныя кольцы",
+    "uk": "Орбітальні кільця"
+  },
+  "background_section_particle_drift": {
+    "en": "Particle Drift",
+    "ru": "Дрейф частиц",
+    "pl": "Dryf cząsteczek",
+    "de": "Teilchendrift",
+    "es": "Deriva de partículas",
+    "be": "Дрыфт часцінак",
+    "uk": "Дрейф частинок"
+  },
+  "background_section_cloudy_spiral": {
+    "en": "Cloudy Spiral",
+    "ru": "Облачная спираль",
+    "pl": "Spirala chmur",
+    "de": "Wolkenspirale",
+    "es": "Espiral nublada",
+    "be": "Воблачная спіраль",
+    "uk": "Хмарна спіраль"
+  },
+  "background_section_solar_system": {
+    "en": "Solar System",
+    "ru": "Солнечная система",
+    "pl": "Układ słoneczny",
+    "de": "Sonnensystem",
+    "es": "Sistema solar",
+    "be": "Сонечная сістэма",
+    "uk": "Сонячна система"
+  },
+  "background_section_waves": {
+    "en": "Waves",
+    "ru": "Волны",
+    "pl": "Fale",
+    "de": "Wellen",
+    "es": "Olas",
+    "be": "Хвалі",
+    "uk": "Хвилі"
+  },
+  "background_section_falling_lines": {
+    "en": "Falling Lines",
+    "ru": "Падающие линии",
+    "pl": "Opadające linie",
+    "de": "Fallende Linien",
+    "es": "Líneas descendentes",
+    "be": "Падаючыя лініі",
+    "uk": "Лінії, що падають"
+  },
+  "background_section_floating_circles": {
+    "en": "Floating Circles",
+    "ru": "Плавающие круги",
+    "pl": "Unoszące się koła",
+    "de": "Schwebende Kreise",
+    "es": "Círculos flotantes",
+    "be": "Плывучыя кругі",
+    "uk": "Плаваючі кола"
+  },
+  "background_section_custom_image": {
+    "en": "Custom Image",
+    "ru": "Своя картинка",
+    "pl": "Własny obraz",
+    "de": "Benutzerdefiniertes Bild",
+    "es": "Imagen personalizada",
+    "be": "Уласнае выява",
+    "uk": "Власне зображення"
+  },
+  "background_section_dynamic_search": {
+    "en": "Dynamic Search Background",
+    "ru": "Фон с динамическим поиском",
+    "pl": "Tło z dynamicznym wyszukiwaniem",
+    "de": "Dynamischer Suchhintergrund",
+    "es": "Fondo de búsqueda dinámica",
+    "be": "Фон з дынамічным пошукам",
+    "uk": "Фон з динамічним пошуком"
+  },
+  "background_section_search_image": {
+    "en": "Search Image (Pixabay)",
+    "ru": "Поиск изображения (Pixabay)",
+    "pl": "Wyszukaj obraz (Pixabay)",
+    "de": "Bildsuche (Pixabay)",
+    "es": "Buscar imagen (Pixabay)",
+    "be": "Пошук выявы (Pixabay)",
+    "uk": "Пошук зображення (Pixabay)"
+  },
+  "background_section_dynamic_search_interval_header": {
+    "en": "Change interval:",
+    "ru": "Частота обновления:",
+    "pl": "Częstotliwość zmiany:",
+    "de": "Wechselintervall:",
+    "es": "Intervalo de cambio:",
+    "be": "Інтэрвал абнаўлення:",
+    "uk": "Інтервал оновлення:"
+  },
+  "background_section_dynamic_search_interval_first_option": {
+    "en": "On page load",
+    "ru": "При загрузке страницы",
+    "pl": "Przy ładowaniu strony",
+    "de": "Beim Laden der Seite",
+    "es": "Al cargar la página",
+    "be": "Пры загрузцы старонкі",
+    "uk": "Під час завантаження сторінки"
+  },
+  "background_section_dynamic_search_interval_second_option": {
+    "en": "Every 3 min",
+    "ru": "Каждые 3 минуты",
+    "pl": "Co 3 minuty",
+    "de": "Alle 3 Minuten",
+    "es": "Cada 3 minutos",
+    "be": "Кожныя 3 хвіліны",
+    "uk": "Кожні 3 хвилини"
+  },
+  "background_section_dynamic_search_interval_third_option": {
+    "en": "Every 5 min",
+    "ru": "Каждые 5 минут",
+    "pl": "Co 5 minut",
+    "de": "Alle 5 Minuten",
+    "es": "Cada 5 minutos",
+    "be": "Кожныя 5 хвілін",
+    "uk": "Кожні 5 хвилин"
+  },
+  "background_section_dynamic_search_interval_fourth_option": {
+    "en": "Every 15 min",
+    "ru": "Каждые 15 минут",
+    "pl": "Co 15 minut",
+    "de": "Alle 15 Minuten",
+    "es": "Cada 15 minutos",
+    "be": "Кожныя 15 хвілін",
+    "uk": "Кожні 15 хвилин"
+  },
+  "background_section_dynamic_search_interval_fifth_option": {
+    "en": "Every 30 min",
+    "ru": "Каждые 30 минут",
+    "pl": "Co 30 minut",
+    "de": "Alle 30 Minuten",
+    "es": "Cada 30 minutos",
+    "be": "Кожныя 30 хвілін",
+    "uk": "Кожні 30 хвилин"
+  },
+  "background_section_dynamic_search_interval_sixth_option": {
+    "en": "Every 60 min",
+    "ru": "Каждые 60 минут",
+    "pl": "Co 60 minut",
+    "de": "Alle 60 Minuten",
+    "es": "Cada 60 minutos",
+    "be": "Кожныя 60 хвілін",
+    "uk": "Кожні 60 хвилин"
+  },
+  "background_section_search_placeholder": {
+    "en": "e.g. Nature",
+    "ru": "например, Природа",
+    "pl": "np. Natura",
+    "de": "z. B. Natur",
+    "es": "p. ej. Naturaleza",
+    "be": "напрыклад, Прырода",
+    "uk": "наприклад, Природа"
+  },
+  "background_section_search_process_text": {
+    "en": "Searching...",
+    "ru": "Поиск...",
+    "pl": "Wyszukiwanie...",
+    "de": "Suche...",
+    "es": "Buscando...",
+    "be": "Пошук...",
+    "uk": "Пошук..."
+  },
+  "background_section_effects_header": {
+    "en": "Background Effects",
+    "ru": "Эффекты фона",
+    "pl": "Efekty tła",
+    "de": "Hintergrundeffekte",
+    "es": "Efectos de fondo",
+    "be": "Эфекты фону",
+    "uk": "Ефекти фону"
+  },
+  "background_section_effects_blur": {
+    "en": "Blur: ",
+    "ru": "Размытие: ",
+    "pl": "Rozmycie: ",
+    "de": "Unschärfe: ",
+    "es": "Desenfoque: ",
+    "be": "Размыццё: ",
+    "uk": "Розмиття: "
+  },
+  "background_section_effects_brightness": {
+    "en": "Brightness: ",
+    "ru": "Яркость: ",
+    "pl": "Jasność: ",
+    "de": "Helligkeit: ",
+    "es": "Brillo: ",
+    "be": "Яркасць: ",
+    "uk": "Яскравість: "
+  },
+  "background_section_effects_vignette": {
+    "en": "Vignette Intensity: ",
+    "ru": "Интенсивность виньетки: ",
+    "pl": "Intensywność winiety: ",
+    "de": "Vignettierung: ",
+    "es": "Intensidad de viñeta: ",
+    "be": "Інтэнсіўнасць віньеткі: ",
+    "uk": "Інтенсивність віньєтки: "
+  },
+  "background_section_effects_image_fit": {
+    "en": "Image Fit: ",
+    "ru": "Положение картинки: ",
+    "pl": "Dopasowanie obrazu: ",
+    "de": "Bildanpassung: ",
+    "es": "Ajuste de imagen: ",
+    "be": "Падагнанне выявы: ",
+    "uk": "Підігнання зображення: "
+  },
+  "background_section_effects_image_fit_cover_option": {
+    "en": "Cover",
+    "ru": "Масштабировать",
+    "pl": "Zakryj",
+    "de": "Abdecken",
+    "es": "Cubrir",
+    "be": "Пакрыць",
+    "uk": "Покрити"
+  },
+  "background_section_effects_image_fit_contain_option": {
+    "en": "Contain",
+    "ru": "Вписать",
+    "pl": "Zmieść",
+    "de": "Einpassen",
+    "es": "Contener",
+    "be": "Умясціць",
+    "uk": "Вмістити"
+  },
+  "background_section_effects_image_fit_repeat_option": {
+    "en": "Repeat",
+    "ru": "Заполнить",
+    "pl": "Powtórz",
+    "de": "Wiederholen",
+    "es": "Repetir",
+    "be": "Паўтарыць",
+    "uk": "Повторити"
+  },
+  "background_section_effects_image_fit_stretch_option": {
+    "en": "Stretch",
+    "ru": "Растянуть",
+    "pl": "Rozciągnij",
+    "de": "Strecken",
+    "es": "Estirar",
+    "be": "Расцягнуць",
+    "uk": "Розтягнути"
+  },
+  "background_section_effects_image_fit_center_option": {
+    "en": "Center",
+    "ru": "По центру",
+    "pl": "Wyśrodkuj",
+    "de": "Zentrieren",
+    "es": "Centrar",
+    "be": "Па цэнтры",
+    "uk": "По центру"
+  },
+  "main_sidebar_weather_widget_header": {
+    "en": "Weather",
+    "ru": "Погода",
+    "pl": "Pogoda",
+    "de": "Wetter",
+    "es": "Clima",
+    "be": "Надвор'е",
+    "uk": "Погода"
+  },
+  "weather_widget_section_reset_button": {
+    "en": "Reset Weather Settings",
+    "ru": "Сбросить настройки погоды",
+    "pl": "Zresetuj ustawienia pogody",
+    "de": "Wettereinstellungen zurücksetzen",
+    "es": "Restablecer configuración del clima",
+    "be": "Скінуць налады надвор'я",
+    "uk": "Скинути налаштування погоди"
+  },
+  "weather_widget_toggle_show_weather_widget": {
+    "en": "Show Weather",
+    "ru": "Показывать погоду",
+    "pl": "Pokaż pogodę",
+    "de": "Wetter anzeigen",
+    "es": "Mostrar clima",
+    "be": "Паказваць надвор'е",
+    "uk": "Показувати погоду"
+  },
+  "greeting_widget_section_header": {
+    "en": "Greeting",
+    "ru": "Приветствие",
+    "pl": "Powitanie",
+    "de": "Begrüßung",
+    "es": "Saludo",
+    "be": "Прывітанне",
+    "uk": "Привітання"
+  },
+  "greeting_widget_font_label": {
+    "en": "Font: ",
+    "ru": "Шрифт: ",
+    "pl": "Czcionka: ",
+    "de": "Schriftart: ",
+    "es": "Fuente: ",
+    "be": "Шрыфт: ",
+    "uk": "Шрифт: "
+  },
+  "greeting_widget_font_color_label": {
+    "en": "Text color: ",
+    "ru": "Цвет текста: ",
+    "pl": "Kolor tekstu: ",
+    "de": "Textfarbe: ",
+    "es": "Color del texto: ",
+    "be": "Колер тэксту: ",
+    "uk": "Колір тексту: "
+  },
+  "greeting_widget_font_size_label": {
+    "en": "Greeting size: ",
+    "ru": "Размер приветствия: ",
+    "pl": "Rozmiar powitania: ",
+    "de": "Größe der Begrüßung: ",
+    "es": "Tamaño del saludo: ",
+    "be": "Памер прывітання: ",
+    "uk": "Розмір привітання: "
+  },
+  "greeting_widget_font_username_label": {
+    "en": "Username: ",
+    "ru": "Никнейм: ",
+    "pl": "Nazwa użytkownika: ",
+    "de": "Benutzername: ",
+    "es": "Nombre de usuario: ",
+    "be": "Імя карыстальніка: ",
+    "uk": "Ім’я користувача: "
+  },
+  "greeting_widget_username_input_placeholder": {
+    "en": "Enter your name...",
+    "ru": "Введите своё имя...",
+    "pl": "Wpisz swoje imię...",
+    "de": "Gib deinen Namen ein...",
+    "es": "Introduce tu nombre...",
+    "be": "Увядзіце сваё імя...",
+    "uk": "Введіть своє ім’я..."
+  },
+  "greeting_widget_reset_settings_button": {
+    "en": "Reset Greeting Settings",
+    "ru": "Сбросить настройки приветствия",
+    "pl": "Zresetuj ustawienia powitania",
+    "de": "Begrüßungseinstellungen zurücksetzen",
+    "es": "Restablecer configuración del saludo",
+    "be": "Скінуць налады прывітання",
+    "uk": "Скинути налаштування привітання"
+  },
+  "greeting_widget_toggle_show_greeting_widget": {
+    "en": "Show Greeting",
+    "ru": "Показывать приветствие",
+    "pl": "Pokaż powitanie",
+    "de": "Begrüßung anzeigen",
+    "es": "Mostrar saludo",
+    "be": "Паказваць прывітанне",
+    "uk": "Показувати привітання"
+  },
+  "daily_quote_section_header": {
+    "en": "Daily Quote",
+    "ru": "Цитата дня",
+    "pl": "Cytat dnia",
+    "de": "Zitat des Tages",
+    "es": "Cita diaria",
+    "be": "Цытата дня",
+    "uk": "Цитата дня"
+  },
+  "daily_quote_font_label": {
+    "en": "Font: ",
+    "ru": "Шрифт: ",
+    "pl": "Czcionka: ",
+    "de": "Schriftart: ",
+    "es": "Fuente: ",
+    "be": "Шрыфт: ",
+    "uk": "Шрифт: "
+  },
+  "daily_quote_font_color_label": {
+    "en": "Text color: ",
+    "ru": "Цвет текста: ",
+    "pl": "Kolor tekstu: ",
+    "de": "Textfarbe: ",
+    "es": "Color del texto: ",
+    "be": "Колер тэксту: ",
+    "uk": "Колір тексту: "
+  },
+  "daily_quote_font_size_label": {
+    "en": "Quote size: ",
+    "ru": "Размер цитаты: ",
+    "pl": "Rozmiar cytatu: ",
+    "de": "Zitatgröße: ",
+    "es": "Tamaño de la cita: ",
+    "be": "Памер цытаты: ",
+    "uk": "Розмір цитати: "
+  },
+  "daily_quote_reset_settings_button": {
+    "en": "Reset Daily Quote Settings",
+    "ru": "Сбросить настройки цитаты дня",
+    "pl": "Zresetuj ustawienia cytatu dnia",
+    "de": "Zitat-des-Tages-Einstellungen zurücksetzen",
+    "es": "Restablecer configuración de la cita diaria",
+    "be": "Скінуць налады цытаты дня",
+    "uk": "Скинути налаштування цитати дня"
+  },
+  "daily_quote_toggle_show_quote_settings": {
+    "en": "Show Daily Quote",
+    "ru": "Показывать цитаты дня",
+    "pl": "Pokaż cytat dnia",
+    "de": "Zitat des Tages anzeigen",
+    "es": "Mostrar cita diaria",
+    "be": "Паказваць цытату дня",
+    "uk": "Показувати цитату дня"
+  },
+  "main_sidebar_bookmarks_section_header": {
+    "en": "Bookmarks",
+    "ru": "Закладки",
+    "pl": "Zakładki",
+    "de": "Lesezeichen",
+    "es": "Marcadores",
+    "be": "Закладкі",
+    "uk": "Закладки"
+  },
+  "bookmarks_section_toggle_show_bookmarks": {
+    "en": "Show bookmarks",
+    "ru": "Показать закладки",
+    "pl": "Pokaż zakładki",
+    "de": "Lesezeichen anzeigen",
+    "es": "Mostrar marcadores",
+    "be": "Паказаць закладкі",
+    "uk": "Показати закладки"
+  },
+  "bookmarks_section_toggle_hide_bookmarks": {
+    "en": "Open bookmarks widget by default",
+    "ru": "Открывать виджет с закладками при старте",
+    "pl": "Otwieraj widżet zakładek domyślnie",
+    "de": "Lesezeichen-Widget standardmäßig öffnen",
+    "es": "Abrir el widget de marcadores por defecto",
+    "be": "Адкрываць віджэт закладак па змаўчанні",
+    "uk": "Віджет закладок відкривати за замовчуванням"
+  },
+  "main_sidebar_search_bar_header": {
+    "en": "Search bar",
+    "ru": "Поисковая строка",
+    "pl": "Pasek wyszukiwania",
+    "de": "Suchleiste",
+    "es": "Barra de búsqueda",
+    "be": "Радок пошуку",
+    "uk": "Рядок пошуку"
+  },
+  "main_sidebar_search_bar_reset_settings_button": {
+    "en": "Reset Search Bar Settings",
+    "ru": "Сбросить настройки поисковой строки",
+    "pl": "Zresetuj ustawienia paska wyszukiwania",
+    "de": "Suchleisteneinstellungen zurücksetzen",
+    "es": "Restablecer configuración de búsqueda",
+    "be": "Скінуць налады радка пошуку",
+    "uk": "Скинути налаштування рядка пошуку"
+  },
+  "main_sidebar_search_bar_toggle_show_search_bar": {
+    "en": "Show Search Bar",
+    "ru": "Показать поисковую строку",
+    "pl": "Pokaż pasek wyszukiwania",
+    "de": "Suchleiste anzeigen",
+    "es": "Mostrar barra de búsqueda",
+    "be": "Паказаць радок пошуку",
+    "uk": "Показати рядок пошуку"
+  },
+  "main_sidebar_search_bar_toggle_hide_search_bar": {
+    "en": "Open search results in new tab",
+    "ru": "Открывать результаты в новой вкладке",
+    "pl": "Otwieraj wyniki wyszukiwania w nowej karcie",
+    "de": "Suchergebnisse in neuem Tab öffnen",
+    "es": "Abrir resultados en nueva pestaña",
+    "be": "Адкрываць вынікі пошуку ў новай укладцы",
+    "uk": "Відкривати результати в новій вкладці"
+  },
+  "search_bar_input_placeholder": {
+    "en": "🔍 Search the web...",
+    "ru": "🔍 Поиск в интернете...",
+    "pl": "🔍 Szukaj w sieci...",
+    "de": "🔍 Im Web suchen...",
+    "es": "🔍 Buscar en la web...",
+    "be": "🔍 Пошук у сеціве...",
+    "uk": "🔍 Пошук в інтернеті..."
+  },
+  "search_bar_button_go_button": {
+    "en": "Go",
+    "ru": "Поиск",
+    "pl": "Szukaj",
+    "de": "Los",
+    "es": "Buscar",
+    "be": "Пошук",
+    "uk": "Шукати"
+  },
+  "weather_widget_input_placeholder_city": {
+    "en": "Enter your city...",
+    "ru": "Введите ваш город...",
+    "pl": "Wpisz swoje miasto...",
+    "de": "Gib deine Stadt ein...",
+    "es": "Introduce tu ciudad...",
+    "be": "Увядзіце ваш горад...",
+    "uk": "Введіть своє місто..."
+  },
+  "weather_widget_button_show_weather": {
+    "en": "🌍 Show weather",
+    "ru": "🌍 Показать погоду",
+    "pl": "🌍 Pokaż pogodę",
+    "de": "🌍 Wetter anzeigen",
+    "es": "🌍 Mostrar clima",
+    "be": "🌍 Паказаць надвор'е",
+    "uk": "🌍 Показати погоду"
+  },
+  "weather_widget_button_my_geolocation": {
+    "en": "📍 My Geolocation",
+    "ru": "📍 Моя локация",
+    "pl": "📍 Moja lokalizacja",
+    "de": "📍 Mein Standort",
+    "es": "📍 Mi ubicación",
+    "be": "📍 Мая лакацыя",
+    "uk": "📍 Моя геолокація"
+  },
+  "main_sidebar_localization_header": {
+    "en": "Localization",
+    "ru": "Локализация",
+    "pl": "Lokalizacja",
+    "de": "Lokalisierung",
+    "es": "Localización",
+    "be": "Лакалізацыя",
+    "uk": "Локалізація"
+  },
+  "main_sidebar_localization_reset_settings_button": {
+    "en": "Reset Localization Settings",
+    "ru": "Сбросить настройки локализации",
+    "pl": "Zresetuj ustawienia lokalizacji",
+    "de": "Lokalisierungseinstellungen zurücksetzen",
+    "es": "Restablecer configuración de localización",
+    "be": "Скінуць налады лакалізацыі",
+    "uk": "Скинути налаштування локалізації"
+  },
+  "localization_section_font_label": {
+    "en": "Select localization: ",
+    "ru": "Выбрать локализацию: ",
+    "pl": "Wybierz lokalizację: ",
+    "de": "Lokalisierung auswählen: ",
+    "es": "Seleccionar localización: ",
+    "be": "Выбраць лакалізацыю: ",
+    "uk": "Вибрати локалізацію: "
+  },
+  "procedural_controls_background_color_input": {
+    "en": "Background color: ",
+    "ru": "Цвет фона: ",
+    "pl": "Kolor tła: ",
+    "de": "Hintergrundfarbe: ",
+    "es": "Color de fondo: ",
+    "be": "Колер фону: ",
+    "uk": "Колір фону: "
+  },
+  "procedural_controls_particles_color_input": {
+    "en": "Particles color: ",
+    "ru": "Цвет частиц: ",
+    "pl": "Kolor cząsteczek: ",
+    "de": "Farbe der Partikel: ",
+    "es": "Color de partículas: ",
+    "be": "Колер часцінак: ",
+    "uk": "Колір частинок: "
+  },
+  "procedural_controls_size_input": {
+    "en": "Size: ",
+    "ru": "Размер: ",
+    "pl": "Rozmiar: ",
+    "de": "Größe: ",
+    "es": "Tamaño: ",
+    "be": "Памер: ",
+    "uk": "Розмір: "
+  },
+  "procedural_controls_size_of_particles_input": {
+    "en": "Size of particles: ",
+    "ru": "Размер частиц: ",
+    "pl": "Rozmiar cząsteczek: ",
+    "de": "Größe der Partikel: ",
+    "es": "Tamaño de partículas: ",
+    "be": "Памер часцінак: ",
+    "uk": "Розмір частинок: "
+  },
+  "procedural_controls_radius_of_particles_input": {
+    "en": "Radius of particles: ",
+    "ru": "Радиус частиц: ",
+    "pl": "Promień cząsteczek: ",
+    "de": "Radius der Partikel: ",
+    "es": "Radio de partículas: ",
+    "be": "Радыус часцінак: ",
+    "uk": "Радіус частинок: "
+  },
+  "procedural_controls_number_of_particles_input": {
+    "en": "Number of particles: ",
+    "ru": "Количество частиц: ",
+    "pl": "Liczba cząsteczek: ",
+    "de": "Anzahl der Partikel: ",
+    "es": "Número de partículas: ",
+    "be": "Колькасць часцінак: ",
+    "uk": "Кількість частинок: "
+  },
+  "procedural_controls_particles_transparency_input": {
+    "en": "Particles transparency: ",
+    "ru": "Прозрачность частиц: ",
+    "pl": "Przezroczystość cząsteczek: ",
+    "de": "Transparenz der Partikel: ",
+    "es": "Transparencia de partículas: ",
+    "be": "Празрыстасць часцінак: ",
+    "uk": "Прозорість частинок: "
+  },
+  "procedural_controls_blur_input": {
+    "en": "Blur: ",
+    "ru": "Размытие: ",
+    "pl": "Rozmycie: ",
+    "de": "Unschärfe: ",
+    "es": "Desenfoque: ",
+    "be": "Размыццё: ",
+    "uk": "Розмиття: "
+  },
+  "procedural_controls_lap_duration_input": {
+    "en": "Lap duration: ",
+    "ru": "Длительность круга: ",
+    "pl": "Czas okrążenia: ",
+    "de": "Rundendauer: ",
+    "es": "Duración de la vuelta: ",
+    "be": "Працягласць круга: ",
+    "uk": "Тривалість кола: "
+  },
+  "procedural_controls_left_background_color_input": {
+    "en": "Left Background color: ",
+    "ru": "Цвет левого фона: ",
+    "pl": "Kolor lewego tła: ",
+    "de": "Farbe des linken Hintergrunds: ",
+    "es": "Color de fondo izquierdo: ",
+    "be": "Колер левага фону: ",
+    "uk": "Колір лівого фону: "
+  },
+  "procedural_controls_right_background_color_input": {
+    "en": "Right Background color: ",
+    "ru": "Цвет правого фона: ",
+    "pl": "Kolor prawego tła: ",
+    "de": "Farbe des rechten Hintergrunds: ",
+    "es": "Color de fondo derecho: ",
+    "be": "Колер правага фону: ",
+    "uk": "Колір правого фону: "
+  },
+  "procedural_controls_first_wave_color_input": {
+    "en": "First Wave color: ",
+    "ru": "Цвет первой волны: ",
+    "pl": "Kolor pierwszej fali: ",
+    "de": "Farbe der ersten Welle: ",
+    "es": "Color de la primera ola: ",
+    "be": "Колер першай хвалі: ",
+    "uk": "Колір першої хвилі: "
+  },
+  "procedural_controls_second_wave_color_input": {
+    "en": "Second Wave color: ",
+    "ru": "Цвет второй волны: ",
+    "pl": "Kolor drugiej fali: ",
+    "de": "Farbe der zweiten Welle: ",
+    "es": "Color de la segunda ola: ",
+    "be": "Колер другой хвалі: ",
+    "uk": "Колір другої хвилі: "
+  },
+  "procedural_controls_third_wave_color_input": {
+    "en": "Third Wave color: ",
+    "ru": "Цвет третьей волны: ",
+    "pl": "Kolor trzeciej fali: ",
+    "de": "Farbe der dritten Welle: ",
+    "es": "Color de la tercera ola: ",
+    "be": "Колер трэцяй хвалі: ",
+    "uk": "Колір третьої хвилі: "
+  },
+  "procedural_controls_fourth_wave_color_input": {
+    "en": "Fourth Wave color: ",
+    "ru": "Цвет четвёртой волны: ",
+    "pl": "Kolor czwartej fali: ",
+    "de": "Farbe der vierten Welle: ",
+    "es": "Color de la cuarta ola: ",
+    "be": "Колер чацвёртай хвалі: ",
+    "uk": "Колір четвертої хвилі: "
+  },
+  "procedural_controls_use_only_first_wave_color_input": {
+    "en": "Use only first wave color: ",
+    "ru": "Использовать только первый цвет волны: ",
+    "pl": "Użyj tylko koloru pierwszej fali: ",
+    "de": "Nur Farbe der ersten Welle verwenden: ",
+    "es": "Usar solo el color de la primera ola: ",
+    "be": "Выкарыстоўваць толькі колер першай хвалі: ",
+    "uk": "Використовувати лише колір першої хвилі: "
+  },
+  "procedural_controls_number_of_lines_input": {
+    "en": "Number of lines: ",
+    "ru": "Количество линий: ",
+    "pl": "Liczba linii: ",
+    "de": "Anzahl der Linien: ",
+    "es": "Número de líneas: ",
+    "be": "Колькасць ліній: ",
+    "uk": "Кількість ліній: "
+  },
+  "option_arial_default_label": {
+    "en": "Arial (default)",
+    "ru": "Arial (стандартный)",
+    "pl": "Arial (domyślny)",
+    "de": "Arial (Standard)",
+    "es": "Arial (predeterminado)",
+    "be": "Arial (па змаўчанні)",
+    "uk": "Arial (за замовчуванням)"
+  },
+  "date_and_time_clocks_customization_time_label": {
+    "en": "Time: ",
+    "ru": "Часы: ",
+    "pl": "Godzina: ",
+    "de": "Zeit: ",
+    "es": "Hora: ",
+    "be": "Час: ",
+    "uk": "Час: "
+  },
+  "date_and_time_clocks_customization_date_label": {
+    "en": "Date: ",
+    "ru": "Дата: ",
+    "pl": "Data: ",
+    "de": "Datum: ",
+    "es": "Fecha: ",
+    "be": "Дата: ",
+    "uk": "Дата: "
+  },
+  "date_and_time_clocks_customization_time_format_label": {
+    "en": "Time format: ",
+    "ru": "Формат времени: ",
+    "pl": "Format godziny: ",
+    "de": "Zeitformat: ",
+    "es": "Formato de hora: ",
+    "be": "Фармат часу: ",
+    "uk": "Формат часу: "
+  },
+  "date_and_time_clocks_customization_time_format_first_option": {
+    "en": "24-hour",
+    "ru": "24-х часовой",
+    "pl": "24-godzinny",
+    "de": "24-Stunden",
+    "es": "24 horas",
+    "be": "24-гадзінны",
+    "uk": "24-годинний"
+  },
+  "date_and_time_clocks_customization_time_format_second_option": {
+    "en": "12-hour (AM/PM)",
+    "ru": "12-и часовой (AM/PM)",
+    "pl": "12-godzinny (AM/PM)",
+    "de": "12-Stunden (AM/PM)",
+    "es": "12 horas (AM/PM)",
+    "be": "12-гадзінны (AM/PM)",
+    "uk": "12-годинний (AM/PM)"
+  },
+  "date_and_time_clocks_customization_time_format_third_option": {
+    "en": "Arabic (١٢:٣٤)",
+    "ru": "Арабский (١٢:٣٤)",
+    "pl": "Arabski (١٢:٣٤)",
+    "de": "Arabisch (١٢:٣٤)",
+    "es": "Árabe (١٢:٣٤)",
+    "be": "Арабскі (١٢:٣٤)",
+    "uk": "Арабський (١٢:٣٤)"
+  },
+  "date_and_time_clocks_customization_time_format_fourth_option": {
+    "en": "Chinese (下午1:45)",
+    "ru": "Китайский (下午1:45)",
+    "pl": "Chiński (下午1:45)",
+    "de": "Chinesisch (下午1:45)",
+    "es": "Chino (下午1:45)",
+    "be": "Кітайскі (下午1:45)",
+    "uk": "Китайський (下午1:45)"
+  },
+  "date_and_time_clocks_customization_time_format_fifth_option": {
+    "en": "Japanese (13時45分)",
+    "ru": "Японский (13時45分)",
+    "pl": "Japoński (13時45分)",
+    "de": "Japanisch (13時45分)",
+    "es": "Japonés (13時45分)",
+    "be": "Японскі (13時45分)",
+    "uk": "Японський (13時45分)"
+  },
+  "date_and_time_clocks_customization_time_format_sixth_option": {
+    "en": "Custom (locale-based)",
+    "ru": "Свой (формат компьютера)",
+    "pl": "Własny (zgodny z lokalizacją)",
+    "de": "Benutzerdefiniert (lokalisiert)",
+    "es": "Personalizado (según la configuración regional)",
+    "be": "Свой (па лакалі)",
+    "uk": "Власний (за локаллю)"
+  },
+  "date_and_time_clocks_customization_timezone_label": {
+    "en": "Timezone:",
+    "ru": "Часовой пояс:",
+    "pl": "Strefa czasowa:",
+    "de": "Zeitzone:",
+    "es": "Zona horaria:",
+    "be": "Часавы пояс:",
+    "uk": "Часовий пояс:"
+  },
+  "date_and_time_clocks_customization_date_format_label": {
+    "en": "Date format: ",
+    "ru": "Формат даты: ",
+    "pl": "Format daty: ",
+    "de": "Datumsformat: ",
+    "es": "Formato de fecha: ",
+    "be": "Фармат даты: ",
+    "uk": "Формат дати: "
+  },
+  "date_and_time_clocks_customization_date_format_first_option": {
+    "en": "July 20 2025",
+    "ru": "Июль 20 2025",
+    "pl": "Lipiec 20 2025",
+    "de": "Juli 20 2025",
+    "es": "Julio 20 2025",
+    "be": "Ліпень 20 2025",
+    "uk": "Липень 20 2025"
+  },
+  "date_and_time_clocks_customization_date_format_second_option": {
+    "en": "20 July 2025",
+    "ru": "20 Июль 2025",
+    "pl": "20 Lipiec 2025",
+    "de": "20 Juli 2025",
+    "es": "20 Julio 2025",
+    "be": "20 Ліпень 2025",
+    "uk": "20 Липень 2025"
+  },
+  "date_and_time_clocks_customization_date_format_third_option": {
+    "en": "2025 July 20",
+    "ru": "2025 Июль 20",
+    "pl": "2025 Lipiec 20",
+    "de": "2025 Juli 20",
+    "es": "2025 Julio 20",
+    "be": "2025 Ліпень 20",
+    "uk": "2025 Липень 20"
+  },
+  "date_and_time_clocks_customization_timezone_local_label_option": {
+    "en": "Local",
+    "ru": "ЛОкальный",
+    "pl": "Lokalna",
+    "de": "Lokal",
+    "es": "Local",
+    "be": "Лакальны",
+    "uk": "Локальний"
+  },
+  "links_alert_message_maximum_links": {
+    "en": "Maximum 30 links!",
+    "ru": "Максимум 30 ссылок!",
+    "pl": "Maksymalnie 30 linków!",
+    "de": "Maximal 30 Links!",
+    "es": "¡Máximo 30 enlaces!",
+    "be": "Максімум 30 спасылак!",
+    "uk": "Максимум 30 посилань!"
+  },
+  "sticky_notes_alert_message_confirm_clear_content": {
+    "en": "Clear all sticky note content?",
+    "ru": "Удалить всё содержимое из записок?",
+    "pl": "Wyczyścić całą zawartość notatek?",
+    "de": "Alle Inhalte der Notizen löschen?",
+    "es": "¿Borrar todo el contenido de las notas?",
+    "be": "Ачысціць увесь змест нататак?",
+    "uk": "Очистити весь вміст нотаток?"
+  },
+  "sticky_notes_alert_message_confirm_remove_content": {
+    "en": "Remove all sticky notes?",
+    "ru": "Удалить все записки?",
+    "pl": "Usunąć wszystkie notatki?",
+    "de": "Alle Notizen entfernen?",
+    "es": "¿Eliminar todas las notas?",
+    "be": "Выдаліць усе нататкі?",
+    "uk": "Видалити всі нотатки?"
+  },
+  "sticky_notes_todo_template_name": {
+    "en": "To-Do List",
+    "ru": "To-Do список",
+    "pl": "Lista zadań",
+    "de": "Aufgabenliste",
+    "es": "Lista de tareas",
+    "be": "Спіс спраў",
+    "uk": "Список справ"
+  },
+  "sticky_notes_article_link_template_name": {
+    "en": "Article Link",
+    "ru": "Ссылка на статью",
+    "pl": "Link do artykułu",
+    "de": "Artikellink",
+    "es": "Enlace al artículo",
+    "be": "Спасылка на артыкул",
+    "uk": "Посилання на статтю"
+  },
+  "sticky_notes_article_link_template_value": {
+    "en": "[bold]Article Title[/bold]\n[italic]Link:[/italic] https://",
+    "ru": "[bold]Название статьи[/bold]\n[italic]Ссылка:[/italic] https://",
+    "pl": "[bold]Tytuł artykułu[/bold]\n[italic]Link:[/italic] https://",
+    "de": "[bold]Artikeltitel[/bold]\n[italic]Link:[/italic] https://",
+    "es": "[bold]Título del artículo[/bold]\n[italic]Enlace:[/italic] https://",
+    "be": "[bold]Назва артыкула[/bold]\n[italic]Спасылка:[/italic] https://",
+    "uk": "[bold]Назва статті[/bold]\n[italic]Посилання:[/italic] https://"
+  },
+  "sticky_notes_meeting_notes_template_name": {
+    "en": "Meeting Notes",
+    "ru": "Заметки о встрече",
+    "pl": "Notatki ze spotkania",
+    "de": "Besprechungsnotizen",
+    "es": "Notas de reunión",
+    "be": "Нататкі са сустрэчы",
+    "uk": "Нотатки зі зустрічі"
+  },
+  "sticky_notes_meeting_notes_template_value": {
+    "en": "[bold]Meeting Notes[/bold]\n[italic]Date:[/italic] \n[italic]Attendees:[/italic] \n- \n[italic]Summary:[/italic] ",
+    "ru": "[bold]Заметки о встрече[/bold]\n[italic]Дата:[/italic] \n[italic]Присутствующие:[/italic] \n- \n[italic]Резюме:[/italic] ",
+    "pl": "[bold]Notatki ze spotkania[/bold]\n[italic]Data:[/italic] \n[italic]Uczestnicy:[/italic] \n- \n[italic]Podsumowanie:[/italic] ",
+    "de": "[bold]Besprechungsnotizen[/bold]\n[italic]Datum:[/italic] \n[italic]Teilnehmer:[/italic] \n- \n[italic]Zusammenfassung:[/italic] ",
+    "es": "[bold]Notas de reunión[/bold]\n[italic]Fecha:[/italic] \n[italic]Asistentes:[/italic] \n- \n[italic]Resumen:[/italic] ",
+    "be": "[bold]Нататкі са сустрэчы[/bold]\n[italic]Дата:[/italic] \n[italic]Удзельнікі:[/italic] \n- \n[italic]Рэзюмэ:[/italic] ",
+    "uk": "[bold]Нотатки зі зустрічі[/bold]\n[italic]Дата:[/italic] \n[italic]Учасники:[/italic] \n- \n[italic]Резюме:[/italic] "
+  },
+  "sticky_notes_shopping_list_template_name": {
+    "en": "Shopping List",
+    "ru": "Список покупок",
+    "pl": "Lista zakupów",
+    "de": "Einkaufsliste",
+    "es": "Lista de compras",
+    "be": "Спіс пакупак",
+    "uk": "Список покупок"
+  },
+  "sticky_notes_quick_reminder_template_name": {
+    "en": "Quick Reminder",
+    "ru": "Напоминание",
+    "pl": "Szybkie przypomnienie",
+    "de": "Kurze Erinnerung",
+    "es": "Recordatorio rápido",
+    "be": "Хуткае напамінанне",
+    "uk": "Швидке нагадування"
+  },
+  "sticky_notes_quick_reminder_template_value": {
+    "en": "[bold]Reminder[/bold]\n[italic]Don't forget to:[/italic] ",
+    "ru": "[bold]Напоминание[/bold]\n[italic]Не забудь:[/italic] ",
+    "pl": "[bold]Przypomnienie[/bold]\n[italic]Nie zapomnij:[/italic] ",
+    "de": "[bold]Erinnerung[/bold]\n[italic]Nicht vergessen:[/italic] ",
+    "es": "[bold]Recordatorio[/bold]\n[italic]No olvides:[/italic] ",
+    "be": "[bold]Напамінанне[/bold]\n[italic]Не забудзься:[/italic] ",
+    "uk": "[bold]Нагадування[/bold]\n[italic]Не забудь:[/italic] "
+  },
+  "sticky_notes_project_plan_template_name": {
+    "en": "Project Plan",
+    "ru": "Проектный план",
+    "pl": "Plan projektu",
+    "de": "Projektplan",
+    "es": "Plan del proyecto",
+    "be": "План праекта",
+    "uk": "План проєкту"
+  },
+  "sticky_notes_project_plan_template_value": {
+    "en": "[bold]Project Plan[/bold]\n[italic]Goal:[/italic] \n[italic]Steps:[/italic] \n- ",
+    "ru": "[bold]Проектный план[/bold]\n[italic]Цель:[/italic] \n[italic]Шаги:[/italic] \n- ",
+    "pl": "[bold]Plan projektu[/bold]\n[italic]Cel:[/italic] \n[italic]Kroki:[/italic] \n- ",
+    "de": "[bold]Projektplan[/bold]\n[italic]Ziel:[/italic] \n[italic]Schritte:[/italic] \n- ",
+    "es": "[bold]Plan del proyecto[/bold]\n[italic]Objetivo:[/italic] \n[italic]Pasos:[/italic] \n- ",
+    "be": "[bold]План праекта[/bold]\n[italic]Мэта:[/italic] \n[italic]Крокі:[/italic] \n- ",
+    "uk": "[bold]План проєкту[/bold]\n[italic]Мета:[/italic] \n[italic]Кроки:[/italic] \n- "
+  },
+  "sticky_notes_template_close_button_text": {
+    "en": "Close templates",
+    "ru": "Закрыть шаблоны",
+    "pl": "Zamknij szablony",
+    "de": "Vorlagen schließen",
+    "es": "Cerrar plantillas",
+    "be": "Закрыць шаблоны",
+    "uk": "Закрити шаблони"
+  },
+  "sticky_notes_customization_bg_color_button_text": {
+    "en": "BG color ",
+    "ru": "Цвет фона ",
+    "pl": "Kolor tła ",
+    "de": "Hintergrundfarbe ",
+    "es": "Color de fondo ",
+    "be": "Колер фону ",
+    "uk": "Колір фону "
+  },
+  "sticky_notes_customization_font_button_text": {
+    "en": "Font ",
+    "ru": "Шрифт ",
+    "pl": "Czcionka ",
+    "de": "Schriftart ",
+    "es": "Fuente ",
+    "be": "Шрыфт ",
+    "uk": "Шрифт "
+  },
+  "sticky_notes_customization_size_button_text": {
+    "en": "Size ",
+    "ru": "Размер шрифта ",
+    "pl": "Rozmiar ",
+    "de": "Größe ",
+    "es": "Tamaño ",
+    "be": "Памер шрыфта ",
+    "uk": "Розмір шрифту "
+  },
+  "sticky_notes_customization_text_color_button_text": {
+    "en": "Text color ",
+    "ru": "Цвет текста ",
+    "pl": "Kolor tekstu ",
+    "de": "Textfarbe ",
+    "es": "Color del texto ",
+    "be": "Колер тэксту ",
+    "uk": "Колір тексту "
+  },
+  "sticky_notes_customization_reset_button_text": {
+    "en": "Reset",
+    "ru": "Сбросить",
+    "pl": "Resetuj",
+    "de": "Zurücksetzen",
+    "es": "Restablecer",
+    "be": "Скінуць",
+    "uk": "Скинути"
+  },
+  "sticky_notes_clear_alert_note_text_confirmation": {
+    "en": "Are you sure you want to clear this note?",
+    "ru": "Вы уверены, что вы хотите очистить эту записку?",
+    "pl": "Czy na pewno chcesz wyczyścić tę notatkę?",
+    "de": "Möchten Sie diese Notiz wirklich löschen?",
+    "es": "¿Estás seguro de que quieres borrar esta nota?",
+    "be": "Вы ўпэўнены, што хочаце ачысціць гэтую нататку?",
+    "uk": "Ви впевнені, що хочете очистити цю нотатку?"
+  },
+  "version_text_content": {
+    "en": "Version",
+    "ru": "Версия",
+    "pl": "Wersja",
+    "de": "Version",
+    "es": "Versión",
+    "be": "Версія",
+    "uk": "Версія"
+  },
+  "delete_bookmark_confirmation_window_text": {
+    "en": "Delete this bookmark?",
+    "ru": "Удалить эту закладку?",
+    "pl": "Usunąć tę zakładkę?",
+    "de": "Dieses Lesezeichen löschen?",
+    "es": "¿Eliminar este marcador?",
+    "be": "Выдаліць гэтую закладку?",
+    "uk": "Видалити цю закладку?"
+  },
+  "rename_bookmark_confirmation_window_text_first_part": {
+    "en": "Rename this bookmark?\n\nOld name:",
+    "ru": "Переименовать эту закладку?\n\nПредыдущее название:",
+    "pl": "Zmień nazwę tej zakładki?\n\nPoprzednia nazwa:",
+    "de": "Dieses Lesezeichen umbenennen?\n\nAlter Name:",
+    "es": "¿Renombrar este marcador?\n\nNombre anterior:",
+    "be": "Перайменаваць гэтую закладку?\n\nСтарая назва:",
+    "uk": "Перейменувати цю закладку?\n\nСтара назва:"
+  },
+  "rename_bookmark_confirmation_window_text_second_part": {
+    "en": "New name:",
+    "ru": "Новое название:",
+    "pl": "Nowa nazwa:",
+    "de": "Neuer Name:",
+    "es": "Nuevo nombre:",
+    "be": "Новая назва:",
+    "uk": "Нова назва:"
+  },
+  "modal_confirm_message_html_default": {
+    "en": "Are you sure?",
+    "ru": "Вы уверены?",
+    "pl": "Jesteś pewien?",
+    "de": "Bist du sicher?",
+    "es": "¿Estás seguro?",
+    "be": "Вы ўпэўнены?",
+    "uk": "Ви впевнені?"
+  },
+  "modal_confirm_yes_button_html_default": {
+    "en": "Yes",
+    "ru": "Да",
+    "pl": "Tak",
+    "de": "Ja",
+    "es": "Sí",
+    "be": "Так",
+    "uk": "Так"
+  },
+  "modal_confirm_no_button_html_default": {
+    "en": "No",
+    "ru": "Нет",
+    "pl": "Nie",
+    "de": "Nein",
+    "es": "No",
+    "be": "Не",
+    "uk": "Ні"
+  }
+}
