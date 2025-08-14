@@ -21,6 +21,7 @@
 }
 
 #bookmark-sidebar.hidden {
+    display: flex !important;
     left: -450px;
 }
 

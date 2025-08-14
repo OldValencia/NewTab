@@ -16,7 +16,10 @@
   "permissions": [
     "storage",
     "webRequest",
-    "bookmarks"
+    "bookmarks",
+    "notifications",
+    "tabs",
+    "alarms"
   ],
 
   "icons": {
