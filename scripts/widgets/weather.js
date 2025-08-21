@@ -25,6 +25,14 @@ function applyWeatherVisibilitySetting() {
     }
     toggleWeatherWidget.checked = settings.weatherWidget.showWeather;
     weatherWidgetElement.style.display = settings.weatherWidget.showWeather ? "block" : "none";
+    addCustomNotificationButton.classList.toggle("weather-widget-disabled", !settings.weatherWidget.showWeather);
+    addCustomNotificationButton.offsetHeight
+
+    if (settings.weatherWidget.showWeather) {
+        addNotificationTempTriggerType();
+    } else {
+        removeNotificationTempTriggerType();
+    }
 }
 
 function saveWeatherData(data, city) {

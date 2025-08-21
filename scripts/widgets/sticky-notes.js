@@ -29,7 +29,7 @@ function getContrastYIQ(hexcolor) {
     return (yiq >= 180) ? '#222' : '#fff';
 }
 
-function createStickyNote(data = {}, key) {
+async function createStickyNote(data = {}, key) {
     const existingIds = new Set(
         Array.from(document.querySelectorAll(".sticky-note")).map(note => note.id)
     );
@@ -121,30 +121,31 @@ function createStickyNote(data = {}, key) {
     templatePopup.style.padding = "8px";
     templatePopup.style.minWidth = "180px";
 
+    const settings = loadCustomSettings();
     const templates = [
         {
-            name: "To-Do List",
-            value: '[bold]To-Do List[/bold]\n' + Array.from({length: 10}, (_, i) => `${i + 1}. [todo type="unchecked"] [/todo]`).join("\n")
+            name: await getLocalizationByKey("sticky_notes_todo_template_name", settings.locale),
+            value: `[bold]${await getLocalizationByKey("sticky_notes_todo_template_name", settings.locale)}[/bold]\n` + Array.from({length: 10}, (_, i) => `${i + 1}. [todo type="unchecked"] [/todo]`).join("\n")
         },
         {
-            name: "Article Link",
-            value: '[bold]Article Title[/bold]\n[italic]Link:[/italic] https://'
+            name: await getLocalizationByKey("sticky_notes_article_link_template_name", settings.locale),
+            value: await getLocalizationByKey("sticky_notes_article_link_template_value", settings.locale)
         },
         {
-            name: "Meeting Notes",
-            value: `[bold]Meeting Notes[/bold]\n[italic]Date:[/italic] \n[italic]Attendees:[/italic] \n- \n[italic]Summary:[/italic] `
+            name: await getLocalizationByKey("sticky_notes_meeting_notes_template_name", settings.locale),
+            value: await getLocalizationByKey("sticky_notes_meeting_notes_template_value", settings.locale)
         },
         {
-            name: "Shopping List",
-            value: '[bold]Shopping List[/bold]\n' + Array.from({length: 5}, (_, i) => `${i + 1}. [todo type="unchecked"][/todo]`).join("\n")
+            name: await getLocalizationByKey("sticky_notes_shopping_list_template_name", settings.locale),
+            value: `[bold]${await getLocalizationByKey("sticky_notes_shopping_list_template_name", settings.locale)}[/bold]\n` + Array.from({length: 5}, (_, i) => `${i + 1}. [todo type="unchecked"][/todo]`).join("\n")
         },
         {
-            name: "Quick Reminder",
-            value: '[bold]Reminder[/bold]\n[italic]Don\'t forget to:[/italic] '
+            name: await getLocalizationByKey("sticky_notes_quick_reminder_template_name", settings.locale),
+            value: await getLocalizationByKey("sticky_notes_quick_reminder_template_value", settings.locale),
         },
         {
-            name: "Project Plan",
-            value: `[bold]Project Plan[/bold]\n[italic]Goal:[/italic] \n[italic]Steps:[/italic] \n- `
+            name: await getLocalizationByKey("sticky_notes_project_plan_template_name", settings.locale),
+            value: await getLocalizationByKey("sticky_notes_project_plan_template_value", settings.locale),
         }
     ];
 
@@ -166,7 +167,7 @@ function createStickyNote(data = {}, key) {
         templatePopup.appendChild(btn);
     });
 
-    const closeBtn = createBtn("template-option-btn", "Close templates");
+    const closeBtn = createBtn("template-option-btn", await getLocalizationByKey("sticky_notes_template_close_button_text", settings.locale));
     closeBtn.style.display = "block";
     closeBtn.style.width = "100%";
     closeBtn.style.marginTop = "10px";
@@ -208,14 +209,14 @@ function createStickyNote(data = {}, key) {
     customizeMenu.className = "customize-menu hidden";
 
     const bgLabel = document.createElement("label");
-    bgLabel.textContent = "BG Color ";
+    bgLabel.textContent = await getLocalizationByKey("sticky_notes_customization_bg_color_button_text", settings.locale);
     const bgInput = document.createElement("input");
     bgInput.type = "color";
     bgInput.className = "bg-color";
     bgLabel.appendChild(bgInput);
 
     const fontLabel = document.createElement("label");
-    fontLabel.textContent = "Font ";
+    fontLabel.textContent = await getLocalizationByKey("sticky_notes_customization_font_button_text", settings.locale);
     const fontSelect = document.createElement("select");
     fontSelect.className = "font-family";
     const fonts = [
@@ -248,7 +249,7 @@ function createStickyNote(data = {}, key) {
     fontLabel.appendChild(fontSelect);
 
     const sizeLabel = document.createElement("label");
-    sizeLabel.textContent = "Size ";
+    sizeLabel.textContent = await getLocalizationByKey("sticky_notes_customization_size_button_text", settings.locale);
     const sizeInput = document.createElement("input");
     sizeInput.type = "number";
     sizeInput.className = "font-size";
@@ -257,7 +258,7 @@ function createStickyNote(data = {}, key) {
     sizeLabel.appendChild(sizeInput);
 
     const colorLabel = document.createElement("label");
-    colorLabel.textContent = "Text Color ";
+    colorLabel.textContent = await getLocalizationByKey("sticky_notes_customization_text_color_button_text", settings.locale);
     const colorInput = document.createElement("input");
     colorInput.type = "color";
     colorInput.className = "text-color";
@@ -265,7 +266,7 @@ function createStickyNote(data = {}, key) {
 
     const resetBtn = document.createElement("button");
     resetBtn.className = "reset-note";
-    resetBtn.textContent = "Reset";
+    resetBtn.textContent = await getLocalizationByKey("sticky_notes_customization_reset_button_text", settings.locale);
 
     customizeMenu.appendChild(bgLabel);
     customizeMenu.appendChild(fontLabel);
@@ -327,8 +328,8 @@ function createStickyNote(data = {}, key) {
     customizeBtn.addEventListener("click", () => {
         customizeMenu.classList.toggle("hidden");
     });
-    clearBtn.addEventListener("click", () => {
-        clearNote(noteId)
+    clearBtn.addEventListener("click", async () => {
+        await clearNote(noteId)
         syncRenderedDiv();
     });
     removeBtn.addEventListener("mousedown", (e) => {
@@ -610,8 +611,9 @@ function rgbToHex(rgb) {
     return "#" + result.map(x => (+x).toString(16).padStart(2, "0")).join("");
 }
 
-function clearNote(id) {
-    if (confirm("Are you sure you want to clear this note?")) {
+async function clearNote(id) {
+    const settings = loadCustomSettings();
+    if (confirm(await getLocalizationByKey("sticky_notes_clear_alert_note_text_confirmation", settings.locale))) {
         const el = document.getElementById(id);
         el.querySelector("textarea").value = "";
         saveNote(id);
@@ -635,21 +637,19 @@ function removeNote(id) {
     }
 }
 
-document.getElementById("add-sticky-note").addEventListener("click", () => {
-    createStickyNote();
-});
+document.getElementById("add-sticky-note").addEventListener("click", createStickyNote);
 
 
 // Load existing notes on page load
-window.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("DOMContentLoaded", async () => {
     const loaded = new Set();
-    Object.keys(localStorage).forEach(key => {
+    for (const key of Object.keys(localStorage)) {
         if (key.startsWith("sticky-note-") && !loaded.has(key)) {
             const data = JSON.parse(localStorage.getItem(key));
-            createStickyNote(data, key);
+            await createStickyNote(data, key);
             loaded.add(key);
         }
-    });
+    }
     const maxId = Array.from(loaded).map(k => parseInt(k.replace("sticky-note-", ""), 10)).filter(Number.isFinite);
     if (maxId.length) {
         noteCounter = Math.max(...maxId) + 1;

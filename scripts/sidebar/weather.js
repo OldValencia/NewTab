@@ -2,7 +2,9 @@ const toggleWeatherWidget = document.getElementById("toggle-weather-widget");
 const weatherWidgetElement = document.getElementById("weather-widget");
 const resetWeatherBtn = document.getElementById("reset-weather-settings");
 
-function loadWeatherWidget(settings) {
+function loadWeatherWidget() {
+    const settings = loadCustomSettings();
+
     if (!settings.weatherWidget) {
         settings.weatherWidget = {
             showWeather: false,
@@ -20,7 +22,7 @@ function loadWeatherWidget(settings) {
         const settings = loadCustomSettings();
         settings.weatherWidget.showWeather = toggleWeatherWidget.checked;
         saveCustomSettings(settings);
-        weatherWidgetElement.style.display = toggleWeatherWidget.checked ? "block" : "none";
+        applyWeatherVisibilitySetting()
     });
 
     resetWeatherBtn.addEventListener("click", () => {
@@ -32,7 +34,19 @@ function loadWeatherWidget(settings) {
 
         weatherInput.value = "";
         weatherSummary.textContent = DEFAULT_WEATHER_SUMMARY_VALUE;
-        weatherWidgetElement.style.display = "block";
-        toggleWeatherWidget.checked = true;
+
+        if (!sidebar.classList.contains("open")) {
+            weatherWidgetElement.classList.remove("sidebar-shifted");
+        }
+
+        applyWeatherVisibilitySetting();
     });
 }
+
+weatherWidgetElement.addEventListener("mouseover", () => {
+    addCustomNotificationButton.classList.toggle("weather-active", true);
+});
+
+weatherWidgetElement.addEventListener("mouseleave", () => {
+    addCustomNotificationButton.classList.toggle("weather-active", false);
+});

@@ -1,0 +1,342 @@
+/* ──────────────── */
+/* 📌 Add Button */
+/* ──────────────── */
+#add-custom-notification {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 500;
+    background: rgba(30, 30, 30, 0.6);
+    backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    font-family: 'Segoe UI', sans-serif;
+    color: #fff;
+    z-index: 9999;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#add-custom-notification:hover {
+    background: rgba(30, 30, 30, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+#add-custom-notification:active {
+    transform: scale(0.97);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+#add-custom-notification.weather-widget-disabled {
+    bottom: 20px;
+}
+
+#add-custom-notification.weather-active {
+    bottom: 220px;
+}
+
+#add-custom-notification.sidebar-shifted {
+    right: 470px;
+}
+
+/* ──────────────── */
+/* 🧩 Notification Editor */
+/* ──────────────── */
+#notif-editor {
+    position: absolute;
+    top: 100px;
+    left: 100px;
+    width: 340px;
+    max-width: 340px;
+    background: rgba(30, 30, 30, 0.6);
+    backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.4);
+    padding: 20px;
+    font-family: 'Segoe UI', sans-serif;
+    color: #fff;
+    z-index: 9999;
+}
+
+/* ──────────────── */
+/* 🧱 Editor Header */
+/* ──────────────── */
+.notif-editor-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+#notif-editor h2 {
+    width: calc(100% - 54px);
+    font-size: 22px;
+    font-weight: 600;
+    color: #ffffff;
+    background: none;
+    padding: 0;
+    margin: 0;
+    cursor: grab;
+}
+
+.notification-header-button {
+    background: transparent;
+    width: 27px;
+    border: none;
+    font-size: 20px;
+    color: #ccc;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.notification-header-button:hover {
+    color: #fff;
+}
+
+/* ──────────────── */
+/* 🏷️ Labels & Inputs */
+/* ──────────────── */
+#notif-editor label {
+    font-weight: 500;
+    display: block;
+    margin-top: 12px;
+    margin-bottom: 6px;
+    font-size: 14px;
+    color: #bbb;
+}
+
+#notif-editor input,
+#notif-editor textarea,
+#notif-editor select {
+    width: 100%;
+    padding: 8px;
+    font-size: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+    box-sizing: border-box;
+    outline: none;
+    transition: background 0.2s ease;
+    appearance: auto
+}
+
+#notif-editor textarea {
+    max-width: 340px;
+    min-height: 30px;
+    resize: vertical;
+}
+
+#notif-editor input:focus,
+#notif-editor textarea:focus,
+#notif-editor select:focus {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* 🍏 iPhone-style Number Input */
+.timer-picker {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.timer-picker input[type="number"] {
+    width: 80px;
+    font-size: 18px;
+    text-align: center;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+    padding: 6px;
+    outline: none;
+}
+
+.timer-units {
+    display: flex;
+    gap: 6px;
+}
+
+.unit-button {
+    padding: 6px 10px;
+    font-size: 14px;
+    border: none;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    color: #ccc;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.unit-button.active {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+}
+
+.unit-button:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* ──────────────── */
+/* 🎛️ Buttons */
+/* ──────────────── */
+#notif-editor #preview-button,
+#notif-editor #save-button {
+    margin-top: 20px;
+    padding: 12px;
+    width: 48%;
+    font-weight: 600;
+    font-size: 15px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#preview-button {
+    background: linear-gradient(135deg, #0078d4, #00b4ff);
+    color: #fff;
+}
+
+#save-button {
+    background: linear-gradient(135deg, #28a745, #5cd67a);
+    color: #fff;
+    float: right;
+}
+
+#notif-editor #preview-button:hover,
+#notif-editor #save-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.has-tooltip {
+    position: relative;
+    cursor: help;
+}
+
+.has-tooltip::after {
+    background: rgba(20, 20, 20, 0.9);
+    font-size: 13px;
+    border-radius: 10px;
+    padding: 10px;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    transform: translateY(-50%) scale(0.95);
+
+
+    content: attr(data-tooltip);
+    position: absolute;
+    top: 50%;
+    left: 105%;
+    width: 220px;
+    color: #fff;
+    line-height: 1.3;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 10000;
+    white-space: pre-line;
+}
+
+.has-tooltip::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    transform: translateY(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent transparent transparent rgba(0,0,0,0.8);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.has-tooltip:hover::after,
+.has-tooltip:hover::before,
+.has-tooltip:focus-within::after,
+.has-tooltip:focus-within::before {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+}
+
+.has-tooltip::after,
+.has-tooltip::before {
+    transition-delay: 0.3s;
+}
+
+/* 📋 Notifications list */
+#notif-editor.notification-list-mode {
+    position: absolute;
+}
+
+#notifications-list {
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.notif-list-item {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 12px;
+    margin-bottom: 12px;
+    color: #fff;
+}
+
+.notif-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    display: block;
+}
+
+.notif-body {
+    font-size: 14px;
+    color: #bbb;
+    margin: 4px 0;
+}
+
+.notif-meta {
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 8px;
+}
+
+.delete-notif-btn, .make-active-notif-btn {
+    padding: 6px 12px;
+    font-size: 14px;
+    border-radius: 8px;
+    border: none;
+    background: linear-gradient(135deg, #d9534f, #ff6b6b);
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.make-active-notif-btn {
+    background: linear-gradient(135deg, #28a745, #5cd67a);
+    margin-right: 10px;
+}
+
+.delete-notif-btn:hover, .make-active-notif-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.notif-empty {
+    color: #bbb;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 20px;
+}
+

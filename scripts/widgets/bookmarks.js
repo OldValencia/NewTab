@@ -37,6 +37,14 @@ function openBookmarksSidebar() {
     }
 }
 
+function setupCheckbox(checkbox, key, defaultValue, onChange) {
+    checkbox.checked = getBookmarkSetting(key, defaultValue);
+    checkbox.addEventListener("change", () => {
+        setBookmarkSetting(key, checkbox.checked);
+        onChange();
+    });
+}
+
 function getBookmarkSetting(key, defaultValue) {
     const settings = loadCustomSettings();
     return settings.bookmarks?.[key] ?? defaultValue;
@@ -49,17 +57,12 @@ function setBookmarkSetting(key, value) {
     saveCustomSettings(settings);
 }
 
-
-function setupCheckbox(checkbox, key, defaultValue, onChange) {
-    checkbox.checked = getBookmarkSetting(key, defaultValue);
-    checkbox.addEventListener("change", () => {
-        setBookmarkSetting(key, checkbox.checked);
-        onChange();
-    });
+function getPinned() {
+    return getBookmarkSetting("pinnedBookmarks", []);
 }
 
 function loadBookmarks() {
-    browser.bookmarks.getTree().then(tree => {
+    return browser.bookmarks.getTree().then(tree => {
         allBookmarks = tree[0].children || [];
         renderBookmarkTree(allBookmarks, bookmarkTree);
     });
@@ -79,7 +82,7 @@ function renderBookmarkTree(nodes, container, depth = 0) {
             folder.style.marginTop = "5px";
 
             const summary = document.createElement("summary");
-            summary.textContent = node.title?.trim() || "📁 Без названия";
+            summary.textContent = node.title?.trim() || "📁 No Name";
             folder.appendChild(summary);
 
             const innerContainer = document.createElement("div");
@@ -107,19 +110,61 @@ function createBookmarkItem(bookmark, {draggable = false} = {}) {
         link.target = "_blank";
     }
 
-    const isPinned = getPinned().some(b => b.id === bookmark.id);
-    const pin = isPinned
-        ? createButton("✅", null)
-        : createButton("⭐", () => pinBookmark(bookmark));
+    const pin = getPinned().includes(bookmark.id)
+        ? createButton("📌", () => unpinBookmark(bookmark.id))
+        : createButton("⭐", () => pinBookmark(bookmark.id));
 
-    item.append(link, pin);
+    const removeBtn = createButton("🗑️", async () => {
+        const settings = loadCustomSettings();
+        const localizedMessage = await getLocalizationByKey("delete_bookmark_confirmation_window_text", settings.locale);
+        showConfirmation(localizedMessage, () => {
+            const openFolders = getOpenFolderPaths(bookmarkTree);
+            browser.bookmarks.remove(bookmark.id).then(() => {
+                loadBookmarks().then(() => reRenderAndRestoreOpenFolders(openFolders));
+            });
+        });
+    });
+
+    const renameBtn = createButton("✏️", () => {
+        const input = document.createElement("input");
+        input.type = "text";
+        input.value = bookmark.title || bookmark.url;
+        input.className = "rename-input";
+
+        const saveBtn = createButton("💾", async () => {
+            const newTitle = input.value.trim();
+            if (newTitle) {
+                const settings = loadCustomSettings();
+                const firstConfirmationMessagePart = await getLocalizationByKey("rename_bookmark_confirmation_window_text_first_part", settings.locale);
+                const secondConfirmationMessagePart = await getLocalizationByKey("rename_bookmark_confirmation_window_text_second_part", settings.locale);
+                showConfirmation(`${firstConfirmationMessagePart} ${bookmark.title}\n${secondConfirmationMessagePart} ${newTitle}`,
+                    () => {
+                        const openFolders = getOpenFolderPaths(bookmarkTree);
+                        browser.bookmarks.update(bookmark.id, { title: newTitle }).then(() => {
+                            loadBookmarks().then(() => reRenderAndRestoreOpenFolders(openFolders));
+                        });
+                    },
+                    () => {
+                        item.innerHTML = "";
+                        item.append(link, pin, renameBtn, removeBtn);
+                    }
+                );
+            }
+        });
+
+        item.innerHTML = "";
+        item.append(input, saveBtn);
+    });
+
+    item.append(link, pin, renameBtn, removeBtn);
+
     return item;
 }
 
 function createButton(text, onClick) {
     const btn = document.createElement("button");
     btn.textContent = text;
-    btn.className = "pin-button";
+    btn.className = "bookmark-button";
     if (onClick) {
         btn.onclick = function (e) {
             e.stopPropagation();
@@ -156,55 +201,53 @@ function filterBookmarks(query) {
     filtered.forEach(b => bookmarkTree.appendChild(createBookmarkItem(b)));
 }
 
-function getPinned() {
-    return getBookmarkSetting("pinnedBookmarks", []);
+function unpinBookmark(bookmarkId) {
+    const updated = getPinned().filter(id => id !== bookmarkId);
+    setBookmarkSetting("pinnedBookmarks", updated);
+    const openFolders = getOpenFolderPaths(bookmarkTree);
+    reRenderAndRestoreOpenFolders(openFolders);
 }
 
-function pinBookmark(bookmark) {
+function pinBookmark(bookmarkId) {
     const pinned = getPinned();
-    if (pinned.find(b => b.id === bookmark.id)) return;
-    pinned.push(bookmark);
+    if (pinned.find(id => id === bookmarkId)) return;
+    pinned.push(bookmarkId);
     setBookmarkSetting("pinnedBookmarks", pinned);
     const openFolders = getOpenFolderPaths(bookmarkTree);
-    renderBookmarkTree(allBookmarks, bookmarkTree);
-    restoreOpenFolders(bookmarkTree, openFolders);
-    renderPinned();
+    reRenderAndRestoreOpenFolders(openFolders);
 }
 
-function renderPinned() {
+async function renderPinned() {
     pinnedSection.innerHTML = "";
-    const pinnedBookmarks = getPinned();
-    if (pinnedBookmarks.length === 0) {
+    const pinnedBookmarkIds = getPinned();
+    if (pinnedBookmarkIds.length === 0) {
         pinnedSection.style.display = "none";
         return;
     }
 
     pinnedSection.style.display = "flex";
-    pinnedBookmarks.forEach((bookmark, index) => {
-        const item = document.createElement("div"); // заменено с label на div
+    for (const bookmarkId of pinnedBookmarkIds) {
+        const index = pinnedBookmarkIds.indexOf(bookmarkId);
+        const bookmark = await browser.bookmarks.get(bookmarkId);
+
+        const item = document.createElement("div");
         item.className = "bookmark-item";
         item.draggable = true;
         item.dataset.index = index;
 
         const link = document.createElement("a");
-        link.href = bookmark.url;
-        link.textContent = bookmark.title || bookmark.url;
+        link.href = bookmark[0].url;
+
+        link.textContent = bookmark[0].title || bookmark[0].url;
         if (getBookmarkSetting("openBookmarksInNewTab", false)) {
             link.target = "_blank";
         }
 
-        const remove = createButton("🗑️", () => {
-            const updated = getPinned().filter(b => b.id !== bookmark.id);
-            setBookmarkSetting("pinnedBookmarks", updated);
-            const openFolders = getOpenFolderPaths(bookmarkTree);
-            renderBookmarkTree(allBookmarks, bookmarkTree);
-            restoreOpenFolders(bookmarkTree, openFolders);
-            renderPinned();
-        });
+        const remove = createButton("📌", () => unpinBookmark(bookmarkId));
 
         item.append(link, remove);
         pinnedSection.appendChild(item);
-    });
+    }
 
     enableDragAndDrop(pinnedSection);
 }
@@ -218,6 +261,12 @@ function getOpenFolderPaths(container) {
         }
     });
     return openFolders;
+}
+
+function reRenderAndRestoreOpenFolders(openFolders) {
+    renderBookmarkTree(allBookmarks, bookmarkTree);
+    restoreOpenFolders(bookmarkTree, openFolders);
+    renderPinned();
 }
 
 function restoreOpenFolders(container, openFolders) {

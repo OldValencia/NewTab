@@ -26,10 +26,23 @@ function updateTime() {
         const day = clockDate.getDate().toString().padStart(2, '0');
         const year = clockDate.getFullYear();
         const monthIndex = clockDate.getMonth();
-        const monthName = [
-            'January', 'February', 'March', 'April', 'May', 'June',
-            'July', 'August', 'September', 'October', 'November', 'December'
-        ][monthIndex];
+        const monthNames = {
+            "en": ['January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'],
+            "ru": ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
+                'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+            "pl": ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec',
+                'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'],
+            "de": ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni',
+                'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
+            "es": ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+                'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+            "be": ['Студзень', 'Люты', 'Сакавік', 'Красавік', 'Май', 'Чэрвень',
+                'Ліпень', 'Жнівень', 'Верасень', 'Кастрычнік', 'Лістапад', 'Снежань'],
+            "uk": ['Січень', 'Лютий', 'Березень', 'Квітень', 'Травень', 'Червень',
+                'Липень', 'Серпень', 'Вересень', 'Жовтень', 'Листопад', 'Грудень']
+        };
+        const monthName = monthNames[settings.locale][monthIndex];
         const monthNum = (monthIndex + 1).toString().padStart(2, '0');
 
         // Time format
@@ -46,11 +59,6 @@ function updateTime() {
                 const arabicDigits = ["٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"];
                 const toArabic = n => n.toString().split("").map(d => arabicDigits[+d]).join("");
                 timeString = `${toArabic(hours)}:${toArabic(minutes)}`;
-                break;
-            }
-            case "hebrew": {
-                // Hebrew format (standard numbers, but RTL)
-                timeString = `\u202B${hours}:${minutes}\u202C`;
                 break;
             }
             case "chinese": {
