@@ -22,7 +22,7 @@ function loadWeatherWidget() {
         const settings = loadCustomSettings();
         settings.weatherWidget.showWeather = toggleWeatherWidget.checked;
         saveCustomSettings(settings);
-        weatherWidgetElement.style.display = toggleWeatherWidget.checked ? "block" : "none";
+        applyWeatherVisibilitySetting()
     });
 
     resetWeatherBtn.addEventListener("click", () => {
@@ -34,7 +34,19 @@ function loadWeatherWidget() {
 
         weatherInput.value = "";
         weatherSummary.textContent = DEFAULT_WEATHER_SUMMARY_VALUE;
-        weatherWidgetElement.style.display = "block";
-        toggleWeatherWidget.checked = true;
+
+        if (!sidebar.classList.contains("open")) {
+            weatherWidgetElement.classList.remove("sidebar-shifted");
+        }
+
+        applyWeatherVisibilitySetting();
     });
 }
+
+weatherWidgetElement.addEventListener("mouseover", () => {
+    addCustomNotificationButton.classList.toggle("weather-active", true);
+});
+
+weatherWidgetElement.addEventListener("mouseleave", () => {
+    addCustomNotificationButton.classList.toggle("weather-active", false);
+});

@@ -4,6 +4,8 @@ const toggleBtn = document.getElementById("menu-toggle");
 function openMainSidebar() {
     sidebar.classList.toggle("open");
     toggleBtn.classList.toggle("shifted");
+    weatherWidgetElement.classList.toggle("sidebar-shifted");
+    addCustomNotificationButton.classList.toggle("sidebar-shifted");
 }
 
 toggleBtn.addEventListener("click", openMainSidebar);
