@@ -129,6 +129,7 @@
 
 #notif-editor textarea {
     max-width: 340px;
+    min-height: 30px;
     resize: vertical;
 }
 

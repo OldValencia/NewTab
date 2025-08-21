@@ -1,6 +1,5 @@
 const addCustomNotificationButton = document.getElementById("add-custom-notification");
 const notificationEditorId = "notif-editor";
-let backgroundCheckerTimer = null;
 
 function saveNotification(notification) {
     browser.storage.local.get("customNotifications").then(result => {
@@ -8,6 +7,7 @@ function saveNotification(notification) {
         notifications.push(notification);
         browser.storage.local.set({customNotifications: notifications}).then(() => {
             alert("✅ Notification saved!");
+            resetChecker();
         });
     });
 }
