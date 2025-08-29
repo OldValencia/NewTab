@@ -37,7 +37,6 @@ function loadSearchBarWidget() {
     toggleSearchBarOpenInNewTab.addEventListener("change", () => {
         const settings = loadCustomSettings();
         settings.searchBar.openInNewTab = toggleSearchBarOpenInNewTab.checked;
-        console.log(settings.searchBar.openInNewTab);
         saveCustomSettings(settings);
     });
 

@@ -2,7 +2,7 @@ const toggleWeatherWidget = document.getElementById("toggle-weather-widget");
 const weatherWidgetElement = document.getElementById("weather-widget");
 const resetWeatherBtn = document.getElementById("reset-weather-settings");
 
-function loadWeatherWidget() {
+async function loadWeatherWidget() {
     const settings = loadCustomSettings();
 
     if (!settings.weatherWidget) {
@@ -15,8 +15,8 @@ function loadWeatherWidget() {
     }
 
     applyWeatherVisibilitySetting();
-    const shouldFetch = loadCachedWeather();
-    loadSavedCity(shouldFetch);
+    const shouldFetch = await loadCachedWeather();
+    await loadSavedCity(shouldFetch);
 
     toggleWeatherWidget.addEventListener("change", () => {
         const settings = loadCustomSettings();

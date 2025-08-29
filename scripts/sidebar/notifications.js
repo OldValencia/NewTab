@@ -5,7 +5,6 @@ function loadNotifications() {
     browser.storage.local.get("isNotificationsEnabled").then(result => {
         const isNotificationsEnabled = result.isNotificationsEnabled || false;
         toggleNotificationsEditorBtn.checked = isNotificationsEnabled;
-        console.log(`🔔 Notifications are ${isNotificationsEnabled ? "enabled" : "disabled"}`);
         addCustomNotificationButton.style.display = isNotificationsEnabled ? "block" : "none";
 
         browser.storage.local.set({isNotificationsEnabled: isNotificationsEnabled});

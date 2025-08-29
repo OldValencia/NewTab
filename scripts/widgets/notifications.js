@@ -338,3 +338,26 @@ addCustomNotificationButton?.addEventListener("click", () => {
         editorContainer.classList.remove("hidden");
     }
 });
+
+async function checkTemperatureNotifications(currentTemperature) {
+    const result = await browser.storage.local.get("customNotifications");
+    const notifications = result.customNotifications || [];
+    const now = Date.now();
+
+    for (const notif of notifications) {
+        const { type, title, body, link, triggerData } = notif;
+
+        if (type === "temperature" &&
+            typeof triggerData.temp === "number" &&
+            currentTemperature >= triggerData.temp &&
+            notif.active !== false &&
+            (!notif.lastTriggeredAt || now - notif.lastTriggeredAt > 5000)) {
+
+            showNotification(title, body, link);
+            notif.active = false;
+            notif.lastTriggeredAt = now;
+        }
+    }
+
+    await browser.storage.local.set({ customNotifications: notifications });
+}

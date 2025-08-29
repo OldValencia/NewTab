@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     loadTimeAndDate();
     loadLinks();
     loadStickyNotes();
-    loadWeatherWidget();
+    await loadWeatherWidget();
     loadBookmarksWidget();
     loadSearchBarWidget();
     loadNotifications();

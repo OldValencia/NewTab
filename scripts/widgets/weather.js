@@ -6,13 +6,13 @@ const geoBtn = document.getElementById("weather-geo-btn");
 const DEFAULT_WEATHER_SUMMARY_VALUE = "🌦️ —";
 const CACHE_DURATION_MS = 60 * 60 * 1000;
 
-function loadCachedWeather() {
+async function loadCachedWeather() {
     const {weatherWidget} = loadCustomSettings();
     if (!weatherWidget.cachedWeather) return false;
 
     const {data, timestamp} = JSON.parse(weatherWidget.cachedWeather);
     if (Date.now() - timestamp < CACHE_DURATION_MS) {
-        updateWeather(data);
+        await updateWeather(data);
         return false;
     }
     return true;
@@ -43,31 +43,31 @@ function saveWeatherData(data, city) {
     saveCustomSettings(settings);
 }
 
-function loadSavedCity(shouldFetch = false) {
+async function loadSavedCity(shouldFetch = false) {
     const {weatherWidget} = loadCustomSettings();
     if (weatherWidget.weatherCity) {
         weatherInput.value = weatherWidget.weatherCity;
         if (shouldFetch) {
-            fetchWeatherByCity(weatherWidget.weatherCity);
+            await fetchWeatherByCity(weatherWidget.weatherCity);
         }
     }
 }
 
-function fetchWeatherByCity(city) {
+async function fetchWeatherByCity(city) {
     const {weatherWidget} = loadCustomSettings();
     if (weatherWidget.cachedWeather) {
         const {data, timestamp} = JSON.parse(weatherWidget.cachedWeather);
         if (Date.now() - timestamp < CACHE_DURATION_MS && weatherWidget.weatherCity === city) {
-            updateWeather(data);
+            await updateWeather(data);
             return;
         }
     }
     fetchWeather(`q=${encodeURIComponent(city)}`, city);
 }
 
-function getWeatherByCity() {
+async function getWeatherByCity() {
     const city = weatherInput.value.trim();
-    if (city) fetchWeatherByCity(city);
+    if (city) await fetchWeatherByCity(city);
 }
 
 function getWeatherByGeolocation() {
@@ -77,13 +77,13 @@ function getWeatherByGeolocation() {
     }
 
     navigator.geolocation.getCurrentPosition(
-        ({coords: {latitude, longitude}}) => {
+        async ({coords: {latitude, longitude}}) => {
             const location = `${latitude},${longitude}`;
             const {weatherWidget} = loadCustomSettings();
             if (weatherWidget.weatherCity === location && weatherWidget.cachedWeather) {
                 const {data, timestamp} = JSON.parse(weatherWidget.cachedWeather);
                 if (Date.now() - timestamp < CACHE_DURATION_MS && weatherWidget.weatherCity === location) {
-                    updateWeather(data);
+                    await updateWeather(data);
                     return;
                 }
             }
@@ -96,14 +96,14 @@ function getWeatherByGeolocation() {
 function fetchWeather(query, cityLabel) {
     fetch(`https://api.weatherapi.com/v1/current.json?key=${WEATHER_API_KEY}&${query}&aqi=no`)
         .then(res => res.json())
-        .then(data => {
-            updateWeather(data);
+        .then(async data => {
+            await updateWeather(data);
             saveWeatherData(data, cityLabel);
         })
         .catch(() => weatherSummary.textContent = "Load error");
 }
 
-function updateWeather(data) {
+async function updateWeather(data) {
     const {weatherWidget} = loadCustomSettings();
     if (!weatherWidget.showWeather) return;
 
@@ -143,6 +143,7 @@ function updateWeather(data) {
     const bg = window.getComputedStyle(document.body).backgroundColor;
     weatherSummary.style.color = getBrightness(bg) < 128 ? "#fff" : "#000";
 
+    await checkTemperatureNotifications(temp);
     applyWeatherVisibilitySetting();
 }
 

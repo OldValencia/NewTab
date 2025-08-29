@@ -47,14 +47,12 @@ function startBackgroundChecker() {
             const {type, title, body, link, triggerData} = notification;
 
             if (type === "time" && triggerData.time === currentTime) {
-                console.log(`⏰ Time match: ${currentTime}`);
                 showNotification(title, body, link);
                 notification.active = false;
                 eventTriggered = true;
             }
 
             if (type === "timer" && triggerData.triggerAt <= Date.now()) {
-                console.log(`⏳ Timer triggered`);
                 showNotification(title, body, link);
                 notification.active = false;
                 eventTriggered = true;
@@ -68,15 +66,12 @@ function startBackgroundChecker() {
             const inactiveTime = Date.now() - inactivityStart;
 
             if (inactiveTime > 6 * 60 * 60 * 1000) {
-                console.log("🛑 Disable checker timer — 6 hours of inactivity");
                 clearInterval(timerId);
                 timerId = null;
             } else if (inactiveTime > 30 * 60 * 1000 && checkInterval !== 3600000) {
-                console.log("⏱ Switch checker timer to 1 hour");
                 checkInterval = 3600000;
                 resetChecker();
             } else if (inactiveTime > 30 * 1000 && checkInterval !== 60000) {
-                console.log("⏱ Switch checker timer to 1 minute");
                 checkInterval = 60000;
                 resetChecker();
             }
