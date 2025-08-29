@@ -89,6 +89,12 @@ browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
         const notifications = result.customNotifications || [];
         const currentURL = tab.url;
 
+        const isNotificationsEnabled = async () => {
+            const result = await browser.storage.local.get("isNotificationsEnabled");
+            return result.isNotificationsEnabled || false;
+        }
+        if (!await isNotificationsEnabled()) return;
+
         for (const notif of notifications) {
             const {type, title, body, link, triggerData} = notif;
             const now = Date.now();
