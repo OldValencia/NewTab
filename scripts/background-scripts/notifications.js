@@ -48,13 +48,17 @@ function startBackgroundChecker() {
 
             if (type === "time" && triggerData.time === currentTime) {
                 showNotification(title, body, link);
-                notification.active = false;
+                if (notification.repeatable !== true) {
+                    notification.active = false;
+                }
                 eventTriggered = true;
             }
 
             if (type === "timer" && triggerData.triggerAt <= Date.now()) {
                 showNotification(title, body, link);
-                notification.active = false;
+                if (notification.repeatable !== true) {
+                    notification.active = false;
+                }
                 eventTriggered = true;
             }
         }
@@ -103,7 +107,9 @@ browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
                 notif.active !== false && (!notif.lastTriggeredAt || now - notif.lastTriggeredAt > 5000)) {
                 console.log(`🌐 URL match: ${currentURL}`);
                 showNotification(title, body, link);
-                notif.active = false;
+                if (notif.repeatable !== true) {
+                    notif.active = false;
+                }
                 notif.lastTriggeredAt = now;
 
                 await browser.storage.local.set({customNotifications: notifications});

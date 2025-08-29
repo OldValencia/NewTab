@@ -68,7 +68,7 @@ function showNotificationList(editorContainer) {
 
             const metaEl = document.createElement("div");
             metaEl.className = "notif-meta";
-            metaEl.textContent = `Type: ${notif.type}, Active: ${notif.active ? "Yes" : "No"}`;
+            metaEl.textContent = `Type: ${notif.type}, Active: ${notif.active ? "Yes" : "No"}, Repeatable: ${notif.repeatable ? "Yes" : "No"}`;
 
             const activateBtn = document.createElement("button");
             activateBtn.className = "make-active-notif-btn";
@@ -76,7 +76,7 @@ function showNotificationList(editorContainer) {
             activateBtn.style.background = notifications[index].active ? "linear-gradient(135deg, #d9534f, #ff6b6b)" : "linear-gradient(135deg, #28a745, #5cd67a)";
             activateBtn.addEventListener("click", () => {
                 notifications[index].active = !notifications[index].active;
-                browser.storage.local.set({ customNotifications: notifications }).then(() => {
+                browser.storage.local.set({customNotifications: notifications}).then(() => {
                     listContainer.remove();
                     showNotificationList(editorContainer);
                 });
@@ -87,7 +87,7 @@ function showNotificationList(editorContainer) {
             deleteBtn.textContent = "🗑️ Delete";
             deleteBtn.addEventListener("click", () => {
                 notifications.splice(index, 1);
-                browser.storage.local.set({ customNotifications: notifications }).then(() => {
+                browser.storage.local.set({customNotifications: notifications}).then(() => {
                     listContainer.remove();
                     showNotificationList(editorContainer);
                 });
@@ -145,16 +145,30 @@ function createNotificationEditor() {
             <button id="notifications-list-btn" class="notification-header-button">▤</button>
             <button id="close-editor-btn" class="notification-header-button">✖</button>
         </div>
-        <label for="trigger-type" class="has-tooltip"
-        data-tooltip="Defines what triggers the notification.\n\nExample:
-        1. Send a notification with your chosen Title and Body at 12:00.
-        2. Trigger notification when visiting a specific website with your Title and Body.
-        3. Trigger notification after 5 minutes, etc.">Trigger Type:</label>
-        <select id="trigger-type">
-            <option value="time">⏰ Time</option>
-            <option value="url">🌐 URL Visit</option>
-            <option value="timer">⏳ Timer</option>
-        </select>
+        
+        <div class="trigger-row">
+            <div class="repeatable-toggle">
+                <label for="notif-repeatable" class="has-tooltip"
+                data-tooltip="If checked, this notification will repeat based on its trigger.">Repeatable:</label>
+                <label class="switch">
+                    <input type="checkbox" id="notif-repeatable">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        
+            <div class="trigger-type-select">
+                <label for="trigger-type" class="has-tooltip"
+                data-tooltip="Defines what triggers the notification.\\n\\nExample:
+                1. Send a notification with your chosen Title and Body at 12:00.
+                2. Trigger notification when visiting a specific website with your Title and Body.
+                3. Trigger notification after 5 minutes, etc.">Trigger Type:</label>
+                <select id="trigger-type">
+                    <option value="time">⏰ Time</option>
+                    <option value="url">🌐 URL Visit</option>
+                    <option value="timer">⏳ Timer</option>
+                </select>
+            </div>
+        </div>
 
         <div id="trigger-config"></div>
 
@@ -282,6 +296,7 @@ function createNotificationEditor() {
         const title = container.querySelector("#notif-title").value;
         const body = container.querySelector("#notif-body").value;
         const link = container.querySelector("#notif-link").value;
+        const repeatable = container.querySelector("#notif-repeatable").checked;
 
         let triggerData = {};
         if (type === "time") {
@@ -304,7 +319,8 @@ function createNotificationEditor() {
             title,
             body,
             link,
-            triggerData
+            triggerData,
+            repeatable
         };
 
         await saveNotification(notification);
@@ -351,7 +367,7 @@ async function checkTemperatureNotifications(currentTemperature) {
     if (!await isNotificationsEnabled()) return;
 
     for (const notif of notifications) {
-        const { type, title, body, link, triggerData } = notif;
+        const {type, title, body, link, triggerData} = notif;
 
         if (type === "temperature" &&
             typeof triggerData.temp === "number" &&
@@ -360,10 +376,12 @@ async function checkTemperatureNotifications(currentTemperature) {
             (!notif.lastTriggeredAt || now - notif.lastTriggeredAt > 5000)) {
 
             showNotification(title, body, link);
-            notif.active = false;
+            if (notif.repeatable !== true) {
+                notif.active = false;
+            }
             notif.lastTriggeredAt = now;
         }
     }
 
-    await browser.storage.local.set({ customNotifications: notifications });
+    await browser.storage.local.set({customNotifications: notifications});
 }
