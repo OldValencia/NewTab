@@ -27,6 +27,12 @@ function resetChecker() {
 }
 
 function startBackgroundChecker() {
+    const isNotificationsEnabled = async () => {
+        const result = await browser.storage.local.get("isNotificationsEnabled");
+        return result.isNotificationsEnabled || false;
+    }
+    if (!isNotificationsEnabled()) return;
+
     timerId = setInterval(async () => {
         const result = await browser.storage.local.get("customNotifications");
         const notifications = result.customNotifications || [];

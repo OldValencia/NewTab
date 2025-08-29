@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     loadWeatherWidget();
     loadBookmarksWidget();
     loadSearchBarWidget();
+    loadNotifications();
 
     document.querySelectorAll(".toggle-section").forEach(toggleBtn => {
         const section = toggleBtn.closest("section");
