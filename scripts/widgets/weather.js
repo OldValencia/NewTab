@@ -18,7 +18,7 @@ async function loadCachedWeather() {
     return true;
 }
 
-function applyWeatherVisibilitySetting() {
+async function applyWeatherVisibilitySetting() {
     const settings = loadCustomSettings();
     if (settings.weatherWidget.showWeather === undefined || settings.weatherWidget.showWeather === null) {
         settings.weatherWidget.showWeather = false;
@@ -29,7 +29,7 @@ function applyWeatherVisibilitySetting() {
     addCustomNotificationButton.offsetHeight
 
     if (settings.weatherWidget.showWeather) {
-        addNotificationTempTriggerType();
+        await addNotificationTempTriggerType();
     } else {
         removeNotificationTempTriggerType();
     }

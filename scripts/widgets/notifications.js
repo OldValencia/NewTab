@@ -5,14 +5,15 @@ function saveNotification(notification) {
     browser.storage.local.get("customNotifications").then(result => {
         const notifications = result.customNotifications || [];
         notifications.push(notification);
-        browser.storage.local.set({customNotifications: notifications}).then(() => {
-            alert("✅ Notification saved!");
+        browser.storage.local.set({customNotifications: notifications}).then(async () => {
+            const settings = loadCustomSettings();
+            alert(await getLocalizationByKey("notification_saved_alert_message", settings.locale));
             resetChecker();
         });
     });
 }
 
-function showNotificationList(editorContainer) {
+async function showNotificationList(editorContainer) {
     const listContainer = document.createElement("div");
     listContainer.id = notificationEditorId;
     listContainer.classList.add("notification-list-mode");
@@ -22,7 +23,7 @@ function showNotificationList(editorContainer) {
 
     listContainer.innerHTML = `
         <div class="notif-editor-header">
-            <h2 id="drag-handle">📋 Saved Notifications</h2>
+            <h2 id="drag-handle" data-value-localization-key="saved_notifications_header_h2_text">📋 Saved Notifications</h2>
             <button id="back-to-editor-btn" class="notification-header-button">←</button>
         </div>
         <div id="notifications-list"></div>
@@ -45,12 +46,24 @@ function showNotificationList(editorContainer) {
     });
 
     const listDiv = listContainer.querySelector("#notifications-list");
+    const settings = loadCustomSettings();
+
+    const notifEmptyText = await getLocalizationByKey("saved_notifications_no_notifications_text", settings.locale);
+    const notifTitleNoText = await getLocalizationByKey("saved_notifications_no_title_text", settings.locale);
+    const notifBodyNoText = await getLocalizationByKey("saved_notifications_no_text_text", settings.locale);
+    const notifMetaTypeText = await getLocalizationByKey("saved_notifications_meta_type_text", settings.locale);
+    const notifMetaActiveText = await getLocalizationByKey("saved_notifications_meta_active_text", settings.locale);
+    const notifMetaRepeatableText = await getLocalizationByKey("saved_notifications_meta_repeatable_text", settings.locale);
+    const notifMetaYes = await getLocalizationByKey("modal_confirm_yes_button_html_default", settings.locale);
+    const notifMetaNo = await getLocalizationByKey("modal_confirm_no_button_html_default", settings.locale);
+    const notificationButtonDeactivateText = await getLocalizationByKey("saved_notifications_deactivate_button_text", settings.locale);
+    const notificationButtonActivateText = await getLocalizationByKey("saved_notifications_activate_button_text", settings.locale);
 
     browser.storage.local.get("customNotifications").then(result => {
         const notifications = result.customNotifications || [];
 
         if (notifications.length === 0) {
-            listDiv.innerHTML = `<p class="notif-empty">There are no saved notifications.</p>`;
+            listDiv.innerHTML = `<p class="notif-empty">${notifEmptyText}</p>`;
             return;
         }
 
@@ -60,19 +73,19 @@ function showNotificationList(editorContainer) {
 
             const titleEl = document.createElement("strong");
             titleEl.className = "notif-title";
-            titleEl.textContent = notif.title || "No title";
+            titleEl.textContent = notif.title || notifTitleNoText;
 
             const bodyEl = document.createElement("p");
             bodyEl.className = "notif-body";
-            bodyEl.textContent = notif.body || "No text";
+            bodyEl.textContent = notif.body || notifBodyNoText;
 
             const metaEl = document.createElement("div");
             metaEl.className = "notif-meta";
-            metaEl.textContent = `Type: ${notif.type}, Active: ${notif.active ? "Yes" : "No"}, Repeatable: ${notif.repeatable ? "Yes" : "No"}`;
+            metaEl.textContent = `${notifMetaTypeText} ${notif.type}, ${notifMetaActiveText} ${notif.active ? notifMetaYes : notifMetaNo}, ${notifMetaRepeatableText} ${notif.repeatable ? notifMetaYes : notifMetaNo}`;
 
             const activateBtn = document.createElement("button");
             activateBtn.className = "make-active-notif-btn";
-            activateBtn.textContent = notifications[index].active ? "🚫 Deactivate" : "⏻ Activate";
+            activateBtn.textContent = notifications[index].active ? notificationButtonDeactivateText : notificationButtonActivateText;
             activateBtn.style.background = notifications[index].active ? "linear-gradient(135deg, #d9534f, #ff6b6b)" : "linear-gradient(135deg, #28a745, #5cd67a)";
             activateBtn.addEventListener("click", () => {
                 notifications[index].active = !notifications[index].active;
@@ -85,6 +98,7 @@ function showNotificationList(editorContainer) {
             const deleteBtn = document.createElement("button");
             deleteBtn.className = "delete-notif-btn";
             deleteBtn.textContent = "🗑️ Delete";
+            deleteBtn.setAttribute("data-value-localization-key", "saved_notifications_delete_button_text");
             deleteBtn.addEventListener("click", () => {
                 notifications.splice(index, 1);
                 browser.storage.local.set({customNotifications: notifications}).then(() => {
@@ -102,6 +116,8 @@ function showNotificationList(editorContainer) {
             listDiv.appendChild(item);
         });
     });
+
+    applyLocalization(settings.locale);
 }
 
 function removeNotificationTempTriggerType() {
@@ -119,7 +135,7 @@ function removeNotificationTempTriggerType() {
     triggerTypeSelect.dispatchEvent(new Event("change"));
 }
 
-function addNotificationTempTriggerType() {
+async function addNotificationTempTriggerType() {
     const notificationEditor = document.getElementById(notificationEditorId);
     if (!notificationEditor) return;
     const triggerTypeSelect = notificationEditor.querySelector("#trigger-type");
@@ -131,25 +147,32 @@ function addNotificationTempTriggerType() {
         const option = document.createElement("option");
         option.value = "temperature";
         option.textContent = "🌡️ Temperature";
+        option.setAttribute("data-value-localization-key", "notifications_trigger_type_temperature_option");
         triggerTypeSelect.add(option);
     }
 }
 
-function createNotificationEditor() {
+async function createNotificationEditor() {
     const container = document.createElement("div");
+    const settings = loadCustomSettings();
     container.id = notificationEditorId;
 
+    const repeatableTooltip = await getLocalizationByKey("notifications_editor_repeatable_label_tooltip", settings.locale);
+    const triggerTypeTooltip = await getLocalizationByKey("notifications_trigger_type_label_tooltip", settings.locale);
+    const titleLabelTooltip = await getLocalizationByKey("notifications_editor_title_label_tooltip", settings.locale);
+    const bodyLabelTooltip = await getLocalizationByKey("notifications_editor_body_label_tooltip", settings.locale);
+    const linkLabelTooltip = await getLocalizationByKey("notifications_editor_link_label_tooltip", settings.locale);
     container.innerHTML = `
         <div class="notif-editor-header">
-            <h2 id="drag-handle">🔔 Notification Editor</h2>
+            <h2 id="drag-handle" data-value-localization-key="notifications_editor_header_title_h2_text">🔔 Notification Editor</h2>
             <button id="notifications-list-btn" class="notification-header-button">▤</button>
             <button id="close-editor-btn" class="notification-header-button">✖</button>
         </div>
         
         <div class="trigger-row">
             <div class="repeatable-toggle">
-                <label for="notif-repeatable" class="has-tooltip"
-                data-tooltip="If checked, this notification will repeat based on its trigger.">Repeatable:</label>
+                <label for="notif-repeatable" class="has-tooltip" data-value-localization-key="notifications_editor_repeatable_label_text"
+                data-tooltip="${repeatableTooltip}">Repeatable notification:</label>
                 <label class="switch">
                     <input type="checkbox" id="notif-repeatable">
                     <span class="slider"></span>
@@ -157,35 +180,38 @@ function createNotificationEditor() {
             </div>
         
             <div class="trigger-type-select">
-                <label for="trigger-type" class="has-tooltip"
-                data-tooltip="Defines what triggers the notification.\\n\\nExample:
-                1. Send a notification with your chosen Title and Body at 12:00.
-                2. Trigger notification when visiting a specific website with your Title and Body.
-                3. Trigger notification after 5 minutes, etc.">Trigger Type:</label>
+                <label for="trigger-type" class="has-tooltip" data-value-localization-key="notifications_trigger_type_label_text"
+                data-tooltip="${triggerTypeTooltip}">Trigger Type:</label>
                 <select id="trigger-type">
-                    <option value="time">⏰ Time</option>
-                    <option value="url">🌐 URL Visit</option>
-                    <option value="timer">⏳ Timer</option>
+                    <option value="time" data-value-localization-key="notifications_trigger_type_time_option">
+                        ⏰ Time
+                    </option>
+                    <option value="url" data-value-localization-key="notifications_trigger_type_url_visit_option">
+                        🌐 URL Visit
+                    </option>
+                    <option value="timer" data-value-localization-key="notifications_trigger_type_timer_option">
+                        ⏳ Timer
+                    </option>
                 </select>
             </div>
         </div>
 
         <div id="trigger-config"></div>
 
-        <label for="notif-titley" class="has-tooltip"
-        data-tooltip="The headline of the notification.">Title:</label>
+        <label for="notif-titley" class="has-tooltip" data-value-localization-key="notifications_editor_title_label_text"
+        data-tooltip="${titleLabelTooltip}">Notification title:</label>
         <input type="text" id="notif-title">
 
-        <label for="notif-body" class="has-tooltip"
-        data-tooltip="The main text content of the notification.">Body:</label>
+        <label for="notif-body" class="has-tooltip" data-value-localization-key="notifications_editor_body_label_text"
+        data-tooltip="${bodyLabelTooltip}">Notification content:</label>
         <textarea id="notif-body"></textarea>
 
-        <label for="notif-link" class="has-tooltip"
-        data-tooltip="If you want the notification to open a website when clicked, enter the URL here.">Link:</label>
+        <label for="notif-link" class="has-tooltip" data-value-localization-key="notifications_editor_link_label_text"
+        data-tooltip="${linkLabelTooltip}">Link (optional):</label>
         <input type="text" id="notif-link">
 
-        <button id="preview-button">👁️ Preview</button>
-        <button id="save-button">💾 Save</button>
+        <button id="preview-button" data-value-localization-key="notifications_editor_preview_button_text">👁️ Preview</button>
+        <button id="save-button" data-value-localization-key="notifications_editor_save_button_text">💾 Save</button>
     `;
 
     document.body.appendChild(container);
@@ -202,50 +228,53 @@ function createNotificationEditor() {
 
     // Trigger config logic
     const triggerTypeSelect = container.querySelector("#trigger-type");
-    addNotificationTempTriggerType();
+    await addNotificationTempTriggerType();
 
     const triggerConfigDiv = container.querySelector("#trigger-config");
 
-    triggerTypeSelect.addEventListener("change", () => {
+    triggerTypeSelect.addEventListener("change", async () => {
         const type = triggerTypeSelect.value;
+        const settings = loadCustomSettings();
         triggerConfigDiv.innerHTML = "";
 
         if (type === "time") {
+            const tooltipText = await getLocalizationByKey("timer_trigger_label_set_time_tooltip", settings.locale);
             triggerConfigDiv.innerHTML = `
-                <label class="has-tooltip"
-                data-tooltip="If you want to set a notification to appear at a specific time, enter the time you need.\n
-                For example, at 13:30 a notification will appear with the specified Title and Body text.">Set Time:</label>
+                <label class="has-tooltip" data-value-localization-key="timer_trigger_label_set_time_text"
+                data-tooltip="${tooltipText}">Set Time:</label>
                 <input type="time" step="60" id="trigger-time">
             `;
         } else if (type === "temperature") {
+            const tooltipText = await getLocalizationByKey("timer_trigger_label_temperature_tooltip", settings.locale);
             triggerConfigDiv.innerHTML = `
-                <label class="has-tooltip"
-                data-tooltip="If you want to set a notification to appear at a specific temperature, enter the desired temperature.\n
-                For example, at +13 a notification will appear with the specified Title and Body text.">Temperature (°C):</label>
+                <label class="has-tooltip" data-value-localization-key="timer_trigger_label_temperature_text"
+                data-tooltip="${tooltipText}">Temperature (°C):</label>
                 <input type="number" step="1" min="-100" max="100" id="trigger-temp">
             `;
         } else if (type === "url") {
+            const tooltipText = await getLocalizationByKey("timer_trigger_label_url_contains_tooltip", settings.locale);
             triggerConfigDiv.innerHTML = `
-                <label class="has-tooltip"
-                data-tooltip="If you want to trigger a notification when visiting a website, enter part of the URL or the full URL.\n
-                For example, https://google.com — then, when you visit google.com, you will receive a notification with your Title and Body.">URL Contains:</label>
+                <label class="has-tooltip" data-value-localization-key="timer_trigger_label_url_contains_text"
+                data-tooltip="${tooltipText}">URL Contains:</label>
                 <input type="text" id="trigger-url">
             `;
         } else if (type === "timer") {
+            const tooltipText = await getLocalizationByKey("timer_trigger_label_notify_after_tooltip", settings.locale);
             triggerConfigDiv.innerHTML = `
-                <label class="has-tooltip"
-                data-tooltip="If you want to set a notification to appear after a specific timer, select the units and the duration you need.\n
-                For example, if you choose 15 minutes, then after 15 minutes a notification will appear with the specified Title and Body text.">Notify After:</label>
+                <label class="has-tooltip" data-value-localization-key="timer_trigger_label_notify_after_text"
+                data-tooltip="${tooltipText}">Notify After:</label>
                 <div class="timer-picker">
                     <input type="number" id="trigger-timer" min="1" max="999" value="10">
                     <div class="timer-units">
-                        <button data-unit="seconds" class="unit-button active">sec</button>
-                        <button data-unit="minutes" class="unit-button">min</button>
-                        <button data-unit="hours" class="unit-button">hr</button>
+                        <button data-unit="seconds" class="unit-button active" data-value-localization-key="timer_trigger_type_option_sec">sec</button>
+                        <button data-unit="minutes" class="unit-button" data-value-localization-key="timer_trigger_type_option_min">min</button>
+                        <button data-unit="hours" class="unit-button" data-value-localization-key="timer_trigger_type_option_hour">hr</button>
                     </div>
                 </div>
             `;
         }
+
+        applyLocalization(settings.locale);
     });
 
     triggerTypeSelect.dispatchEvent(new Event("change"));
@@ -274,7 +303,7 @@ function createNotificationEditor() {
             if (!isNaN(min)) newValue = Math.max(newValue, min);
             if (!isNaN(max)) newValue = Math.min(newValue, max);
             input.value = newValue;
-            input.dispatchEvent(new Event("input")); // если нужно отловить изменение
+            input.dispatchEvent(new Event("input"));
         }
     }, {passive: false});
 
@@ -289,7 +318,8 @@ function createNotificationEditor() {
         const type = triggerTypeSelect.value;
         const settings = loadCustomSettings();
         if (type === "temperature" && !settings.weatherWidget.showWeather) {
-            alert("Warning!\nPlease choose a different trigger type and reload this page\nbecause the weather widget is turned off,\nor enable the weather widget to use the temperature trigger!")
+            const settings = loadCustomSettings();
+            alert(await getLocalizationByKey("warning_alert_choose_different_trigger_type", settings.locale));
             return;
         }
 
@@ -327,6 +357,7 @@ function createNotificationEditor() {
     });
 
     makeContainerDraggable(container);
+    applyLocalization(settings.locale);
 }
 
 function showNotification(title, body, link) {
@@ -346,10 +377,10 @@ function showNotification(title, body, link) {
     });
 }
 
-addCustomNotificationButton?.addEventListener("click", () => {
+addCustomNotificationButton?.addEventListener("click", async () => {
     const editorContainer = document.getElementById(notificationEditorId);
     if (!editorContainer) {
-        createNotificationEditor();
+        await createNotificationEditor();
     } else {
         editorContainer.classList.remove("hidden");
     }

@@ -251,3 +251,15 @@ function makeContainerDraggable(container, handler = "#drag-handle") {
         document.body.style.userSelect = "";
     });
 }
+
+function escapeHtml(text) {
+    const map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;',
+        // '\n': '<br>'
+    };
+    return text.replace(/[&<>"'\n]/g, m => map[m]);
+}

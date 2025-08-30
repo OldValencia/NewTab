@@ -1438,5 +1438,402 @@
     "es": "No",
     "be": "Не",
     "uk": "Ні"
+  },
+  "add_custom_notification_button_test": {
+    "en": "➕ Add Custom Notification",
+    "ru": "➕ Добавить своё уведомление",
+    "pl": "➕ Dodaj własne powiadomienie",
+    "de": "➕ Benutzerdefinierte Benachrichtigung hinzufügen",
+    "es": "➕ Añadir notificación personalizada",
+    "be": "➕ Дадаць уласнае апавяшчэнне",
+    "uk": "➕ Додати власне сповіщення"
+  },
+  "notification_saved_alert_message": {
+    "en": "✅ Notification saved!",
+    "ru": "✅ Уведомление сохранено!",
+    "pl": "✅ Powiadomienie zapisane!",
+    "de": "✅ Benachrichtigung gespeichert!",
+    "es": "✅ ¡Notificación guardada!",
+    "be": "✅ Апавяшчэнне захавана!",
+    "uk": "✅ Сповіщення збережено!"
+  },
+  "warning_alert_choose_different_trigger_type": {
+    "en": "⚠️ Warning!\nPlease choose a different trigger type and reload this page\nbecause the weather widget is turned off.\nOr enable the weather widget to use the temperature trigger!",
+    "ru": "⚠️ Внимание!\nПожалуйста выберите другой тип триггера, потому что данный\nтип недоступен, так как виджет погоды выключен.\nИли включите виджет погоды, чтобы использовать температурный триггер!",
+    "pl": "⚠️ Uwaga!\nWybierz inny typ wyzwalacza i przeładuj stronę,\nponieważ widżet pogodowy jest wyłączony.\nLub włącz widżet, aby użyć wyzwalacza temperatury!",
+    "de": "⚠️ Warnung!\nBitte wählen Sie einen anderen Auslöser und laden Sie die Seite neu,\nda das Wetter-Widget deaktiviert ist.\nOder aktivieren Sie es, um den Temperaturauslöser zu verwenden!",
+    "es": "⚠️ ¡Advertencia!\nElige otro tipo de activador y recarga la página,\nporque el widget del clima está desactivado.\nO activa el widget para usar el activador de temperatura.",
+    "be": "⚠️ Увага!\nВыберыце іншы тып трыгера і перазагрузіце старонку,\nбо віджэт надвор'я выключаны.\nАбо ўключыце яго, каб выкарыстоўваць трыгер тэмпературы!",
+    "uk": "⚠️ Увага!\nОберіть інший тип тригера і перезавантажте сторінку,\nоскільки віджет погоди вимкнено.\nАбо увімкніть його, щоб використовувати тригер температури!"
+  },
+  "timer_trigger_type_option_sec": {
+    "en": "sec",
+    "ru": "сек",
+    "pl": "sek",
+    "de": "Sek",
+    "es": "seg",
+    "be": "сек",
+    "uk": "сек"
+  },
+  "timer_trigger_type_option_min": {
+    "en": "min",
+    "ru": "мин",
+    "pl": "min",
+    "de": "Min",
+    "es": "min",
+    "be": "хвіл",
+    "uk": "хв"
+  },
+  "timer_trigger_type_option_hour": {
+    "en": "hr",
+    "ru": "час",
+    "pl": "godz",
+    "de": "Std",
+    "es": "h",
+    "be": "гадз",
+    "uk": "год"
+  },
+  "timer_trigger_label_notify_after_text": {
+    "en": "Notify After:",
+    "ru": "Уведомить через:",
+    "pl": "Powiadom po:",
+    "de": "Benachrichtigen nach:",
+    "es": "Notificar después de:",
+    "be": "Апавясціць праз:",
+    "uk": "Сповістити через:"
+  },
+  "timer_trigger_label_notify_after_tooltip": {
+    "en": "If you want to set a notification to appear after a specific timer, select the units and the duration you need.\n\nFor example, if you choose 15 minutes, then after 15 minutes a notification will appear with the specified Title and Body text.",
+    "ru": "Если вы хотите установить уведомление, которое появится через определённый таймер, выберите нужные единицы измерения и длительность.\n\nНапример, если вы выберете 15 минут, то через 15 минут появится уведомление с указанным заголовком и текстом.",
+    "pl": "Jeśli chcesz ustawić powiadomienie po określonym czasie, wybierz jednostki i czas trwania.\n\nNa przykład: wybierając 15 minut, po tym czasie pojawi się powiadomienie z podanym tytułem i treścią.",
+    "de": "Wenn Sie eine Benachrichtigung nach einem bestimmten Timer anzeigen möchten, wählen Sie die Einheiten und die Dauer.\n\nBeispiel: Nach 15 Minuten erscheint eine Benachrichtigung mit dem angegebenen Titel und Text.",
+    "es": "Si deseas que aparezca una notificación tras cierto tiempo, selecciona las unidades y duración.\n\nPor ejemplo, tras 15 minutos aparecerá una notificación con el título y texto indicados.",
+    "be": "Калі вы хочаце паказаць апавяшчэнне праз пэўны час, выберыце адзінкі і працягласць.\n\nНапрыклад, праз 15 хвілін з'явіцца апавяшчэнне з загалоўкам і тэкстам.",
+    "uk": "Якщо ви хочете показати сповіщення через певний час, оберіть одиниці та тривалість.\n\nНаприклад, через 15 хвилин з’явиться сповіщення з вказаним заголовком і текстом."
+  },
+  "timer_trigger_label_url_contains_text": {
+    "en": "URL Contains:",
+    "ru": "URL содержит:",
+    "pl": "Adres URL zawiera:",
+    "de": "URL enthält:",
+    "es": "La URL contiene:",
+    "be": "URL змяшчае:",
+    "uk": "URL містить:"
+  },
+  "timer_trigger_label_url_contains_tooltip": {
+    "en": "If you want to trigger a notification when visiting a website, enter part of the URL or the full URL.\n\nFor example, https://google.com — then, when you visit google.com, you will receive a notification with your Title and Body.",
+    "ru": "Если вы хотите сработать уведомление при посещении какого-либо сайта, введите часть URL или полный URL.\n\nНапример, https://google.com — тогда, когда вы посетите google.com, вы получите уведомление с вашим заголовком и текстом.",
+    "pl": "Aby wywołać powiadomienie po wejściu na stronę, wpisz część lub cały adres URL.\n\nNp. https://google.com — po wejściu na stronę pojawi się powiadomienie z tytułem i treścią.",
+    "de": "Um eine Benachrichtigung beim Besuch einer Website auszulösen, geben Sie einen Teil oder die vollständige URL ein.\n\nBeispiel: https://google.com — beim Besuch erscheint eine Benachrichtigung mit Titel und Text.",
+    "es": "Para activar una notificación al visitar un sitio, introduce parte o toda la URL.\n\nEjemplo: https://google.com — al visitarlo, aparecerá una notificación con tu título y texto.",
+    "be": "Каб выклікаць апавяшчэнне пры наведванні сайта, увядзіце частку або поўны URL.\n\nНапрыклад, https://google.com — пры наведванні з'явіцца апавяшчэнне з загалоўкам і тэкстам.",
+    "uk": "Щоб викликати сповіщення при відвідуванні сайту, введіть частину або повну URL.\n\nНаприклад, https://google.com — при відвідуванні з’явиться сповіщення з заголовком і текстом."
+  },
+  "timer_trigger_label_temperature_text": {
+    "en": "Temperature (°C):",
+    "ru": "Температура (°C):",
+    "pl": "Temperatura (°C):",
+    "de": "Temperatur (°C):",
+    "es": "Temperatura (°C):",
+    "be": "Тэмпература (°C):",
+    "uk": "Температура (°C):"
+  },
+  "timer_trigger_label_temperature_tooltip": {
+    "en": "If you want to set a notification to appear at a specific temperature, enter the desired temperature.\n\nFor example, at +13 a notification will appear with the specified Title and Body text.",
+    "ru": "Если вы хотите установить уведомление, которое появится при определённой температуре, введите нужную температуру.\n\nНапример, при +13 появится уведомление с указанным заголовком и текстом.",
+    "pl": "Jeśli chcesz ustawić powiadomienie dla określonej temperatury, wpisz żądaną wartość.\n\nNa przykład przy +13 pojawi się powiadomienie z podanym tytułem i treścią.",
+    "de": "Wenn Sie eine Benachrichtigung bei einer bestimmten Temperatur anzeigen möchten, geben Sie die gewünschte Temperatur ein.\n\nZum Beispiel erscheint bei +13 eine Benachrichtigung mit dem angegebenen Titel und Text.",
+    "es": "Si deseas que aparezca una notificación a una temperatura específica, introduce la temperatura deseada.\n\nPor ejemplo, a +13 aparecerá una notificación con el título y texto especificados.",
+    "be": "Калі вы хочаце паказаць апавяшчэнне пры пэўнай тэмпературы, увядзіце патрэбную велічыню.\n\nНапрыклад, пры +13 з'явіцца апавяшчэнне з загалоўкам і тэкстам.",
+    "uk": "Якщо ви хочете показати сповіщення при певній температурі, введіть потрібне значення.\n\nНаприклад, при +13 з’явиться сповіщення з заголовком і текстом."
+  },
+  "timer_trigger_label_set_time_text": {
+    "en": "Set Time:",
+    "ru": "Установить время:",
+    "pl": "Ustaw czas:",
+    "de": "Zeit einstellen:",
+    "es": "Establecer hora:",
+    "be": "Усталяваць час:",
+    "uk": "Встановити час:"
+  },
+  "timer_trigger_label_set_time_tooltip": {
+    "en": "If you want to set a notification to appear at a specific time, enter the time you need.\n\nFor example, at 13:30 a notification will appear with the specified Title and Body text.",
+    "ru": "Если вы хотите установить уведомление, которое появится в определённое время, введите нужное время.\n\nНапример, в 13:30 появится уведомление с указанным заголовком и текстом.",
+    "pl": "Jeśli chcesz ustawić powiadomienie na konkretną godzinę, wpisz odpowiedni czas.\n\nNa przykład o 13:30 pojawi się powiadomienie z podanym tytułem i treścią.",
+    "de": "Wenn Sie eine Benachrichtigung zu einer bestimmten Uhrzeit anzeigen möchten, geben Sie die gewünschte Zeit ein.\n\nZum Beispiel erscheint um 13:30 eine Benachrichtigung mit dem angegebenen Titel und Text.",
+    "es": "Si deseas que aparezca una notificación a una hora específica, introduce la hora deseada.\n\nPor ejemplo, a las 13:30 aparecerá una notificación con el título y texto especificados.",
+    "be": "Калі вы хочаце паказаць апавяшчэнне ў пэўны час, увядзіце патрэбны час.\n\nНапрыклад, у 13:30 з'явіцца апавяшчэнне з загалоўкам і тэкстам.",
+    "uk": "Якщо ви хочете показати сповіщення у певний час, введіть потрібну годину.\n\nНаприклад, о 13:30 з’явиться сповіщення з заголовком і текстом."
+  },
+  "notifications_editor_save_button_text": {
+    "en": "💾 Save",
+    "ru": "💾 Сохранить",
+    "pl": "💾 Zapisz",
+    "de": "💾 Speichern",
+    "es": "💾 Guardar",
+    "be": "💾 Захаваць",
+    "uk": "💾 Зберегти"
+  },
+  "notifications_editor_preview_button_text": {
+    "en": "👁️ Preview",
+    "ru": "👁️ Предпросмотр",
+    "pl": "👁️ Podgląd",
+    "de": "👁️ Vorschau",
+    "es": "👁️ Vista previa",
+    "be": "👁️ Папярэдні прагляд",
+    "uk": "👁️ Попередній перегляд"
+  },
+  "notifications_editor_link_label_text": {
+    "en": "Link (optional):",
+    "ru": "Ссылка (необязательно):",
+    "pl": "Link (opcjonalnie):",
+    "de": "Link (optional):",
+    "es": "Enlace (opcional):",
+    "be": "Спасылка (неабавязкова):",
+    "uk": "Посилання (необов’язково):"
+  },
+  "notifications_editor_link_label_tooltip": {
+    "en": "If you want the notification to open a specific link when clicked, enter the URL here.",
+    "ru": "Если вы хотите, чтобы уведомление открывало при клике какую-либо ссылку, введите здесь URL.",
+    "pl": "Jeśli chcesz, aby powiadomienie otwierało link po kliknięciu, wpisz tutaj adres URL.",
+    "de": "Wenn die Benachrichtigung beim Klicken einen Link öffnen soll, geben Sie hier die URL ein.",
+    "es": "Si deseas que la notificación abra un enlace al hacer clic, introduce aquí la URL.",
+    "be": "Калі вы хочаце, каб апавяшчэнне адкрывала спасылку пры кліку, увядзіце тут URL.",
+    "uk": "Якщо ви хочете, щоб сповіщення відкривало посилання при натисканні, введіть тут URL."
+  },
+  "notifications_editor_body_label_text": {
+    "en": "Notification content:",
+    "ru": "Текст нотификации:",
+    "pl": "Treść powiadomienia:",
+    "de": "Benachrichtigungsinhalt:",
+    "es": "Contenido de la notificación:",
+    "be": "Змест апавяшчэння:",
+    "uk": "Зміст сповіщення:"
+  },
+  "notifications_editor_body_label_tooltip": {
+    "en": "Enter the text that you want to see in the notification body.",
+    "ru": "Введите текст, который вы хотите видеть в теле уведомления.",
+    "pl": "Wpisz tekst, który ma się pojawić w treści powiadomienia.",
+    "de": "Geben Sie den Text ein, der im Benachrichtigungstext erscheinen soll.",
+    "es": "Introduce el texto que deseas ver en el cuerpo de la notificación.",
+    "be": "Увядзіце тэкст, які вы хочаце бачыць у целе апавяшчэння.",
+    "uk": "Введіть текст, який ви хочете бачити в тілі сповіщення."
+  },
+  "notifications_editor_title_label_text": {
+    "en": "Notification title:",
+    "ru": "Заголовок нотификации:",
+    "pl": "Tytuł powiadomienia:",
+    "de": "Titel der Benachrichtigung:",
+    "es": "Título de la notificación:",
+    "be": "Загаловак апавяшчэння:",
+    "uk": "Заголовок сповіщення:"
+  },
+  "notifications_editor_title_label_tooltip": {
+    "en": "Enter the text that you want to see in the notification title.",
+    "ru": "Введите текст, который вы хотите видеть в заголовке уведомления.",
+    "pl": "Wpisz tekst, który ma się pojawić w tytule powiadomienia.",
+    "de": "Geben Sie den Text ein, der im Titel der Benachrichtigung erscheinen soll.",
+    "es": "Introduce el texto que deseas ver en el título de la notificación.",
+    "be": "Увядзіце тэкст, які вы хочаце бачыць у загалоўку апавяшчэння.",
+    "uk": "Введіть текст, який ви хочете бачити в заголовку сповіщення."
+  },
+  "notifications_trigger_type_timer_option": {
+    "en": "⏳ Timer",
+    "ru": "⏳ Таймер",
+    "pl": "⏳ Timer",
+    "de": "⏳ Timer",
+    "es": "⏳ Temporizador",
+    "be": "⏳ Таймер",
+    "uk": "⏳ Таймер"
+  },
+  "notifications_trigger_type_url_visit_option": {
+    "en": "🌐 URL Visit",
+    "ru": "🌐 URL сайта",
+    "pl": "🌐 Odwiedzenie URL",
+    "de": "🌐 URL-Besuch",
+    "es": "🌐 Visita a URL",
+    "be": "🌐 Візіт па URL",
+    "uk": "🌐 Відвідування URL"
+  },
+  "notifications_trigger_type_temperature_option": {
+    "en": "🌡️ Temperature",
+    "ru": "🌡️ Температура",
+    "pl": "🌡️ Temperatura",
+    "de": "🌡️ Temperatur",
+    "es": "🌡️ Temperatura",
+    "be": "🌡️ Тэмпература",
+    "uk": "🌡️ Температура"
+  },
+  "notifications_trigger_type_time_option": {
+    "en": "⏰ Time",
+    "ru": "⏰ Время",
+    "pl": "⏰ Czas",
+    "de": "⏰ Uhrzeit",
+    "es": "⏰ Hora",
+    "be": "⏰ Час",
+    "uk": "⏰ Час"
+  },
+  "notifications_trigger_type_label_text": {
+    "en": "Trigger Type:",
+    "ru": "Тип триггера:",
+    "pl": "Typ wyzwalacza:",
+    "de": "Auslösertyp:",
+    "es": "Tipo de activador:",
+    "be": "Тып трыгера:",
+    "uk": "Тип тригера:"
+  },
+  "notifications_trigger_type_label_tooltip": {
+    "en": "Defines what triggers the notification.\n\nExample:\n1. Send a notification with your chosen Title and Body at 12:00.\n2. Trigger notification when visiting a specific website with your Title and Body.\n3. Trigger notification after 5 minutes, etc.",
+    "ru": "Определяет, что запускает уведомление.\n\nПример:\n1. Отправить уведомление с вашим заголовком и текстом в 12:00.\n2. При посещении определённого сайта появится уведомление с вашим заголовком и текстом.\n3. Уведомление сработает через 5 минут и т.д.",
+    "pl": "Określa, co uruchamia powiadomienie.\n\nPrzykład:\n1. Wyślij powiadomienie o 12:00.\n2. Wyzwól powiadomienie po wejściu na stronę.\n3. Wyzwól po 5 minutach itd.",
+    "de": "Legt fest, was die Benachrichtigung auslöst.\n\nBeispiel:\n1. Benachrichtigung um 12:00 senden.\n2. Auslösen beim Besuch einer Website.\n3. Auslösen nach 5 Minuten usw.",
+    "es": "Define qué activa la notificación.\n\nEjemplo:\n1. Enviar notificación a las 12:00.\n2. Activar al visitar un sitio web.\n3. Activar tras 5 minutos, etc.",
+    "be": "Вызначае, што запускае апавяшчэнне.\n\nПрыклад:\n1. Адправіць апавяшчэнне ў 12:00.\n2. Пры наведванні сайта.\n3. Праз 5 хвілін і г.д.",
+    "uk": "Визначає, що запускає сповіщення.\n\nПриклад:\n1. Надіслати сповіщення о 12:00.\n2. При відвідуванні сайту.\n3. Через 5 хвилин тощо."
+  },
+  "notifications_editor_repeatable_label_text": {
+    "en": "Repeatable notification:",
+    "ru": "Повторяющееся уведомление:",
+    "pl": "Powiadomienie cykliczne:",
+    "de": "Wiederholbare Benachrichtigung:",
+    "es": "Notificación repetible:",
+    "be": "Паўторнае апавяшчэнне:",
+    "uk": "Повторюване сповіщення:"
+  },
+  "notifications_editor_repeatable_label_tooltip": {
+    "en": "If you want the notification to appear multiple times, enable this option.\n\nFor example, if you set a timer for 10 minutes and enable this option, then every 10 minutes a notification will appear with your specified Title and Body.",
+    "ru": "Если вы хотите, чтобы уведомление появлялось несколько раз, включите эту опцию.\n\nНапример, если вы установите таймер на 10 минут и включите эту опцию, то каждые 10 минут будет появляться уведомление с вашим указанным заголовком и текстом.",
+    "pl": "Jeśli chcesz, aby powiadomienie pojawiało się wielokrotnie, włącz tę opcję.\n\nNp. co 10 minut pojawi się powiadomienie z podanym tytułem i treścią.",
+    "de": "Wenn die Benachrichtigung mehrfach erscheinen soll, aktivieren Sie diese Option.\n\nBeispiel: Alle 10 Minuten erscheint eine Benachrichtigung mit Titel und Text.",
+    "es": "Si deseas que la notificación aparezca varias veces, activa esta opción.\n\nPor ejemplo, cada 10 minutos aparecerá una notificación con el título y texto indicados.",
+    "be": "Калі вы хочаце, каб апавяшчэнне з'яўлялася некалькі разоў, уключыце гэтую опцыю.\n\nНапрыклад, кожныя 10 хвілін з'явіцца апавяшчэнне з загалоўкам і тэкстам.",
+    "uk": "Якщо ви хочете, щоб сповіщення з’являлося кілька разів, увімкніть цю опцію.\n\nНаприклад, кожні 10 хвилин з’являтиметься сповіщення з заголовком і текстом."
+  },
+  "notifications_editor_header_title_h2_text": {
+    "en": "🔔 Notification Editor",
+    "ru": "🔔 Редактор уведомлений",
+    "pl": "🔔 Edytor powiadomień",
+    "de": "🔔 Benachrichtigungseditor",
+    "es": "🔔 Editor de notificaciones",
+    "be": "🔔 Рэдактар апавяшчэнняў",
+    "uk": "🔔 Редактор сповіщень"
+  },
+
+  "saved_notifications_header_h2_text": {
+    "en": "📋 Saved Notifications",
+    "ru": "📋 Сохранённые уведомления",
+    "pl": "📋 Zapisane powiadomienia",
+    "de": "📋 Gespeicherte Benachrichtigungen",
+    "es": "📋 Notificaciones guardadas",
+    "be": "📋 Захаваныя апавяшчэнні",
+    "uk": "📋 Збережені сповіщення"
+  },
+  "saved_notifications_no_notifications_text": {
+    "en": "No saved notifications yet.",
+    "ru": "Пока нет сохранённых уведомлений.",
+    "pl": "Brak zapisanych powiadomień.",
+    "de": "Noch keine gespeicherten Benachrichtigungen.",
+    "es": "Aún no hay notificaciones guardadas.",
+    "be": "Пакуль няма захаваных апавяшчэнняў.",
+    "uk": "Ще немає збережених сповіщень."
+  },
+  "saved_notifications_no_title_text": {
+    "en": "No Title",
+    "ru": "Без заголовка",
+    "pl": "Brak tytułu",
+    "de": "Kein Titel",
+    "es": "Sin título",
+    "be": "Без загалоўка",
+    "uk": "Без заголовка"
+  },
+  "saved_notifications_no_text_text": {
+    "en": "No Text",
+    "ru": "Без текста",
+    "pl": "Brak tekstu",
+    "de": "Kein Text",
+    "es": "Sin texto",
+    "be": "Без тэксту",
+    "uk": "Без тексту"
+  },
+  "saved_notifications_meta_type_text": {
+    "en": "Type:",
+    "ru": "Тип:",
+    "pl": "Typ:",
+    "de": "Typ:",
+    "es": "Tipo:",
+    "be": "Тып:",
+    "uk": "Тип:"
+  },
+  "saved_notifications_meta_active_text": {
+    "en": "Active:",
+    "ru": "Активно:",
+    "pl": "Aktywne:",
+    "de": "Aktiv:",
+    "es": "Activo:",
+    "be": "Актыўна:",
+    "uk": "Активне:"
+  },
+  "saved_notifications_meta_repeatable_text": {
+    "en": "Repeatable:",
+    "ru": "Повторяющееся:",
+    "pl": "Powtarzalne:",
+    "de": "Wiederholbar:",
+    "es": "Repetible:",
+    "be": "Паўторнае:",
+    "uk": "Повторюване:"
+  },
+  "saved_notifications_deactivate_button_text": {
+    "en": "🚫 Deactivate",
+    "ru": "🚫 Деактивировать",
+    "pl": "🚫 Dezaktywuj",
+    "de": "🚫 Deaktivieren",
+    "es": "🚫 Desactivar",
+    "be": "🚫 Дэактываваць",
+    "uk": "🚫 Деактивувати"
+  },
+  "saved_notifications_activate_button_text": {
+    "en": "⏻ Activate",
+    "ru": "⏻ Активировать",
+    "pl": "⏻ Aktywuj",
+    "de": "⏻ Aktivieren",
+    "es": "⏻ Activar",
+    "be": "⏻ Актываваць",
+    "uk": "⏻ Активувати"
+  },
+  "saved_notifications_delete_button_text": {
+    "en": "🗑️ Delete",
+    "ru": "🗑️ Удалить",
+    "pl": "🗑️ Usuń",
+    "de": "🗑️ Löschen",
+    "es": "🗑️ Eliminar",
+    "be": "🗑️ Выдаліць",
+    "uk": "🗑️ Видалити"
+  },
+  "sidebar_section_title_notifications_text": {
+    "en": "Notifications",
+    "ru": "Уведомления",
+    "pl": "Powiadomienia",
+    "de": "Benachrichtigungen",
+    "es": "Notificaciones",
+    "be": "Апавяшчэнні",
+    "uk": "Сповіщення"
+  },
+  "sidebar_delete_all_notifications_button_text": {
+    "en": "Delete all notifications",
+    "ru": "Удалить все уведомления",
+    "pl": "Usuń wszystkie powiadomienia",
+    "de": "Alle Benachrichtigungen löschen",
+    "es": "Eliminar todas las notificaciones",
+    "be": "Выдаліць усе апавяшчэнні",
+    "uk": "Видалити всі сповіщення"
+  },
+  "sidebar_show_notifications_editor_button_text": {
+    "en": "Show Notification Editor",
+    "ru": "Показать редактор уведомлений",
+    "pl": "Pokaż edytor powiadomień",
+    "de": "Benachrichtigungseditor anzeigen",
+    "es": "Mostrar editor de notificaciones",
+    "be": "Паказаць рэдактар апавяшчэнняў",
+    "uk": "Показати редактор сповіщень"
   }
 }
