@@ -402,7 +402,7 @@ async function checkTemperatureNotifications(currentTemperature) {
 
         if (type === "temperature" &&
             typeof triggerData.temp === "number" &&
-            currentTemperature >= triggerData.temp &&
+            currentTemperature <= triggerData.temp &&
             notif.active !== false &&
             (!notif.lastTriggeredAt || now - notif.lastTriggeredAt > 5000)) {
 

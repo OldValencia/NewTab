@@ -144,7 +144,7 @@ async function updateWeather(data) {
     weatherSummary.style.color = getBrightness(bg) < 128 ? "#fff" : "#000";
 
     await checkTemperatureNotifications(temp);
-    applyWeatherVisibilitySetting();
+    await applyWeatherVisibilitySetting();
 }
 
 function getWeatherEmoji(code) {
