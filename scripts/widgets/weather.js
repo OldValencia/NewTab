@@ -283,8 +283,8 @@ function startFogEffect() {
         fogWrapper.appendChild(fogCloud);
     }
 
-    cityBtn.style.color = "#000";
-    geoBtn.style.color = "#000";
+    cityBtn.style.color = "#fff";
+    geoBtn.style.color = "#fff";
     weatherWidgetElement.appendChild(fogWrapper);
 }
 

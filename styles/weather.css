@@ -68,7 +68,7 @@
 #weather-panel button:hover {
     background: rgba(255, 255, 255, 0.7);
     text-shadow: 0 0 3px rgba(0, 0, 0, 0.9);
-    color: #000000;
+    color: #ffffff;
 }
 
 #weather-widget:hover .weather-panel {
