@@ -8,9 +8,9 @@ const bookmarksSearchInput = document.getElementById("bookmark-search");
 
 let allBookmarks = [];
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
     loadBookmarks();
-    renderPinned();
+    await renderPinned();
 
     openBookmarksSidebarBtn.addEventListener("click", openBookmarksSidebar);
 
@@ -140,7 +140,7 @@ function createBookmarkItem(bookmark, {draggable = false} = {}) {
                 showConfirmation(`${firstConfirmationMessagePart} ${bookmark.title}\n${secondConfirmationMessagePart} ${newTitle}`,
                     () => {
                         const openFolders = getOpenFolderPaths(bookmarkTree);
-                        browser.bookmarks.update(bookmark.id, { title: newTitle }).then(() => {
+                        browser.bookmarks.update(bookmark.id, {title: newTitle}).then(() => {
                             loadBookmarks().then(() => reRenderAndRestoreOpenFolders(openFolders));
                         });
                     },
@@ -228,7 +228,19 @@ async function renderPinned() {
     pinnedSection.style.display = "flex";
     for (const bookmarkId of pinnedBookmarkIds) {
         const index = pinnedBookmarkIds.indexOf(bookmarkId);
-        const bookmark = await browser.bookmarks.get(bookmarkId);
+        let bookmark;
+
+        try {
+            bookmark = await browser.bookmarks.get(bookmarkId)
+        } catch (e) {
+            unpinBookmark(bookmarkId);
+            continue;
+        }
+
+        if (!bookmark) {
+            unpinBookmark(bookmarkId);
+            continue;
+        }
 
         const item = document.createElement("div");
         item.className = "bookmark-item";
@@ -292,7 +304,7 @@ function enableDragAndDrop(container) {
 
         item.addEventListener("dragover", e => e.preventDefault());
 
-        item.addEventListener("drop", () => {
+        item.addEventListener("drop", async () => {
             if (dragged === item) return;
 
             const items = Array.from(container.children);
@@ -306,7 +318,7 @@ function enableDragAndDrop(container) {
             pinned.splice(targetIndex, 0, moved);
 
             setBookmarkSetting("pinnedBookmarks", pinned);
-            renderPinned();
+            await renderPinned();
         });
     });
 }

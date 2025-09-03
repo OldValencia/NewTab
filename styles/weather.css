@@ -3,7 +3,7 @@
     bottom: 20px;
     right: 20px;
     z-index: 1000;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'SF Pro Display', sans-serif;
     border-radius: 16px;
     transition: right 0.3s ease;
 }
@@ -21,7 +21,7 @@
     backdrop-filter: blur(24px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'SF Pro Display', sans-serif;
     color: #fff;
     z-index: 9999;
     transition: all 0.3s ease;
@@ -37,7 +37,7 @@
     backdrop-filter: blur(24px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'SF Pro Display', sans-serif;
     color: #fff;
     padding: 10px;
     border-radius: 16px;

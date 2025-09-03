@@ -1,7 +1,7 @@
 const toggleTime = document.getElementById("toggle-time");
 const toggleDate = document.getElementById("toggle-date");
 const multipleClocksWrapper = document.getElementById("multiple-clocks");
-const defaultTimeAndDateFont = "Arial";
+const defaultTimeAndDateFont = "SF Pro Display";
 const defaultTimeColor = "#7e4600";
 const defaultDateColor = "#aaaaaa";
 

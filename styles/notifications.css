@@ -13,7 +13,7 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 12px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'SF Pro Display', sans-serif;
     color: #fff;
     z-index: 9999;
     cursor: pointer;
@@ -58,7 +58,7 @@
     border-radius: 16px;
     box-shadow: 0 14px 40px rgba(0, 0, 0, 0.4);
     padding: 20px;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'SF Pro Display', sans-serif;
     color: #fff;
     z-index: 9999;
 }

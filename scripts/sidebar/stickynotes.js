@@ -8,7 +8,7 @@ function loadStickyNotes() {
     resetSettingsBtn.addEventListener("click", () => {
         const notes = document.querySelectorAll(".sticky-note");
         notes.forEach(note => {
-            note.style.fontFamily = "Arial";
+            note.style.fontFamily = "SF Pro Display";
             note.style.background = `linear-gradient(135deg, ${adjustColor("#fff8b3", 0.2)} 60%, ${adjustColor("#fff8b3", -0.2)} 100%)`;
             note.style.border = "1px solid #fff8b3";
             note.style.setProperty("--hover-box-shadow", `0 2px 6px 0 ${adjustColor("#fff8b3", -0.2)}, 0 2px 12px 0 rgba(0,0,0,0.13)`);

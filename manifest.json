@@ -22,6 +22,12 @@
     "alarms"
   ],
 
+  "web_accessible_resources": [
+    "fonts/SFProDisplay-Regular.woff2",
+    "fonts/SFProDisplay-Regular.woff",
+    "fonts/SFProDisplay-Regular.ttf"
+  ],
+
   "background": {
     "scripts": ["scripts/background-scripts/notifications.js"],
     "persistent": true

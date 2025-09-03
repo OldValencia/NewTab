@@ -273,7 +273,8 @@ function loadTimeAndDate() {
             <div class="font-control">
                 <label data-value-localization-key="date_and_time_clocks_customization_time_label">Time:</label>
                 <select id="time-font-${i}">
-                    <option value="Arial" data-value-localization-key="option_arial_default_label">Arial (default)</option>
+                    <option value="SF Pro Display" data-value-localization-key="option_sf_pro_display_default_label">SF Pro Display (default)</option>
+                    <option value="Arial">Arial</option>
                     <option value="Segoe UI">Segoe UI</option>
                     <option value="Georgia">Georgia</option>
                     <option value="Courier New">Courier New</option>
@@ -295,7 +296,8 @@ function loadTimeAndDate() {
             <div class="font-control">
                 <label data-value-localization-key="date_and_time_clocks_customization_date_label">Date:</label>
                 <select id="date-font-${i}">
-                    <option value="Arial" data-value-localization-key="option_arial_default_label">Arial (default)</option>
+                    <option value="SF Pro Display" data-value-localization-key="option_sf_pro_display_default_label">SF Pro Display (default)</option>
+                    <option value="Arial">Arial</option>
                     <option value="Segoe UI">Segoe UI</option>
                     <option value="Georgia">Georgia</option>
                     <option value="Courier New">Courier New</option>

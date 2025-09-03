@@ -223,6 +223,7 @@ async function createStickyNote(data = {}, key) {
         "sans-serif",
         "serif",
         "monospace",
+        "SF Pro Display",
         "Arial",
         "Courier New",
         "Segoe UI",

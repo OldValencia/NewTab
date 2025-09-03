@@ -1052,14 +1052,14 @@
     "be": "Колькасць ліній: ",
     "uk": "Кількість ліній: "
   },
-  "option_arial_default_label": {
-    "en": "Arial (default)",
-    "ru": "Arial (стандартный)",
-    "pl": "Arial (domyślny)",
-    "de": "Arial (Standard)",
-    "es": "Arial (predeterminado)",
-    "be": "Arial (па змаўчанні)",
-    "uk": "Arial (за замовчуванням)"
+  "option_sf_pro_display_default_label": {
+    "en": "SF Pro Display (default)",
+    "ru": "SF Pro Display (стандартный)",
+    "pl": "SF Pro Display (domyślny)",
+    "de": "SF Pro Display (Standard)",
+    "es": "SF Pro Display (predeterminado)",
+    "be": "SF Pro Display (па змаўчанні)",
+    "uk": "SF Pro Display (за замовчуванням)"
   },
   "date_and_time_clocks_customization_time_label": {
     "en": "Time: ",
