@@ -1,6 +1,7 @@
 const toggleWeatherWidget = document.getElementById("toggle-weather-widget");
 const weatherWidgetElement = document.getElementById("weather-widget");
 const resetWeatherBtn = document.getElementById("reset-weather-settings");
+const weatherApiKeyInput = document.getElementById("weather-api-key");
 
 async function loadWeatherWidget() {
     const settings = loadCustomSettings();
@@ -9,20 +10,33 @@ async function loadWeatherWidget() {
         settings.weatherWidget = {
             showWeather: false,
             weatherCity: "",
-            cachedWeather: ""
+            cachedWeather: "",
+            weatherApiKey: ""
         };
         saveCustomSettings(settings);
     }
 
-    applyWeatherVisibilitySetting();
+    weatherApiKeyInput.value = settings.weatherWidget.weatherApiKey;
+
+    await applyWeatherVisibilitySetting();
     const shouldFetch = await loadCachedWeather();
     await loadSavedCity(shouldFetch);
 
     toggleWeatherWidget.addEventListener("change", () => {
         const settings = loadCustomSettings();
+
+        if (!settings.weatherWidget.weatherApiKey || settings.weatherWidget.weatherApiKey.trim() === "") {
+            alert("Please enter a valid WeatherAPI.com key to enable the weather widget.");
+            toggleWeatherWidget.checked = false;
+            settings.weatherWidget.showWeather = false;
+            saveCustomSettings(settings);
+            applyWeatherVisibilitySetting();
+            return;
+        }
+
         settings.weatherWidget.showWeather = toggleWeatherWidget.checked;
         saveCustomSettings(settings);
-        applyWeatherVisibilitySetting()
+        applyWeatherVisibilitySetting();
     });
 
     resetWeatherBtn.addEventListener("click", () => {
@@ -41,6 +55,22 @@ async function loadWeatherWidget() {
 
         applyWeatherVisibilitySetting();
     });
+
+    weatherApiKeyInput.addEventListener("change", () => {
+        const settings = loadCustomSettings();
+        settings.weatherWidget.weatherApiKey = weatherApiKeyInput.value.trim();
+
+        if (!settings.weatherWidget.weatherApiKey || settings.weatherWidget.weatherApiKey.trim() === "") {
+            alert("Please enter a valid WeatherAPI.com key to enable the weather widget.");
+            toggleWeatherWidget.checked = false;
+            settings.weatherWidget.showWeather = false;
+
+            saveCustomSettings(settings);
+            applyWeatherVisibilitySetting();
+        }
+
+        saveCustomSettings(settings);
+    })
 }
 
 weatherWidgetElement.addEventListener("mouseover", () => {

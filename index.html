@@ -393,10 +393,23 @@
             <button class="toggle-section">+</button>
         </div>
         <div class="section-content">
-            <button id="reset-weather-settings" class="reset-button" data-value-localization-key="weather_widget_section_reset_button">Reset Weather Settings</button>
+            <label for="weather-api-key">
+                <div class="weather-api-info-line">
+                    <a class="weather-api-url-link" href="https://www.weatherapi.com/">WeatherAPI</a>
+                    <span>Key:</span>
+                </div>
+                <input type="text" placeholder="Get your API key from WeatherAPI.com"
+                       id="weather-api-key" class="weather-api-input"
+                       data-placeholder-localization-key="weather_widget_api_key_input_placeholder">
+            </label>
+
+            <button id="reset-weather-settings" class="reset-button"
+                    data-value-localization-key="weather_widget_section_reset_button">Reset Weather Settings
+            </button>
 
             <div class="section-toggle-controls">
-                <label class="weather-toggle-label" data-value-localization-key="weather_widget_toggle_show_weather_widget">
+                <label class="weather-toggle-label"
+                       data-value-localization-key="weather_widget_toggle_show_weather_widget">
                     <input type="checkbox" id="toggle-weather-widget">
                     Show Weather
                 </label>
@@ -415,7 +428,10 @@
             <div class="font-control">
                 <label for="greeting-font" data-value-localization-key="greeting_widget_font_label">Font:
                     <select id="greeting-font">
-                        <option value="SF Pro Display" data-value-localization-key="option_sf_pro_display_default_label">SF Pro Display (default)</option>
+                        <option value="SF Pro Display"
+                                data-value-localization-key="option_sf_pro_display_default_label">SF Pro Display
+                            (default)
+                        </option>
                         <option value="Arial">Arial</option>
                         <option value="Segoe UI">Segoe UI</option>
                         <option value="Georgia">Georgia</option>
@@ -450,11 +466,14 @@
             <div class="font-control">
                 <label for="greeting-username" data-value-localization-key="greeting_widget_font_username_label">
                     Username:
-                    <input type="text" id="greeting-username" data-placeholder-localization-key="greeting_widget_username_input_placeholder" placeholder="Enter your name...">
+                    <input type="text" id="greeting-username"
+                           data-placeholder-localization-key="greeting_widget_username_input_placeholder"
+                           placeholder="Enter your name...">
                 </label>
             </div>
 
-            <button id="reset-greeting-widget" class="reset-button" data-value-localization-key="greeting_widget_reset_settings_button">
+            <button id="reset-greeting-widget" class="reset-button"
+                    data-value-localization-key="greeting_widget_reset_settings_button">
                 Reset Greeting Settings
             </button>
 
@@ -478,7 +497,10 @@
             <div class="font-control">
                 <label for="quote-font" data-value-localization-key="daily_quote_font_label">Font:
                     <select id="quote-font">
-                        <option value="SF Pro Display" data-value-localization-key="option_sf_pro_display_default_label">SF Pro Display (default)</option>
+                        <option value="SF Pro Display"
+                                data-value-localization-key="option_sf_pro_display_default_label">SF Pro Display
+                            (default)
+                        </option>
                         <option value="Arial">Arial</option>
                         <option value="Segoe UI">Segoe UI</option>
                         <option value="Georgia">Georgia</option>
@@ -511,7 +533,8 @@
                 </label>
             </div>
 
-            <button id="reset-quote-widget" class="reset-button" data-value-localization-key="daily_quote_reset_settings_button">
+            <button id="reset-quote-widget" class="reset-button"
+                    data-value-localization-key="daily_quote_reset_settings_button">
                 Reset Daily Quote Settings
             </button>
 
@@ -535,11 +558,13 @@
         </div>
         <div class="section-content bookmarks-widget">
             <div class="section-toggle-controls bookmarks-widget">
-                <label class="bookmarks-toggle-label bookmarks-widget" data-value-localization-key="bookmarks_section_toggle_show_bookmarks">
+                <label class="bookmarks-toggle-label bookmarks-widget"
+                       data-value-localization-key="bookmarks_section_toggle_show_bookmarks">
                     <input type="checkbox" id="toggle-bookmarks-widget">
                     Show bookmarks
                 </label>
-                <label class="bookmarks-toggle-label bookmarks-widget" data-value-localization-key="bookmarks_section_toggle_hide_bookmarks">
+                <label class="bookmarks-toggle-label bookmarks-widget"
+                       data-value-localization-key="bookmarks_section_toggle_hide_bookmarks">
                     <input type="checkbox" id="toggle-bookmarks-widget-always-open">
                     Open bookmarks widget by default
                 </label>
@@ -555,7 +580,8 @@
             <button class="toggle-section">+</button>
         </div>
         <div class="section-content">
-            <button id="reset-search-bar-widget" class="reset-button" data-value-localization-key="main_sidebar_search_bar_reset_settings_button">
+            <button id="reset-search-bar-widget" class="reset-button"
+                    data-value-localization-key="main_sidebar_search_bar_reset_settings_button">
                 Reset Search Bar Settings
             </button>
 
@@ -580,12 +606,14 @@
             <button class="toggle-section">+</button>
         </div>
         <div class="section-content">
-            <button id="reset-localization-settings" class="reset-button" data-value-localization-key="main_sidebar_localization_reset_settings_button">
+            <button id="reset-localization-settings" class="reset-button"
+                    data-value-localization-key="main_sidebar_localization_reset_settings_button">
                 Reset Localization Settings
             </button>
 
             <div class="font-control localization-fix">
-                <label for="localization-select" data-value-localization-key="localization_section_font_label">Select localization:
+                <label for="localization-select" data-value-localization-key="localization_section_font_label">Select
+                    localization:
                     <select id="localization-select">
                         <option value="en">English</option>
                         <option value="ru">Русский</option>
@@ -608,12 +636,14 @@
             <button class="toggle-section">+</button>
         </div>
         <div class="section-content">
-            <button id="delete-all-notifications" class="reset-button" data-value-localization-key="sidebar_delete_all_notifications_button_text">
+            <button id="delete-all-notifications" class="reset-button"
+                    data-value-localization-key="sidebar_delete_all_notifications_button_text">
                 Delete all notifications
             </button>
 
             <div class="section-toggle-controls">
-                <label class="notif-toggle-label" data-value-localization-key="sidebar_show_notifications_editor_button_text">
+                <label class="notif-toggle-label"
+                       data-value-localization-key="sidebar_show_notifications_editor_button_text">
                     <input type="checkbox" id="toggle-notifications-editor">
                     Show Notifications Editor
                 </label>
@@ -637,7 +667,8 @@
 </div>
 
 <div class="search-bar-container" id="search-bar">
-    <input type="text" id="universal-search" data-placeholder-localization-key="search_bar_input_placeholder" placeholder="🔍 Search the web..." list="search-history"/>
+    <input type="text" id="universal-search" data-placeholder-localization-key="search_bar_input_placeholder"
+           placeholder="🔍 Search the web..." list="search-history"/>
     <datalist id="search-history"></datalist>
 
     <select id="search-engine-select">
@@ -680,7 +711,9 @@
     </div>
 </div>
 
-<button id="add-custom-notification" data-value-localization-key="add_custom_notification_button_test">➕ Add Custom Notification</button>
+<button id="add-custom-notification" data-value-localization-key="add_custom_notification_button_test">➕ Add Custom
+    Notification
+</button>
 
 <script src="scripts/config.js"></script>
 <script src="scripts/main.js"></script>

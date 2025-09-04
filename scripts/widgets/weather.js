@@ -94,13 +94,23 @@ function getWeatherByGeolocation() {
 }
 
 function fetchWeather(query, cityLabel) {
-    fetch(`https://api.weatherapi.com/v1/current.json?key=${WEATHER_API_KEY}&${query}&aqi=no`)
+    const {weatherWidget} = loadCustomSettings();
+    fetch(`https://api.weatherapi.com/v1/current.json?key=${weatherWidget.weatherApiKey}&${query}&aqi=no`)
         .then(res => res.json())
         .then(async data => {
             await updateWeather(data);
             saveWeatherData(data, cityLabel);
         })
-        .catch(() => weatherSummary.textContent = "Load error");
+        .catch(async () => {
+            weatherSummary.textContent = "Load error"
+            const settings = loadCustomSettings();
+            alert("Please enter a valid WeatherAPI.com key to enable the weather widget.");
+            toggleWeatherWidget.checked = false;
+            settings.weatherWidget.showWeather = false;
+
+            saveCustomSettings(settings);
+            await applyWeatherVisibilitySetting();
+        });
 }
 
 async function updateWeather(data) {
