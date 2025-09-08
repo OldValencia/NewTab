@@ -1718,7 +1718,6 @@
     "be": "🔔 Рэдактар апавяшчэнняў",
     "uk": "🔔 Редактор сповіщень"
   },
-
   "saved_notifications_header_h2_text": {
     "en": "📋 Saved Notifications",
     "ru": "📋 Сохранённые уведомления",
@@ -1907,5 +1906,77 @@
     "es": "Tu configuración se ha eliminado de la nube. Para volver a subir tu configuración, haz clic en el botón 'Forzar guardado de configuración en la nube'.",
     "be": "Вашы налады былі выдалены з воблака. Каб зноў іх загрузіць, націсніце кнопку 'Прымусова захаваць налады ў воблаку'.",
     "uk": "Ваші налаштування було видалено з хмари. Щоб знову їх завантажити, натисніть кнопку 'Примусово зберегти налаштування в хмарі'."
+  },
+  "main_confirmation_window_dom_loaded_auto_save_cloud_first_line": {
+    "en": "Cloud settings doesn't match local settings. Do you want to load settings from the cloud?\n\n",
+    "ru": "Настройки в облаке не совпадают с локальными настройками. Вы хотите загрузить настройки из облака?\n\n",
+    "pl": "Ustawienia w chmurze nie zgadzają się z lokalnymi ustawieniami. Czy chcesz załadować ustawienia z chmury?\n\n",
+    "de": "Die Einstellungen in der Cloud stimmen nicht mit den lokalen Einstellungen überein. Möchten Sie die Einstellungen aus der Cloud laden?\n\n",
+    "es": "La configuración en la nube no coincide con la configuración local. ¿Deseas cargar la configuración desde la nube?\n\n",
+    "be": "Налады ў воблаку не супадаюць з лакальнымі наладамі. Ці хочаце вы загрузіць налады з воблака?\n\n",
+    "uk": "Налаштування в хмарі не збігаються з локальними налаштуваннями. Чи хочете ви завантажити налаштування з хмари?\n\n"
+  },
+  "main_confirmation_window_dom_loaded_auto_save_cloud_second_line": {
+    "en": "Local settings metadata:",
+    "ru": "Метаданные локальных настроек:",
+    "pl": "Metadane lokalnych ustawień:",
+    "de": "Metadaten der lokalen Einstellungen:",
+    "es": "Metadatos de la configuración local:",
+    "be": "Метададзены лакальных налад:",
+    "uk": "Метадані локальних налаштувань:"
+  },
+  "main_confirmation_window_dom_loaded_auto_save_cloud_third_line": {
+    "en": "• Last updated: ",
+    "ru": "• Последнее обновление: ",
+    "pl": "• Ostatnia aktualizacja: ",
+    "de": "• Zuletzt aktualisiert: ",
+    "es": "• Última actualización: ",
+    "be": "• Апошняе абнаўленне: ",
+    "uk": "• Останнє оновлення: "
+  },
+  "main_confirmation_window_dom_loaded_auto_save_cloud_fourth_line": {
+    "en": "• Platform: OS: ",
+    "ru": "• Платформа: ОС: ",
+    "pl": "• Platforma: OS: ",
+    "de": "• Plattform: OS: ",
+    "es": "• Plataforma: SO: ",
+    "be": "• Платформа: АС: ",
+    "uk": "• Платформа: ОС: "
+  },
+  "main_confirmation_window_dom_loaded_auto_save_cloud_fifth_line": {
+    "en": "• Browser version: ",
+    "ru": "• Версия браузера: ",
+    "pl": "• Wersja przeglądarki: ",
+    "de": "• Browserversion: ",
+    "es": "• Versión del navegador: ",
+    "be": "• Версія браўзэра: ",
+    "uk": "• Версія браузера: "
+  },
+  "main_confirmation_window_dom_loaded_auto_save_cloud_sixth_line": {
+    "en": "Yes = Load from Cloud, No = Keep Local",
+    "ru": "Да = Загрузить из облака, Нет = Оставить локальные",
+    "pl": "Tak = Załaduj z chmury, Nie = Zachowaj lokalne",
+    "de": "Ja = Aus der Cloud laden, Nein = Lokal behalten",
+    "es": "Sí = Cargar desde la nube, No = Mantener local",
+    "be": "Так = Загрузіць з воблака, Не = Захаваць лакальныя",
+    "uk": "Так = Завантажити з хмари, Ні = Зберегти локальні"
+  },
+  "main_confirmation_window_dom_loaded_auto_save_cloud_cloud_settings_metadata_text": {
+    "en": "Cloud settings metadata:",
+    "ru": "Метаданные настроек в облаке:",
+    "pl": "Metadane ustawień w chmurze:",
+    "de": "Metadaten der Cloud-Einstellungen:",
+    "es": "Metadatos de la configuración en la nube:",
+    "be": "Метададзены налад у воблаку:",
+    "uk": "Метадані налаштувань в хмарі:"
+  },
+  "main_confirmation_window_dom_loaded_auto_save_cloud_not_available_na_text": {
+    "en": "N/A",
+    "ru": "Н/Д",
+    "pl": "N/D",
+    "de": "k.A.",
+    "es": "N/D",
+    "be": "Н/Д",
+    "uk": "Н/Д"
   }
 }

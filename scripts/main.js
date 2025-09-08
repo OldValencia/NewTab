@@ -283,19 +283,29 @@ window.addEventListener("DOMContentLoaded", async () => {
         if (localSettings.toString() !== settings?.custom_settings?.toString()) {
             const localLast = localSettings.lastUpdated ? new Date(localSettings.lastUpdated).getTime() : 0;
             const cloudLast = settings?.custom_settings?.lastUpdated ? new Date(settings.custom_settings.lastUpdated).getTime() : 0;
+            const confirmationLocalizedText = [
+                await getLocalizationByKey("main_confirmation_window_dom_loaded_auto_save_cloud_first_line", localSettings.locale),
+                await getLocalizationByKey("main_confirmation_window_dom_loaded_auto_save_cloud_second_line", localSettings.locale),
+                await getLocalizationByKey("main_confirmation_window_dom_loaded_auto_save_cloud_third_line", localSettings.locale),
+                await getLocalizationByKey("main_confirmation_window_dom_loaded_auto_save_cloud_fourth_line", localSettings.locale),
+                await getLocalizationByKey("main_confirmation_window_dom_loaded_auto_save_cloud_fifth_line", localSettings.locale),
+                await getLocalizationByKey("main_confirmation_window_dom_loaded_auto_save_cloud_sixth_line", localSettings.locale),
+                await getLocalizationByKey("main_confirmation_window_dom_loaded_auto_save_cloud_cloud_settings_metadata_text", localSettings.locale),
+                await getLocalizationByKey("main_confirmation_window_dom_loaded_auto_save_cloud_not_available_na_text", localSettings.locale),
+            ];
 
             showConfirmation(
-                "Cloud settings doesn't match local settings. Do you want to load settings from the cloud?\n\n" +
-                `Local settings metadata:
-                • Last updated: ${localLast}
-                • Platform: OS: ${localSettings.platform.os}, Arch: ${localSettings.platform.arch}
-                • Browser version: ${localSettings.info.version}\n\n` +
+                `${confirmationLocalizedText[0]}
+                ${confirmationLocalizedText[1]}
+                ${confirmationLocalizedText[2]}${localLast}
+                ${confirmationLocalizedText[3]}${localSettings.platform.os} (${localSettings.platform.arch})
+                ${confirmationLocalizedText[4]}${localSettings.info.version}\n\n
 
-                `Cloud settings metadata:
-                • Last updated: ${cloudLast}
-                • Platform: OS: ${settings?.custom_settings?.platform?.os || 'N/A'}, Arch: ${settings?.custom_settings?.platform?.arch || 'N/A'}
-                • Browser version: ${settings?.custom_settings?.info?.version || 'N/A'}\n\n` +
-                "Yes = Load from Cloud, No = Keep Local",
+                ${confirmationLocalizedText[6]}
+                ${confirmationLocalizedText[2]}${cloudLast}
+                ${confirmationLocalizedText[3]}${settings?.custom_settings?.platform?.os || confirmationLocalizedText[7]} (${settings?.custom_settings?.platform?.arch || confirmationLocalizedText[7]})
+                ${confirmationLocalizedText[4]}${settings?.custom_settings?.info?.version || confirmationLocalizedText[7]}\n\n
+                ${confirmationLocalizedText[5]}`,
                 async () => {
                     if (!settings?.custom_settings) return
                     saveCustomSettings(settings.custom_settings);
