@@ -1,1 +1,0 @@
-const PIXABAY_API_KEY = "__PIXABAY_API_KEY__";

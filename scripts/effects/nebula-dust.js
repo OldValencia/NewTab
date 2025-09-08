@@ -38,3 +38,13 @@ function enableNebulaDust(settings) {
 
     draw();
 }
+
+async function enableNebulaDustWithProceduralControls(proceduralControls) {
+    const settings = getBackgroundSettings();
+    const bgColor = await createColorInput("procedural_controls_background_color_input", "bg-color", settings.bg.nebulaDust.backgroundColor, "nebulaDust", "backgroundColor", enableNebulaDust);
+    const particlesColor = await createColorInput("procedural_controls_particles_color_input", "bg-particles-color", settings.bg.nebulaDust.particlesColor, "nebulaDust", "particlesColor", enableNebulaDust);
+    const count = await createRangeInput("procedural_controls_number_of_particles_input", "bg-number-of-particles", "30", "300", "1", settings.bg.nebulaDust.numberOfParticles, "nebulaDust", "numberOfParticles", enableNebulaDust);
+
+    proceduralControls?.append(count, bgColor, particlesColor);
+    enableNebulaDust(settings);
+}

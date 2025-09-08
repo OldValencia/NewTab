@@ -39,3 +39,13 @@ function enableBlobFlow(settings) {
 
     draw();
 }
+
+async function enableBlowFlowWithProceduralControls(proceduralControls) {
+    const settings = getBackgroundSettings();
+    const bgColor = await createColorInput("procedural_controls_background_color_input", "bg-color", settings.bg.blobFlow.backgroundColor, "blobFlow", "backgroundColor", enableBlobFlow);
+    const size = await createRangeInput("procedural_controls_size_input", "bg-blob-size", "30", "150", "1", settings.bg.blobFlow.size, "blobFlow", "size", enableBlobFlow);
+    const blur = await createRangeInput("procedural_controls_blur_input", "bg-blob-blur", "0", "50", "1", settings.bg.blobFlow.blur, "blobFlow", "blur", enableBlobFlow);
+
+    proceduralControls?.append(bgColor, size, blur);
+    enableBlobFlow(settings);
+}

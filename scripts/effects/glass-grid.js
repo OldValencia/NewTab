@@ -35,3 +35,14 @@ function enableGlassGrid(settings) {
 
     draw();
 }
+
+async function enableGlassGridWithProceduralControls(proceduralControls) {
+    const settings = getBackgroundSettings();
+    const bgColor = await createColorInput("procedural_controls_background_color_input", "bg-color", settings.bg.glassGrid.backgroundColor, "glassGrid", "backgroundColor", enableGlassGrid);
+    const particlesColor = await createColorInput("procedural_controls_particles_color_input", "bg-particles-color", settings.bg.glassGrid.particlesColor, "glassGrid", "particlesColor", enableGlassGrid);
+    const count = await createRangeInput("procedural_controls_number_of_particles_input", "bg-glass-particles", "20", "100", "1", settings.bg.glassGrid.numberOfParticles, "glassGrid", "numberOfParticles", enableGlassGrid);
+    const alpha = await createRangeInput("procedural_controls_particles_transparency_input", "bg-glass-transparency", "0", "1", "0.01", settings.bg.glassGrid.particlesTransparency, "glassGrid", "particlesTransparency", enableGlassGrid);
+
+    proceduralControls?.append(alpha, count, bgColor, particlesColor);
+    enableGlassGrid(settings);
+}

@@ -33,7 +33,7 @@ function applyBackgroundFit(fit) {
         const settings = loadCustomSettings();
         settings.bg.bgFit = fit;
         saveCustomSettings(settings);
-        document.getElementById("bg-fit").value = fit;
+        bgFit.value = fit;
     }
 
     switch (fit) {
@@ -252,14 +252,9 @@ function makeContainerDraggable(container, handler = "#drag-handle") {
     });
 }
 
-function escapeHtml(text) {
-    const map = {
-        '&': '&amp;',
-        '<': '&lt;',
-        '>': '&gt;',
-        '"': '&quot;',
-        "'": '&#039;',
-        // '\n': '<br>'
-    };
-    return text.replace(/[&<>"'\n]/g, m => map[m]);
-}
+const updateSettings = (mutator) => {
+    const s = getBackgroundSettings();
+    mutator(s);
+    saveCustomSettings(s);
+    return s;
+};

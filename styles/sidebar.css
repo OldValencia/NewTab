@@ -578,3 +578,30 @@ input[type="radio"]:checked {
     width: 100% !important;
     justify-content: center !important;
 }
+
+.background-api-info-line {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30% !important;
+}
+
+.background-api-info-line span {
+    margin-left: 3px;
+}
+
+.background-api-url-link {
+    color: #00aaff;
+    text-decoration: none;
+}
+.background-api-url-link:hover {
+    text-decoration: underline;
+}
+
+.background-api-input {
+    width: 70%;
+    padding: 4px;
+    border-radius: 3px;
+    border: none;
+    font-size: 14px;
+}

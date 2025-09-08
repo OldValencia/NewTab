@@ -298,7 +298,7 @@
 
             <label data-value-localization-key="background_section_dynamic_search">
                 <input type="radio" name="bg-mode" value="dynamic-search">
-                Dynamic Search Background
+                Dynamic Search Background (Pixabay)
             </label>
 
             <label data-value-localization-key="background_section_search_image">
@@ -337,6 +337,15 @@
                 </label>
             </div>
 
+            <label for="background-api-key">
+                <div class="background-api-info-line">
+                    <a class="background-api-url-link" href="https://pixabay.com/">Pixabay</a>
+                    <span>API Key:</span>
+                </div>
+                <input type="text" placeholder="Get your API key from Pixabay.com"
+                       id="background-api-key" class="background-api-input"
+                       data-placeholder-localization-key="background_widget_api_key_input_placeholder">
+            </label>
             <input type="text" id="bg-search" data-placeholder-localization-key="background_section_search_placeholder"
                    placeholder="e.g. Nature" style="display: none;">
             <div id="bg-loading" style="display: none; color: #ccc; font-size: 14px;"
@@ -715,7 +724,6 @@
     Notification
 </button>
 
-<script src="scripts/config.js"></script>
 <script src="scripts/main.js"></script>
 <script src="scripts/version.js"></script>
 <script src="scripts/localization.js"></script>
