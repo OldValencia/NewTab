@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     openBookmarksSidebarBtn.addEventListener("click", openBookmarksSidebar);
 
-    setupCheckbox(toggleEmptyFoldersCheckbox, "showEmptyFolders", true, () => {
+    setupCheckbox(toggleEmptyFoldersCheckbox, "showEmptyFolders", false, () => {
         renderBookmarkTree(allBookmarks, bookmarkTree);
     });
 
@@ -70,7 +70,7 @@ function loadBookmarks() {
 
 function renderBookmarkTree(nodes, container, depth = 0) {
     container.innerHTML = "";
-    const showEmpty = getBookmarkSetting("showEmptyFolders", true);
+    const showEmpty = getBookmarkSetting("showEmptyFolders", false);
 
     nodes.forEach(node => {
         if (node.children) {
