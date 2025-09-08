@@ -2,14 +2,14 @@ const forceSaveSettingsToCloudBtn = document.getElementById("force-cloud-save-se
 const deleteSettingsFromCloudBtn = document.getElementById("delete-settings-from-cloud");
 const toggleAutoSaveSettingsToCloud = document.getElementById("toggle-auto-save-to-cloud");
 
-function loadCloudSettings() {
+async function loadCloudSettings() {
     const settings = loadCustomSettings();
 
     if (settings.autoCloudSave === undefined) {
         settings.autoCloudSave = false;
     }
 
-    saveCustomSettings(settings);
+    await saveCustomSettings(settings);
 
     toggleAutoSaveSettingsToCloud.checked = settings.autoCloudSave;
 }
@@ -35,8 +35,8 @@ deleteSettingsFromCloudBtn.addEventListener("click", async () => {
     await browser.storage.local.remove("custom_settings");
 });
 
-toggleAutoSaveSettingsToCloud.addEventListener("change", (e) => {
+toggleAutoSaveSettingsToCloud.addEventListener("change", async (e) => {
     const settings = loadCustomSettings();
     settings.autoCloudSave = e.target.checked;
-    saveCustomSettings(settings);
+    await saveCustomSettings(settings);
 });

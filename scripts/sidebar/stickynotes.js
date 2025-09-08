@@ -3,7 +3,7 @@ const clearContentBtn = document.getElementById("clear-sticky-notes");
 const removeAllBtn = document.getElementById("remove-sticky-notes");
 const toggleStickyNotes = document.getElementById("toggle-sticky-notes");
 
-function loadStickyNotes() {
+async function loadStickyNotes() {
     // Reset sticky note styles to default
     resetSettingsBtn.addEventListener("click", () => {
         const notes = document.querySelectorAll(".sticky-note");
@@ -62,15 +62,15 @@ function loadStickyNotes() {
     });
 
     // Toggle visibility of sticky notes
-    toggleStickyNotes.addEventListener("change", () => {
-        setStickyNotesVisibilityState(toggleStickyNotes.checked);
+    toggleStickyNotes.addEventListener("change", async () => {
+        await setStickyNotesVisibilityState(toggleStickyNotes.checked);
         const notes = document.querySelectorAll(".sticky-note, #add-sticky-note");
         notes.forEach(note => {
             note.style.display = toggleStickyNotes.checked ? "block" : "none";
         });
     });
 
-    const stickyNotesVisibilityState = getStickyNotesVisibilityState();
+    const stickyNotesVisibilityState = await getStickyNotesVisibilityState();
     toggleStickyNotes.checked = stickyNotesVisibilityState;
     const notes = document.querySelectorAll(".sticky-note, #add-sticky-note");
     notes.forEach(note => {

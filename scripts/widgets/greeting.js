@@ -68,7 +68,7 @@ const defaultGreetingTextSize = 18;
 const defaultGreetingEnabledState = false;
 const defaultGreetingUsername = "Friend";
 
-function loadGreetingSettings() {
+async function loadGreetingSettings() {
     const settings = loadCustomSettings();
 
     if (!settings.greetingFont) {
@@ -96,22 +96,22 @@ function loadGreetingSettings() {
     }
     greetingUsernameInput.value = defaultGreetingUsername;
 
-    saveCustomSettings(settings);
+    await saveCustomSettings(settings);
+    updateGreeting();
 }
 
-function saveGreetingSettings() {
+async function saveGreetingSettings() {
     const settings = loadCustomSettings();
     settings.greetingFont = greetingFontSelect.value;
     settings.greetingColor = greetingColorInput.value;
     settings.greetingSize = greetingSizeInput.value + "px";
     settings.greetingEnabled = greetingToggleCheckbox.checked;
     settings.userName = greetingUsernameInput.value;
-    saveCustomSettings(settings);
+    await saveCustomSettings(settings);
     updateGreeting();
 }
 
 function updateGreeting() {
-    loadGreetingSettings();
     const settings = loadCustomSettings();
 
     if (!settings.greetingEnabled) {
@@ -127,24 +127,24 @@ function updateGreeting() {
 }
 
 function addListenerForInputControl(control, jsonVariable, defaultValue) {
-    control.addEventListener("contextmenu", (e) => {
+    control.addEventListener("contextmenu", async (e) => {
         e.preventDefault();
         const settings = loadCustomSettings();
         settings[jsonVariable] = defaultValue;
         control.value = defaultValue;
-        saveCustomSettings(settings);
+        await saveCustomSettings(settings);
         updateGreeting();
     });
 }
 
 // Reset button
-greetingResetButton.addEventListener("click", () => {
+greetingResetButton.addEventListener("click", async () => {
     greetingFontSelect.value = defaultGreetingFont;
     greetingColorInput.value = defaultGreetingColor;
     greetingSizeInput.value = defaultGreetingTextSize;
     greetingUsernameInput.value = defaultGreetingUsername;
 
-    saveGreetingSettings();
+    await saveGreetingSettings();
 });
 
 // Event listeners
@@ -158,8 +158,3 @@ greetingResetButton.addEventListener("click", () => {
     [greetingSizeInput, "greetingSize", defaultGreetingTextSize],
     [greetingUsernameInput, "userName", defaultGreetingUsername]
 ].forEach(args => addListenerForInputControl(...args));
-
-document.addEventListener("DOMContentLoaded", () => {
-    loadGreetingSettings();
-    updateGreeting();
-});

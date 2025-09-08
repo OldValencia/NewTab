@@ -18,12 +18,12 @@ async function enrichObserverMetadata(settings) {
     return settings;
 }
 
-function saveCustomSettings(settings) {
+async function saveCustomSettings(settings) {
     if (!settings) return;
 
-    enrichObserverMetadata(settings).then(enriched => {
+    await enrichObserverMetadata(settings).then(enriched => {
         localStorage.setItem("custom_settings", JSON.stringify(enriched));
-    });
+    })
 }
 
 function loadCustomSettings() {
@@ -41,12 +41,12 @@ function applyBackgroundEffects(settings) {
     vignetteLayer.style.background = `radial-gradient(ellipse at center, rgba(0,0,0,0) 60%, rgba(0,0,0,${alpha}) 100%)`;
 }
 
-function applyBackgroundFit(fit) {
+async function applyBackgroundFit(fit) {
     if (!fit) {
         fit = "cover";
         const settings = loadCustomSettings();
         settings.bg.bgFit = fit;
-        saveCustomSettings(settings);
+        await saveCustomSettings(settings);
         bgFit.value = fit;
     }
 
@@ -104,11 +104,11 @@ async function createColorInput(localizationKey, labelId, defaultColor, bgMode, 
     colorInput.type = "color";
     colorInput.id = labelId;
     colorInput.value = defaultColor;
-    const debounceColorHandler = debounce((e) => {
+    const debounceColorHandler = debounce(async (e) => {
         const settings = loadCustomSettings();
         settings.bg[bgMode][bgModeVariable] = e.target.value;
         colorInput.value = e.target.value;
-        saveCustomSettings(settings);
+        await saveCustomSettings(settings);
 
         if (typeof onChangeCallback === "function") {
             onChangeCallback(settings);
@@ -116,12 +116,12 @@ async function createColorInput(localizationKey, labelId, defaultColor, bgMode, 
     }, 200);
     colorInput.addEventListener("input", debounceColorHandler);
 
-    colorInput.addEventListener("contextmenu", (e) => {
+    colorInput.addEventListener("contextmenu", async (e) => {
         e.preventDefault();
         const settings = loadCustomSettings();
         settings.bg[bgMode][bgModeVariable] = defaultColor;
         colorInput.value = settings.bg[bgMode][bgModeVariable];
-        saveCustomSettings(settings);
+        await saveCustomSettings(settings);
 
         if (typeof onChangeCallback === "function") {
             onChangeCallback(settings);
@@ -145,11 +145,11 @@ async function createRangeInput(localizationKey, labelId, labelMin, labelMax, la
     rangeInput.max = labelMax;
     rangeInput.step = labelStep;
     rangeInput.value = defaultValue;
-    const debounceSizeHandler = debounce((e) => {
+    const debounceSizeHandler = debounce(async (e) => {
         const settings = loadCustomSettings();
         settings.bg[bgMode][bgModeVariable] = e.target.value;
         rangeInput.value = e.target.value;
-        saveCustomSettings(settings);
+        await saveCustomSettings(settings);
 
         if (typeof onChangeCallback === "function") {
             onChangeCallback(settings);
@@ -157,12 +157,12 @@ async function createRangeInput(localizationKey, labelId, labelMin, labelMax, la
     }, 200);
     rangeInput.addEventListener("input", debounceSizeHandler);
 
-    rangeInput.addEventListener("contextmenu", (e) => {
+    rangeInput.addEventListener("contextmenu", async (e) => {
         e.preventDefault();
         const settings = loadCustomSettings();
         settings.bg[bgMode][bgModeVariable] = defaultValue;
         rangeInput.value = settings.bg[bgMode][bgModeVariable];
-        saveCustomSettings(settings);
+        await saveCustomSettings(settings);
 
         if (typeof onChangeCallback === "function") {
             onChangeCallback(settings);
@@ -183,11 +183,11 @@ async function createCheckbox(localizationKey, labelId, defaultValue, bgMode, bg
     checkboxInput.type = "checkbox";
     checkboxInput.id = labelId;
     checkboxInput.checked = defaultValue;
-    const debounceSizeHandler = debounce((e) => {
+    const debounceSizeHandler = debounce(async (e) => {
         const settings = loadCustomSettings();
         settings.bg[bgMode][bgModeVariable] = e.target.checked;
         checkboxInput.checked = e.target.checked;
-        saveCustomSettings(settings);
+        await saveCustomSettings(settings);
 
         if (typeof onChangeCallback === "function") {
             onChangeCallback(settings);
@@ -308,7 +308,7 @@ window.addEventListener("DOMContentLoaded", async () => {
                 ${confirmationLocalizedText[5]}`,
                 async () => {
                     if (!settings?.custom_settings) return
-                    saveCustomSettings(settings.custom_settings);
+                    await saveCustomSettings(settings.custom_settings);
                 },
                 async () => {
                     await browser.storage.local.set({custom_settings: localSettings});

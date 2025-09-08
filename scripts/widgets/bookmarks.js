@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     openBookmarksSidebarBtn.addEventListener("click", openBookmarksSidebar);
 
-    setupCheckbox(toggleEmptyFoldersCheckbox, "showEmptyFolders", true, () => {
+    setupCheckbox(toggleEmptyFoldersCheckbox, "showEmptyFolders", false, () => {
         renderBookmarkTree(allBookmarks, bookmarkTree);
     });
 
@@ -39,8 +39,8 @@ function openBookmarksSidebar() {
 
 function setupCheckbox(checkbox, key, defaultValue, onChange) {
     checkbox.checked = getBookmarkSetting(key, defaultValue);
-    checkbox.addEventListener("change", () => {
-        setBookmarkSetting(key, checkbox.checked);
+    checkbox.addEventListener("change",async () => {
+        await setBookmarkSetting(key, checkbox.checked);
         onChange();
     });
 }
@@ -50,11 +50,11 @@ function getBookmarkSetting(key, defaultValue) {
     return settings.bookmarks?.[key] ?? defaultValue;
 }
 
-function setBookmarkSetting(key, value) {
+async function setBookmarkSetting(key, value) {
     const settings = loadCustomSettings();
     settings.bookmarks = settings.bookmarks || {};
     settings.bookmarks[key] = value;
-    saveCustomSettings(settings);
+    await saveCustomSettings(settings);
 }
 
 function getPinned() {
@@ -70,7 +70,7 @@ function loadBookmarks() {
 
 function renderBookmarkTree(nodes, container, depth = 0) {
     container.innerHTML = "";
-    const showEmpty = getBookmarkSetting("showEmptyFolders", true);
+    const showEmpty = getBookmarkSetting("showEmptyFolders", false);
 
     nodes.forEach(node => {
         if (node.children) {
@@ -111,8 +111,8 @@ function createBookmarkItem(bookmark, {draggable = false} = {}) {
     }
 
     const pin = getPinned().includes(bookmark.id)
-        ? createButton("📌", () => unpinBookmark(bookmark.id))
-        : createButton("⭐", () => pinBookmark(bookmark.id));
+        ? createButton("📌", async () => await unpinBookmark(bookmark.id))
+        : createButton("⭐", async () => await pinBookmark(bookmark.id));
 
     const removeBtn = createButton("🗑️", async () => {
         const settings = loadCustomSettings();
@@ -201,18 +201,18 @@ function filterBookmarks(query) {
     filtered.forEach(b => bookmarkTree.appendChild(createBookmarkItem(b)));
 }
 
-function unpinBookmark(bookmarkId) {
+async function unpinBookmark(bookmarkId) {
     const updated = getPinned().filter(id => id !== bookmarkId);
-    setBookmarkSetting("pinnedBookmarks", updated);
+    await setBookmarkSetting("pinnedBookmarks", updated);
     const openFolders = getOpenFolderPaths(bookmarkTree);
     reRenderAndRestoreOpenFolders(openFolders);
 }
 
-function pinBookmark(bookmarkId) {
+async function pinBookmark(bookmarkId) {
     const pinned = getPinned();
     if (pinned.find(id => id === bookmarkId)) return;
     pinned.push(bookmarkId);
-    setBookmarkSetting("pinnedBookmarks", pinned);
+    await setBookmarkSetting("pinnedBookmarks", pinned);
     const openFolders = getOpenFolderPaths(bookmarkTree);
     reRenderAndRestoreOpenFolders(openFolders);
 }
@@ -233,12 +233,12 @@ async function renderPinned() {
         try {
             bookmark = await browser.bookmarks.get(bookmarkId)
         } catch (e) {
-            unpinBookmark(bookmarkId);
+            await unpinBookmark(bookmarkId);
             continue;
         }
 
         if (!bookmark) {
-            unpinBookmark(bookmarkId);
+            await unpinBookmark(bookmarkId);
             continue;
         }
 
@@ -255,7 +255,7 @@ async function renderPinned() {
             link.target = "_blank";
         }
 
-        const remove = createButton("📌", () => unpinBookmark(bookmarkId));
+        const remove = createButton("📌", async () => await unpinBookmark(bookmarkId));
 
         item.append(link, remove);
         pinnedSection.appendChild(item);

@@ -3,7 +3,7 @@ const resetSearchBarBtn = document.getElementById("reset-search-bar-widget");
 const searchBarWidget = document.getElementById("search-bar");
 const toggleSearchBarOpenInNewTab = document.getElementById("toggle-search-open-in-new-tab");
 
-function loadSearchBarWidget() {
+async function loadSearchBarWidget() {
     const settings = loadCustomSettings();
     if (!settings.searchBar) {
         settings.searchBar = {
@@ -12,7 +12,7 @@ function loadSearchBarWidget() {
             engine: "google",
             history: "[]"
         };
-        saveCustomSettings(settings);
+        await saveCustomSettings(settings);
     }
 
     const savedHistory = JSON.parse(settings.searchBar.history);
@@ -27,25 +27,25 @@ function loadSearchBarWidget() {
     searchSelect.value = settings.searchBar.engine;
 
 
-    toggleSearchBarWidget.addEventListener("change", () => {
+    toggleSearchBarWidget.addEventListener("change", async () => {
         const settings = loadCustomSettings();
         settings.searchBar.showSearchBar = toggleSearchBarWidget.checked;
-        saveCustomSettings(settings);
+        await saveCustomSettings(settings);
         searchBarWidget.style.display = toggleSearchBarWidget.checked ? "flex" : "none";
     });
 
-    toggleSearchBarOpenInNewTab.addEventListener("change", () => {
+    toggleSearchBarOpenInNewTab.addEventListener("change", async () => {
         const settings = loadCustomSettings();
         settings.searchBar.openInNewTab = toggleSearchBarOpenInNewTab.checked;
-        saveCustomSettings(settings);
+        await saveCustomSettings(settings);
     });
 
-    resetSearchBarBtn.addEventListener("click", () => {
+    resetSearchBarBtn.addEventListener("click", async () => {
         const settings = loadCustomSettings();
         settings.searchBar.openInNewTab = false;
         settings.searchBar.engine = "google";
         settings.searchBar.history = "[]";
-        saveCustomSettings(settings);
+        await saveCustomSettings(settings);
 
         searchSelect.value = settings.searchBar.engine;
         toggleSearchBarOpenInNewTab.checked = settings.searchBar.openInNewTab;

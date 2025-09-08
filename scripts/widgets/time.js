@@ -132,7 +132,7 @@ function updateTime() {
     }
 }
 
-toggleTime.addEventListener("change", () => {
+toggleTime.addEventListener("change", async () => {
     const settings = loadCustomSettings();
     const visible = toggleTime.checked;
     const timeElements = multipleClocksWrapper.querySelectorAll('.time');
@@ -140,10 +140,10 @@ toggleTime.addEventListener("change", () => {
         time.style.display = visible ? "block" : "none";
     });
     settings.timeAndDate.showTime = visible;
-    saveCustomSettings(settings);
+    await saveCustomSettings(settings);
 });
 
-toggleDate.addEventListener("change", () => {
+toggleDate.addEventListener("change", async () => {
     const settings = loadCustomSettings();
     const visible = toggleDate.checked;
     const dateElements = multipleClocksWrapper.querySelectorAll('.date');
@@ -151,7 +151,7 @@ toggleDate.addEventListener("change", () => {
         date.style.display = visible ? "block" : "none";
     });
     settings.timeAndDate.showDate = visible;
-    saveCustomSettings(settings);
+    await saveCustomSettings(settings);
 });
 
 setInterval(updateTime, 60000);

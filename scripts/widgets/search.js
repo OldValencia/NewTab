@@ -9,7 +9,7 @@ searchInput.addEventListener("keydown", (event) => {
     }
 });
 
-searchButton.addEventListener("click", () => {
+searchButton.addEventListener("click", async () => {
     const query = searchInput.value.trim();
     const engine = searchSelect.value;
 
@@ -24,7 +24,7 @@ searchButton.addEventListener("click", () => {
         if (savedHistory.length > 10) savedHistory.pop();
         settings.searchBar.history = JSON.stringify(savedHistory);
     }
-    saveCustomSettings(settings);
+    await saveCustomSettings(settings);
 
     let url = "";
     switch (engine) {

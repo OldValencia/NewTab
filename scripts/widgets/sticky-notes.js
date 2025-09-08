@@ -1,20 +1,20 @@
 let noteCounter = 0;
 let stickyNoteOffset = 0;
 
-function getStickyNotesVisibilityState() {
+async function getStickyNotesVisibilityState() {
     const settings = loadCustomSettings();
     if (settings.stickyNotesVisibilityState === null) {
         settings.stickyNotesVisibilityState = false;
-        saveCustomSettings(settings);
+        await saveCustomSettings(settings);
         return false;
     }
     return settings.stickyNotesVisibilityState;
 }
 
-function setStickyNotesVisibilityState(value) {
+async function setStickyNotesVisibilityState(value) {
     const settings = loadCustomSettings();
     settings.stickyNotesVisibilityState = value;
-    saveCustomSettings(settings);
+    await saveCustomSettings(settings);
 }
 
 function getContrastYIQ(hexcolor) {
@@ -87,7 +87,7 @@ async function createStickyNote(data = {}, key) {
     note.style.fontFamily = data.font || "sans-serif";
     note.style.fontSize = data.fontSize || "14px";
     note.style.color = data.textColor || "#333";
-    note.style.display = getStickyNotesVisibilityState() ? "block" : "none";
+    note.style.display = await getStickyNotesVisibilityState() ? "block" : "none";
 
     // Controls
     const controls = document.createElement("div");
