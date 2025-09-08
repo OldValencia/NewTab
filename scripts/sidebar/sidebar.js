@@ -11,15 +11,16 @@ function openMainSidebar() {
 toggleBtn.addEventListener("click", openMainSidebar);
 
 document.addEventListener("DOMContentLoaded", async () => {
-    loadCloudSettings();
+    await loadCloudSettings();
     await loadLocalization();
     await loadBackground();
-    loadTimeAndDate();
-    loadLinks();
-    loadStickyNotes();
+    await loadTimeAndDate();
+    await loadLinks();
+    await loadStickyNotes();
     await loadWeatherWidget();
-    loadBookmarksWidget();
-    loadSearchBarWidget();
+    await loadBookmarksWidget();
+    await loadSearchBarWidget();
+    await loadGreetingSettings();
     loadNotifications();
 
     document.querySelectorAll(".toggle-section").forEach(toggleBtn => {

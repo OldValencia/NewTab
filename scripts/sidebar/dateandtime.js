@@ -222,7 +222,7 @@ function getLocalizedTimezoneOptions(lang = defaultLocale) {
     }));
 }
 
-function loadTimeAndDate() {
+async function loadTimeAndDate() {
     const settings = loadCustomSettings();
 
     if (!settings.timeAndDate) {
@@ -242,7 +242,7 @@ function loadTimeAndDate() {
                 }
             ]
         }
-        saveCustomSettings(settings);
+        await saveCustomSettings(settings);
     }
 
     // Clear container
@@ -368,20 +368,20 @@ function loadTimeAndDate() {
     const wrappers = timeAndDateControlsContainer.querySelectorAll('.time-and-date-wrapper');
 
     function addEventListenerFor(element, inputEventType, i, jsonVariable, defaultValue) {
-        element.addEventListener(inputEventType, (e) => {
+        element.addEventListener(inputEventType, async e => {
             const settings = loadCustomSettings();
             const clockSettings = settings.timeAndDate.clocks[i];
             clockSettings[jsonVariable] = e.target.value;
-            saveCustomSettings(settings);
+            await saveCustomSettings(settings);
             updateTime();
         });
-        element.addEventListener("contextmenu", (e) => {
+        element.addEventListener("contextmenu", async e => {
             e.preventDefault();
             const settings = loadCustomSettings();
             const clockSettings = settings.timeAndDate.clocks[i];
             clockSettings[jsonVariable] = defaultValue;
             element.value = clockSettings[jsonVariable];
-            saveCustomSettings(settings);
+            await saveCustomSettings(settings);
             updateTime();
         });
     }
@@ -407,7 +407,7 @@ function loadTimeAndDate() {
                 dateFormat: defaultDateFormat,
                 timezone: defaultTimezone
             };
-            saveCustomSettings(settings);
+            await saveCustomSettings(settings);
         }
         const clockSettings = settings.timeAndDate.clocks[i];
         timeFontSelect.value = clockSettings.timeFont;
@@ -417,7 +417,7 @@ function loadTimeAndDate() {
         timeFormatSelect.value = clockSettings.timeFormat;
         timezoneSelect.value = clockSettings.timezone;
         dateFormatSelect.value = clockSettings.dateFormat;
-        saveCustomSettings(settings);
+        await saveCustomSettings(settings);
 
         // Save changes
         addEventListenerFor(timeFontSelect, "input", i, "timeFont", defaultTimeAndDateFont);
@@ -428,13 +428,13 @@ function loadTimeAndDate() {
         addEventListenerFor(timezoneSelect, "change", i, "timezone", "local");
         addEventListenerFor(dateFormatSelect, "change", i, "dateFormat", "day-month-year");
 
-        removeElementBtn.addEventListener("click", () => {
+        removeElementBtn.addEventListener("click", async () => {
             const settings = loadCustomSettings();
             if (timeAndDateControlsContainer.childNodes.length > 1) {
                 settings.timeAndDate.clocks.splice(i, 1);
                 settings.timeAndDate.elements--;
-                saveCustomSettings(settings);
-                loadTimeAndDate(settings);
+                await saveCustomSettings(settings);
+                await loadTimeAndDate(settings);
             }
         });
     }
@@ -443,17 +443,17 @@ function loadTimeAndDate() {
     applyLocalization(settings.locale);
 }
 
-addClockButton.addEventListener("click", () => {
+addClockButton.addEventListener("click", async () => {
     const settings = loadCustomSettings();
     if (!settings.timeAndDate.elements) settings.timeAndDate.elements = 1;
     if (settings.timeAndDate.elements < 3) {
         settings.timeAndDate.elements++;
-        saveCustomSettings(settings);
-        loadTimeAndDate(settings);
+        await saveCustomSettings(settings);
+        await loadTimeAndDate(settings);
     }
 });
 
-document.getElementById("reset-time-date").addEventListener("click", () => {
+document.getElementById("reset-time-date").addEventListener("click", async () => {
     const settings = loadCustomSettings();
     settings.timeAndDate.elements = 1;
     settings.timeAndDate.showTime = true;
@@ -467,6 +467,6 @@ document.getElementById("reset-time-date").addEventListener("click", () => {
         dateFormat: defaultDateFormat,
         timezone: defaultTimezone
     }];
-    saveCustomSettings(settings);
-    loadTimeAndDate(settings);
+    await saveCustomSettings(settings);
+    await loadTimeAndDate(settings);
 });

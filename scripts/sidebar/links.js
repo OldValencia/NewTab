@@ -29,7 +29,7 @@ function renderEditor(links) {
             div.classList.remove("drag-over");
         });
 
-        div.addEventListener("drop", (e) => {
+        div.addEventListener("drop", async (e) => {
             e.preventDefault();
             div.classList.remove("drag-over");
             const fromIndex = parseInt(e.dataTransfer.getData("text/plain"));
@@ -38,7 +38,7 @@ function renderEditor(links) {
             if (fromIndex !== toIndex) {
                 const moved = links.splice(fromIndex, 1)[0];
                 links.splice(toIndex, 0, moved);
-                saveLinksToStorage(links);
+                await saveLinksToStorage(links);
                 renderLinks(links);
                 renderEditor(links);
             }
@@ -52,9 +52,9 @@ function renderEditor(links) {
         const deleteBtn = document.createElement("button");
         deleteBtn.textContent = "✕";
         deleteBtn.className = "delete-link";
-        deleteBtn.addEventListener("click", () => {
+        deleteBtn.addEventListener("click", async () => {
             links.splice(index, 1);
-            saveLinksToStorage(links);
+            await saveLinksToStorage(links);
             renderLinks(links);
             renderEditor(links);
         });
@@ -69,15 +69,15 @@ function renderEditor(links) {
         urlInput.value = link.url;
         urlInput.placeholder = "URL";
 
-        labelInput.addEventListener("input", () => {
+        labelInput.addEventListener("input", async () => {
             link.label = labelInput.value;
-            saveLinksToStorage(links);
+            await saveLinksToStorage(links);
             renderLinks(links);
         });
 
-        urlInput.addEventListener("input", () => {
+        urlInput.addEventListener("input", async () => {
             link.url = urlInput.value;
-            saveLinksToStorage(links);
+            await saveLinksToStorage(links);
             renderLinks(links);
         });
 
@@ -88,9 +88,9 @@ function renderEditor(links) {
     });
 }
 
-function loadLinks() {
+async function loadLinks() {
     const settings = loadCustomSettings();
-    const links = getLinksFromStorage();
+    const links = await getLinksFromStorage();
 
     if (!settings.links) {
         settings.links = {
@@ -99,7 +99,7 @@ function loadLinks() {
             openInNewTabState: false,
             linkColor: "#dbdbdb"
         };
-        saveCustomSettings(settings);
+        await saveCustomSettings(settings);
     }
     renderLinks(links);
     renderEditor(links);
@@ -110,23 +110,23 @@ function loadLinks() {
     let cols = settings.cols || 3;
     colsValue.textContent = cols;
     linksContainer.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
-    document.getElementById("cols-plus").addEventListener("click", () => {
+    document.getElementById("cols-plus").addEventListener("click", async () => {
         if (cols < 10) {
             cols++;
             colsValue.textContent = cols;
             linksContainer.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
             settings.cols = cols;
-            saveCustomSettings(settings);
+            await saveCustomSettings(settings);
         }
     });
 
-    document.getElementById("cols-minus").addEventListener("click", () => {
+    document.getElementById("cols-minus").addEventListener("click", async () => {
         if (cols > 1) {
             cols--;
             colsValue.textContent = cols;
             linksContainer.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
             settings.cols = cols;
-            saveCustomSettings(settings);
+            await saveCustomSettings(settings);
         }
     });
 
@@ -139,54 +139,54 @@ function loadLinks() {
     toggleOpenInNewTab.checked = settings.links.openInNewTabState;
 }
 
-toggleOpenInNewTab.addEventListener("change", () => {
+toggleOpenInNewTab.addEventListener("change", async () => {
     const settings = loadCustomSettings();
     settings.links.openInNewTabState = toggleOpenInNewTab.checked;
-    saveCustomSettings(settings);
-    const linksFromStorage = getLinksFromStorage();
+    await saveCustomSettings(settings);
+    const linksFromStorage = await getLinksFromStorage();
     renderLinks(linksFromStorage);
 });
 
-toggleLinksCheckbox.addEventListener("change", () => {
+toggleLinksCheckbox.addEventListener("change", async () => {
     const settings = loadCustomSettings();
     const visible = toggleLinksCheckbox.checked;
     linksContainer.style.display = visible ? "grid" : "none";
     settings.links.showLinks = visible.toString();
-    saveCustomSettings(settings);
+    await saveCustomSettings(settings);
 });
 
 addLinkBtn.addEventListener("click", async () => {
-    const links = getLinksFromStorage();
+    const links = await getLinksFromStorage();
     const settings = loadCustomSettings();
     if (links.length >= 30) return alert(await getLocalizationByKey("links_alert_message_maximum_links", settings.locale));
     links.push({url: "", label: ""});
-    saveLinksToStorage(links);
+    await saveLinksToStorage(links);
     renderLinks(links);
     renderEditor(links);
 });
 
-linksColorInput.addEventListener("input", () => {
+linksColorInput.addEventListener("input", async () => {
     const settings = loadCustomSettings();
     settings.links.linkColor = linksColorInput.value;
-    saveCustomSettings(settings);
-    const links = getLinksFromStorage();
+    await saveCustomSettings(settings);
+    const links = await getLinksFromStorage();
     renderLinks(links);
 });
 
-linksColorInput.addEventListener("contextmenu", (e) => {
+linksColorInput.addEventListener("contextmenu", async (e) => {
     e.preventDefault();
     linksColorInput.value = "#dbdbdb";
     const settings = loadCustomSettings();
     settings.links.linkColor = linksColorInput.value;
-    saveCustomSettings(settings);
-    const links = getLinksFromStorage();
+    await saveCustomSettings(settings);
+    const links = await getLinksFromStorage();
     renderLinks(links);
 });
 
-toggleUnderlineLinksOnHover.addEventListener("click", () => {
+toggleUnderlineLinksOnHover.addEventListener("click", async () => {
     const settings = loadCustomSettings();
     settings.links.underlineLinksOnHover = toggleUnderlineLinksOnHover.checked;
-    saveCustomSettings(settings);
+    await saveCustomSettings(settings);
     document.querySelectorAll(".link").forEach(link => {
         link.classList.toggle("underline", settings.links.underlineLinksOnHover);
     });

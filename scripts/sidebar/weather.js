@@ -13,7 +13,7 @@ async function loadWeatherWidget() {
             cachedWeather: "",
             weatherApiKey: ""
         };
-        saveCustomSettings(settings);
+        await saveCustomSettings(settings);
     }
 
     weatherApiKeyInput.value = settings.weatherWidget.weatherApiKey;
@@ -22,29 +22,29 @@ async function loadWeatherWidget() {
     const shouldFetch = await loadCachedWeather();
     await loadSavedCity(shouldFetch);
 
-    toggleWeatherWidget.addEventListener("change", () => {
+    toggleWeatherWidget.addEventListener("change", async () => {
         const settings = loadCustomSettings();
 
         if (!settings.weatherWidget.weatherApiKey || settings.weatherWidget.weatherApiKey.trim() === "") {
             alert("Please enter a valid WeatherAPI.com key to enable the weather widget.");
             toggleWeatherWidget.checked = false;
             settings.weatherWidget.showWeather = false;
-            saveCustomSettings(settings);
-            applyWeatherVisibilitySetting();
+            await saveCustomSettings(settings);
+            await applyWeatherVisibilitySetting();
             return;
         }
 
         settings.weatherWidget.showWeather = toggleWeatherWidget.checked;
-        saveCustomSettings(settings);
-        applyWeatherVisibilitySetting();
+        await saveCustomSettings(settings);
+        await applyWeatherVisibilitySetting();
     });
 
-    resetWeatherBtn.addEventListener("click", () => {
+    resetWeatherBtn.addEventListener("click", async () => {
         const settings = loadCustomSettings();
         settings.weatherWidget.weatherCity = "";
         settings.weatherWidget.cachedWeather = "";
         settings.weatherWidget.showWeather = true;
-        saveCustomSettings(settings);
+        await saveCustomSettings(settings);
 
         weatherInput.value = "";
         weatherSummary.textContent = DEFAULT_WEATHER_SUMMARY_VALUE;
@@ -53,10 +53,10 @@ async function loadWeatherWidget() {
             weatherWidgetElement.classList.remove("sidebar-shifted");
         }
 
-        applyWeatherVisibilitySetting();
+        await applyWeatherVisibilitySetting();
     });
 
-    weatherApiKeyInput.addEventListener("change", () => {
+    weatherApiKeyInput.addEventListener("change", async () => {
         const settings = loadCustomSettings();
         settings.weatherWidget.weatherApiKey = weatherApiKeyInput.value.trim();
 
@@ -65,11 +65,11 @@ async function loadWeatherWidget() {
             toggleWeatherWidget.checked = false;
             settings.weatherWidget.showWeather = false;
 
-            saveCustomSettings(settings);
-            applyWeatherVisibilitySetting();
+            await saveCustomSettings(settings);
+            await applyWeatherVisibilitySetting();
         }
 
-        saveCustomSettings(settings);
+        await saveCustomSettings(settings);
     })
 }
 

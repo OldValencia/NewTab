@@ -6,7 +6,7 @@ async function loadLocalization() {
 
     if (!settings.locale) {
         settings.locale = defaultLocale;
-        saveCustomSettings(settings);
+        await saveCustomSettings(settings);
     }
 
     localizationSelectElement.value = settings.locale;
@@ -15,16 +15,16 @@ async function loadLocalization() {
     applyLocalization(settings.locale);
 }
 
-resetLocalizationBtn.addEventListener("click", () => {
+resetLocalizationBtn.addEventListener("click", async () => {
     const settings = loadCustomSettings();
     settings.locale = defaultLocale;
-    saveCustomSettings(settings);
+    await saveCustomSettings(settings);
     location.reload();
 })
 
-localizationSelectElement.addEventListener("change", e => {
+localizationSelectElement.addEventListener("change", async e => {
     const settings = loadCustomSettings();
     settings.locale = e.target.value;
-    saveCustomSettings(settings);
+    await saveCustomSettings(settings);
     location.reload();
 });

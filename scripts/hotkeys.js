@@ -23,7 +23,7 @@ document.addEventListener("keydown", async (e) => {
                 break;
             case "ArrowUp":
                 e.preventDefault();
-                const isStickyNotesActive = getStickyNotesVisibilityState();
+                const isStickyNotesActive = await getStickyNotesVisibilityState();
 
                 if (isStickyNotesActive) {
                     await createStickyNote();
@@ -33,7 +33,7 @@ document.addEventListener("keydown", async (e) => {
     }
 });
 
-document.addEventListener('paste', (e) => {
+document.addEventListener('paste', async (e) => {
     const target = e.target;
 
     const isEditableElement =
@@ -42,7 +42,7 @@ document.addEventListener('paste', (e) => {
         target.isContentEditable;
 
     if (isEditableElement) return;
-    if (!getStickyNotesVisibilityState()) return;
+    if (!await getStickyNotesVisibilityState()) return;
 
     const pastedText = e.clipboardData.getData('text');
     const noteId = createStickyNote({ text: pastedText });

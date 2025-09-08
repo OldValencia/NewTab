@@ -5,10 +5,10 @@ const defaultLinks = [
     {url: "https://www.firefox.com/en-US/", label: "Mozilla Firefox"}
 ]
 
-function getLinksFromStorage() {
+async function getLinksFromStorage() {
     const settings = loadCustomSettings();
     if (!settings.links || !Array.isArray(settings.links.list)) {
-        saveLinksToStorage(defaultLinks);
+        await saveLinksToStorage(defaultLinks);
         return defaultLinks;
     }
 
@@ -16,15 +16,15 @@ function getLinksFromStorage() {
         return settings.links.list;
     } catch (e) {
         console.warn("Error while reading custom_settings.links.list:", e);
-        saveLinksToStorage(defaultLinks);
+        await saveLinksToStorage(defaultLinks);
         return defaultLinks;
     }
 }
 
-function saveLinksToStorage(links) {
+async function saveLinksToStorage(links) {
     const settings = loadCustomSettings();
     settings.links.list = links;
-    saveCustomSettings(settings);
+    await saveCustomSettings(settings);
 }
 
 function renderLinks(links) {

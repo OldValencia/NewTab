@@ -1,24 +1,24 @@
 const toggleBookmarksWidget = document.getElementById("toggle-bookmarks-widget");
 const toggleBookmarksWidgetAlwaysOpen = document.getElementById("toggle-bookmarks-widget-always-open");
 
-function loadBookmarksWidget() {
+async function loadBookmarksWidget() {
     const settings = loadCustomSettings();
     const isVisible = settings.bookmarks?.show ?? false;
-    saveCustomSettings(settings);
+    await saveCustomSettings(settings);
     toggleBookmarksWidget.checked = isVisible;
     updateBookmarksWidgetVisibility(isVisible);
 
     const isAlwaysOpen = settings.bookmarks?.alwaysOpen ?? false;
-    saveCustomSettings(settings)
+    await saveCustomSettings(settings)
     toggleBookmarksWidgetAlwaysOpen.checked = isAlwaysOpen;
     if (isAlwaysOpen && isVisible) {
         openBookmarksSidebarBtn.classList.toggle("shifted", true);
         bookmarkSidebar.classList.toggle("hidden", false);
     }
 
-    toggleBookmarksWidget.addEventListener("change", () => {
+    toggleBookmarksWidget.addEventListener("change", async () => {
         const newState = toggleBookmarksWidget.checked;
-        setBookmarkSetting("show", newState);
+        await setBookmarkSetting("show", newState);
         updateBookmarksWidgetVisibility(newState);
 
         const isAlwaysOpen = getBookmarkSetting("alwaysOpen");
@@ -28,9 +28,9 @@ function loadBookmarksWidget() {
         }
     });
 
-    toggleBookmarksWidgetAlwaysOpen.addEventListener("change", () => {
+    toggleBookmarksWidgetAlwaysOpen.addEventListener("change", async () => {
         const newState = toggleBookmarksWidgetAlwaysOpen.checked;
-        setBookmarkSetting("alwaysOpen", newState);
+        await setBookmarkSetting("alwaysOpen", newState);
         const isVisible = getBookmarkSetting("show");
         if (newState && isVisible) {
             openBookmarksSidebarBtn.classList.toggle("shifted", true);

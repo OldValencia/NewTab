@@ -38,10 +38,10 @@ const getBackgroundSettings = () => {
     return s;
 };
 
-const updateBackgroundSettings = (mutator) => {
+const updateBackgroundSettings = async (mutator) => {
     const s = getBackgroundSettings();
     mutator(s);
-    saveCustomSettings(s);
+    await saveCustomSettings(s);
     return s;
 };
 
@@ -65,7 +65,7 @@ async function applyDynamicBackground(settings, force = false) {
         settings.bg.bgImage = imageUrl;
         settings.bg.bgSource = "dynamic";
         settings.bg.dynamicBgLast = now.toString();
-        saveCustomSettings(settings);
+        await saveCustomSettings(settings);
     }
 }
 
@@ -91,8 +91,8 @@ async function fetchSearchResults(tag) {
 
                 settings.bg.bgImage = img.largeImageURL;
                 settings.bg.bgSource = "search";
-                applyBackgroundFit(settings.bg.bgFit);
-                saveCustomSettings(settings);
+                await applyBackgroundFit(settings.bg.bgFit);
+                await saveCustomSettings(settings);
             });
             gallery.appendChild(image);
         });
@@ -145,16 +145,16 @@ function fadeBackground(callback) {
     }, 600);
 }
 
-function setBackgroundImageWithFade(url, fit, useFade = true) {
+async function setBackgroundImageWithFade(url, fit, useFade = true) {
     if (!useFade) {
         backgroundLayer.style.opacity = "1";
         backgroundLayer.style.backgroundImage = `url(${url})`;
-        applyBackgroundFit(fit);
+        await applyBackgroundFit(fit);
         return;
     }
-    fadeBackground(() => {
+    fadeBackground(async () => {
         backgroundLayer.style.backgroundImage = `url(${url})`;
-        applyBackgroundFit(fit);
+        await applyBackgroundFit(fit);
     });
 }
 
@@ -184,7 +184,7 @@ async function loadBackground() {
     let settings = loadCustomSettings();
 
     if (!settings.bg) {
-        settings = resetBgSettings();
+        settings = await resetBgSettings();
     }
 
     backgroundApiKeyInput.value = settings.bg.bgApiKey || "";
@@ -209,7 +209,7 @@ async function loadBackground() {
     vignetteControl.value = settings.bg.bgVignette;
     bgFit.value = settings.bg.bgFit;
 
-    applyBackgroundFit(settings.bg.bgFit);
+    await applyBackgroundFit(settings.bg.bgFit);
 
     if (settings.bg.bgMode === "search-image") {
         backgroundSearchInput.style.display = "block";
@@ -233,7 +233,7 @@ async function loadBackground() {
             (settings.bg.bgMode === "search-image" && settings.bg.bgSource === "search") ||
             (settings.bg.bgMode === "dynamic-search" && settings.bg.bgSource === "dynamic"))
     ) {
-        setBackgroundImageWithFade(settings.bg.bgImage, settings.bg.bgFit, false); // no fade on DOMContentLoaded
+        await setBackgroundImageWithFade(settings.bg.bgImage, settings.bg.bgFit, false); // no fade on DOMContentLoaded
     }
 }
 
@@ -273,7 +273,7 @@ function enableProceduralBackground(mode) {
     }
 }
 
-function resetBgSettings() {
+async function resetBgSettings() {
     const settings = loadCustomSettings();
     settings.bg = {
         bgMode: "stars",
@@ -340,7 +340,7 @@ function resetBgSettings() {
             particlesColor: "#ffffff"
         }
     }
-    saveCustomSettings(settings);
+    await saveCustomSettings(settings);
 
     backgroundLayer.style.backgroundImage = "";
     backgroundLayer.style.filter = "";
@@ -359,20 +359,20 @@ function resetBgSettings() {
 }
 
 function addListenerForInputControl(control, jsonVariable, defaultValue) {
-    control.addEventListener("input", (e) => {
+    control.addEventListener("input", async (e) => {
         const blur = parseInt(e.target.value);
         const settings = loadCustomSettings();
         settings.bg[jsonVariable] = blur;
-        saveCustomSettings(settings);
+        await saveCustomSettings(settings);
         applyBackgroundEffects(settings);
     });
 
-    control.addEventListener("contextmenu", (e) => {
+    control.addEventListener("contextmenu", async (e) => {
         e.preventDefault();
         const settings = loadCustomSettings();
         settings.bg[jsonVariable] = defaultValue;
         control.value = settings.bg[jsonVariable];
-        saveCustomSettings(settings);
+        await saveCustomSettings(settings);
         applyBackgroundEffects(settings);
     });
 }
@@ -395,7 +395,7 @@ document.querySelectorAll('input[name="bg-mode"]').forEach(radio => {
         settings.bg.bgMode = mode;
         if (mode !== "dynamic-search") {
             delete settings.bg.dynamicBgLast;
-            saveCustomSettings(settings);
+            await saveCustomSettings(settings);
         }
         setDisplay(backgroundSearchInput, "none");
         gallery.innerHTML = "";
@@ -408,7 +408,7 @@ document.querySelectorAll('input[name="bg-mode"]').forEach(radio => {
         if (mode === "search-image") {
             setDisplay(backgroundSearchInput, "block");
             if (settings.bg.bgImage && settings.bg.bgSource === "search") {
-                setBackgroundImageWithFade(settings.bg.bgImage, settings.bg.bgFit);
+                await setBackgroundImageWithFade(settings.bg.bgImage, settings.bg.bgFit);
             }
             const tag = backgroundSearchInput.value.trim();
             if (tag) await fetchSearchResults(tag);
@@ -418,7 +418,7 @@ document.querySelectorAll('input[name="bg-mode"]').forEach(radio => {
             if (settings.bg.dynamicTag) await applyDynamicBackground(settings);
         }
 
-        saveCustomSettings(settings);
+        await saveCustomSettings(settings);
     });
 });
 
@@ -432,16 +432,16 @@ fileInput.addEventListener("change", (e) => {
     const file = e.target.files[0];
     if (!file) return;
     const reader = new FileReader();
-    reader.onload = function (event) {
+    reader.onload = async function (event) {
         const settings = loadCustomSettings();
 
-        setBackgroundImageWithFade(event.target.result, settings.bg.bgFit);
+        await setBackgroundImageWithFade(event.target.result, settings.bg.bgFit);
         document.body.style.backgroundColor = "";
 
         settings.bg.bgImage = event.target.result;
         settings.bg.bgSource = "custom";
-        applyBackgroundFit(settings.bg.bgFit);
-        saveCustomSettings(settings);
+        await applyBackgroundFit(settings.bg.bgFit);
+        await saveCustomSettings(settings);
     };
 
     reader.readAsDataURL(file);
@@ -495,7 +495,7 @@ document.querySelector('input[value="dynamic-search"]').addEventListener("change
     if (!settings.bg.dynamicInterval) {
         settings.bg.dynamicInterval = "onload";
     }
-    saveCustomSettings(settings);
+    await saveCustomSettings(settings);
 
     await applyDynamicBackground(settings, true);
 });
@@ -504,7 +504,7 @@ dynamicTag.addEventListener("input", async (e) => {
     const tag = e.target.value.trim();
     const settings = loadCustomSettings();
     settings.bg.dynamicTag = tag;
-    saveCustomSettings(settings);
+    await saveCustomSettings(settings);
 
     if (tag) {
         await applyDynamicBackground(settings);
@@ -514,21 +514,21 @@ dynamicTag.addEventListener("input", async (e) => {
 dynamicInterval.addEventListener("change", async (e) => {
     const settings = loadCustomSettings();
     settings.bg.dynamicInterval = e.target.value;
-    saveCustomSettings(settings);
+    await saveCustomSettings(settings);
     await applyDynamicBackground(settings);
 });
 
-bgFit.addEventListener("change", (e) => {
+bgFit.addEventListener("change", async (e) => {
     const fit = e.target.value;
     const settings = loadCustomSettings();
     settings.bg.bgFit = fit;
-    saveCustomSettings(settings);
-    applyBackgroundFit(fit);
+    await saveCustomSettings(settings);
+    await applyBackgroundFit(fit);
 });
 
-backgroundApiKeyInput?.addEventListener("change", () => {
+backgroundApiKeyInput?.addEventListener("change", async () => {
     const key = backgroundApiKeyInput.value.trim();
-    updateBackgroundSettings((s) => {
+    await updateBackgroundSettings((s) => {
         s.bg.bgApiKey = key;
     });
 

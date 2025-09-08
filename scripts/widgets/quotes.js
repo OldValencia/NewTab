@@ -45,7 +45,7 @@ function displayQuote(quote, author) {
     quoteAuthor.textContent = `— ${author}`;
 }
 
-function applyQuoteSettings() {
+async function applyQuoteSettings() {
     const settings = loadCustomSettings();
     if (!settings.quoteFont) {
         settings.quoteFont = quoteDefaultFont;
@@ -59,10 +59,13 @@ function applyQuoteSettings() {
         settings.quoteSize = quoteDefaultTextSize;
     }
 
-    if (settings.quoteShowState === undefined || settings.quoteShowState === null) {
+    console.log("Quote widget visibility changed1:", settings.quoteShowState);
+    if (settings.quoteShowState === undefined) {
         settings.quoteShowState = quoteDefaultShowState;
     }
-    saveCustomSettings(settings);
+    console.log("Quote widget visibility changed2:", settings.quoteShowState);
+    await saveCustomSettings(settings);
+    console.log("Quote widget visibility changed3:", settings.quoteShowState);
 
     quoteText.style.fontFamily = settings.quoteFont;
     quoteAuthor.style.fontFamily = settings.quoteFont;
@@ -71,6 +74,7 @@ function applyQuoteSettings() {
     quoteText.style.fontSize = `${settings.quoteSize}px`;
     quoteAuthor.style.fontSize = `${Math.max(settings.quoteSize - 2, 10)}px`;
 
+    console.log("Quote widget visibility changed4:", settings.quoteShowState);
     quoteContainer.style.display = settings.quoteShowState ? "block" : "none";
 
     // Sync UI controls
@@ -81,49 +85,50 @@ function applyQuoteSettings() {
 }
 
 function setupQuoteWidgetControlListener(element, inputEventType, jsonVariable, defaultValue) {
-    element.addEventListener(inputEventType, e => {
+    element.addEventListener(inputEventType, async e => {
         const settings = loadCustomSettings();
         settings[jsonVariable] = e.target.value;
-        saveCustomSettings(settings);
-        applyQuoteSettings();
+        await saveCustomSettings(settings);
+        await applyQuoteSettings();
     });
 
-    element.addEventListener("contextmenu", (e) => {
+    element.addEventListener("contextmenu", async (e) => {
         e.preventDefault();
         const settings = loadCustomSettings();
         settings[jsonVariable] = defaultValue;
         element.value = defaultValue;
-        saveCustomSettings(settings);
-        applyQuoteSettings();
+        await saveCustomSettings(settings);
+        await applyQuoteSettings();
     });
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
     const settings = loadCustomSettings();
     if (settings.quoteShowState) {
         loadQuoteOfTheDay();
     }
-    applyQuoteSettings();
+    await applyQuoteSettings();
+});
 
-    setupQuoteWidgetControlListener(quoteFontElement, "change", "quoteFont", quoteDefaultFont);
-    setupQuoteWidgetControlListener(quoteColorElement, "input", "quoteColor", quoteDefaultColor);
-    setupQuoteWidgetControlListener(quoteSizeElement, "input", "quoteSize", quoteDefaultTextSize);
+setupQuoteWidgetControlListener(quoteFontElement, "change", "quoteFont", quoteDefaultFont);
+setupQuoteWidgetControlListener(quoteColorElement, "input", "quoteColor", quoteDefaultColor);
+setupQuoteWidgetControlListener(quoteSizeElement, "input", "quoteSize", quoteDefaultTextSize);
 
-    quoteToggleElement.addEventListener("change", e => {
-        const settings = loadCustomSettings();
-        settings.quoteShowState = e.target.checked;
-        saveCustomSettings(settings);
-        loadQuoteOfTheDay();
-        applyQuoteSettings();
-    });
+quoteToggleElement.addEventListener("change", async e => {
+    const settings = loadCustomSettings();
+    settings.quoteShowState = e.target.checked;
+    await saveCustomSettings(settings);
+    console.log("Quote widget visibility changed:", settings.quoteShowState);
+    loadQuoteOfTheDay();
+    await applyQuoteSettings();
+});
 
-    document.getElementById("reset-quote-widget").addEventListener("click", () => {
-        const settings = loadCustomSettings();
-        delete settings.quoteFont;
-        delete settings.quoteColor;
-        delete settings.quoteSize;
-        delete settings.quoteShowState;
-        saveCustomSettings(settings);
-        applyQuoteSettings();
-    });
+document.getElementById("reset-quote-widget").addEventListener("click", async () => {
+    const settings = loadCustomSettings();
+    delete settings.quoteFont;
+    delete settings.quoteColor;
+    delete settings.quoteSize;
+    delete settings.quoteShowState;
+    await saveCustomSettings(settings);
+    await applyQuoteSettings();
 });

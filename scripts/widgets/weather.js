@@ -35,12 +35,12 @@ async function applyWeatherVisibilitySetting() {
     }
 }
 
-function saveWeatherData(data, city) {
+async function saveWeatherData(data, city) {
     const settings = loadCustomSettings();
     settings.weatherWidget.cachedWeather = JSON.stringify({data, timestamp: Date.now()});
     settings.weatherWidget.weatherCity = city;
     weatherInput.value = settings.weatherWidget.weatherCity;
-    saveCustomSettings(settings);
+    await saveCustomSettings(settings);
 }
 
 async function loadSavedCity(shouldFetch = false) {
@@ -99,7 +99,7 @@ function fetchWeather(query, cityLabel) {
         .then(res => res.json())
         .then(async data => {
             await updateWeather(data);
-            saveWeatherData(data, cityLabel);
+            await saveWeatherData(data, cityLabel);
         })
         .catch(async () => {
             weatherSummary.textContent = "Load error"
@@ -108,7 +108,7 @@ function fetchWeather(query, cityLabel) {
             toggleWeatherWidget.checked = false;
             settings.weatherWidget.showWeather = false;
 
-            saveCustomSettings(settings);
+            await saveCustomSettings(settings);
             await applyWeatherVisibilitySetting();
         });
 }
