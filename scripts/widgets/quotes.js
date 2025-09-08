@@ -99,7 +99,10 @@ function setupQuoteWidgetControlListener(element, inputEventType, jsonVariable, 
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    loadQuoteOfTheDay();
+    const settings = loadCustomSettings();
+    if (settings.quoteShowState) {
+        loadQuoteOfTheDay();
+    }
     applyQuoteSettings();
 
     setupQuoteWidgetControlListener(quoteFontElement, "change", "quoteFont", quoteDefaultFont);
@@ -110,6 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const settings = loadCustomSettings();
         settings.quoteShowState = e.target.checked;
         saveCustomSettings(settings);
+        loadQuoteOfTheDay();
         applyQuoteSettings();
     });
 
