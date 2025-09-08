@@ -59,13 +59,10 @@ async function applyQuoteSettings() {
         settings.quoteSize = quoteDefaultTextSize;
     }
 
-    console.log("Quote widget visibility changed1:", settings.quoteShowState);
     if (settings.quoteShowState === undefined) {
         settings.quoteShowState = quoteDefaultShowState;
     }
-    console.log("Quote widget visibility changed2:", settings.quoteShowState);
     await saveCustomSettings(settings);
-    console.log("Quote widget visibility changed3:", settings.quoteShowState);
 
     quoteText.style.fontFamily = settings.quoteFont;
     quoteAuthor.style.fontFamily = settings.quoteFont;
@@ -74,7 +71,6 @@ async function applyQuoteSettings() {
     quoteText.style.fontSize = `${settings.quoteSize}px`;
     quoteAuthor.style.fontSize = `${Math.max(settings.quoteSize - 2, 10)}px`;
 
-    console.log("Quote widget visibility changed4:", settings.quoteShowState);
     quoteContainer.style.display = settings.quoteShowState ? "block" : "none";
 
     // Sync UI controls
