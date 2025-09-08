@@ -1,7 +1,8 @@
 const toggleBookmarksWidget = document.getElementById("toggle-bookmarks-widget");
 const toggleBookmarksWidgetAlwaysOpen = document.getElementById("toggle-bookmarks-widget-always-open");
 
-function loadBookmarksWidget(settings) {
+function loadBookmarksWidget() {
+    const settings = loadCustomSettings();
     const isVisible = settings.bookmarks?.show ?? false;
     saveCustomSettings(settings);
     toggleBookmarksWidget.checked = isVisible;

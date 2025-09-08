@@ -25,7 +25,8 @@ async function loadVersionInfo() {
         const res = await fetch("manifest.json");
         const manifest = await res.json();
         const version = manifest.version || "unknown";
-        versionInfoElement.textContent = `Version ${version}`;
+        const settings = loadCustomSettings();
+        versionInfoElement.textContent = `${await getLocalizationByKey("version_text_content", settings.locale)} ${version}`;
         versionInfoElement.appendChild(githubLink);
         versionInfoElement.appendChild(bmacLink);
         versionInfoElement.appendChild(kofiLink);

@@ -15,7 +15,6 @@ function renderEditor(links) {
         div.draggable = true;
         div.dataset.index = index;
 
-        // Drag events
         div.addEventListener("dragstart", (e) => {
             e.dataTransfer.setData("text/plain", index);
             div.classList.add("dragging");
@@ -89,8 +88,10 @@ function renderEditor(links) {
     });
 }
 
-function loadLinks(settings) {
+function loadLinks() {
+    const settings = loadCustomSettings();
     const links = getLinksFromStorage();
+
     if (!settings.links) {
         settings.links = {
             underlineLinksOnHover: false,
@@ -154,9 +155,10 @@ toggleLinksCheckbox.addEventListener("change", () => {
     saveCustomSettings(settings);
 });
 
-addLinkBtn.addEventListener("click", () => {
+addLinkBtn.addEventListener("click", async () => {
     const links = getLinksFromStorage();
-    if (links.length >= 30) return alert("Maximum 30 links!");
+    const settings = loadCustomSettings();
+    if (links.length >= 30) return alert(await getLocalizationByKey("links_alert_message_maximum_links", settings.locale));
     links.push({url: "", label: ""});
     saveLinksToStorage(links);
     renderLinks(links);

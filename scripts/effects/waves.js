@@ -47,3 +47,17 @@ function enableWavesBackground(settings) {
     backgroundLayer.appendChild(svg);
     backgroundLayer.style.background = `linear-gradient(60deg, ${settings.bg.waves.leftBackgroundColor} 0%, ${settings.bg.waves.rightBackgroundColor} 100%)`;
 }
+
+async function enableWavesBackgroundWithProceduralControls(proceduralControls) {
+    const settings = getBackgroundSettings();
+    const leftBg = await createColorInput("procedural_controls_left_background_color_input", "bg-left-color", settings.bg.waves.leftBackgroundColor, "waves", "leftBackgroundColor", enableWavesBackground);
+    const rightBg = await createColorInput("procedural_controls_right_background_color_input", "bg-right-color", settings.bg.waves.rightBackgroundColor, "waves", "rightBackgroundColor", enableWavesBackground);
+    const w1 = await createColorInput("procedural_controls_first_wave_color_input", "bg-first-wave-color", settings.bg.waves.firstWaveColor, "waves", "firstWaveColor", enableWavesBackground);
+    const w2 = await createColorInput("procedural_controls_second_wave_color_input", "bg-second-wave-color", settings.bg.waves.secondWaveColor, "waves", "secondWaveColor", enableWavesBackground);
+    const w3 = await createColorInput("procedural_controls_third_wave_color_input", "bg-third-wave-color", settings.bg.waves.thirdWaveColor, "waves", "thirdWaveColor", enableWavesBackground);
+    const w4 = await createColorInput("procedural_controls_fourth_wave_color_input", "bg-fourth-wave-color", settings.bg.waves.fourthWaveColor, "waves", "fourthWaveColor", enableWavesBackground);
+    const onlyFirst = await createCheckbox("procedural_controls_use_only_first_wave_color_input", "bg-use-only-first-wave-color", settings.bg.waves.useOnlyFirstWaveColor, "waves", "useOnlyFirstWaveColor", enableWavesBackground);
+
+    proceduralControls?.append(leftBg, rightBg, w1, w2, w3, w4, onlyFirst);
+    enableWavesBackground(settings);
+}

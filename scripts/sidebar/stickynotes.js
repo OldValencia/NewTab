@@ -8,7 +8,7 @@ function loadStickyNotes() {
     resetSettingsBtn.addEventListener("click", () => {
         const notes = document.querySelectorAll(".sticky-note");
         notes.forEach(note => {
-            note.style.fontFamily = "Arial";
+            note.style.fontFamily = "SF Pro Display";
             note.style.background = `linear-gradient(135deg, ${adjustColor("#fff8b3", 0.2)} 60%, ${adjustColor("#fff8b3", -0.2)} 100%)`;
             note.style.border = "1px solid #fff8b3";
             note.style.setProperty("--hover-box-shadow", `0 2px 6px 0 ${adjustColor("#fff8b3", -0.2)}, 0 2px 12px 0 rgba(0,0,0,0.13)`);
@@ -22,8 +22,9 @@ function loadStickyNotes() {
     });
 
     // Clear sticky note content
-    clearContentBtn.addEventListener("click", () => {
-        if (confirm("Clear all sticky note content?")) {
+    clearContentBtn.addEventListener("click", async () => {
+        const settings = loadCustomSettings();
+        if (confirm(await getLocalizationByKey("sticky_notes_alert_message_confirm_clear_content", settings.locale))) {
             const notes = document.querySelectorAll(".sticky-note");
             notes.forEach(note => {
                 const textarea = note.querySelector("textarea");
@@ -42,8 +43,9 @@ function loadStickyNotes() {
     });
 
     // Remove all sticky notes
-    removeAllBtn.addEventListener("click", () => {
-        if (confirm("Remove all sticky notes?")) {
+    removeAllBtn.addEventListener("click", async () => {
+        const settings = loadCustomSettings();
+        if (confirm(await getLocalizationByKey("sticky_notes_alert_message_confirm_remove_content", settings.locale))) {
             const notes = document.querySelectorAll(".sticky-note");
             notes.forEach(note => {
                 localStorage.removeItem(note.id);

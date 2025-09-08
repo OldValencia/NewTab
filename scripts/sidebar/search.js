@@ -3,7 +3,8 @@ const resetSearchBarBtn = document.getElementById("reset-search-bar-widget");
 const searchBarWidget = document.getElementById("search-bar");
 const toggleSearchBarOpenInNewTab = document.getElementById("toggle-search-open-in-new-tab");
 
-function loadSearchBarWidget(settings) {
+function loadSearchBarWidget() {
+    const settings = loadCustomSettings();
     if (!settings.searchBar) {
         settings.searchBar = {
             openInNewTab: false,
@@ -36,7 +37,6 @@ function loadSearchBarWidget(settings) {
     toggleSearchBarOpenInNewTab.addEventListener("change", () => {
         const settings = loadCustomSettings();
         settings.searchBar.openInNewTab = toggleSearchBarOpenInNewTab.checked;
-        console.log(settings.searchBar.openInNewTab);
         saveCustomSettings(settings);
     });
 

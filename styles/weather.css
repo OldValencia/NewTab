@@ -3,8 +3,13 @@
     bottom: 20px;
     right: 20px;
     z-index: 1000;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'SF Pro Display', sans-serif;
     border-radius: 16px;
+    transition: right 0.3s ease;
+}
+
+#weather-widget.sidebar-shifted {
+    right: 470px;
 }
 
 .weather-summary {
@@ -12,9 +17,13 @@
     font-weight: 500;
     padding: 12px 16px;
     border-radius: 16px;
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(20px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    background: rgba(30, 30, 30, 0.6);
+    backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    font-family: 'SF Pro Display', sans-serif;
+    color: #fff;
+    z-index: 9999;
     transition: all 0.3s ease;
     text-shadow: 0 0 3px rgba(0, 0, 0, 0.7);
 }
@@ -24,11 +33,14 @@
     flex-direction: column;
     gap: 6px;
     margin-top: 8px;
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(16px);
+    background: rgba(30, 30, 30, 0.6);
+    backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    font-family: 'SF Pro Display', sans-serif;
+    color: #fff;
     padding: 10px;
     border-radius: 16px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 #location-input {
@@ -56,11 +68,37 @@
 #weather-panel button:hover {
     background: rgba(255, 255, 255, 0.7);
     text-shadow: 0 0 3px rgba(0, 0, 0, 0.9);
-    color: #000000;
+    color: #ffffff;
 }
 
 #weather-widget:hover .weather-panel {
     display: flex;
+}
+
+.weather-api-info-line {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.weather-api-info-line span {
+    margin-left: 3px;
+}
+
+.weather-api-url-link {
+    color: #00aaff;
+    text-decoration: none;
+}
+.weather-api-url-link:hover {
+    text-decoration: underline;
+}
+
+.weather-api-input {
+    width: 100%;
+    padding: 4px;
+    border-radius: 3px;
+    border: none;
+    font-size: 14px;
 }
 
 .weather-effect {

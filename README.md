@@ -61,6 +61,7 @@ To make the extension your homepage:
 ![Weather widget](Screenshots/Weather_widget.png "Weather widget")
 ![Quotes widget](Screenshots/Quote_with_customization.png "Quotes widget with customization")
 ![Time customization](Screenshots/Time_customization.png "Time customization")
+![Notifications and Localization](Screenshots/Localizations,_Notifications.png "Notifications and Localization")
 
 ---
 

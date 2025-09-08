@@ -14,13 +14,14 @@
     backdrop-filter: blur(20px);
     box-shadow: 4px 0 12px rgba(0, 0, 0, 0.3);
     border-right: 1px solid rgba(255, 255, 255, 0.1);
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'SF Pro Display', sans-serif;
     overflow-y: auto;
     transition: left 0.15s ease;
     z-index: 999;
 }
 
 #bookmark-sidebar.hidden {
+    display: flex !important;
     left: -450px;
 }
 
@@ -125,7 +126,6 @@
     justify-content: space-between;
     align-items: center;
     background: rgba(255, 255, 255, 0.05);
-    padding: 6px 10px;
     border-radius: 6px;
     font-size: 14px;
     color: #ccc;
@@ -142,6 +142,7 @@
     text-decoration: none;
     flex: 1;
     margin-right: 10px;
+    padding: 6px 0 6px 10px;
 }
 
 #pinned-section .bookmark-item {
@@ -149,9 +150,9 @@
 }
 
 /* ──────────────────────────────── */
-/* ⭐ Pin & 🗑️ Remove Buttons */
+/* Buttons */
 /* ──────────────────────────────── */
-.pin-button {
+.bookmark-button {
     background: none;
     border: none;
     font-size: 16px;
@@ -160,8 +161,19 @@
     transition: color 0.2s ease;
 }
 
-.pin-button:hover {
+.bookmark-button:hover {
     color: #fff;
+}
+
+#bookmark-sidebar .bookmark-item button {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+}
+
+#bookmark-sidebar .bookmark-item:hover button {
+    opacity: 1;
+    pointer-events: auto;
 }
 
 /* ──────────────────────────────── */

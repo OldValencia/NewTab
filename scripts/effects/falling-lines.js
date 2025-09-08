@@ -44,3 +44,13 @@ function enableFallingLinesBackground(settings) {
     backgroundLayer.appendChild(wrapper);
     backgroundLayer.style.backgroundColor = settings.bg.fallingLines.backgroundColor;
 }
+
+async function enableFallingLinesBackgroundWithProceduralControls(proceduralControls) {
+    const settings = getBackgroundSettings();
+    const bgColor = await createColorInput("procedural_controls_background_color_input", "bg-color", settings.bg.fallingLines.backgroundColor, "fallingLines", "backgroundColor", enableFallingLinesBackground);
+    const particlesColor = await createColorInput("procedural_controls_particles_color_input", "bg-particles-color", settings.bg.fallingLines.particlesColor, "fallingLines", "particlesColor", enableFallingLinesBackground);
+    const count = await createRangeInput("procedural_controls_number_of_lines_input", "bg-fallingLines-particles", "3", "5", "1", settings.bg.fallingLines.numberOfLines, "fallingLines", "numberOfLines", enableFallingLinesBackground);
+
+    proceduralControls?.append(bgColor, particlesColor, count);
+    enableFallingLinesBackground(settings);
+}

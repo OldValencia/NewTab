@@ -67,3 +67,13 @@ function enableOrbitalRings(settings) {
 
     draw();
 }
+
+async function enableOrbitalRingsWithProceduralControls(proceduralControls) {
+    const settings = getBackgroundSettings();
+    const bgColor = await createColorInput("procedural_controls_background_color_input", "bg-color", settings.bg.orbitalRings.backgroundColor, "orbitalRings", "backgroundColor", enableOrbitalRings);
+    const particlesColor = await createColorInput("procedural_controls_particles_color_input", "bg-particles-color", settings.bg.orbitalRings.particlesColor, "orbitalRings", "particlesColor", enableOrbitalRings);
+    const count = await createRangeInput("procedural_controls_number_of_particles_input", "bg-orbital-particles", "3", "30", "1", settings.bg.orbitalRings.numberOfParticles, "orbitalRings", "numberOfParticles", enableOrbitalRings);
+
+    proceduralControls?.append(bgColor, particlesColor, count);
+    enableOrbitalRings(settings);
+}

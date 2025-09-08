@@ -55,3 +55,13 @@ function enableParticleDrift(settings) {
 
     draw();
 }
+
+async function enableParticleDriftWithProceduralControls(proceduralControls) {
+    const settings = getBackgroundSettings();
+    const bgColor = await createColorInput("procedural_controls_background_color_input", "bg-color", settings.bg.particleDrift.backgroundColor, "particleDrift", "backgroundColor", enableParticleDrift);
+    const particlesColor = await createColorInput("procedural_controls_particles_color_input", "bg-particles-color", settings.bg.particleDrift.particlesColor, "particleDrift", "particlesColor", enableParticleDrift);
+    const count = await createRangeInput("procedural_controls_number_of_particles_input", "bg-drift-particles", "70", "250", "1", settings.bg.particleDrift.numberOfParticles, "particleDrift", "numberOfParticles", enableParticleDrift);
+
+    proceduralControls?.append(bgColor, particlesColor, count);
+    enableParticleDrift(settings);
+}

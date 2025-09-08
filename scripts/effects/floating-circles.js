@@ -35,3 +35,12 @@ function enableFloatingCirclesBackground(settings) {
     area.appendChild(ul);
     backgroundLayer.appendChild(area);
 }
+
+async function enableFloatingCirclesBackgroundWithProceduralControls(proceduralControls) {
+    const settings = getBackgroundSettings();
+    const bgColor = await createColorInput("procedural_controls_background_color_input", "bg-color", settings.bg.floatingCircles.backgroundColor, "floatingCircles", "backgroundColor", enableFloatingCirclesBackground);
+    const particlesColor = await createColorInput("procedural_controls_particles_color_input", "bg-particles-color", settings.bg.floatingCircles.particlesColor, "floatingCircles", "particlesColor", enableFloatingCirclesBackground);
+
+    proceduralControls?.append(bgColor, particlesColor);
+    enableFloatingCirclesBackground(settings);
+}
