@@ -1880,5 +1880,32 @@
     "es": "Guardar configuración automáticamente en la nube",
     "be": "Аўтаматычнае захаванне налад у воблаку",
     "uk": "Автозбереження налаштувань в хмарі"
+  },
+  "auto_save_cloud_alert_force_save_text": {
+    "en": "Your settings have been saved to the cloud. You can now access them from any device where you use this extension.",
+    "ru": "Ваши настройки были сохранены в облако. Теперь вы можете получить к ним доступ с любого устройства, где используете это расширение.",
+    "pl": "Twoje ustawienia zostały zapisane w chmurze. Teraz możesz uzyskać do nich dostęp z dowolnego urządzenia, na którym korzystasz z tego rozszerzenia.",
+    "de": "Ihre Einstellungen wurden in der Cloud gespeichert. Sie können jetzt von jedem Gerät darauf zugreifen, auf dem Sie diese Erweiterung verwenden.",
+    "es": "Tu configuración se ha guardado en la nube. Ahora puedes acceder a ella desde cualquier dispositivo donde uses esta extensión.",
+    "be": "Вашы налады былі захаваны ў воблаку. Цяпер вы можаце атрымаць да іх доступ з любога прылады, дзе выкарыстоўваеце гэтае пашырэнне.",
+    "uk": "Ваші налаштування було збережено в хмарі. Тепер ви можете отримати до них доступ з будь-якого пристрою, де використовуєте це розширення."
+  },
+  "auto_save_cloud_confirm_delete_settings_text": {
+    "en": "Are you sure you want to delete your settings from the cloud? This action cannot be undone.",
+    "ru": "Вы уверены, что хотите удалить ваши настройки из облака? Это действие нельзя будет отменить.",
+    "pl": "Czy na pewno chcesz usunąć swoje ustawienia z chmury? Tej akcji nie można cofnąć.",
+    "de": "Möchten Sie Ihre Einstellungen wirklich aus der Cloud löschen? Diese Aktion kann nicht rückgängig gemacht werden.",
+    "es": "¿Estás seguro de que deseas eliminar tu configuración de la nube? Esta acción no se puede deshacer.",
+    "be": "Вы ўпэўнены, што хочаце выдаліць свае налады з воблака? Гэта дзеянне нельга будзе адмяніць.",
+    "uk": "Ви впевнені, що хочете видалити свої налаштування з хмари? Цю дію не можна буде скасувати."
+  },
+  "auto_save_cloud_alert_delete_success_text": {
+    "en": "Your settings have been deleted from the cloud. To re-upload your settings, please click the 'Force Save Settings to Cloud' button.",
+    "ru": "Ваши настройки были удалены из облака. Чтобы заново загрузить ваши настройки, пожалуйста, нажмите кнопку 'Принудительно сохранить настройки в облако'.",
+    "pl": "Twoje ustawienia zostały usunięte z chmury. Aby ponownie je przesłać, kliknij przycisk 'Wymuś zapis ustawień w chmurze'.",
+    "de": "Ihre Einstellungen wurden aus der Cloud gelöscht. Um Ihre Einstellungen erneut hochzuladen, klicken Sie bitte auf die Schaltfläche 'Einstellungen zwangsweise in der Cloud speichern'.",
+    "es": "Tu configuración se ha eliminado de la nube. Para volver a subir tu configuración, haz clic en el botón 'Forzar guardado de configuración en la nube'.",
+    "be": "Вашы налады былі выдалены з воблака. Каб зноў іх загрузіць, націсніце кнопку 'Прымусова захаваць налады ў воблаку'.",
+    "uk": "Ваші налаштування було видалено з хмари. Щоб знову їх завантажити, натисніть кнопку 'Примусово зберегти налаштування в хмарі'."
   }
 }

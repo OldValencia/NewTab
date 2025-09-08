@@ -16,7 +16,7 @@ function loadCloudSettings() {
 
 forceSaveSettingsToCloudBtn.addEventListener("click", async () => {
     const settings = loadCustomSettings();
-    alert("Your settings have been saved to the cloud. You can now access them from any device where you use this extension.");
+    alert(await getLocalizationByKey("auto_save_cloud_alert_force_save_text", settings.locale));
 
     const now = Date.now();
     const last = settings.lastUpdated ? new Date(settings.lastUpdated).getTime() : 0;
@@ -28,9 +28,10 @@ forceSaveSettingsToCloudBtn.addEventListener("click", async () => {
 });
 
 deleteSettingsFromCloudBtn.addEventListener("click", async () => {
-    let decision = confirm("Are you sure you want to delete your settings from the cloud? This action cannot be undone.");
+    const settings = loadCustomSettings();
+    let decision = confirm(await getLocalizationByKey("auto_save_cloud_confirm_delete_settings_text", settings.locale));
     if (!decision) return;
-    alert("Your settings have been deleted from the cloud. To re-upload your settings, please click the 'Force Save Settings to Cloud' button.");
+    alert(await getLocalizationByKey("auto_save_cloud_alert_delete_success_text", settings.locale));
     await browser.storage.local.remove("custom_settings");
 });
 
