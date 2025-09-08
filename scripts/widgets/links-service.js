@@ -23,7 +23,9 @@ async function getLinksFromStorage() {
 
 async function saveLinksToStorage(links) {
     const settings = loadCustomSettings();
-    settings.links.list = links;
+    settings.links = {
+        list: links
+    };
     await saveCustomSettings(settings);
 }
 
