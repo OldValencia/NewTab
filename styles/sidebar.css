@@ -135,7 +135,7 @@
     cursor: pointer;
 }
 
-.reset-button {
+.sidebar-wide-button {
     width: 100%;
 }
 
@@ -175,7 +175,7 @@
 .cols-control button,
 #add-link, #add-clock,
 .delete-link,
-.reset-button, .remove-element {
+.sidebar-wide-button, .remove-element {
     background: rgba(255, 255, 255, 0.1);
     border: none;
     border-radius: 6px;
@@ -189,11 +189,11 @@
 .cols-control button:hover,
 #add-link:hover, #add-clock:hover,
 .delete-link:hover,
-.reset-button:hover, .remove-element:hover {
+.sidebar-wide-button:hover, .remove-element:hover {
     background: rgba(255, 255, 255, 0.3);
 }
 
-.reset-button {
+.sidebar-wide-button {
     margin-top: 14px;
 }
 
@@ -503,7 +503,7 @@ input[type="radio"]:checked {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.section-toggle-controls .sticky-notes-toggle-label {
+.section-toggle-controls .wide-toggle-label {
     width: 100% !important;
     justify-content: center;
 }

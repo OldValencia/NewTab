@@ -1835,5 +1835,50 @@
     "es": "Mostrar editor de notificaciones",
     "be": "Паказаць рэдактар апавяшчэнняў",
     "uk": "Показати редактор сповіщень"
+  },
+  "sidebar_h2_title_settings_text": {
+    "en": "Settings",
+    "ru": "Настройки",
+    "pl": "Ustawienia",
+    "de": "Einstellungen",
+    "es": "Configuración",
+    "be": "Налады",
+    "uk": "Налаштування"
+  },
+  "sidebar_section_name_cloud_save_text": {
+    "en": "Cloud Save",
+    "ru": "Облачное сохранение",
+    "pl": "Zapis w chmurze",
+    "de": "Cloud-Speicherung",
+    "es": "Guardado en la nube",
+    "be": "Аблачнае захаванне",
+    "uk": "Хмарне збереження"
+  },
+  "sidebar_button_force_save_settings_to_cloud_text": {
+    "en": "Force Save Settings to Cloud",
+    "ru": "Принудительно сохранить настройки в облако",
+    "pl": "Wymuś zapis ustawień w chmurze",
+    "de": "Einstellungen zwangsweise in der Cloud speichern",
+    "es": "Forzar guardado de configuración en la nube",
+    "be": "Прымусова захаваць налады ў воблаку",
+    "uk": "Примусово зберегти налаштування в хмарі"
+  },
+  "sidebar_button_delete_settings_from_cloud_text": {
+    "en": "Delete Settings from Cloud",
+    "ru": "Удалить настройки из облака",
+    "pl": "Usuń ustawienia z chmury",
+    "de": "Einstellungen aus der Cloud löschen",
+    "es": "Eliminar configuración de la nube",
+    "be": "Выдаліць налады з воблака",
+    "uk": "Видалити налаштування з хмари"
+  },
+  "sidebar_toggle_auto_save_settings_to_cloud_text": {
+    "en": "Auto-Save Settings to Cloud",
+    "ru": "Автосохранение настроек в облако",
+    "pl": "Automatyczne zapisywanie ustawień w chmurze",
+    "de": "Einstellungen automatisch in der Cloud speichern",
+    "es": "Guardar configuración automáticamente en la nube",
+    "be": "Аўтаматычнае захаванне налад у воблаку",
+    "uk": "Автозбереження налаштувань в хмарі"
   }
 }

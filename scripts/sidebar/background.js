@@ -38,6 +38,13 @@ const getBackgroundSettings = () => {
     return s;
 };
 
+const updateBackgroundSettings = (mutator) => {
+    const s = getBackgroundSettings();
+    mutator(s);
+    saveCustomSettings(s);
+    return s;
+};
+
 async function applyDynamicBackground(settings, force = false) {
     const now = Date.now();
     const lastChange = parseInt(settings.bg.dynamicBgLast || "0");
@@ -521,7 +528,7 @@ bgFit.addEventListener("change", (e) => {
 
 backgroundApiKeyInput?.addEventListener("change", () => {
     const key = backgroundApiKeyInput.value.trim();
-    updateSettings((s) => {
+    updateBackgroundSettings((s) => {
         s.bg.bgApiKey = key;
     });
 

@@ -11,6 +11,7 @@ function openMainSidebar() {
 toggleBtn.addEventListener("click", openMainSidebar);
 
 document.addEventListener("DOMContentLoaded", async () => {
+    loadCloudSettings();
     await loadLocalization();
     await loadBackground();
     loadTimeAndDate();

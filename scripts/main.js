@@ -8,8 +8,22 @@ function debounce(func, delay) {
     };
 }
 
+async function enrichObserverMetadata(settings) {
+    if (!settings) return settings;
+
+    settings.lastUpdated = Date.now();
+    settings.info = await browser.runtime.getBrowserInfo();
+    settings.platform = await browser.runtime.getPlatformInfo();
+
+    return settings;
+}
+
 function saveCustomSettings(settings) {
-    localStorage.setItem("custom_settings", JSON.stringify(settings));
+    if (!settings) return;
+
+    enrichObserverMetadata(settings).then(enriched => {
+        localStorage.setItem("custom_settings", JSON.stringify(enriched));
+    });
 }
 
 function loadCustomSettings() {
@@ -252,9 +266,43 @@ function makeContainerDraggable(container, handler = "#drag-handle") {
     });
 }
 
-const updateSettings = (mutator) => {
-    const s = getBackgroundSettings();
-    mutator(s);
-    saveCustomSettings(s);
-    return s;
-};
+window.addEventListener("beforeunload", () => {
+    const settings = loadCustomSettings();
+
+    if (settings.autoCloudSave) {
+        browser.storage.local.set({custom_settings: settings});
+    }
+});
+
+window.addEventListener("DOMContentLoaded", async () => {
+    const localSettings = loadCustomSettings();
+
+    if (localSettings.autoCloudSave) {
+        const settings = await browser.storage.local.get("custom_settings");
+
+        if (localSettings.toString() !== settings?.custom_settings?.toString()) {
+            const localLast = localSettings.lastUpdated ? new Date(localSettings.lastUpdated).getTime() : 0;
+            const cloudLast = settings?.custom_settings?.lastUpdated ? new Date(settings.custom_settings.lastUpdated).getTime() : 0;
+
+            showConfirmation(
+                "Cloud settings doesn't match local settings. Do you want to load settings from the cloud?\n\n" +
+                `Local settings metadata:
+                • Last updated: ${localLast}
+                • Platform: OS: ${localSettings.platform.os}, Arch: ${localSettings.platform.arch}
+                • Browser version: ${localSettings.info.version}\n\n` +
+
+                `Cloud settings metadata:
+                • Last updated: ${cloudLast}
+                • Platform: OS: ${settings?.custom_settings?.platform?.os || 'N/A'}, Arch: ${settings?.custom_settings?.platform?.arch || 'N/A'}
+                • Browser version: ${settings?.custom_settings?.info?.version || 'N/A'}\n\n` +
+                "Yes = Load from Cloud, No = Keep Local",
+                async () => {
+                    if (!settings?.custom_settings) return
+                    saveCustomSettings(settings.custom_settings);
+                },
+                async () => {
+                    await browser.storage.local.set({custom_settings: localSettings});
+                });
+        }
+    }
+})
