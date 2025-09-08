@@ -8,8 +8,22 @@ function debounce(func, delay) {
     };
 }
 
+async function enrichObserverMetadata(settings) {
+    if (!settings) return settings;
+
+    settings.lastUpdated = Date.now();
+    settings.info = await browser.runtime.getBrowserInfo();
+    settings.platform = await browser.runtime.getPlatformInfo();
+
+    return settings;
+}
+
 function saveCustomSettings(settings) {
-    localStorage.setItem("custom_settings", JSON.stringify(settings));
+    if (!settings) return;
+
+    enrichObserverMetadata(settings).then(enriched => {
+        localStorage.setItem("custom_settings", JSON.stringify(enriched));
+    });
 }
 
 function loadCustomSettings() {
@@ -252,9 +266,53 @@ function makeContainerDraggable(container, handler = "#drag-handle") {
     });
 }
 
-const updateSettings = (mutator) => {
-    const s = getBackgroundSettings();
-    mutator(s);
-    saveCustomSettings(s);
-    return s;
-};
+window.addEventListener("beforeunload", () => {
+    const settings = loadCustomSettings();
+
+    if (settings.autoCloudSave) {
+        browser.storage.local.set({custom_settings: settings});
+    }
+});
+
+window.addEventListener("DOMContentLoaded", async () => {
+    const localSettings = loadCustomSettings();
+
+    if (localSettings.autoCloudSave) {
+        const settings = await browser.storage.local.get("custom_settings");
+
+        if (localSettings.toString() !== settings?.custom_settings?.toString()) {
+            const localLast = localSettings.lastUpdated ? new Date(localSettings.lastUpdated).getTime() : 0;
+            const cloudLast = settings?.custom_settings?.lastUpdated ? new Date(settings.custom_settings.lastUpdated).getTime() : 0;
+            const confirmationLocalizedText = [
+                await getLocalizationByKey("main_confirmation_window_dom_loaded_auto_save_cloud_first_line", localSettings.locale),
+                await getLocalizationByKey("main_confirmation_window_dom_loaded_auto_save_cloud_second_line", localSettings.locale),
+                await getLocalizationByKey("main_confirmation_window_dom_loaded_auto_save_cloud_third_line", localSettings.locale),
+                await getLocalizationByKey("main_confirmation_window_dom_loaded_auto_save_cloud_fourth_line", localSettings.locale),
+                await getLocalizationByKey("main_confirmation_window_dom_loaded_auto_save_cloud_fifth_line", localSettings.locale),
+                await getLocalizationByKey("main_confirmation_window_dom_loaded_auto_save_cloud_sixth_line", localSettings.locale),
+                await getLocalizationByKey("main_confirmation_window_dom_loaded_auto_save_cloud_cloud_settings_metadata_text", localSettings.locale),
+                await getLocalizationByKey("main_confirmation_window_dom_loaded_auto_save_cloud_not_available_na_text", localSettings.locale),
+            ];
+
+            showConfirmation(
+                `${confirmationLocalizedText[0]}
+                ${confirmationLocalizedText[1]}
+                ${confirmationLocalizedText[2]}${localLast}
+                ${confirmationLocalizedText[3]}${localSettings.platform.os} (${localSettings.platform.arch})
+                ${confirmationLocalizedText[4]}${localSettings.info.version}\n\n
+
+                ${confirmationLocalizedText[6]}
+                ${confirmationLocalizedText[2]}${cloudLast}
+                ${confirmationLocalizedText[3]}${settings?.custom_settings?.platform?.os || confirmationLocalizedText[7]} (${settings?.custom_settings?.platform?.arch || confirmationLocalizedText[7]})
+                ${confirmationLocalizedText[4]}${settings?.custom_settings?.info?.version || confirmationLocalizedText[7]}\n\n
+                ${confirmationLocalizedText[5]}`,
+                async () => {
+                    if (!settings?.custom_settings) return
+                    saveCustomSettings(settings.custom_settings);
+                },
+                async () => {
+                    await browser.storage.local.set({custom_settings: localSettings});
+                });
+        }
+    }
+})

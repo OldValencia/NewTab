@@ -66,6 +66,8 @@
 
 <button id="menu-toggle" class="menu-button">☰</button>
 <div id="sidebar" class="sidebar">
+    <h2 data-value-localization-key="sidebar_h2_title_settings_text">Settings</h2>
+
     <section data-section="hotkeys-section">
         <div class="section-header">
             <span class="section-icon">⌨️</span>
@@ -99,7 +101,95 @@
             </div>
         </div>
     </section>
+
+    <!-- 🔍 Localization -->
+    <section data-section="localization-widget">
+        <div class="section-header">
+            <span class="section-icon">🌐</span>
+            <h3 data-value-localization-key="main_sidebar_localization_header">Localization</h3>
+            <button class="toggle-section">+</button>
+        </div>
+        <div class="section-content">
+            <button id="reset-localization-settings" class="sidebar-wide-button"
+                    data-value-localization-key="main_sidebar_localization_reset_settings_button">
+                Reset Localization Settings
+            </button>
+
+            <div class="font-control localization-fix">
+                <label for="localization-select" data-value-localization-key="localization_section_font_label">Select
+                    localization:
+                    <select id="localization-select">
+                        <option value="en">English</option>
+                        <option value="ru">Русский</option>
+                        <option value="pl">Polski</option>
+                        <option value="de">Deutsch</option>
+                        <option value="es">Español</option>
+                        <option value="be">Беларуская</option>
+                        <option value="uk">Українська</option>
+                    </select>
+                </label>
+            </div>
+        </div>
+    </section>
+
+    <!-- 🔍 Cloud Save -->
+    <section data-section="cloud-save-widget">
+        <div class="section-header">
+            <span class="section-icon">☁️</span>
+            <h3 data-value-localization-key="sidebar_section_name_cloud_save_text">Cloud Save</h3>
+            <button class="toggle-section">+</button>
+        </div>
+        <div class="section-content">
+            <button id="force-cloud-save-settings" class="sidebar-wide-button"
+                    data-value-localization-key="sidebar_button_force_save_settings_to_cloud_text">
+                Force Save Settings to Cloud
+            </button>
+            <button id="delete-settings-from-cloud" class="sidebar-wide-button"
+                    data-value-localization-key="sidebar_button_delete_settings_from_cloud_text">
+                Delete Settings from Cloud
+            </button>
+
+            <div class="section-toggle-controls">
+                <label for="toggle-auto-save-to-cloud" class="wide-toggle-label"
+                       data-value-localization-key="sidebar_toggle_auto_save_settings_to_cloud_text">
+                    <input type="checkbox" id="toggle-auto-save-to-cloud">
+                    Auto-Save Settings to Cloud
+                </label>
+            </div>
+        </div>
+    </section>
+
     <h2 id="customization-title" data-value-localization-key="main_sidebar_customization_header">Customization</h2>
+
+    <!-- 🕒 Time and Date -->
+    <section data-section="time-date">
+        <div class="section-header">
+            <span class="section-icon">🕒</span>
+            <h3 data-value-localization-key="time_and_date_section_header">Time and date</h3>
+            <button class="toggle-section">+</button>
+        </div>
+        <div class="section-content">
+            <div id="time-and-date-controls"></div>
+            <button id="add-clock" class="add-clock"
+                    data-value-localization-key="time_and_date_section_add_clock_button">Add clock
+            </button>
+
+            <button id="reset-time-date" class="sidebar-wide-button"
+                    data-value-localization-key="time_and_date_section_reset_button">Reset Time & Date Settings
+            </button>
+
+            <div class="section-toggle-controls">
+                <label for="toggle-time" data-value-localization-key="time_and_date_section_toggle_show_time">
+                    <input type="checkbox" id="toggle-time" checked>
+                    Show Time
+                </label>
+                <label for="toggle-date" data-value-localization-key="time_and_date_section_toggle_show_date">
+                    <input type="checkbox" id="toggle-date" checked>
+                    Show Date
+                </label>
+            </div>
+        </div>
+    </section>
 
     <!-- 🔗 Links -->
     <section data-section="links">
@@ -151,64 +241,6 @@
         </div>
     </section>
 
-    <!-- 🕒 Time and Date -->
-    <section data-section="time-date">
-        <div class="section-header">
-            <span class="section-icon">🕒</span>
-            <h3 data-value-localization-key="time_and_date_section_header">Time and date</h3>
-            <button class="toggle-section">+</button>
-        </div>
-        <div class="section-content">
-            <div id="time-and-date-controls"></div>
-            <button id="add-clock" class="add-clock"
-                    data-value-localization-key="time_and_date_section_add_clock_button">Add clock
-            </button>
-
-            <button id="reset-time-date" class="reset-button"
-                    data-value-localization-key="time_and_date_section_reset_button">Reset Time & Date Settings
-            </button>
-
-            <div class="section-toggle-controls">
-                <label for="toggle-time" data-value-localization-key="time_and_date_section_toggle_show_time">
-                    <input type="checkbox" id="toggle-time" checked>
-                    Show Time
-                </label>
-                <label for="toggle-date" data-value-localization-key="time_and_date_section_toggle_show_date">
-                    <input type="checkbox" id="toggle-date" checked>
-                    Show Date
-                </label>
-            </div>
-        </div>
-    </section>
-
-    <!-- 📝 Sticky notes -->
-    <section data-section="sticky-notes">
-        <div class="section-header">
-            <span class="section-icon">📝</span>
-            <h3 data-value-localization-key="sticky_notes_section_header">Sticky notes</h3>
-            <button class="toggle-section">+</button>
-        </div>
-        <div class="section-content">
-            <button id="reset-sticky-notes" class="reset-button"
-                    data-value-localization-key="sticky_notes_section_reset_button">Reset Sticky Notes Settings
-            </button>
-            <button id="clear-sticky-notes" class="reset-button"
-                    data-value-localization-key="sticky_notes_section_clear_button">Clear Sticky Notes Content
-            </button>
-            <button id="remove-sticky-notes" class="reset-button"
-                    data-value-localization-key="sticky_notes_section_remove_all_button">Remove all Sticky Notes
-            </button>
-
-            <div class="section-toggle-controls">
-                <label for="toggle-sticky-notes" class="sticky-notes-toggle-label"
-                       data-value-localization-key="sticky_notes_section_toggle_show_sticky_notes">
-                    <input type="checkbox" id="toggle-sticky-notes">
-                    Show Sticky Notes
-                </label>
-            </div>
-        </div>
-    </section>
-
     <!-- 🌌 Background -->
     <section data-section="background">
         <div class="section-header">
@@ -217,7 +249,8 @@
             <button class="toggle-section">+</button>
         </div>
         <div class="section-content">
-            <button id="reset-bg" class="reset-button" data-value-localization-key="background_section_reset_button">
+            <button id="reset-bg" class="sidebar-wide-button"
+                    data-value-localization-key="background_section_reset_button">
                 Reset All Backgrounds
             </button>
 
@@ -412,7 +445,7 @@
                        data-placeholder-localization-key="weather_widget_api_key_input_placeholder">
             </label>
 
-            <button id="reset-weather-settings" class="reset-button"
+            <button id="reset-weather-settings" class="sidebar-wide-button"
                     data-value-localization-key="weather_widget_section_reset_button">Reset Weather Settings
             </button>
 
@@ -421,6 +454,108 @@
                        data-value-localization-key="weather_widget_toggle_show_weather_widget">
                     <input type="checkbox" id="toggle-weather-widget">
                     Show Weather
+                </label>
+            </div>
+        </div>
+    </section>
+
+    <!-- 📂 Bookmarks -->
+    <section data-section="bookmarks-widget">
+        <div class="section-header">
+            <span class="section-icon">📂</span>
+            <h3 data-value-localization-key="main_sidebar_bookmarks_section_header">
+                Bookmarks
+            </h3>
+            <button class="toggle-section">+</button>
+        </div>
+        <div class="section-content bookmarks-widget">
+            <div class="section-toggle-controls bookmarks-widget">
+                <label class="bookmarks-toggle-label bookmarks-widget"
+                       data-value-localization-key="bookmarks_section_toggle_show_bookmarks">
+                    <input type="checkbox" id="toggle-bookmarks-widget">
+                    Show bookmarks
+                </label>
+                <label class="bookmarks-toggle-label bookmarks-widget"
+                       data-value-localization-key="bookmarks_section_toggle_hide_bookmarks">
+                    <input type="checkbox" id="toggle-bookmarks-widget-always-open">
+                    Open bookmarks widget by default
+                </label>
+            </div>
+        </div>
+    </section>
+
+    <!-- 🔍 Search bar -->
+    <section data-section="search-bar-widget">
+        <div class="section-header">
+            <span class="section-icon">🔍</span>
+            <h3 data-value-localization-key="main_sidebar_search_bar_header">Search bar</h3>
+            <button class="toggle-section">+</button>
+        </div>
+        <div class="section-content">
+            <button id="reset-search-bar-widget" class="sidebar-wide-button"
+                    data-value-localization-key="main_sidebar_search_bar_reset_settings_button">
+                Reset Search Bar Settings
+            </button>
+
+            <div class="section-toggle-controls">
+                <label data-value-localization-key="main_sidebar_search_bar_toggle_show_search_bar">
+                    <input type="checkbox" id="toggle-search-bar">
+                    Show Search Bar
+                </label>
+                <label data-value-localization-key="main_sidebar_search_bar_toggle_hide_search_bar">
+                    <input type="checkbox" id="toggle-search-open-in-new-tab">
+                    Open search results in new tab
+                </label>
+            </div>
+        </div>
+    </section>
+
+    <!-- 🔔 Notifications -->
+    <section data-section="notifications-widget">
+        <div class="section-header">
+            <span class="section-icon">🔔</span>
+            <h3 data-value-localization-key="sidebar_section_title_notifications_text">Notifications</h3>
+            <button class="toggle-section">+</button>
+        </div>
+        <div class="section-content">
+            <button id="delete-all-notifications" class="sidebar-wide-button"
+                    data-value-localization-key="sidebar_delete_all_notifications_button_text">
+                Delete all notifications
+            </button>
+
+            <div class="section-toggle-controls">
+                <label class="notif-toggle-label"
+                       data-value-localization-key="sidebar_show_notifications_editor_button_text">
+                    <input type="checkbox" id="toggle-notifications-editor">
+                    Show Notifications Editor
+                </label>
+            </div>
+        </div>
+    </section>
+
+    <!-- 📝 Sticky notes -->
+    <section data-section="sticky-notes">
+        <div class="section-header">
+            <span class="section-icon">📝</span>
+            <h3 data-value-localization-key="sticky_notes_section_header">Sticky notes</h3>
+            <button class="toggle-section">+</button>
+        </div>
+        <div class="section-content">
+            <button id="reset-sticky-notes" class="sidebar-wide-button"
+                    data-value-localization-key="sticky_notes_section_reset_button">Reset Sticky Notes Settings
+            </button>
+            <button id="clear-sticky-notes" class="sidebar-wide-button"
+                    data-value-localization-key="sticky_notes_section_clear_button">Clear Sticky Notes Content
+            </button>
+            <button id="remove-sticky-notes" class="sidebar-wide-button"
+                    data-value-localization-key="sticky_notes_section_remove_all_button">Remove all Sticky Notes
+            </button>
+
+            <div class="section-toggle-controls">
+                <label for="toggle-sticky-notes" class="wide-toggle-label"
+                       data-value-localization-key="sticky_notes_section_toggle_show_sticky_notes">
+                    <input type="checkbox" id="toggle-sticky-notes">
+                    Show Sticky Notes
                 </label>
             </div>
         </div>
@@ -481,13 +616,14 @@
                 </label>
             </div>
 
-            <button id="reset-greeting-widget" class="reset-button"
+            <button id="reset-greeting-widget" class="sidebar-wide-button"
                     data-value-localization-key="greeting_widget_reset_settings_button">
                 Reset Greeting Settings
             </button>
 
             <div class="section-toggle-controls">
-                <label data-value-localization-key="greeting_widget_toggle_show_greeting_widget">
+                <label data-value-localization-key="greeting_widget_toggle_show_greeting_widget"
+                       class="wide-toggle-label">
                     <input type="checkbox" id="toggle-greeting">
                     Show Greeting
                 </label>
@@ -542,119 +678,16 @@
                 </label>
             </div>
 
-            <button id="reset-quote-widget" class="reset-button"
+            <button id="reset-quote-widget" class="sidebar-wide-button"
                     data-value-localization-key="daily_quote_reset_settings_button">
                 Reset Daily Quote Settings
             </button>
 
             <div class="section-toggle-controls">
-                <label for="toggle-quote" data-value-localization-key="daily_quote_toggle_show_quote_settings">
+                <label for="toggle-quote" data-value-localization-key="daily_quote_toggle_show_quote_settings"
+                       class="wide-toggle-label">
                     <input type="checkbox" id="toggle-quote">
                     Show Daily Quote
-                </label>
-            </div>
-        </div>
-    </section>
-
-    <!-- 📂 Bookmarks -->
-    <section data-section="bookmarks-widget">
-        <div class="section-header">
-            <span class="section-icon">📂</span>
-            <h3 data-value-localization-key="main_sidebar_bookmarks_section_header">
-                Bookmarks
-            </h3>
-            <button class="toggle-section">+</button>
-        </div>
-        <div class="section-content bookmarks-widget">
-            <div class="section-toggle-controls bookmarks-widget">
-                <label class="bookmarks-toggle-label bookmarks-widget"
-                       data-value-localization-key="bookmarks_section_toggle_show_bookmarks">
-                    <input type="checkbox" id="toggle-bookmarks-widget">
-                    Show bookmarks
-                </label>
-                <label class="bookmarks-toggle-label bookmarks-widget"
-                       data-value-localization-key="bookmarks_section_toggle_hide_bookmarks">
-                    <input type="checkbox" id="toggle-bookmarks-widget-always-open">
-                    Open bookmarks widget by default
-                </label>
-            </div>
-        </div>
-    </section>
-
-    <!-- 🔍 Search bar -->
-    <section data-section="search-bar-widget">
-        <div class="section-header">
-            <span class="section-icon">🔍</span>
-            <h3 data-value-localization-key="main_sidebar_search_bar_header">Search bar</h3>
-            <button class="toggle-section">+</button>
-        </div>
-        <div class="section-content">
-            <button id="reset-search-bar-widget" class="reset-button"
-                    data-value-localization-key="main_sidebar_search_bar_reset_settings_button">
-                Reset Search Bar Settings
-            </button>
-
-            <div class="section-toggle-controls">
-                <label data-value-localization-key="main_sidebar_search_bar_toggle_show_search_bar">
-                    <input type="checkbox" id="toggle-search-bar">
-                    Show Search Bar
-                </label>
-                <label data-value-localization-key="main_sidebar_search_bar_toggle_hide_search_bar">
-                    <input type="checkbox" id="toggle-search-open-in-new-tab">
-                    Open search results in new tab
-                </label>
-            </div>
-        </div>
-    </section>
-
-    <!-- 🔍 Localization -->
-    <section data-section="localization-widget">
-        <div class="section-header">
-            <span class="section-icon">🌐</span>
-            <h3 data-value-localization-key="main_sidebar_localization_header">Localization</h3>
-            <button class="toggle-section">+</button>
-        </div>
-        <div class="section-content">
-            <button id="reset-localization-settings" class="reset-button"
-                    data-value-localization-key="main_sidebar_localization_reset_settings_button">
-                Reset Localization Settings
-            </button>
-
-            <div class="font-control localization-fix">
-                <label for="localization-select" data-value-localization-key="localization_section_font_label">Select
-                    localization:
-                    <select id="localization-select">
-                        <option value="en">English</option>
-                        <option value="ru">Русский</option>
-                        <option value="pl">Polski</option>
-                        <option value="de">Deutsch</option>
-                        <option value="es">Español</option>
-                        <option value="be">Беларуская</option>
-                        <option value="uk">Українська</option>
-                    </select>
-                </label>
-            </div>
-        </div>
-    </section>
-
-    <!-- 🔔 Notifications -->
-    <section data-section="notifications-widget">
-        <div class="section-header">
-            <span class="section-icon">🔔</span>
-            <h3 data-value-localization-key="sidebar_section_title_notifications_text">Notifications</h3>
-            <button class="toggle-section">+</button>
-        </div>
-        <div class="section-content">
-            <button id="delete-all-notifications" class="reset-button"
-                    data-value-localization-key="sidebar_delete_all_notifications_button_text">
-                Delete all notifications
-            </button>
-
-            <div class="section-toggle-controls">
-                <label class="notif-toggle-label"
-                       data-value-localization-key="sidebar_show_notifications_editor_button_text">
-                    <input type="checkbox" id="toggle-notifications-editor">
-                    Show Notifications Editor
                 </label>
             </div>
         </div>
@@ -751,6 +784,7 @@
 <script src="scripts/widgets/search.js"></script>
 <script src="scripts/widgets/notifications.js"></script>
 
+<script src="scripts/sidebar/cloud.js"></script>
 <script src="scripts/sidebar/localization.js"></script>
 <script src="scripts/sidebar/background.js"></script>
 <script src="scripts/sidebar/dateandtime.js"></script>

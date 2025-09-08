@@ -6,23 +6,25 @@ const defaultLinks = [
 ]
 
 function getLinksFromStorage() {
-    const json = localStorage.getItem("custom_links");
-    if (!json) {
+    const settings = loadCustomSettings();
+    if (!settings.links || !Array.isArray(settings.links.list)) {
         saveLinksToStorage(defaultLinks);
         return defaultLinks;
     }
 
     try {
-        return JSON.parse(json);
+        return settings.links.list;
     } catch (e) {
-        console.warn("Error while reading custom_links:", e);
+        console.warn("Error while reading custom_settings.links.list:", e);
         saveLinksToStorage(defaultLinks);
         return defaultLinks;
     }
 }
 
 function saveLinksToStorage(links) {
-    localStorage.setItem("custom_links", JSON.stringify(links));
+    const settings = loadCustomSettings();
+    settings.links.list = links;
+    saveCustomSettings(settings);
 }
 
 function renderLinks(links) {
