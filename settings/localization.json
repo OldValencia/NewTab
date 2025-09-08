@@ -126,13 +126,13 @@
     "uk": "<strong>Ctrl + V</strong> створює нотатку з буфера обміну (якщо увімкнено)"
   },
   "hotkeys_sixth_line": {
-    "en": "Click on the <strong>Customization</strong> header below to collapse all sections in this sidebar",
-    "ru": "Нажмите на заголовок <strong>Кастомизация</strong> ниже, чтобы свернуть все секции в боковом меню",
-    "pl": "Kliknij nagłówek <strong>Personalizacja</strong> poniżej, aby zwinąć wszystkie sekcje w tym panelu",
-    "de": "Klicke auf die Überschrift <strong>Anpassung</strong> unten, um alle Bereiche in dieser Seitenleiste zu schließen",
-    "es": "Haz clic en el encabezado <strong>Personalización</strong> abajo para contraer todas las secciones de esta barra lateral",
-    "be": "Націсніце на загаловак <strong>Кастомізацыя</strong> ніжэй, каб згарнуць усе секцыі ў бакавым меню",
-    "uk": "Натисніть на заголовок <strong>Налаштування</strong> нижче, щоб згорнути всі секції в цій боковій панелі"
+    "en": "Click on the <strong>Settings</strong> or <strong>Customization</strong> header below to collapse all sections in this sidebar",
+    "ru": "Нажмите на заголовок <strong>Настройки</strong> или <strong>Кастомизация</strong> ниже, чтобы свернуть все секции в боковом меню",
+    "pl": "Kliknij nagłówek <strong>Ustawienia</strong> lub <strong>Personalizacja</strong> poniżej, aby zwinąć wszystkie sekcje w tym panelu",
+    "de": "Klicke auf die Überschrift <strong>Einstellungen</strong> oder <strong>Anpassung</strong> unten, um alle Bereiche in dieser Seitenleiste zu schließen",
+    "es": "Haz clic en el encabezado <strong>Configuración</strong> o <strong>Personalización</strong> abajo para contraer todas las secciones de esta barra lateral",
+    "be": "Націсніце на загаловак <strong>Настройкі</strong> або <strong>Кастомізацыя</strong> ніжэй, каб згарнуць усе секцыі ў бакавым меню",
+    "uk": "Натисніть на заголовок <strong>Налаштування</strong> або <strong>Кастомізація</strong> нижче, щоб згорнути всі секції в цій боковій панелі"
   },
   "main_sidebar_customization_header": {
     "en": "Customization",

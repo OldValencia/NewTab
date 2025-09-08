@@ -43,17 +43,18 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     });
 
-    document.getElementById("customization-title").addEventListener("click", () => {
-        document.querySelectorAll("section").forEach(section => {
-            const content = section.querySelector(".section-content");
-            const toggleBtn = section.querySelector(".toggle-section");
-            const key = "section_" + section.dataset.section;
+    [document.getElementById("customization-title"), document.getElementById("settings-title")]
+        .forEach(element => element.addEventListener("click", () => {
+            document.querySelectorAll("section").forEach(section => {
+                const content = section.querySelector(".section-content");
+                const toggleBtn = section.querySelector(".toggle-section");
+                const key = "section_" + section.dataset.section;
 
-            if (content.classList.contains("open")) {
-                content.classList.remove("open");
-                toggleBtn.textContent = "+";
-                localStorage.setItem(key, false);
-            }
-        });
-    });
+                if (content.classList.contains("open")) {
+                    content.classList.remove("open");
+                    toggleBtn.textContent = "+";
+                    localStorage.setItem(key, false);
+                }
+            });
+        }));
 });
