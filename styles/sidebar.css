@@ -605,3 +605,144 @@ input[type="radio"]:checked {
     border: none;
     font-size: 14px;
 }
+
+/* ──────────────────────────────── */
+/* 🕒 Clock Shadow Controls */
+/* ──────────────────────────────── */
+.shadow-target-label.time-label.selected, .shadow-target-label.date-label.selected {
+    border: 1px solid rgba(255,255,255,0.3);
+}
+
+.clock-shadow-control {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 10px;
+    padding: 12px 10px 10px 10px;
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07) inset;
+}
+.shadow-controls-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: flex-start;
+    margin-top: 6px;
+    width: 100%;
+    box-sizing: border-box;
+}
+.shadow-direction-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 32px);
+    grid-template-rows: repeat(3, 32px);
+    gap: 4px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 8px;
+    padding: 6px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06) inset;
+    min-width: 108px;
+    min-height: 108px;
+    align-items: center;
+    justify-items: center;
+}
+.shadow-dir-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    border: none;
+    background: rgba(255,255,255,0.10);
+    cursor: pointer;
+    transition: background 0.2s, box-shadow 0.2s;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04) inset;
+    position: relative;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+.shadow-dir-btn.center {
+    background: rgba(255,255,255,0.18);
+    font-size: 13px;
+    font-weight: bold;
+    color: #66ccff;
+    cursor: default;
+    pointer-events: none;
+}
+.shadow-dir-btn.corner {
+    background: transparent;
+    cursor: default;
+    pointer-events: none;
+    box-shadow: none;
+}
+.shadow-dir-btn.active {
+    background: rgba(120,180,255,0.25);
+    box-shadow: 0 0 0 2px #66ccff, 0 1px 4px rgba(0,0,0,0.10) inset;
+}
+.shadow-dir-btn:hover:not(:disabled):not(.center):not(.corner) {
+    background: rgba(120,180,255,0.18);
+}
+.shadow-dir-btn::after {
+    content: '';
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.18);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%) scale(0.7);
+    opacity: 0.5;
+}
+.shadow-dir-btn.active::after {
+    background: #66ccff;
+    opacity: 0.8;
+}
+.shadow-sliders {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 120px;
+    flex: 1 1 120px;
+    max-width: 180px;
+    box-sizing: border-box;
+}
+.shadow-slider-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #ccc;
+    font-size: 13px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 6px;
+    padding: 4px 8px;
+    width: 100%;
+    box-sizing: border-box;
+}
+.shadow-slider-label input[type="range"] {
+    flex: 1 1 60px;
+    accent-color: #66ccff;
+    margin-left: 8px;
+    min-width: 60px;
+    max-width: 100px;
+}
+.shadow-slider-label input[type="color"] {
+    width: 32px;
+    height: 24px;
+    border-radius: 4px;
+    border: none;
+    background: none;
+    margin-left: 8px;
+    cursor: pointer;
+}
+@media (max-width: 500px) {
+    .shadow-controls-row {
+        flex-direction: column;
+        gap: 8px;
+    }
+    .shadow-sliders {
+        min-width: 0;
+        max-width: 100%;
+    }
+}
