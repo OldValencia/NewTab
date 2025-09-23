@@ -134,6 +134,15 @@
     "be": "Націсніце на загаловак <strong>Настройкі</strong> або <strong>Кастомізацыя</strong> ніжэй, каб згарнуць усе секцыі ў бакавым меню",
     "uk": "Натисніть на заголовок <strong>Налаштування</strong> або <strong>Кастомізація</strong> нижче, щоб згорнути всі секції в цій боковій панелі"
   },
+  "hotkeys_seventh_line": {
+    "en": "<strong>Keys 1-9</strong> to open the corresponding link from your links list (if no input is focused). For example, <strong>Key 1</strong> opens the first link, <strong>Key 2</strong> opens the second, etc.",
+    "ru": "<strong>Клавиши 1-9</strong> открывают соответствующую ссылку из вашего списка (если ни одно поле ввода не в фокусе). Например, <strong>Клавиша 1</strong> откроет первую ссылку, <strong>Клавиша 2</strong> — вторую и так далее.",
+    "pl": "<strong>Klawisze 1-9</strong> otwierają odpowiedni link z twojej listy (jeśli żadne pole nie jest aktywne). Na przykład, <strong>Klawisz 1</strong> otwiera pierwszy link, <strong>Klawisz 2</strong> otwiera drugi, itd.",
+    "de": "<strong>Tasten 1-9</strong> öffnen den entsprechenden Link aus deiner Linkliste (wenn kein Eingabefeld fokussiert ist). Zum Beispiel öffnet <strong>Taste 1</strong> den ersten Link, <strong>Taste 2</strong> den zweiten, usw.",
+    "es": "<strong>Teclas 1-9</strong> para abrir el enlace correspondiente de tu lista de enlaces (si ningún campo de entrada está enfocado). Por ejemplo, <strong>Tecla 1</strong> abre el primer enlace, <strong>Tecla 2</strong> abre el segundo, etc.",
+    "be": "<strong>Клавішы 1-9</strong> адкрываюць адпаведную спасылку з вашага спісу (калі ніводнае поле не ў фокусе). Напрыклад, <strong>Клавіша 1</strong> адкрые першую спасылку, <strong>Клавіша 2</strong> — другую і гэтак далей.",
+    "uk": "<strong>Клавіші 1-9</strong> відкривають відповідне посилання з вашого списку (якщо жодне поле не в фокусі). Наприклад, <strong>Клавіша 1</strong> відкриє перше посилання, <strong>Клавіша 2</strong> — друге і так далі."
+  },
   "main_sidebar_customization_header": {
     "en": "Customization",
     "ru": "Кастомизация",
