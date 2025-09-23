@@ -213,9 +213,9 @@ const timezoneLabels = {
 const DEFAULT_SHADOW = {
     color: "#000000",
     opacity: 0,
-    blur: 4,
-    offsetX: 2,
-    offsetY: 2
+    blur: 0,
+    offsetX: 0,
+    offsetY: 0
 };
 
 function getLocalizedTimezoneOptions(lang = defaultLocale) {
