@@ -117,6 +117,8 @@ function updateTime() {
         timeElement.style.fontFamily = settings.timeAndDate.clocks[i].timeFont || defaultTimeAndDateFont;
         timeElement.style.color = settings.timeAndDate.clocks[i].timeColor || defaultTimeColor;
         timeElement.style.display = settings.timeAndDate.showTime ? "block" : "none";
+        const tShadow = settings.timeAndDate.clocks[i].timeShadow || {};
+        timeElement.style.textShadow = `${tShadow.offsetX ?? 2}px ${tShadow.offsetY ?? 2}px ${tShadow.blur ?? 4}px ${hexToRgba(tShadow.color ?? '#000', tShadow.opacity ?? 0.5)}`;
         timeAndDateElement.appendChild(timeElement);
         const dateElement = document.createElement("div");
         dateElement.className = "date";
@@ -127,6 +129,8 @@ function updateTime() {
         dateElement.style.fontFamily = settings.timeAndDate.clocks[i].dateFont || defaultTimeAndDateFont;
         dateElement.style.color = settings.timeAndDate.clocks[i].dateColor || defaultDateColor;
         dateElement.style.display = settings.timeAndDate.showDate ? "block" : "none";
+        const dShadow = settings.timeAndDate.clocks[i].dateShadow || {};
+        dateElement.style.textShadow = `${dShadow.offsetX ?? 2}px ${dShadow.offsetY ?? 2}px ${dShadow.blur ?? 4}px ${hexToRgba(dShadow.color ?? '#000', dShadow.opacity ?? 0.5)}`;
         timeAndDateElement.appendChild(dateElement);
         multipleClocksWrapper.appendChild(timeAndDateElement);
     }

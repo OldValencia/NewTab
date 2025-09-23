@@ -209,6 +209,15 @@ const timezoneLabels = {
     ]
 }
 
+// Default shadow settings
+const DEFAULT_SHADOW = {
+    color: "#000000",
+    opacity: 0,
+    blur: 0,
+    offsetX: 0,
+    offsetY: 0
+};
+
 function getLocalizedTimezoneOptions(lang = defaultLocale) {
     const labels = timezoneLabels[lang] || timezoneLabels[defaultLocale];
     const values = [
@@ -238,7 +247,9 @@ async function loadTimeAndDate() {
                     dateColor: defaultDateColor,
                     timeFormat: defaultTimeFormat,
                     dateFormat: defaultDateFormat,
-                    timezone: defaultTimezone
+                    timezone: defaultTimezone,
+                    timeShadow: { ...DEFAULT_SHADOW },
+                    dateShadow: { ...DEFAULT_SHADOW }
                 }
             ]
         }
@@ -271,7 +282,7 @@ async function loadTimeAndDate() {
         element.innerHTML = `
             <button class="remove-element" data-index="${i}">✖</button>
             <div class="font-control">
-                <label data-value-localization-key="date_and_time_clocks_customization_time_label">Time:</label>
+                <label class="shadow-target-label time-label selected" data-shadow-target="time" data-value-localization-key="date_and_time_clocks_customization_time_label">Time:</label>
                 <select id="time-font-${i}">
                     <option value="SF Pro Display" data-value-localization-key="option_sf_pro_display_default_label">SF Pro Display (default)</option>
                     <option value="Arial">Arial</option>
@@ -294,7 +305,7 @@ async function loadTimeAndDate() {
                 <input type="color" id="time-color-${i}">
             </div>
             <div class="font-control">
-                <label data-value-localization-key="date_and_time_clocks_customization_date_label">Date:</label>
+                <label class="shadow-target-label date-label" data-shadow-target="date" data-value-localization-key="date_and_time_clocks_customization_date_label">Date:</label>
                 <select id="date-font-${i}">
                     <option value="SF Pro Display" data-value-localization-key="option_sf_pro_display_default_label">SF Pro Display (default)</option>
                     <option value="Arial">Arial</option>
@@ -315,6 +326,36 @@ async function loadTimeAndDate() {
                     <option value="Monaco">Monaco</option>
                 </select>
                 <input type="color" id="date-color-${i}">
+            </div>
+            <div class="format-control clock-shadow-control">
+                <label data-value-localization-key="date_and_time_clocks_customization_shadow_label">Shadow:</label>
+                <div class="shadow-controls-row">
+                    <div class="shadow-direction-grid" id="shadow-direction-grid-${i}">
+                        <button type="button" class="shadow-dir-btn corner" disabled></button>
+                        <button type="button" class="shadow-dir-btn" data-dir="up" title="Up">▲</button>
+                        <button type="button" class="shadow-dir-btn corner" disabled></button>
+                        <button type="button" class="shadow-dir-btn" data-dir="left" title="Left">◀</button>
+                        <button type="button" class="shadow-dir-btn center" disabled><span id="shadow-offset-display-${i}"></span></button>
+                        <button type="button" class="shadow-dir-btn" data-dir="right" title="Right">▶</button>
+                        <button type="button" class="shadow-dir-btn corner" disabled></button>
+                        <button type="button" class="shadow-dir-btn" data-dir="down" title="Down">▼</button>
+                        <button type="button" class="shadow-dir-btn corner" disabled></button>
+                    </div>
+                    <div class="shadow-sliders">
+                        <label class="shadow-slider-label" data-value-localization-key="date_and_time_clocks_customization_shadow_blur_label">
+                            Blur:
+                            <input type="range" min="0" max="20" step="1" id="shadow-blur-${i}">
+                        </label>
+                        <label class="shadow-slider-label" data-value-localization-key="date_and_time_clocks_customization_shadow_opacity_label">
+                            Opacity:
+                            <input type="range" min="0" max="1" step="0.01" id="shadow-opacity-${i}">
+                        </label>
+                        <label class="shadow-slider-label" data-value-localization-key="date_and_time_clocks_customization_shadow_color_label">
+                            Color:
+                            <input type="color" id="shadow-color-${i}">
+                        </label>
+                    </div>
+                </div>
             </div>
             <div class="format-control">
                 <label data-value-localization-key="date_and_time_clocks_customization_time_format_label">Time format:</label>
@@ -396,6 +437,12 @@ async function loadTimeAndDate() {
         const dateFormatSelect = wrapper.querySelector(`#date-format-${i}`);
         const timezoneSelect = wrapper.querySelector(`#timezone-${i}`);
         const removeElementBtn = wrapper.querySelector('.remove-element');
+        const shadowBlurInput = wrapper.querySelector(`#shadow-blur-${i}`);
+        const shadowColorInput = wrapper.querySelector(`#shadow-color-${i}`);
+        const shadowOpacityInput = wrapper.querySelector(`#shadow-opacity-${i}`);
+        const shadowDirectionGrid = wrapper.querySelector(`#shadow-direction-grid-${i}`);
+        const shadowDirBtns = shadowDirectionGrid.querySelectorAll('.shadow-dir-btn');
+        const shadowOffsetDisplay = wrapper.querySelector(`#shadow-offset-display-${i}`);
         // Load settings for each clock
         if (!settings.timeAndDate.clocks[i]) {
             settings.timeAndDate.clocks[i] = {
@@ -417,7 +464,124 @@ async function loadTimeAndDate() {
         timeFormatSelect.value = clockSettings.timeFormat;
         timezoneSelect.value = clockSettings.timezone;
         dateFormatSelect.value = clockSettings.dateFormat;
-        await saveCustomSettings(settings);
+        // Shadow state: which label is selected
+        let activeShadowTarget = 'time';
+        const timeLabel = wrapper.querySelector('.time-label');
+        const dateLabel = wrapper.querySelector('.date-label');
+        // Highlight label and set activeShadowTarget
+        function setActiveShadowTarget(target) {
+            activeShadowTarget = target;
+            if (target === 'time') {
+                timeLabel.classList.add('selected');
+                dateLabel.classList.remove('selected');
+            } else {
+                dateLabel.classList.add('selected');
+                timeLabel.classList.remove('selected');
+            }
+            updateShadowUI();
+        }
+        timeLabel.addEventListener('click', () => setActiveShadowTarget('time'));
+        dateLabel.addEventListener('click', () => setActiveShadowTarget('date'));
+        // Helper: get/set shadow for active target
+        function getShadowSettings() {
+            const clockSettings = settings.timeAndDate.clocks[i];
+            if (activeShadowTarget === 'time') {
+                if (!clockSettings.timeShadow) clockSettings.timeShadow = { ...DEFAULT_SHADOW };
+                return clockSettings.timeShadow;
+            } else {
+                if (!clockSettings.dateShadow) clockSettings.dateShadow = { ...DEFAULT_SHADOW };
+                return clockSettings.dateShadow;
+            }
+        }
+        function setShadowSettings(newShadow) {
+            const clockSettings = settings.timeAndDate.clocks[i];
+            if (activeShadowTarget === 'time') {
+                clockSettings.timeShadow = { ...clockSettings.timeShadow, ...newShadow };
+            } else {
+                clockSettings.dateShadow = { ...clockSettings.dateShadow, ...newShadow };
+            }
+        }
+        // Update UI controls to match current shadow
+        function updateShadowUI() {
+            const shadow = getShadowSettings();
+            shadowBlurInput.value = shadow.blur;
+            shadowOpacityInput.value = shadow.opacity;
+            shadowColorInput.value = shadow.color;
+            shadowOffsetDisplay.textContent = `${shadow.offsetX}, ${shadow.offsetY}`;
+        }
+        // Joystick logic (offset change)
+        shadowDirBtns.forEach(btn => {
+            if (btn.disabled) return;
+            btn.addEventListener("click", () => {
+                const dir = btn.getAttribute('data-dir');
+                const shadow = getShadowSettings();
+                let newOffset = { offsetX: shadow.offsetX, offsetY: shadow.offsetY };
+                if (dir === 'up') newOffset.offsetY = shadow.offsetY - 1;
+                if (dir === 'down') newOffset.offsetY = shadow.offsetY + 1;
+                if (dir === 'left') newOffset.offsetX = shadow.offsetX - 1;
+                if (dir === 'right') newOffset.offsetX = shadow.offsetX + 1;
+                setShadowSettings(newOffset);
+                saveCustomSettings(settings).then(() => {
+                    updateShadowUI();
+                    updateTime();
+                });
+            });
+            btn.addEventListener("contextmenu", async e => {
+                e.preventDefault();
+                const defaultOffset = { offsetX: DEFAULT_SHADOW.offsetX, offsetY: DEFAULT_SHADOW.offsetY };
+                setShadowSettings(defaultOffset);
+                saveCustomSettings(settings).then(() => {
+                    updateShadowUI();
+                    updateTime();
+                });
+            });
+        });
+        shadowBlurInput.addEventListener('input', e => {
+            setShadowSettings({ blur: Number(e.target.value) });
+            saveCustomSettings(settings).then(() => {
+                updateShadowUI();
+                updateTime();
+            });
+        });
+        shadowBlurInput.addEventListener("contextmenu", async e => {
+            e.preventDefault();
+            setShadowSettings({ blur: Number(DEFAULT_SHADOW.blur) });
+            saveCustomSettings(settings).then(() => {
+                updateShadowUI();
+                updateTime();
+            });
+        });
+        shadowOpacityInput.addEventListener('input', e => {
+            setShadowSettings({ opacity: Number(e.target.value) });
+            saveCustomSettings(settings).then(() => {
+                updateShadowUI();
+                updateTime();
+            });
+        });
+        shadowOpacityInput.addEventListener("contextmenu", async e => {
+            e.preventDefault();
+            setShadowSettings({ opacity: Number(DEFAULT_SHADOW.opacity) });
+            saveCustomSettings(settings).then(() => {
+                updateShadowUI();
+                updateTime();
+            });
+        });
+        shadowColorInput.addEventListener('input', e => {
+            setShadowSettings({ color: e.target.value });
+            saveCustomSettings(settings).then(() => {
+                updateShadowUI();
+                updateTime();
+            });
+        });
+        shadowColorInput.addEventListener("contextmenu", async e => {
+            e.preventDefault();
+            setShadowSettings({ color: Number(DEFAULT_SHADOW.color) });
+            saveCustomSettings(settings).then(() => {
+                updateShadowUI();
+                updateTime();
+            });
+        });
+        updateShadowUI();
 
         // Save changes
         addEventListenerFor(timeFontSelect, "input", i, "timeFont", defaultTimeAndDateFont);

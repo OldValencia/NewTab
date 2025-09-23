@@ -1,12 +1,12 @@
 document.addEventListener("keydown", async (e) => {
-    if (e.ctrlKey && e.shiftKey) {
-        const settings = loadCustomSettings();
-        const target = e.target;
-        const isEditableElement =
-            target.tagName === 'INPUT' ||
-            target.tagName === 'TEXTAREA' ||
-            target.isContentEditable;
+    const settings = loadCustomSettings();
+    const target = e.target;
+    const isEditableElement =
+        target.tagName === 'INPUT' ||
+        target.tagName === 'TEXTAREA' ||
+        target.isContentEditable;
 
+    if (e.ctrlKey && e.shiftKey) {
         switch (e.code) {
             case "ArrowLeft":
                 if (isEditableElement) return;
@@ -29,6 +29,32 @@ document.addEventListener("keydown", async (e) => {
                     await createStickyNote();
                 }
                 break;
+        }
+    }
+
+    switch(e.code) {
+        case "Digit1":
+        case "Digit2":
+        case "Digit3":
+        case "Digit4":
+        case "Digit5":
+        case "Digit6":
+        case "Digit7":
+        case "Digit8":
+        case "Digit9": {
+            if (isEditableElement) return;
+            e.preventDefault();
+            const digit = parseInt(e.code.replace('Digit', ''));
+            const links = settings.links?.list || [];
+            const link = links[digit - 1];
+            if (link && link.url) {
+                if (settings.links.openInNewTabState) {
+                    window.open(link.url, '_blank');
+                } else {
+                    window.location.href = link.url;
+                }
+            }
+            break;
         }
     }
 });
