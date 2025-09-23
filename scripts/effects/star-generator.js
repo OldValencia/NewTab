@@ -1,3 +1,18 @@
+const initialStarsCustomization = {
+    "linksColor": "#fff",
+    "clocks": [
+        {
+            "timeFont": "SF Pro Display",
+            "timeColor": "#7e4600",
+            "dateFont": "SF Pro Display",
+            "dateColor": "#aaaaaa",
+            "timeFormat": "24",
+            "dateFormat": "day-month-year",
+            "timezone": "local"
+        }
+    ]
+}
+
 const STARFIELD_CONFIG = {
     numStars: 800,
     numMiniStars: 50,

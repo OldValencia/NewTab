@@ -1,3 +1,18 @@
+const initialWavesCustomization = {
+    "linksColor": "#2974bc",
+    "clocks": [
+        {
+            "timeFont": "SF Pro Display",
+            "timeColor": "#75d5ff",
+            "dateFont": "SF Pro Display",
+            "dateColor": "#ffffff",
+            "timeFormat": "24",
+            "dateFormat": "day-month-year",
+            "timezone": "local"
+        }
+    ]
+}
+
 function enableWavesBackground(settings) {
     cleanupBeforeEnableBackground();
 

@@ -1,3 +1,18 @@
+const initialParticleDriftCustomization = {
+    "linksColor": "#fff",
+    "clocks": [
+        {
+            "timeFont": "Arial",
+            "timeColor": "#b9b9b9",
+            "dateFont": "Arial",
+            "dateColor": "#b9b9b9",
+            "timeFormat": "24",
+            "dateFormat": "day-month-year",
+            "timezone": "local"
+        }
+    ]
+}
+
 function enableParticleDrift(settings) {
     cleanupBeforeEnableBackground("particle-canvas");
 

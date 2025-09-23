@@ -1,3 +1,18 @@
+const initialBlobFlowCustomization = {
+    "linksColor": "#fff",
+    "clocks": [
+        {
+            "timeFont": "Verdana",
+            "timeColor": "#7e97a5",
+            "dateFont": "Verdana",
+            "dateColor": "#c7c7c7",
+            "timeFormat": "24",
+            "dateFormat": "day-month-year",
+            "timezone": "local"
+        }
+    ]
+}
+
 function enableBlobFlow(settings) {
     cleanupBeforeEnableBackground("blob-canvas");
 
@@ -9,7 +24,7 @@ function enableBlobFlow(settings) {
     backgroundLayer.style.backgroundColor = settings.bg.blobFlow.backgroundColor;
     const ctx = canvas.getContext("2d");
 
-    const blobs = Array.from({ length: 8 }, () => ({
+    const blobs = Array.from({length: 8}, () => ({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
         r: 80 + Math.random() * settings.bg.blobFlow.size,

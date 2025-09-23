@@ -1,3 +1,18 @@
+const initialSolarSystemCustomization = {
+    "linksColor": "#ffffff",
+    "clocks": [
+        {
+            "timeFont": "Tahoma",
+            "timeColor": "#fd7d40",
+            "dateFont": "Tahoma",
+            "dateColor": "#ffffff",
+            "timeFormat": "24",
+            "dateFormat": "day-month-year",
+            "timezone": "local"
+        }
+    ]
+}
+
 function enableSolarSystem() {
     cleanupBeforeEnableBackground();
 

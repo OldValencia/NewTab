@@ -1,3 +1,18 @@
+const initialCloudySpiralCustomization = {
+    "linksColor": "#15507b",
+    "clocks": [
+        {
+            "timeFont": "Roboto",
+            "timeColor": "#15507b",
+            "dateFont": "Open Sans",
+            "dateColor": "#15507b",
+            "timeFormat": "12",
+            "dateFormat": "day-month-year",
+            "timezone": "local"
+        }
+    ]
+}
+
 function enableCloudySpiral(settings) {
     cleanupBeforeEnableBackground();
     const particles = settings.bg.cloudySpiral.numberOfParticles;

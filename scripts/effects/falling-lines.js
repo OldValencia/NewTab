@@ -1,3 +1,18 @@
+const initialFallingLinesCustomization = {
+    "linksColor": "#ffffff",
+    "clocks": [
+        {
+            "timeFont": "Halvetica",
+            "timeColor": "#770000",
+            "dateFont": "Halvetica",
+            "dateColor": "#9e9e9e",
+            "timeFormat": "24",
+            "dateFormat": "day-month-year",
+            "timezone": "local"
+        }
+    ]
+}
+
 function enableFallingLinesBackground(settings) {
     cleanupBeforeEnableBackground();
 
