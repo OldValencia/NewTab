@@ -232,6 +232,7 @@ function getLocalizedTimezoneOptions(lang = defaultLocale) {
 }
 
 async function loadTimeAndDate() {
+    await loadDefaultCustomizationSettings();
     const settings = loadCustomSettings();
 
     if (!settings.timeAndDate) {
