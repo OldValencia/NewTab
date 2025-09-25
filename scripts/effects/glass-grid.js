@@ -1,18 +1,3 @@
-const initialGlassGridCustomization = {
-    "linksColor": "#fff",
-    "clocks": [
-        {
-            "timeFont": "Georgia",
-            "timeColor": "#9e6247",
-            "dateFont": "Courier New",
-            "dateColor": "#aaaaaa",
-            "timeFormat": "24",
-            "dateFormat": "day-month-year",
-            "timezone": "local"
-        }
-    ]
-}
-
 function enableGlassGrid(settings) {
     cleanupBeforeEnableBackground("glass-canvas");
     const canvas = document.createElement("canvas");

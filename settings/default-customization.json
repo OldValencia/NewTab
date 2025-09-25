@@ -1,0 +1,282 @@
+{
+  "blobFlow": {
+    "linksColor": "#fff",
+    "clocks": [
+      {
+        "timeFont": "Verdana",
+        "timeColor": "#7e97a5",
+        "dateFont": "Verdana",
+        "dateColor": "#c7c7c7",
+        "timeFormat": "24",
+        "dateFormat": "day-month-year",
+        "timezone": "local",
+        "timeShadow": {
+          "color": "#000000",
+          "opacity": 0,
+          "blur": 0,
+          "offsetX": 0,
+          "offsetY": 0
+        },
+        "dateShadow": {
+          "color": "#000000",
+          "opacity": 0,
+          "blur": 0,
+          "offsetX": 0,
+          "offsetY": 0
+        }
+      }
+    ]
+  },
+  "cloudySpiral": {
+    "linksColor": "#15507b",
+    "clocks": [
+      {
+        "timeFont": "Roboto",
+        "timeColor": "#15507b",
+        "dateFont": "Open Sans",
+        "dateColor": "#15507b",
+        "timeFormat": "12",
+        "dateFormat": "day-month-year",
+        "timezone": "local",
+        "timeShadow": {
+          "color": "#000000",
+          "opacity": 0,
+          "blur": 0,
+          "offsetX": 0,
+          "offsetY": 0
+        },
+        "dateShadow": {
+          "color": "#000000",
+          "opacity": 0,
+          "blur": 0,
+          "offsetX": 0,
+          "offsetY": 0
+        }
+      }
+    ]
+  },
+  "fallingLines": {
+    "linksColor": "#ffffff",
+    "clocks": [
+      {
+        "timeFont": "Halvetica",
+        "timeColor": "#770000",
+        "dateFont": "Halvetica",
+        "dateColor": "#9e9e9e",
+        "timeFormat": "24",
+        "dateFormat": "day-month-year",
+        "timezone": "local",
+        "timeShadow": {
+          "color": "#000000",
+          "opacity": 0,
+          "blur": 0,
+          "offsetX": 0,
+          "offsetY": 0
+        },
+        "dateShadow": {
+          "color": "#000000",
+          "opacity": 0,
+          "blur": 0,
+          "offsetX": 0,
+          "offsetY": 0
+        }
+      }
+    ]
+  },
+  "floatingCircles": {
+    "linksColor": "#ffffff",
+    "clocks": [
+      {
+        "timeFont": "Courier New",
+        "timeColor": "#ced0f0",
+        "dateFont": "Courier New",
+        "dateColor": "#ced0f0",
+        "timeFormat": "24",
+        "dateFormat": "day-month-year",
+        "timezone": "local",
+        "timeShadow": {
+          "color": "#000000",
+          "opacity": 0,
+          "blur": 0,
+          "offsetX": 0,
+          "offsetY": 0
+        },
+        "dateShadow": {
+          "color": "#000000",
+          "opacity": 0,
+          "blur": 0,
+          "offsetX": 0,
+          "offsetY": 0
+        }
+      }
+    ]
+  },
+  "glassGrid": {
+    "linksColor": "#fff",
+    "clocks": [
+      {
+        "timeFont": "Georgia",
+        "timeColor": "#9e6247",
+        "dateFont": "Courier New",
+        "dateColor": "#aaaaaa",
+        "timeFormat": "24",
+        "dateFormat": "day-month-year",
+        "timezone": "local",
+        "timeShadow": {
+          "color": "#000000",
+          "opacity": 0,
+          "blur": 0,
+          "offsetX": 0,
+          "offsetY": 0
+        },
+        "dateShadow": {
+          "color": "#000000",
+          "opacity": 0,
+          "blur": 0,
+          "offsetX": 0,
+          "offsetY": 0
+        }
+      }
+    ]
+  },
+  "nebulaDust": {
+    "linksColor": "#fff",
+    "clocks": [
+      {
+        "timeFont": "Courier New",
+        "timeColor": "#aa6aff",
+        "dateFont": "Verdana",
+        "dateColor": "#aaaaaa",
+        "timeFormat": "24",
+        "dateFormat": "day-month-year",
+        "timezone": "local",
+        "timeShadow": {
+          "color": "#000000",
+          "opacity": 0,
+          "blur": 0,
+          "offsetX": 0,
+          "offsetY": 0
+        },
+        "dateShadow": {
+          "color": "#000000",
+          "opacity": 0,
+          "blur": 0,
+          "offsetX": 0,
+          "offsetY": 0
+        }
+      }
+    ]
+  },
+  "orbitalRings": {
+    "linksColor": "#fff",
+    "clocks": [
+      {
+        "timeFont": "Tahoma",
+        "timeColor": "#b9b9b9",
+        "dateFont": "Verdana",
+        "dateColor": "#b9b9b9",
+        "timeFormat": "24",
+        "dateFormat": "day-month-year",
+        "timezone": "local",
+        "timeShadow": {
+          "color": "#000000",
+          "opacity": 0,
+          "blur": 0,
+          "offsetX": 0,
+          "offsetY": 0
+        },
+        "dateShadow": {
+          "color": "#000000",
+          "opacity": 0,
+          "blur": 0,
+          "offsetX": 0,
+          "offsetY": 0
+        }
+      }
+    ]
+  },
+  "particleDrift": {
+    "linksColor": "#fff",
+    "clocks": [
+      {
+        "timeFont": "Arial",
+        "timeColor": "#b9b9b9",
+        "dateFont": "Arial",
+        "dateColor": "#b9b9b9",
+        "timeFormat": "24",
+        "dateFormat": "day-month-year",
+        "timezone": "local",
+        "timeShadow": {
+          "color": "#000000",
+          "opacity": 0,
+          "blur": 0,
+          "offsetX": 0,
+          "offsetY": 0
+        },
+        "dateShadow": {
+          "color": "#000000",
+          "opacity": 0,
+          "blur": 0,
+          "offsetX": 0,
+          "offsetY": 0
+        }
+      }
+    ]
+  },
+  "solarSystem": {
+    "linksColor": "#ffffff",
+    "clocks": [
+      {
+        "timeFont": "Tahoma",
+        "timeColor": "#fd7d40",
+        "dateFont": "Tahoma",
+        "dateColor": "#ffffff",
+        "timeFormat": "24",
+        "dateFormat": "day-month-year",
+        "timezone": "local",
+        "timeShadow": {
+          "color": "#000000",
+          "opacity": 0,
+          "blur": 0,
+          "offsetX": 0,
+          "offsetY": 0
+        },
+        "dateShadow": {
+          "color": "#000000",
+          "opacity": 0,
+          "blur": 0,
+          "offsetX": 0,
+          "offsetY": 0
+        }
+      }
+    ]
+  },
+  "waves": {
+    "linksColor": "#2974bc",
+    "clocks": [
+      {
+        "timeFont": "SF Pro Display",
+        "timeColor": "#75d5ff",
+        "dateFont": "SF Pro Display",
+        "dateColor": "#ffffff",
+        "timeFormat": "24",
+        "dateFormat": "day-month-year",
+        "timezone": "local",
+        "timeShadow": {
+          "color": "#000000",
+          "opacity": 0,
+          "blur": 0,
+          "offsetX": 0,
+          "offsetY": 0
+        },
+        "dateShadow": {
+          "color": "#000000",
+          "opacity": 0,
+          "blur": 0,
+          "offsetX": 0,
+          "offsetY": 0
+        }
+      }
+    ]
+  }
+}

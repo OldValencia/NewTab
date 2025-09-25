@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     await loadBookmarksWidget();
     await loadSearchBarWidget();
     await loadGreetingSettings();
+    await loadDefaultCustomization();
     loadNotifications();
 
     document.querySelectorAll(".toggle-section").forEach(toggleBtn => {

@@ -1,18 +1,3 @@
-const initialNebulaDustCustomization = {
-    "linksColor": "#fff",
-    "clocks": [
-        {
-            "timeFont": "Courier New",
-            "timeColor": "#aa6aff",
-            "dateFont": "Verdana",
-            "dateColor": "#aaaaaa",
-            "timeFormat": "24",
-            "dateFormat": "day-month-year",
-            "timezone": "local"
-        }
-    ]
-}
-
 function enableNebulaDust(settings) {
     cleanupBeforeEnableBackground("nebula-canvas");
     const canvas = document.createElement("canvas");

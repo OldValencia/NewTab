@@ -1,18 +1,5 @@
-const proceduralModes = [
-    "stars",
-    "blobFlow",
-    "nebulaDust",
-    "glassGrid",
-    "orbitalRings",
-    "particleDrift",
-    "cloudySpiral",
-    "solarSystem",
-    "waves",
-    "fallingLines",
-    "floatingCircles"
-];
 let backgroundTimeoutState = {};
-proceduralModes.forEach(mode => {
+Object.values(backgroundLayerNames).forEach(mode => {
     backgroundTimeoutState[mode] = {
         timeout: null
     };
@@ -168,7 +155,7 @@ function applyProceduralBackground(mode, useFade) {
 }
 
 function applyBackgroundMode(mode, settings, useFade = true) {
-    if (proceduralModes.includes(mode)) {
+    if (Object.values(backgroundLayerNames).includes(mode)) {
         applyProceduralBackground(settings.bg.bgMode, useFade);
     } else {
         effectsPanel.style.display = "flex";
@@ -194,7 +181,7 @@ async function loadBackground() {
         modeInput.checked = true;
     }
 
-    if (proceduralModes.includes(settings.bg.bgMode)) {
+    if (Object.values(backgroundLayerNames).includes(settings.bg.bgMode)) {
         enableProceduralBackground(settings.bg.bgMode);
     } else {
         effectsPanel.style.display = "flex";

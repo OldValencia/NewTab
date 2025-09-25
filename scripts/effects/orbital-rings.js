@@ -1,18 +1,3 @@
-const initialOrbitalRingsCustomization = {
-    "linksColor": "#fff",
-    "clocks": [
-        {
-            "timeFont": "Tahoma",
-            "timeColor": "#b9b9b9",
-            "dateFont": "Verdana",
-            "dateColor": "#b9b9b9",
-            "timeFormat": "24",
-            "dateFormat": "day-month-year",
-            "timezone": "local"
-        }
-    ]
-}
-
 function enableOrbitalRings(settings) {
     cleanupBeforeEnableBackground("orbital-canvas");
 

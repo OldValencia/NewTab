@@ -1,18 +1,3 @@
-const initialFloatingCirclesCustomization = {
-    "linksColor": "#ffffff",
-    "clocks": [
-        {
-            "timeFont": "Courier New",
-            "timeColor": "#ced0f0",
-            "dateFont": "Courier New",
-            "dateColor": "#ced0f0",
-            "timeFormat": "24",
-            "dateFormat": "day-month-year",
-            "timezone": "local"
-        }
-    ]
-}
-
 function enableFloatingCirclesBackground(settings) {
     cleanupBeforeEnableBackground();
 

@@ -1,18 +1,3 @@
-const initialBlobFlowCustomization = {
-    "linksColor": "#fff",
-    "clocks": [
-        {
-            "timeFont": "Verdana",
-            "timeColor": "#7e97a5",
-            "dateFont": "Verdana",
-            "dateColor": "#c7c7c7",
-            "timeFormat": "24",
-            "dateFormat": "day-month-year",
-            "timezone": "local"
-        }
-    ]
-}
-
 function enableBlobFlow(settings) {
     cleanupBeforeEnableBackground("blob-canvas");
 
