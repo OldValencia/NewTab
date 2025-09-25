@@ -1,4 +1,32 @@
 {
+  "stars": {
+    "linksColor": "#fff",
+    "clocks": [
+      {
+        "timeFont": "SF Pro Display",
+        "timeColor": "#7e4600",
+        "dateFont": "SF Pro Display",
+        "dateColor": "#aaaaaa",
+        "timeFormat": "24",
+        "dateFormat": "day-month-year",
+        "timezone": "local",
+        "timeShadow": {
+          "color": "#000000",
+          "opacity": 0,
+          "blur": 0,
+          "offsetX": 0,
+          "offsetY": 0
+        },
+        "dateShadow": {
+          "color": "#000000",
+          "opacity": 0,
+          "blur": 0,
+          "offsetX": 0,
+          "offsetY": 0
+        }
+      }
+    ]
+  },
   "blobFlow": {
     "linksColor": "#fff",
     "clocks": [
