@@ -96,7 +96,8 @@ async function loadLinks() {
         settings.links = {
             underlineLinksOnHover: false,
             showLinks: true,
-            openInNewTabState: false
+            openInNewTabState: false,
+            list: defaultLinks
         };
         await saveCustomSettings(settings);
     }
