@@ -3,7 +3,7 @@
 ![Bookmarks.png](Screenshots/Bookmarks.png "Bookmarks widget")
 ![Sidebar.png](Screenshots/Sidebar.png "Search bar widget")
 
-# 🌌 New Tab Extension ([Addons.Mozilla.org](https://addons.mozilla.org/en-US/firefox/addon/newtabaddon/))
+# 🌌 New Tab Extension ([Chrome WebStore (no link, ping me if you'll need it)](https://chromewebstore.google.com/))
 
 ---
 
