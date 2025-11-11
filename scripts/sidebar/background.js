@@ -346,6 +346,15 @@ async function resetBgSettings() {
             backgroundColor: "#4e54c8",
             particlesColor: "#ffffff",
             customization: await getDefaultCustomizationByKey("floatingCircles")
+        },
+        "custom-image": {
+            customization: await getDefaultCustomizationByKey("custom-image")
+        },
+        "search-image": {
+            customization: await getDefaultCustomizationByKey("search-image")
+        },
+        "dynamic-search": {
+            customization: await getDefaultCustomizationByKey("dynamic-search")
         }
     }
     await saveCustomSettings(settings);
@@ -412,6 +421,10 @@ document.querySelectorAll('input[name="bg-mode"]').forEach(radio => {
         if (mode === "custom-image") {
             fileInput.value = "";
             fileInput.click();
+
+            setLinksColor(settings.bg[settings.bg.bgMode].customization.linksColor || "#ffffff");
+            await loadTimeAndDate();
+            await loadLinks();
         }
         if (mode === "search-image") {
             setDisplay(backgroundSearchInput, "block");
@@ -420,10 +433,18 @@ document.querySelectorAll('input[name="bg-mode"]').forEach(radio => {
             }
             const tag = backgroundSearchInput.value.trim();
             if (tag) await fetchSearchResults(tag);
+
+            setLinksColor(settings.bg[settings.bg.bgMode].customization.linksColor || "#ffffff");
+            await loadTimeAndDate();
+            await loadLinks();
         }
         if (mode === "dynamic-search") {
             setDisplay(dynamicConfig, "flex");
             if (settings.bg.dynamicTag) await applyDynamicBackground(settings);
+
+            setLinksColor(settings.bg[settings.bg.bgMode].customization.linksColor || "#ffffff");
+            await loadTimeAndDate();
+            await loadLinks();
         }
 
         await saveCustomSettings(settings);

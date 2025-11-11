@@ -340,5 +340,98 @@
         }
       }
     ]
+  },
+  "custom-image": {
+    "linksColor": "#ffffff",
+    "showTime": true,
+    "showDate": true,
+    "elements": 1,
+    "clocks": [
+      {
+        "timeFont": "SF Pro Display",
+        "timeColor": "#ffffff",
+        "dateFont": "SF Pro Display",
+        "dateColor": "#ffffff",
+        "timeFormat": "24",
+        "dateFormat": "day-month-year",
+        "timezone": "local",
+        "timeShadow": {
+          "color": "#000000",
+          "opacity": 0.27,
+          "blur": 5,
+          "offsetX": 2,
+          "offsetY": 2
+        },
+        "dateShadow": {
+          "color": "#000000",
+          "opacity": 0.34,
+          "blur": 5,
+          "offsetX": 1,
+          "offsetY": 1
+        }
+      }
+    ]
+  },
+  "search-image": {
+    "linksColor": "#ffffff",
+    "showTime": true,
+    "showDate": true,
+    "elements": 1,
+    "clocks": [
+      {
+        "timeFont": "SF Pro Display",
+        "timeColor": "#ffffff",
+        "dateFont": "SF Pro Display",
+        "dateColor": "#ffffff",
+        "timeFormat": "24",
+        "dateFormat": "day-month-year",
+        "timezone": "local",
+        "timeShadow": {
+          "color": "#000000",
+          "opacity": 0.27,
+          "blur": 5,
+          "offsetX": 2,
+          "offsetY": 2
+        },
+        "dateShadow": {
+          "color": "#000000",
+          "opacity": 0.34,
+          "blur": 5,
+          "offsetX": 1,
+          "offsetY": 1
+        }
+      }
+    ]
+  },
+  "dynamic-search": {
+    "linksColor": "#ffffff",
+    "showTime": true,
+    "showDate": true,
+    "elements": 1,
+    "clocks": [
+      {
+        "timeFont": "SF Pro Display",
+        "timeColor": "#ffffff",
+        "dateFont": "SF Pro Display",
+        "dateColor": "#ffffff",
+        "timeFormat": "24",
+        "dateFormat": "day-month-year",
+        "timezone": "local",
+        "timeShadow": {
+          "color": "#000000",
+          "opacity": 0.27,
+          "blur": 5,
+          "offsetX": 2,
+          "offsetY": 2
+        },
+        "dateShadow": {
+          "color": "#000000",
+          "opacity": 0.34,
+          "blur": 5,
+          "offsetX": 1,
+          "offsetY": 1
+        }
+      }
+    ]
   }
 }

@@ -94,7 +94,7 @@ async function loadGreetingSettings() {
     if (settings.userName === undefined || settings.userName === null) {
         settings.userName = defaultGreetingUsername;
     }
-    greetingUsernameInput.value = defaultGreetingUsername;
+    greetingUsernameInput.value = settings.userName;
 
     await saveCustomSettings(settings);
     updateGreeting();

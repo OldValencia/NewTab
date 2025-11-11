@@ -32,8 +32,9 @@
 #search-engine-select {
     padding: 6px 10px;
     border-radius: 12px;
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
+    appearance: none;
+    background: rgba(30, 30, 30, 0.8);
+    color: #fff;
     border: none;
     font-size: 14px;
     outline: none;

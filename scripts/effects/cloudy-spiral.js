@@ -50,3 +50,10 @@ async function enableCloudySpiralWithProceduralControls(proceduralControls) {
     proceduralControls?.append(bgColor, particlesColor, count, size, radius, lap);
     enableCloudySpiral(settings);
 }
+
+window.addEventListener('resize', throttle(() => {
+    const settings = loadCustomSettings();
+    if (settings.bg.bgMode === "cloudySpiral") {
+        enableProceduralBackground(settings);
+    }
+}, 1500));

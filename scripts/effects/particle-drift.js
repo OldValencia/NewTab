@@ -65,3 +65,10 @@ async function enableParticleDriftWithProceduralControls(proceduralControls) {
     proceduralControls?.append(bgColor, particlesColor, count);
     enableParticleDrift(settings);
 }
+
+window.addEventListener('resize', throttle(() => {
+    const settings = loadCustomSettings();
+    if (settings.bg.bgMode === "particleDrift") {
+        enableProceduralBackground(settings);
+    }
+}, 1500));

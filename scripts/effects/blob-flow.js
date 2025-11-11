@@ -49,3 +49,10 @@ async function enableBlowFlowWithProceduralControls(proceduralControls) {
     proceduralControls?.append(bgColor, size, blur);
     enableBlobFlow(settings);
 }
+
+window.addEventListener('resize', throttle(() => {
+    const settings = loadCustomSettings();
+    if (settings.bg.bgMode === "blobFlow") {
+        enableProceduralBackground(settings);
+    }
+}, 1500));

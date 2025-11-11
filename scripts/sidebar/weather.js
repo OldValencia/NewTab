@@ -37,6 +37,8 @@ async function loadWeatherWidget() {
         settings.weatherWidget.showWeather = toggleWeatherWidget.checked;
         await saveCustomSettings(settings);
         await applyWeatherVisibilitySetting();
+        const shouldFetch = await loadCachedWeather();
+        await loadSavedCity(shouldFetch);
     });
 
     resetWeatherBtn.addEventListener("click", async () => {

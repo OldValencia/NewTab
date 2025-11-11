@@ -128,6 +128,12 @@
     appearance: auto
 }
 
+#notif-editor select {
+    appearance: none;
+    background: rgba(30, 30, 30, 0.8);
+    color: #fff;
+}
+
 #notif-editor textarea {
     max-width: 340px;
     min-height: 30px;
@@ -135,8 +141,7 @@
 }
 
 #notif-editor input:focus,
-#notif-editor textarea:focus,
-#notif-editor select:focus {
+#notif-editor textarea:focus {
     background: rgba(255, 255, 255, 0.1);
 }
 
@@ -400,6 +405,7 @@
     align-items: flex-end;
     gap: 12px;
     margin-top: 12px;
+    color: #000;
 }
 
 .repeatable-toggle {
@@ -409,13 +415,14 @@
 
 .trigger-type-select {
     width: 70%;
+    color: #000;
 }
 
 .repeatable-toggle label:first-child {
     display: block;
     margin-bottom: 6px;
     font-size: 14px;
-    color: #bbb;
+    color: #000;
     font-weight: 500;
 }
 
@@ -423,6 +430,6 @@
     margin-bottom: 6px;
     display: block;
     font-size: 14px;
-    color: #bbb;
+    color: #000;
     font-weight: 500;
 }
