@@ -1,9 +1,9 @@
 ![Main page](Screenshots/Main_page.png "Main page")
-![Greeting, time and date format, sidebar](Screenshots/Greeting%2C_time_and_date_format%2C_sidebar.png "Greeting, time and date format, sidebar")
-![Bookmarks widget](Screenshots/Bookmarks_widget.png "Bookmarks widget")
-![Search bar widget](Screenshots/Search_bar.png "Search bar widget")
+![Widgets](Screenshots/Widgets.png "Greeting, time and date format, sidebar")
+![Bookmarks.png](Screenshots/Bookmarks.png "Bookmarks widget")
+![Sidebar.png](Screenshots/Sidebar.png "Search bar widget")
 
-# 🌌 New Tab Extension ([Addons.Mozilla.org](https://addons.mozilla.org/en-US/firefox/addon/new_tab_extension/))
+# 🌌 New Tab Extension ([Addons.Mozilla.org](https://addons.mozilla.org/en-US/firefox/addon/newtabaddon/))
 
 ---
 
@@ -56,12 +56,9 @@ To make the extension your homepage:
 - 🔒 Private — no data collection, no analytics
 
 
-![Sidebar, Main page with image from Pixabay](Screenshots/Sidebar,_Main_page_with_image_from_Pixabay.png "Sidebar, Main page with image from Pixabay")
-![Sticky notes functionality](Screenshots/Sticky_notes_functionality.png "Sticky notes functionality")
-![Weather widget](Screenshots/Weather_widget.png "Weather widget")
-![Quotes widget](Screenshots/Quote_with_customization.png "Quotes widget with customization")
-![Time customization](Screenshots/Time_customization.png "Time customization")
-![Notifications and Localization](Screenshots/Localizations,_Notifications.png "Notifications and Localization")
+![Backgrounds.png](Screenshots/Backgrounds.png "Various background modes")
+![Notification_editor.png](Screenshots/Notification_editor.png "Notification editor")
+![Weather.png](Screenshots/Weather.png "Weather widget")
 
 ---
 
