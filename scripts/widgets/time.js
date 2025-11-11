@@ -8,12 +8,12 @@ const defaultDateColor = "#aaaaaa";
 function updateTime() {
     const now = new Date();
     const settings = loadCustomSettings();
-    if (!settings.timeAndDate) return;
+    if (!settings.bg[settings.bg.bgMode].customization) return;
     multipleClocksWrapper.innerHTML = "";
-    for (let i = 0; i < settings.timeAndDate.elements; i++) {
+    for (let i = 0; i < settings.bg[settings.bg.bgMode].customization.elements; i++) {
         // Get correct date for timezone
         let clockDate = new Date(now);
-        let tz = settings.timeAndDate.clocks[i].timezone || 'local';
+        let tz = settings.bg[settings.bg.bgMode].customization.clocks[i].timezone || 'local';
         if (tz && tz !== 'local') {
             // tz is like '+3', '-5', etc.
             let offset = parseInt(tz, 10);
@@ -47,7 +47,7 @@ function updateTime() {
 
         // Time format
         let timeString;
-        switch (settings.timeAndDate.clocks[i].timeFormat) {
+        switch (settings.bg[settings.bg.bgMode].customization.clocks[i].timeFormat) {
             case "12": {
                 const ampm = hours >= 12 ? "PM" : "AM";
                 let h = hours % 12 || 12;
@@ -88,7 +88,7 @@ function updateTime() {
 
         // Date format
         let dateString = "";
-        switch (settings.timeAndDate.clocks[i].dateFormat) {
+        switch (settings.bg[settings.bg.bgMode].customization.clocks[i].dateFormat) {
             case "month-day-year":
                 dateString = `${monthName} ${day} ${year}`;
                 break;
@@ -114,10 +114,10 @@ function updateTime() {
         timeElement.id = `time-${i}`;
         timeElement.innerText = timeString;
         // Apply font and color settings for time
-        timeElement.style.fontFamily = settings.timeAndDate.clocks[i].timeFont || defaultTimeAndDateFont;
-        timeElement.style.color = settings.timeAndDate.clocks[i].timeColor || defaultTimeColor;
-        timeElement.style.display = settings.timeAndDate.showTime ? "block" : "none";
-        const tShadow = settings.timeAndDate.clocks[i].timeShadow || {};
+        timeElement.style.fontFamily = settings.bg[settings.bg.bgMode].customization.clocks[i].timeFont || defaultTimeAndDateFont;
+        timeElement.style.color = settings.bg[settings.bg.bgMode].customization.clocks[i].timeColor || defaultTimeColor;
+        timeElement.style.display = settings.bg[settings.bg.bgMode].customization.showTime ? "block" : "none";
+        const tShadow = settings.bg[settings.bg.bgMode].customization.clocks[i].timeShadow || {};
         timeElement.style.textShadow = `${tShadow.offsetX ?? 2}px ${tShadow.offsetY ?? 2}px ${tShadow.blur ?? 4}px ${hexToRgba(tShadow.color ?? '#000', tShadow.opacity ?? 0.5)}`;
         timeAndDateElement.appendChild(timeElement);
         const dateElement = document.createElement("div");
@@ -126,10 +126,10 @@ function updateTime() {
         dateElement.innerText = dateString;
         dateElement.setAttribute("data-tooltip", `${day}-${monthNum}-${year}`);
         // Apply font and color settings for date
-        dateElement.style.fontFamily = settings.timeAndDate.clocks[i].dateFont || defaultTimeAndDateFont;
-        dateElement.style.color = settings.timeAndDate.clocks[i].dateColor || defaultDateColor;
-        dateElement.style.display = settings.timeAndDate.showDate ? "block" : "none";
-        const dShadow = settings.timeAndDate.clocks[i].dateShadow || {};
+        dateElement.style.fontFamily = settings.bg[settings.bg.bgMode].customization.clocks[i].dateFont || defaultTimeAndDateFont;
+        dateElement.style.color = settings.bg[settings.bg.bgMode].customization.clocks[i].dateColor || defaultDateColor;
+        dateElement.style.display = settings.bg[settings.bg.bgMode].customization.showDate ? "block" : "none";
+        const dShadow = settings.bg[settings.bg.bgMode].customization.clocks[i].dateShadow || {};
         dateElement.style.textShadow = `${dShadow.offsetX ?? 2}px ${dShadow.offsetY ?? 2}px ${dShadow.blur ?? 4}px ${hexToRgba(dShadow.color ?? '#000', dShadow.opacity ?? 0.5)}`;
         timeAndDateElement.appendChild(dateElement);
         multipleClocksWrapper.appendChild(timeAndDateElement);
@@ -143,7 +143,7 @@ toggleTime.addEventListener("change", async () => {
     timeElements.forEach(time => {
         time.style.display = visible ? "block" : "none";
     });
-    settings.timeAndDate.showTime = visible;
+    settings.bg[settings.bg.bgMode].customization.showTime = visible;
     await saveCustomSettings(settings);
 });
 
@@ -154,7 +154,7 @@ toggleDate.addEventListener("change", async () => {
     dateElements.forEach(date => {
         date.style.display = visible ? "block" : "none";
     });
-    settings.timeAndDate.showDate = visible;
+    settings.bg[settings.bg.bgMode].customization.showDate = visible;
     await saveCustomSettings(settings);
 });
 

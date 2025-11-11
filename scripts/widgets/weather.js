@@ -104,7 +104,6 @@ function fetchWeather(query, cityLabel) {
         .catch(async () => {
             weatherSummary.textContent = "Load error"
             const settings = loadCustomSettings();
-            alert("Please enter a valid WeatherAPI.com key to enable the weather widget.");
             toggleWeatherWidget.checked = false;
             settings.weatherWidget.showWeather = false;
 

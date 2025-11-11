@@ -1,18 +1,5 @@
-const proceduralModes = [
-    "stars",
-    "blobFlow",
-    "nebulaDust",
-    "glassGrid",
-    "orbitalRings",
-    "particleDrift",
-    "cloudySpiral",
-    "solarSystem",
-    "waves",
-    "fallingLines",
-    "floatingCircles"
-];
 let backgroundTimeoutState = {};
-proceduralModes.forEach(mode => {
+Object.values(backgroundLayerNames).forEach(mode => {
     backgroundTimeoutState[mode] = {
         timeout: null
     };
@@ -158,18 +145,18 @@ async function setBackgroundImageWithFade(url, fit, useFade = true) {
     });
 }
 
-function applyProceduralBackground(mode, useFade) {
+function applyProceduralBackground(settings, useFade) {
     const apply = () => {
-        enableProceduralBackground(mode);
+        enableProceduralBackground(settings);
     };
 
     if (useFade) fadeBackground(apply);
     else apply();
 }
 
-function applyBackgroundMode(mode, settings, useFade = true) {
-    if (proceduralModes.includes(mode)) {
-        applyProceduralBackground(settings.bg.bgMode, useFade);
+function applyBackgroundMode(settings, useFade = true) {
+    if (Object.values(backgroundLayerNames).includes(settings.bg.bgMode)) {
+        applyProceduralBackground(settings, useFade);
     } else {
         effectsPanel.style.display = "flex";
         document.body.style.backgroundColor = "";
@@ -186,6 +173,7 @@ async function loadBackground() {
     if (!settings.bg) {
         settings = await resetBgSettings();
     }
+    await saveCustomSettings(settings)
 
     backgroundApiKeyInput.value = settings.bg.bgApiKey || "";
 
@@ -194,8 +182,8 @@ async function loadBackground() {
         modeInput.checked = true;
     }
 
-    if (proceduralModes.includes(settings.bg.bgMode)) {
-        enableProceduralBackground(settings.bg.bgMode);
+    if (Object.values(backgroundLayerNames).includes(settings.bg.bgMode)) {
+        enableProceduralBackground(settings);
     } else {
         effectsPanel.style.display = "flex";
         document.body.style.backgroundColor = "";
@@ -237,7 +225,7 @@ async function loadBackground() {
     }
 }
 
-function enableProceduralBackground(mode) {
+function enableProceduralBackground(settings) {
     effectsPanel.style.display = "none";
     backgroundLayer.style.backgroundImage = "";
     backgroundLayer.style.filter = "";
@@ -248,7 +236,7 @@ function enableProceduralBackground(mode) {
         control.style.display = "none";
     });
 
-    const proceduralControls = document.getElementById(`procedural-controls--${mode}`);
+    const proceduralControls = document.getElementById(`procedural-controls--${settings.bg.bgMode}`);
     if (proceduralControls) {
         proceduralControls.innerHTML = "";
         proceduralControls.style.display = "block";
@@ -268,8 +256,13 @@ function enableProceduralBackground(mode) {
         "floatingCircles": async () => await enableFloatingCirclesBackgroundWithProceduralControls(proceduralControls)
     };
 
-    if (modeHandlers[mode.toString()]) {
-        modeHandlers[mode.toString()]();
+    if (modeHandlers[settings.bg.bgMode]) {
+        modeHandlers[settings.bg.bgMode]();
+        setLinksColor(settings.bg[settings.bg.bgMode].customization.linksColor || "#ffffff");
+        (async () => {
+            await loadTimeAndDate();
+            await loadLinks();
+        })();
     }
 }
 
@@ -287,31 +280,42 @@ async function resetBgSettings() {
         dynamicInterval: "",
         nightMode: true,
         bgApiKey: "",
+        stars: {
+            customization: await getDefaultCustomizationByKey("stars"),
+        },
+        solarSystem: {
+            customization: await getDefaultCustomizationByKey("solarSystem"),
+        },
         blobFlow: {
             backgroundColor: "rgb(0, 0, 0)",
             blur: 0,
-            size: 60
+            size: 60,
+            customization: await getDefaultCustomizationByKey("blobFlow")
         },
         nebulaDust: {
             backgroundColor: "rgb(0, 0, 0)",
             numberOfParticles: 150,
-            particlesColor: "#aa66ff"
+            particlesColor: "#aa66ff",
+            customization: await getDefaultCustomizationByKey("nebulaDust")
         },
         glassGrid: {
             backgroundColor: "rgb(0, 0, 0)",
             particlesColor: "#ffffff",
             numberOfParticles: 40,
-            particlesTransparency: 0.05
+            particlesTransparency: 0.05,
+            customization: await getDefaultCustomizationByKey("glassGrid")
         },
         orbitalRings: {
             backgroundColor: "rgb(0, 0, 0)",
             particlesColor: "#ffffff",
-            numberOfParticles: 5
+            numberOfParticles: 5,
+            customization: await getDefaultCustomizationByKey("orbitalRings")
         },
         particleDrift: {
             backgroundColor: "rgb(0, 0, 0)",
             particlesColor: "#ffffff",
-            numberOfParticles: 100
+            numberOfParticles: 100,
+            customization: await getDefaultCustomizationByKey("particleDrift")
         },
         cloudySpiral: {
             backgroundColor: "#6593c5",
@@ -319,7 +323,8 @@ async function resetBgSettings() {
             radius: 80,
             particleSize: 8,
             lapDuration: 3000,
-            numberOfParticles: 62
+            numberOfParticles: 62,
+            customization: await getDefaultCustomizationByKey("cloudySpiral")
         },
         waves: {
             firstWaveColor: "#ffffff",
@@ -328,16 +333,19 @@ async function resetBgSettings() {
             fourthWaveColor: "#ffffff",
             leftBackgroundColor: "#543ab7",
             rightBackgroundColor: "#00acc1",
-            useOnlyFirstWaveColor: false
+            useOnlyFirstWaveColor: false,
+            customization: await getDefaultCustomizationByKey("waves")
         },
         fallingLines: {
             backgroundColor: "#171717",
             particlesColor: "#ffffff",
-            numberOfLines: 3
+            numberOfLines: 3,
+            customization: await getDefaultCustomizationByKey("fallingLines")
         },
         floatingCircles: {
             backgroundColor: "#4e54c8",
-            particlesColor: "#ffffff"
+            particlesColor: "#ffffff",
+            customization: await getDefaultCustomizationByKey("floatingCircles")
         }
     }
     await saveCustomSettings(settings);
@@ -353,7 +361,7 @@ async function resetBgSettings() {
     gallery.innerHTML = "";
     effectsPanel.style.display = "none";
 
-    applyProceduralBackground("stars");
+    applyProceduralBackground(settings);
 
     return settings;
 }
@@ -400,7 +408,7 @@ document.querySelectorAll('input[name="bg-mode"]').forEach(radio => {
         setDisplay(backgroundSearchInput, "none");
         gallery.innerHTML = "";
         dynamicConfig.style.display = "none";
-        applyBackgroundMode(mode, settings, true);
+        applyBackgroundMode(settings, true);
         if (mode === "custom-image") {
             fileInput.value = "";
             fileInput.click();

@@ -8,6 +8,14 @@ include_files = ["index.html", "manifest.json"]
 
 zip_name = "New Tab Extension.zip"
 
+if os.path.exists(zip_name):
+    try:
+        os.remove(zip_name)
+        print(f"🗑️ Old archive {zip_name} was deleted.")
+    except Exception as e:
+        print(f"⚠️ Can't delete old archive {zip_name}: {e}")
+        exit(1)
+
 with zipfile.ZipFile(zip_name, "w", zipfile.ZIP_DEFLATED) as zipf:
     for folder in include_dirs:
         folder_path = os.path.join(base_dir, folder)

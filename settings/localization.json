@@ -90,31 +90,31 @@
     "uk": "<strong>Правий клік</strong> на полі (колір, шрифт, текст) — скидає до стандартних налаштувань"
   },
   "hotkeys_second_line": {
-    "en": "<strong>Ctrl + Shift + Left</strong> opens the bookmarks sidebar (if enabled)",
-    "ru": "<strong>Ctrl + Shift + Left</strong> откроет боковое меню закладок (если включено)",
-    "pl": "<strong>Ctrl + Shift + Lewo</strong> otwiera panel zakładek (jeśli włączony)",
-    "de": "<strong>Strg + Umschalt + Links</strong> öffnet die Lesezeichen-Seitenleiste (wenn aktiviert)",
-    "es": "<strong>Ctrl + Shift + Izquierda</strong> abre la barra de marcadores (si está activada)",
-    "be": "<strong>Ctrl + Shift + Left</strong> адкрые бакавое меню закладак (калі ўключана)",
-    "uk": "<strong>Ctrl + Shift + Left</strong> відкриває бокове меню закладок (якщо увімкнено)"
+    "en": "<strong>Key Left ←</strong> opens the bookmarks sidebar (if enabled)",
+    "ru": "<strong>Клавиша Left ←</strong> откроет боковое меню закладок (если включено)",
+    "pl": "<strong>Klawisz Lewo ←</strong> otwiera panel zakładek (jeśli włączony)",
+    "de": "<strong>Taste Links ←</strong> öffnet die Lesezeichen-Seitenleiste (wenn aktiviert)",
+    "es": "<strong>Tecla Izquierda ←</strong> abre la barra de marcadores (si está activada)",
+    "be": "<strong>Клавіша Left ←</strong> адкрые бакавое меню закладак (калі ўключана)",
+    "uk": "<strong>Клавіша Left ←</strong> відкриває бокове меню закладок (якщо увімкнено)"
   },
   "hotkeys_third_line": {
-    "en": "<strong>Ctrl + Shift + Right</strong> opens the main sidebar",
-    "ru": "<strong>Ctrl + Shift + Right</strong> откроет основное боковое меню",
-    "pl": "<strong>Ctrl + Shift + Prawo</strong> otwiera główny panel boczny",
-    "de": "<strong>Strg + Umschalt + Rechts</strong> öffnet die Hauptseitenleiste",
-    "es": "<strong>Ctrl + Shift + Derecha</strong> abre la barra lateral principal",
-    "be": "<strong>Ctrl + Shift + Right</strong> адкрые галоўнае бакавое меню",
-    "uk": "<strong>Ctrl + Shift + Right</strong> відкриває головне бокове меню"
+    "en": "<strong>Key Right →</strong> opens the main sidebar",
+    "ru": "<strong>Клавиша Right →</strong> откроет основное боковое меню",
+    "pl": "<strong>Klawisz Prawo →</strong> otwiera główny panel boczny",
+    "de": "<strong>Taste Rechts →</strong> öffnet die Hauptseitenleiste",
+    "es": "<strong>Tecla Derecha →</strong> abre la barra lateral principal",
+    "be": "<strong>Клавіша Right →</strong> адкрые галоўнае бакавое меню",
+    "uk": "<strong>Клавіша Right →</strong> відкриває головне бокове меню"
   },
   "hotkeys_fourth_line": {
-    "en": "<strong>Ctrl + Shift + Up</strong> creates a sticky note (if enabled)",
-    "ru": "<strong>Ctrl + Shift + Up</strong> создаст заметку (если включено)",
-    "pl": "<strong>Ctrl + Shift + Góra</strong> tworzy notatkę (jeśli włączone)",
-    "de": "<strong>Strg + Umschalt + Oben</strong> erstellt eine Haftnotiz (wenn aktiviert)",
-    "es": "<strong>Ctrl + Shift + Arriba</strong> crea una nota adhesiva (si está activado)",
-    "be": "<strong>Ctrl + Shift + Up</strong> стварае нататку (калі ўключана)",
-    "uk": "<strong>Ctrl + Shift + Up</strong> створює нотатку (якщо увімкнено)"
+    "en": "<strong>Key Up ↑</strong> creates a sticky note (if enabled)",
+    "ru": "<strong>Клавиша Up ↑</strong> создаст заметку (если включено)",
+    "pl": "<strong>Klawisz Góra ↑</strong> tworzy notatkę (jeśli włączone)",
+    "de": "<strong>Taste Oben ↑</strong> erstellt eine Haftnotiz (wenn aktiviert)",
+    "es": "<strong>Tecla Arriba ↑</strong> crea una nota adhesiva (si está activado)",
+    "be": "<strong>Клавіша Up ↑</strong> стварае нататку (калі ўключана)",
+    "uk": "<strong>Клавіша Up ↑</strong> створює нотатку (якщо увімкнено)"
   },
   "hotkeys_fifth_line": {
     "en": "<strong>Ctrl + V</strong> creates a sticky note from clipboard (if enabled)",

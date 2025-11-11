@@ -9,7 +9,7 @@ function enableBlobFlow(settings) {
     backgroundLayer.style.backgroundColor = settings.bg.blobFlow.backgroundColor;
     const ctx = canvas.getContext("2d");
 
-    const blobs = Array.from({ length: 8 }, () => ({
+    const blobs = Array.from({length: 8}, () => ({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
         r: 80 + Math.random() * settings.bg.blobFlow.size,

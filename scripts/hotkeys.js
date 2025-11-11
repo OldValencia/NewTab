@@ -6,33 +6,29 @@ document.addEventListener("keydown", async (e) => {
         target.tagName === 'TEXTAREA' ||
         target.isContentEditable;
 
-    if (e.ctrlKey && e.shiftKey) {
-        switch (e.code) {
-            case "ArrowLeft":
-                if (isEditableElement) return;
-                e.preventDefault();
-                const isBookmarksActive = settings.bookmarks?.show ?? false;
-                if (isBookmarksActive) {
-                    openBookmarksSidebar();
-                }
-                break;
-            case "ArrowRight":
-                if (isEditableElement) return;
-                e.preventDefault();
-                openMainSidebar();
-                break;
-            case "ArrowUp":
-                e.preventDefault();
-                const isStickyNotesActive = await getStickyNotesVisibilityState();
-
-                if (isStickyNotesActive) {
-                    await createStickyNote();
-                }
-                break;
-        }
-    }
-
     switch(e.code) {
+        case "ArrowLeft":
+            if (isEditableElement) return;
+            e.preventDefault();
+            const isBookmarksActive = settings.bookmarks?.show ?? false;
+            if (isBookmarksActive) {
+                openBookmarksSidebar();
+            }
+            break;
+        case "ArrowRight":
+            if (isEditableElement) return;
+            e.preventDefault();
+            openMainSidebar();
+            break;
+        case "ArrowUp":
+            if (isEditableElement) return;
+            e.preventDefault();
+            const isStickyNotesActive = await getStickyNotesVisibilityState();
+
+            if (isStickyNotesActive) {
+                await createStickyNote();
+            }
+            break;
         case "Digit1":
         case "Digit2":
         case "Digit3":
