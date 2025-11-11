@@ -76,9 +76,11 @@ function renderEditor(links) {
         });
 
         urlInput.addEventListener("input", async () => {
-            link.url = urlInput.value;
-            await saveLinksToStorage(links);
-            renderLinks(links);
+            if (validateUrlInput(urlInput)) {
+                link.url = urlInput.value;
+                await saveLinksToStorage(links);
+                renderLinks(links);
+            }
         });
 
         div.appendChild(deleteBtn);
@@ -86,6 +88,19 @@ function renderEditor(links) {
         div.appendChild(urlInput);
         linksEditor.appendChild(div);
     });
+}
+
+function validateUrlInput(input) {
+    const value = input.value.trim();
+    const isValid = value.startsWith("https://") || value.startsWith("http://");
+
+    if (!isValid && value !== "") {
+        input.style.border = "2px solid red";
+    } else {
+        input.style.border = "";
+    }
+
+    return isValid;
 }
 
 async function loadLinks() {
