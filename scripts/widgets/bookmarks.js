@@ -62,7 +62,7 @@ function getPinned() {
 }
 
 function loadBookmarks() {
-    return browser.bookmarks.getTree().then(tree => {
+    return chrome.bookmarks.getTree().then(tree => {
         allBookmarks = tree[0].children || [];
         renderBookmarkTree(allBookmarks, bookmarkTree);
     });
@@ -119,7 +119,7 @@ function createBookmarkItem(bookmark, {draggable = false} = {}) {
         const localizedMessage = await getLocalizationByKey("delete_bookmark_confirmation_window_text", settings.locale);
         showConfirmation(localizedMessage, () => {
             const openFolders = getOpenFolderPaths(bookmarkTree);
-            browser.bookmarks.remove(bookmark.id).then(() => {
+            chrome.bookmarks.remove(bookmark.id).then(() => {
                 loadBookmarks().then(() => reRenderAndRestoreOpenFolders(openFolders));
             });
         });
@@ -140,7 +140,7 @@ function createBookmarkItem(bookmark, {draggable = false} = {}) {
                 showConfirmation(`${firstConfirmationMessagePart} ${bookmark.title}\n${secondConfirmationMessagePart} ${newTitle}`,
                     () => {
                         const openFolders = getOpenFolderPaths(bookmarkTree);
-                        browser.bookmarks.update(bookmark.id, {title: newTitle}).then(() => {
+                        chrome.bookmarks.update(bookmark.id, {title: newTitle}).then(() => {
                             loadBookmarks().then(() => reRenderAndRestoreOpenFolders(openFolders));
                         });
                     },
@@ -231,7 +231,7 @@ async function renderPinned() {
         let bookmark;
 
         try {
-            bookmark = await browser.bookmarks.get(bookmarkId)
+            bookmark = await chrome.bookmarks.get(bookmarkId)
         } catch (e) {
             await unpinBookmark(bookmarkId);
             continue;

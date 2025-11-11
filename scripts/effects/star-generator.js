@@ -6,20 +6,8 @@ const STARFIELD_CONFIG = {
     shootingStarLifetime: 2500
 };
 
-const starObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (!entry.isIntersecting) {
-            entry.target.remove();
-        }
-    });
-}, {
-    root: null,
-    threshold: 0
-});
-
 function disableStarfield() {
     document.querySelectorAll(".star, .mini-star, .shooting-star").forEach(el => {
-        starObserver.unobserve(el);
         el.remove();
     });
     clearInterval(window.starfieldInterval);
@@ -38,7 +26,6 @@ function enableStarfield() {
 function createShootingStar() {
     const {innerWidth: width} = window;
     const star = document.createElement('div');
-    starObserver.observe(star);
     star.classList.add('shooting-star');
     star.style.top = Math.random() * (width * 0.5) + 'px';
     star.style.left = (width * 0.7 + Math.random() * width * 0.3) + 'px';
@@ -49,7 +36,6 @@ function createShootingStar() {
 function createStar({mini = false} = {}) {
     const {innerWidth: width, innerHeight: height} = window;
     const star = document.createElement('div');
-    starObserver.observe(star);
     star.classList.add(mini ? 'mini-star' : 'star');
 
     const size = mini ? Math.random() + 0.2 : Math.random() * 2 + 0.5;

@@ -3,16 +3,16 @@ let inactivityStart = Date.now();
 let timerId = null;
 
 function showNotification(title, body, link) {
-    browser.notifications.create({
+    chrome.notifications.create({
         type: "basic",
         iconUrl: "icons/icon-96.png",
         title: title,
         message: body
     }).then(notificationId => {
         if (link) {
-            browser.notifications.onClicked.addListener((clickedId) => {
+            chrome.notifications.onClicked.addListener((clickedId) => {
                 if (clickedId === notificationId) {
-                    browser.tabs.create({url: link});
+                    chrome.tabs.create({url: link});
                 }
             });
         }
@@ -28,13 +28,13 @@ function resetChecker() {
 
 function startBackgroundChecker() {
     const isNotificationsEnabled = async () => {
-        const result = await browser.storage.local.get("isNotificationsEnabled");
+        const result = await chrome.storage.local.get("isNotificationsEnabled");
         return result.isNotificationsEnabled || false;
     }
     if (!isNotificationsEnabled()) return;
 
     timerId = setInterval(async () => {
-        const result = await browser.storage.local.get("customNotifications");
+        const result = await chrome.storage.local.get("customNotifications");
         const notifications = result.customNotifications || [];
 
         const now = new Date();
@@ -81,20 +81,20 @@ function startBackgroundChecker() {
             }
         }
 
-        await browser.storage.local.set({customNotifications: notifications});
+        await chrome.storage.local.set({customNotifications: notifications});
     }, checkInterval);
 }
 
 startBackgroundChecker();
 
-browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
+chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
     if (changeInfo.status === "complete") {
-        const result = await browser.storage.local.get("customNotifications");
+        const result = await chrome.storage.local.get("customNotifications");
         const notifications = result.customNotifications || [];
         const currentURL = tab.url;
 
         const isNotificationsEnabled = async () => {
-            const result = await browser.storage.local.get("isNotificationsEnabled");
+            const result = await chrome.storage.local.get("isNotificationsEnabled");
             return result.isNotificationsEnabled || false;
         }
         if (!await isNotificationsEnabled()) return;
@@ -112,7 +112,7 @@ browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
                 }
                 notif.lastTriggeredAt = now;
 
-                await browser.storage.local.set({customNotifications: notifications});
+                await chrome.storage.local.set({customNotifications: notifications});
             }
         }
     }

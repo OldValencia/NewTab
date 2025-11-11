@@ -12,8 +12,6 @@ async function enrichObserverMetadata(settings) {
     if (!settings) return settings;
 
     settings.lastUpdated = Date.now();
-    settings.info = await browser.runtime.getBrowserInfo();
-    settings.platform = await browser.runtime.getPlatformInfo();
 
     return settings;
 }
@@ -273,7 +271,7 @@ window.addEventListener("beforeunload", () => {
     const settings = loadCustomSettings();
 
     if (settings.autoCloudSave) {
-        browser.storage.local.set({custom_settings: settings});
+        chrome.storage.local.set({custom_settings: settings});
     }
 });
 
@@ -281,7 +279,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     const localSettings = loadCustomSettings();
 
     if (localSettings.autoCloudSave) {
-        const settings = await browser.storage.local.get("custom_settings");
+        const settings = await chrome.storage.local.get("custom_settings");
 
         if (localSettings.toString() !== settings?.custom_settings?.toString()) {
             const localLast = localSettings.lastUpdated ? new Date(localSettings.lastUpdated).getTime() : 0;
@@ -301,20 +299,16 @@ window.addEventListener("DOMContentLoaded", async () => {
                 `${confirmationLocalizedText[0]}
                 ${confirmationLocalizedText[1]}
                 ${confirmationLocalizedText[2]}${localLast}
-                ${confirmationLocalizedText[3]}${localSettings.platform.os} (${localSettings.platform.arch})
-                ${confirmationLocalizedText[4]}${localSettings.info.version}\n\n
 
                 ${confirmationLocalizedText[6]}
                 ${confirmationLocalizedText[2]}${cloudLast}
-                ${confirmationLocalizedText[3]}${settings?.custom_settings?.platform?.os || confirmationLocalizedText[7]} (${settings?.custom_settings?.platform?.arch || confirmationLocalizedText[7]})
-                ${confirmationLocalizedText[4]}${settings?.custom_settings?.info?.version || confirmationLocalizedText[7]}\n\n
                 ${confirmationLocalizedText[5]}`,
                 async () => {
                     if (!settings?.custom_settings) return
                     await saveCustomSettings(settings.custom_settings);
                 },
                 async () => {
-                    await browser.storage.local.set({custom_settings: localSettings});
+                    await chrome.storage.local.set({custom_settings: localSettings});
                 });
         }
     }

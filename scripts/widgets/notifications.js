@@ -2,10 +2,10 @@ const addCustomNotificationButton = document.getElementById("add-custom-notifica
 const notificationEditorId = "notif-editor";
 
 function saveNotification(notification) {
-    browser.storage.local.get("customNotifications").then(result => {
+    chrome.storage.local.get("customNotifications").then(result => {
         const notifications = result.customNotifications || [];
         notifications.push(notification);
-        browser.storage.local.set({customNotifications: notifications}).then(async () => {
+        chrome.storage.local.set({customNotifications: notifications}).then(async () => {
             const settings = loadCustomSettings();
             alert(await getLocalizationByKey("notification_saved_alert_message", settings.locale));
             resetChecker();
@@ -59,7 +59,7 @@ async function showNotificationList(editorContainer) {
     const notificationButtonDeactivateText = await getLocalizationByKey("saved_notifications_deactivate_button_text", settings.locale);
     const notificationButtonActivateText = await getLocalizationByKey("saved_notifications_activate_button_text", settings.locale);
 
-    browser.storage.local.get("customNotifications").then(result => {
+    chrome.storage.local.get("customNotifications").then(result => {
         const notifications = result.customNotifications || [];
 
         if (notifications.length === 0) {
@@ -89,7 +89,7 @@ async function showNotificationList(editorContainer) {
             activateBtn.style.background = notifications[index].active ? "linear-gradient(135deg, #d9534f, #ff6b6b)" : "linear-gradient(135deg, #28a745, #5cd67a)";
             activateBtn.addEventListener("click", () => {
                 notifications[index].active = !notifications[index].active;
-                browser.storage.local.set({customNotifications: notifications}).then(() => {
+                chrome.storage.local.set({customNotifications: notifications}).then(() => {
                     listContainer.remove();
                     showNotificationList(editorContainer);
                 });
@@ -101,7 +101,7 @@ async function showNotificationList(editorContainer) {
             deleteBtn.setAttribute("data-value-localization-key", "saved_notifications_delete_button_text");
             deleteBtn.addEventListener("click", () => {
                 notifications.splice(index, 1);
-                browser.storage.local.set({customNotifications: notifications}).then(() => {
+                chrome.storage.local.set({customNotifications: notifications}).then(() => {
                     listContainer.remove();
                     showNotificationList(editorContainer);
                 });
@@ -361,16 +361,16 @@ async function createNotificationEditor() {
 }
 
 function showNotification(title, body, link) {
-    browser.notifications.create({
+    chrome.notifications.create({
         type: "basic",
         iconUrl: "icons/icon-96.png",
         title: title,
         message: body
     }).then(notificationId => {
         if (link) {
-            browser.notifications.onClicked.addListener((clickedId) => {
+            chrome.notifications.onClicked.addListener((clickedId) => {
                 if (clickedId === notificationId) {
-                    browser.tabs.create({url: link});
+                    chrome.tabs.create({url: link});
                 }
             });
         }
@@ -387,12 +387,12 @@ addCustomNotificationButton?.addEventListener("click", async () => {
 });
 
 async function checkTemperatureNotifications(currentTemperature) {
-    const result = await browser.storage.local.get("customNotifications");
+    const result = await chrome.storage.local.get("customNotifications");
     const notifications = result.customNotifications || [];
     const now = Date.now();
 
     const isNotificationsEnabled = async () => {
-        const result = await browser.storage.local.get("isNotificationsEnabled");
+        const result = await chrome.storage.local.get("isNotificationsEnabled");
         return result.isNotificationsEnabled || false;
     }
     if (!await isNotificationsEnabled()) return;
@@ -414,5 +414,5 @@ async function checkTemperatureNotifications(currentTemperature) {
         }
     }
 
-    await browser.storage.local.set({customNotifications: notifications});
+    await chrome.storage.local.set({customNotifications: notifications});
 }
