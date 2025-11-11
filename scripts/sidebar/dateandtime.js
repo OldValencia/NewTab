@@ -232,47 +232,24 @@ function getLocalizedTimezoneOptions(lang = defaultLocale) {
 }
 
 async function loadTimeAndDate() {
-    await loadDefaultCustomizationSettings();
     const settings = loadCustomSettings();
-
-    if (!settings.timeAndDate) {
-        settings.timeAndDate = {
-            elements: 1,
-            showTime: true,
-            showDate: true,
-            clocks: [
-                {
-                    timeFont: defaultTimeAndDateFont,
-                    timeColor: defaultTimeColor,
-                    dateFont: defaultTimeAndDateFont,
-                    dateColor: defaultDateColor,
-                    timeFormat: defaultTimeFormat,
-                    dateFormat: defaultDateFormat,
-                    timezone: defaultTimezone,
-                    timeShadow: { ...DEFAULT_SHADOW },
-                    dateShadow: { ...DEFAULT_SHADOW }
-                }
-            ]
-        }
-        await saveCustomSettings(settings);
-    }
 
     // Clear container
     timeAndDateControlsContainer.innerHTML = "";
 
-    toggleTime.checked = settings.timeAndDate.showTime;
+    toggleTime.checked = settings.bg[settings.bg.bgMode].customization.showTime;
     const timeElements = multipleClocksWrapper.querySelectorAll('.time');
     timeElements.forEach(time => {
-        time.style.display = settings.timeAndDate.showTime ? "block" : "none";
+        time.style.display = settings.bg[settings.bg.bgMode].customization.showTime ? "block" : "none";
     });
 
-    toggleDate.checked = settings.timeAndDate.showDate;
+    toggleDate.checked = settings.bg[settings.bg.bgMode].customization.showDate;
     const dateElements = multipleClocksWrapper.querySelectorAll('.date');
     dateElements.forEach(date => {
-        date.style.display = settings.timeAndDate.showDate ? "block" : "none";
+        date.style.display = settings.bg[settings.bg.bgMode].customization.showDate ? "block" : "none";
     });
     // Render controls for each clock
-    for (let i = 0; i < settings.timeAndDate.elements; i++) {
+    for (let i = 0; i < settings.bg[settings.bg.bgMode].customization.elements; i++) {
         const element = document.createElement("div");
         element.className = `time-and-date-wrapper`;
         element.style.position = "relative";
@@ -412,7 +389,7 @@ async function loadTimeAndDate() {
     function addEventListenerFor(element, inputEventType, i, jsonVariable, defaultValue) {
         element.addEventListener(inputEventType, async e => {
             const settings = loadCustomSettings();
-            const clockSettings = settings.timeAndDate.clocks[i];
+            const clockSettings = settings.bg[settings.bg.bgMode].customization.clocks[i];
             clockSettings[jsonVariable] = e.target.value;
             await saveCustomSettings(settings);
             updateTime();
@@ -420,7 +397,7 @@ async function loadTimeAndDate() {
         element.addEventListener("contextmenu", async e => {
             e.preventDefault();
             const settings = loadCustomSettings();
-            const clockSettings = settings.timeAndDate.clocks[i];
+            const clockSettings = settings.bg[settings.bg.bgMode].customization.clocks[i];
             clockSettings[jsonVariable] = defaultValue;
             element.value = clockSettings[jsonVariable];
             await saveCustomSettings(settings);
@@ -445,19 +422,11 @@ async function loadTimeAndDate() {
         const shadowDirBtns = shadowDirectionGrid.querySelectorAll('.shadow-dir-btn');
         const shadowOffsetDisplay = wrapper.querySelector(`#shadow-offset-display-${i}`);
         // Load settings for each clock
-        if (!settings.timeAndDate.clocks[i]) {
-            settings.timeAndDate.clocks[i] = {
-                timeFont: defaultTimeAndDateFont,
-                timeColor: defaultTimeColor,
-                dateFont: defaultTimeAndDateFont,
-                dateColor: defaultDateColor,
-                timeFormat: defaultTimeFormat,
-                dateFormat: defaultDateFormat,
-                timezone: defaultTimezone
-            };
+        if (!settings.bg[settings.bg.bgMode].customization.clocks[i]) {
+            settings.bg[settings.bg.bgMode].customization.clocks[i] = (await getDefaultCustomizationByKey(settings.bg.bgMode)).clocks[0];
             await saveCustomSettings(settings);
         }
-        const clockSettings = settings.timeAndDate.clocks[i];
+        const clockSettings = settings.bg[settings.bg.bgMode].customization.clocks[i];
         timeFontSelect.value = clockSettings.timeFont;
         timeColorInput.value = clockSettings.timeColor;
         dateFontSelect.value = clockSettings.dateFont;
@@ -485,7 +454,7 @@ async function loadTimeAndDate() {
         dateLabel.addEventListener('click', () => setActiveShadowTarget('date'));
         // Helper: get/set shadow for active target
         function getShadowSettings() {
-            const clockSettings = settings.timeAndDate.clocks[i];
+            const clockSettings = settings.bg[settings.bg.bgMode].customization.clocks[i];
             if (activeShadowTarget === 'time') {
                 if (!clockSettings.timeShadow) clockSettings.timeShadow = { ...DEFAULT_SHADOW };
                 return clockSettings.timeShadow;
@@ -495,7 +464,7 @@ async function loadTimeAndDate() {
             }
         }
         function setShadowSettings(newShadow) {
-            const clockSettings = settings.timeAndDate.clocks[i];
+            const clockSettings = settings.bg[settings.bg.bgMode].customization.clocks[i];
             if (activeShadowTarget === 'time') {
                 clockSettings.timeShadow = { ...clockSettings.timeShadow, ...newShadow };
             } else {
@@ -596,8 +565,8 @@ async function loadTimeAndDate() {
         removeElementBtn.addEventListener("click", async () => {
             const settings = loadCustomSettings();
             if (timeAndDateControlsContainer.childNodes.length > 1) {
-                settings.timeAndDate.clocks.splice(i, 1);
-                settings.timeAndDate.elements--;
+                settings.bg[settings.bg.bgMode].customization.clocks.splice(i, 1);
+                settings.bg[settings.bg.bgMode].customization.elements--;
                 await saveCustomSettings(settings);
                 await loadTimeAndDate(settings);
             }
@@ -610,9 +579,9 @@ async function loadTimeAndDate() {
 
 addClockButton.addEventListener("click", async () => {
     const settings = loadCustomSettings();
-    if (!settings.timeAndDate.elements) settings.timeAndDate.elements = 1;
-    if (settings.timeAndDate.elements < 3) {
-        settings.timeAndDate.elements++;
+    if (!settings.bg[settings.bg.bgMode].customization.elements) settings.bg[settings.bg.bgMode].customization.elements = 1;
+    if (settings.bg[settings.bg.bgMode].customization.elements < 3) {
+        settings.bg[settings.bg.bgMode].customization.elements++;
         await saveCustomSettings(settings);
         await loadTimeAndDate(settings);
     }
@@ -620,18 +589,9 @@ addClockButton.addEventListener("click", async () => {
 
 document.getElementById("reset-time-date").addEventListener("click", async () => {
     const settings = loadCustomSettings();
-    settings.timeAndDate.elements = 1;
-    settings.timeAndDate.showTime = true;
-    settings.timeAndDate.showDate = true;
-    settings.timeAndDate.clocks = [{
-        timeFont: defaultTimeAndDateFont,
-        timeColor: defaultTimeColor,
-        dateFont: defaultTimeAndDateFont,
-        dateColor: defaultDateColor,
-        timeFormat: defaultTimeFormat,
-        dateFormat: defaultDateFormat,
-        timezone: defaultTimezone
-    }];
+    const tempLinksColor = settings.bg[settings.bg.bgMode].customization.linksColor;
+    settings.bg[settings.bg.bgMode].customization = await getDefaultCustomizationByKey(settings.bg.bgMode);
+    settings.bg[settings.bg.bgMode].customization.linksColor = tempLinksColor;
     await saveCustomSettings(settings);
     await loadTimeAndDate(settings);
 });

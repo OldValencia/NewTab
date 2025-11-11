@@ -1,6 +1,9 @@
 {
   "stars": {
     "linksColor": "#fff",
+    "showTime": true,
+    "showDate": true,
+    "elements": 1,
     "clocks": [
       {
         "timeFont": "SF Pro Display",
@@ -29,6 +32,9 @@
   },
   "blobFlow": {
     "linksColor": "#fff",
+    "showTime": true,
+    "showDate": true,
+    "elements": 1,
     "clocks": [
       {
         "timeFont": "Verdana",
@@ -57,6 +63,9 @@
   },
   "cloudySpiral": {
     "linksColor": "#15507b",
+    "showTime": true,
+    "showDate": true,
+    "elements": 1,
     "clocks": [
       {
         "timeFont": "Roboto",
@@ -67,16 +76,16 @@
         "dateFormat": "day-month-year",
         "timezone": "local",
         "timeShadow": {
-          "color": "#000000",
-          "opacity": 0,
-          "blur": 0,
+          "color": "#e2e3fc",
+          "opacity": 0.71,
+          "blur": 7,
           "offsetX": 0,
           "offsetY": 0
         },
         "dateShadow": {
-          "color": "#000000",
-          "opacity": 0,
-          "blur": 0,
+          "color": "#e2e3fc",
+          "opacity": 0.65,
+          "blur": 4,
           "offsetX": 0,
           "offsetY": 0
         }
@@ -85,6 +94,9 @@
   },
   "fallingLines": {
     "linksColor": "#ffffff",
+    "showTime": true,
+    "showDate": true,
+    "elements": 1,
     "clocks": [
       {
         "timeFont": "Halvetica",
@@ -113,6 +125,9 @@
   },
   "floatingCircles": {
     "linksColor": "#ffffff",
+    "showTime": true,
+    "showDate": true,
+    "elements": 1,
     "clocks": [
       {
         "timeFont": "Courier New",
@@ -141,6 +156,9 @@
   },
   "glassGrid": {
     "linksColor": "#fff",
+    "showTime": true,
+    "showDate": true,
+    "elements": 1,
     "clocks": [
       {
         "timeFont": "Georgia",
@@ -169,6 +187,9 @@
   },
   "nebulaDust": {
     "linksColor": "#fff",
+    "showTime": true,
+    "showDate": true,
+    "elements": 1,
     "clocks": [
       {
         "timeFont": "Courier New",
@@ -197,6 +218,9 @@
   },
   "orbitalRings": {
     "linksColor": "#fff",
+    "showTime": true,
+    "showDate": true,
+    "elements": 1,
     "clocks": [
       {
         "timeFont": "Tahoma",
@@ -225,6 +249,9 @@
   },
   "particleDrift": {
     "linksColor": "#fff",
+    "showTime": true,
+    "showDate": true,
+    "elements": 1,
     "clocks": [
       {
         "timeFont": "Arial",
@@ -253,6 +280,9 @@
   },
   "solarSystem": {
     "linksColor": "#ffffff",
+    "showTime": true,
+    "showDate": true,
+    "elements": 1,
     "clocks": [
       {
         "timeFont": "Tahoma",
@@ -264,11 +294,12 @@
         "timezone": "local",
         "timeShadow": {
           "color": "#000000",
-          "opacity": 0,
-          "blur": 0,
-          "offsetX": 0,
-          "offsetY": 0
+          "opacity": 0.87,
+          "blur": 19,
+          "offsetX": 2,
+          "offsetY": 2
         },
+
         "dateShadow": {
           "color": "#000000",
           "opacity": 0,
@@ -281,6 +312,9 @@
   },
   "waves": {
     "linksColor": "#2974bc",
+    "showTime": true,
+    "showDate": true,
+    "elements": 1,
     "clocks": [
       {
         "timeFont": "SF Pro Display",
@@ -292,17 +326,17 @@
         "timezone": "local",
         "timeShadow": {
           "color": "#000000",
-          "opacity": 0,
-          "blur": 0,
-          "offsetX": 0,
-          "offsetY": 0
+          "opacity": 0.27,
+          "blur": 5,
+          "offsetX": 2,
+          "offsetY": 2
         },
         "dateShadow": {
           "color": "#000000",
-          "opacity": 0,
-          "blur": 0,
-          "offsetX": 0,
-          "offsetY": 0
+          "opacity": 0.34,
+          "blur": 5,
+          "offsetX": 1,
+          "offsetY": 1
         }
       }
     ]
