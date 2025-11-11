@@ -43,8 +43,8 @@ function renderLinks(links) {
         const a = document.createElement("a");
         a.className = "link";
         a.href = link.url;
-        a.style.setProperty("--link-color", adjustColor(settings.links.linkColor, -0.2));
-        a.style.setProperty("--link-hover-color", adjustColor(settings.links.linkColor, 0.3));
+        a.style.setProperty("--link-color", adjustColor(settings.bg[settings.bg.bgMode].customization.linksColor, -0.2));
+        a.style.setProperty("--link-hover-color", adjustColor(settings.bg[settings.bg.bgMode].customization.linksColor, 0.3));
         if (settings.links.openInNewTabState) {
             a.target = "_blank";
         }

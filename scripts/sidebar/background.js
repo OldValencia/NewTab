@@ -259,7 +259,10 @@ function enableProceduralBackground(settings) {
     if (modeHandlers[settings.bg.bgMode]) {
         modeHandlers[settings.bg.bgMode]();
         setLinksColor(settings.bg[settings.bg.bgMode].customization.linksColor || "#ffffff");
-        (async () => await loadTimeAndDate())();
+        (async () => {
+            await loadTimeAndDate();
+            await loadLinks();
+        })();
     }
 }
 

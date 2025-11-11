@@ -96,8 +96,7 @@ async function loadLinks() {
         settings.links = {
             underlineLinksOnHover: false,
             showLinks: true,
-            openInNewTabState: false,
-            linkColor: "#dbdbdb"
+            openInNewTabState: false
         };
         await saveCustomSettings(settings);
     }
@@ -105,7 +104,7 @@ async function loadLinks() {
     renderEditor(links);
 
     linksContainer.style.display = settings.links.showLinks ? "grid" : "none";
-    linksColorInput.value = settings.links.linkColor;
+    linksColorInput.value = settings.bg[settings.bg.bgMode].customization.linksColor;
 
     let cols = settings.cols || 3;
     colsValue.textContent = cols;
@@ -167,7 +166,7 @@ addLinkBtn.addEventListener("click", async () => {
 
 linksColorInput.addEventListener("input", async () => {
     const settings = loadCustomSettings();
-    settings.links.linkColor = linksColorInput.value;
+    settings.bg[settings.bg.bgMode].customization.linksColor = linksColorInput.value;
     await saveCustomSettings(settings);
     const links = await getLinksFromStorage();
     renderLinks(links);
@@ -177,7 +176,7 @@ linksColorInput.addEventListener("contextmenu", async (e) => {
     e.preventDefault();
     linksColorInput.value = "#dbdbdb";
     const settings = loadCustomSettings();
-    settings.links.linkColor = linksColorInput.value;
+    settings.bg[settings.bg.bgMode].customization.linksColor = linksColorInput.value;
     await saveCustomSettings(settings);
     const links = await getLinksFromStorage();
     renderLinks(links);
