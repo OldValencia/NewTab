@@ -11,14 +11,13 @@
 <img src="./icons/icon-96.svg" alt="Loom Icon" width="500px"/>
 </p>
 
----
-# Screenshots
+## Screenshots
 
 ### Main page
 ![Main page](Screenshots/Main_page.png "Main page")
-## Bookmarks and widgets
+### Bookmarks and widgets
 ![Widgets](Screenshots/Widgets.png "Time and date format, sidebar")
-## Sidebar
+### Sidebar
 ![Sidebar.png](Screenshots/Sidebar.png "Search bar widget")
 
 ---
