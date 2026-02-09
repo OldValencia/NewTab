@@ -1,5 +1,9 @@
 const backgroundLayer = document.getElementById("background-layer");
 
+let settingsCache = null;
+let cacheTimestamp = 0;
+const CACHE_DURATION = 100;
+
 function debounce(func, delay) {
     let timeout;
     return function (...args) {
@@ -8,33 +12,51 @@ function debounce(func, delay) {
     };
 }
 
+function throttle(fn, delay) {
+    let lastCall = 0;
+    return function (...args) {
+        const now = Date.now();
+        if (now - lastCall >= delay) {
+            lastCall = now;
+            fn(...args);
+        }
+    };
+}
+
 async function enrichObserverMetadata(settings) {
     if (!settings) return settings;
-
     settings.lastUpdated = Date.now();
-    settings.info = await browser.runtime.getBrowserInfo();
-    settings.platform = await browser.runtime.getPlatformInfo();
-
+    const [info, platform] = await Promise.all([
+        browser.runtime.getBrowserInfo(),
+        browser.runtime.getPlatformInfo()
+    ]);
+    settings.info = info;
+    settings.platform = platform;
     return settings;
 }
 
 async function saveCustomSettings(settings) {
     if (!settings) return;
-
-    await enrichObserverMetadata(settings).then(enriched => {
-        localStorage.setItem("custom_settings", JSON.stringify(enriched));
-    })
+    settingsCache = settings;
+    cacheTimestamp = Date.now();
+    const enriched = await enrichObserverMetadata(settings);
+    localStorage.setItem("custom_settings", JSON.stringify(enriched));
 }
 
 function loadCustomSettings() {
+    const now = Date.now();
+    if (settingsCache && (now - cacheTimestamp) < CACHE_DURATION) {
+        return settingsCache;
+    }
     const json = localStorage.getItem("custom_settings");
-    return json ? JSON.parse(json) : {};
+    settingsCache = json ? JSON.parse(json) : {};
+    cacheTimestamp = now;
+    return settingsCache;
 }
 
 function applyBackgroundEffects(settings) {
     const blur = settings.bg.bgBlur || 0;
     const brightness = settings.bg.bgBrightness || 100;
-
     backgroundLayer.style.filter = `blur(${blur}px) brightness(${brightness}%)`;
     const intensity = settings.bg.bgVignette;
     const alpha = intensity / 100 * 0.8;
@@ -50,36 +72,23 @@ async function applyBackgroundFit(fit) {
         bgFit.value = fit;
     }
 
-    switch (fit) {
-        case "cover":
-            backgroundLayer.style.backgroundSize = "cover";
-            backgroundLayer.style.backgroundRepeat = "no-repeat";
-            backgroundLayer.style.backgroundPosition = "center";
-            break;
-        case "contain":
-            backgroundLayer.style.backgroundSize = "contain";
-            backgroundLayer.style.backgroundRepeat = "no-repeat";
-            backgroundLayer.style.backgroundPosition = "center";
-            break;
-        case "repeat":
-            backgroundLayer.style.backgroundSize = "auto";
-            backgroundLayer.style.backgroundRepeat = "repeat";
-            backgroundLayer.style.backgroundPosition = "top left";
-            break;
-        case "stretch":
-            backgroundLayer.style.backgroundSize = "100% 100%";
-            backgroundLayer.style.backgroundRepeat = "no-repeat";
-            backgroundLayer.style.backgroundPosition = "center";
-            break;
-        case "center":
-            backgroundLayer.style.backgroundSize = "auto";
-            backgroundLayer.style.backgroundRepeat = "no-repeat";
-            backgroundLayer.style.backgroundPosition = "center";
-            break;
+    const styles = {
+        cover: { size: "cover", repeat: "no-repeat", position: "center" },
+        contain: { size: "contain", repeat: "no-repeat", position: "center" },
+        repeat: { size: "auto", repeat: "repeat", position: "top left" },
+        stretch: { size: "100% 100%", repeat: "no-repeat", position: "center" },
+        center: { size: "auto", repeat: "no-repeat", position: "center" }
+    };
+
+    const style = styles[fit];
+    if (style) {
+        backgroundLayer.style.backgroundSize = style.size;
+        backgroundLayer.style.backgroundRepeat = style.repeat;
+        backgroundLayer.style.backgroundPosition = style.position;
     }
 }
 
-function adjustColor(hex, percent) {//percent positive - lightens the color, negative - darkens it
+function adjustColor(hex, percent) {
     const rgb = hex.replace("#", "").match(/.{2}/g).map(x => parseInt(x, 16));
     const adjusted = rgb.map(c => {
         const delta = Math.round(255 * percent);
@@ -99,48 +108,47 @@ function hexToRgba(hex, alpha = 1) {
 }
 
 async function createColorInput(localizationKey, labelId, defaultColor, bgMode, bgModeVariable, onChangeCallback) {
+    const settings = loadCustomSettings();
     const colorLabel = document.createElement("label");
     colorLabel.setAttribute("for", labelId);
-    const settings = loadCustomSettings();
     colorLabel.textContent = await getLocalizationByKey(localizationKey, settings.locale);
+
     const colorInput = document.createElement("input");
     colorInput.type = "color";
     colorInput.id = labelId;
     colorInput.value = defaultColor;
+
     const debounceColorHandler = debounce(async (e) => {
         const settings = loadCustomSettings();
         settings.bg[bgMode][bgModeVariable] = e.target.value;
-        colorInput.value = e.target.value;
         await saveCustomSettings(settings);
-
         if (typeof onChangeCallback === "function") {
             onChangeCallback(settings);
         }
     }, 200);
-    colorInput.addEventListener("input", debounceColorHandler);
 
+    colorInput.addEventListener("input", debounceColorHandler);
     colorInput.addEventListener("contextmenu", async (e) => {
         e.preventDefault();
         const settings = loadCustomSettings();
         settings.bg[bgMode][bgModeVariable] = defaultColor;
-        colorInput.value = settings.bg[bgMode][bgModeVariable];
+        colorInput.value = defaultColor;
         await saveCustomSettings(settings);
-
         if (typeof onChangeCallback === "function") {
             onChangeCallback(settings);
         }
     });
 
     colorLabel.appendChild(colorInput);
-
     return colorLabel;
 }
 
 async function createRangeInput(localizationKey, labelId, labelMin, labelMax, labelStep, defaultValue, bgMode, bgModeVariable, onChangeCallback) {
+    const settings = loadCustomSettings();
     const rangeLabel = document.createElement("label");
     rangeLabel.setAttribute("for", labelId);
-    const settings = loadCustomSettings();
     rangeLabel.textContent = await getLocalizationByKey(localizationKey, settings.locale);
+
     const rangeInput = document.createElement("input");
     rangeInput.type = "range";
     rangeInput.id = labelId;
@@ -148,61 +156,58 @@ async function createRangeInput(localizationKey, labelId, labelMin, labelMax, la
     rangeInput.max = labelMax;
     rangeInput.step = labelStep;
     rangeInput.value = defaultValue;
+
     const debounceSizeHandler = debounce(async (e) => {
         const settings = loadCustomSettings();
         settings.bg[bgMode][bgModeVariable] = e.target.value;
-        rangeInput.value = e.target.value;
         await saveCustomSettings(settings);
-
         if (typeof onChangeCallback === "function") {
             onChangeCallback(settings);
         }
     }, 200);
-    rangeInput.addEventListener("input", debounceSizeHandler);
 
+    rangeInput.addEventListener("input", debounceSizeHandler);
     rangeInput.addEventListener("contextmenu", async (e) => {
         e.preventDefault();
         const settings = loadCustomSettings();
         settings.bg[bgMode][bgModeVariable] = defaultValue;
-        rangeInput.value = settings.bg[bgMode][bgModeVariable];
+        rangeInput.value = defaultValue;
         await saveCustomSettings(settings);
-
         if (typeof onChangeCallback === "function") {
             onChangeCallback(settings);
         }
     });
 
     rangeLabel.appendChild(rangeInput);
-
     return rangeLabel;
 }
 
 async function createCheckbox(localizationKey, labelId, defaultValue, bgMode, bgModeVariable, onChangeCallback) {
+    const settings = loadCustomSettings();
     const checkboxLabel = document.createElement("label");
     checkboxLabel.setAttribute("for", labelId);
-    const settings = loadCustomSettings();
     checkboxLabel.textContent = await getLocalizationByKey(localizationKey, settings.locale);
+
     const checkboxInput = document.createElement("input");
     checkboxInput.type = "checkbox";
     checkboxInput.id = labelId;
     checkboxInput.checked = defaultValue;
+
     const debounceSizeHandler = debounce(async (e) => {
         const settings = loadCustomSettings();
         settings.bg[bgMode][bgModeVariable] = e.target.checked;
-        checkboxInput.checked = e.target.checked;
         await saveCustomSettings(settings);
-
         if (typeof onChangeCallback === "function") {
             onChangeCallback(settings);
         }
     }, 200);
+
     checkboxInput.addEventListener("change", debounceSizeHandler);
     checkboxLabel.appendChild(checkboxInput);
-
     return checkboxLabel;
 }
 
-function showConfirmation(message, onConfirm, onCancel = {}) {
+function showConfirmation(message, onConfirm, onCancel = () => {}) {
     const modal = document.getElementById("confirm-modal");
     const msg = document.getElementById("confirm-message");
     const yesBtn = document.getElementById("confirm-yes");
@@ -215,6 +220,7 @@ function showConfirmation(message, onConfirm, onCancel = {}) {
         modal.classList.add("hidden");
         yesBtn.onclick = null;
         noBtn.onclick = null;
+        document.removeEventListener("keydown", handleKey);
     };
 
     const handleKey = (e) => {
@@ -240,38 +246,42 @@ function showConfirmation(message, onConfirm, onCancel = {}) {
     };
 
     document.addEventListener("keydown", handleKey);
-
     setTimeout(cleanup, 60000);
 }
 
 function makeContainerDraggable(container, handler = "#drag-handle") {
     const dragHandle = container.querySelector(handler);
+    if (!dragHandle) return;
+
     let isDragging = false;
     let offsetX, offsetY;
 
-    dragHandle.addEventListener("mousedown", (e) => {
+    const handleMouseDown = (e) => {
         isDragging = true;
         offsetX = e.clientX - container.offsetLeft;
         offsetY = e.clientY - container.offsetTop;
         document.body.style.userSelect = "none";
-    });
+    };
 
-    document.addEventListener("mousemove", (e) => {
+    const handleMouseMove = (e) => {
         if (isDragging) {
             container.style.left = `${e.clientX - offsetX}px`;
             container.style.top = `${e.clientY - offsetY}px`;
         }
-    });
+    };
 
-    document.addEventListener("mouseup", () => {
+    const handleMouseUp = () => {
         isDragging = false;
         document.body.style.userSelect = "";
-    });
+    };
+
+    dragHandle.addEventListener("mousedown", handleMouseDown);
+    document.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseup", handleMouseUp);
 }
 
 window.addEventListener("beforeunload", () => {
     const settings = loadCustomSettings();
-
     if (settings.autoCloudSave) {
         browser.storage.local.set({custom_settings: settings});
     }
@@ -286,16 +296,21 @@ window.addEventListener("DOMContentLoaded", async () => {
         if (localSettings.toString() !== settings?.custom_settings?.toString()) {
             const localLast = localSettings.lastUpdated ? new Date(localSettings.lastUpdated).getTime() : 0;
             const cloudLast = settings?.custom_settings?.lastUpdated ? new Date(settings.custom_settings.lastUpdated).getTime() : 0;
-            const confirmationLocalizedText = [
-                await getLocalizationByKey("main_confirmation_window_dom_loaded_auto_save_cloud_first_line", localSettings.locale),
-                await getLocalizationByKey("main_confirmation_window_dom_loaded_auto_save_cloud_second_line", localSettings.locale),
-                await getLocalizationByKey("main_confirmation_window_dom_loaded_auto_save_cloud_third_line", localSettings.locale),
-                await getLocalizationByKey("main_confirmation_window_dom_loaded_auto_save_cloud_fourth_line", localSettings.locale),
-                await getLocalizationByKey("main_confirmation_window_dom_loaded_auto_save_cloud_fifth_line", localSettings.locale),
-                await getLocalizationByKey("main_confirmation_window_dom_loaded_auto_save_cloud_sixth_line", localSettings.locale),
-                await getLocalizationByKey("main_confirmation_window_dom_loaded_auto_save_cloud_cloud_settings_metadata_text", localSettings.locale),
-                await getLocalizationByKey("main_confirmation_window_dom_loaded_auto_save_cloud_not_available_na_text", localSettings.locale),
+
+            const keys = [
+                "main_confirmation_window_dom_loaded_auto_save_cloud_first_line",
+                "main_confirmation_window_dom_loaded_auto_save_cloud_second_line",
+                "main_confirmation_window_dom_loaded_auto_save_cloud_third_line",
+                "main_confirmation_window_dom_loaded_auto_save_cloud_fourth_line",
+                "main_confirmation_window_dom_loaded_auto_save_cloud_fifth_line",
+                "main_confirmation_window_dom_loaded_auto_save_cloud_sixth_line",
+                "main_confirmation_window_dom_loaded_auto_save_cloud_cloud_settings_metadata_text",
+                "main_confirmation_window_dom_loaded_auto_save_cloud_not_available_na_text"
             ];
+
+            const confirmationLocalizedText = await Promise.all(
+                keys.map(key => getLocalizationByKey(key, localSettings.locale))
+            );
 
             showConfirmation(
                 `${confirmationLocalizedText[0]}
@@ -310,7 +325,7 @@ window.addEventListener("DOMContentLoaded", async () => {
                 ${confirmationLocalizedText[4]}${settings?.custom_settings?.info?.version || confirmationLocalizedText[7]}\n\n
                 ${confirmationLocalizedText[5]}`,
                 async () => {
-                    if (!settings?.custom_settings) return
+                    if (!settings?.custom_settings) return;
                     await saveCustomSettings(settings.custom_settings);
                 },
                 async () => {
@@ -318,4 +333,4 @@ window.addEventListener("DOMContentLoaded", async () => {
                 });
         }
     }
-})
+});

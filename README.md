@@ -1,13 +1,4 @@
-![Main page](Screenshots/Main_page.png "Main page")
-![Widgets](Screenshots/Widgets.png "Greeting, time and date format, sidebar")
-![Bookmarks.png](Screenshots/Bookmarks.png "Bookmarks widget")
-![Sidebar.png](Screenshots/Sidebar.png "Search bar widget")
-
 # 🌌 New Tab Extension ([Addons.Mozilla.org](https://addons.mozilla.org/en-US/firefox/addon/newtabaddon/))
-
----
-
-## What Is This?
 
 **New Tab Extension** is a minimalist browser extension that:
 
@@ -15,6 +6,19 @@
 - Lets you choose from multiple animated or static backgrounds
 - Saves your preferences locally using `localStorage`
 - Works entirely offline - no external servers or dependencies
+
+<p align="center">
+<img src="./icons/icon-96.svg" alt="Loom Icon" width="500px"/>
+</p>
+
+## Screenshots
+
+### Main page
+![Main page](Screenshots/Main_page.png "Main page")
+### Bookmarks and widgets
+![Widgets](Screenshots/Widgets.png "Time and date format, sidebar")
+### Sidebar
+![Sidebar.png](Screenshots/Sidebar.png "Search bar widget")
 
 ---
 
@@ -27,8 +31,6 @@
 
 > ⚠️ Temporary extensions are removed when Firefox restarts.
 
----
-
 ## How to Set It as Your Homepage
 
 To make the extension your homepage:
@@ -40,17 +42,16 @@ To make the extension your homepage:
 
 > You can find your extension ID in `about:debugging` after loading it.
 
----
-
 ## 🛠 Features
 
 - 🎨 Multiple background modes: stars, particles, grids, images, and more
 - 💾 Settings saved locally - no cloud, no sync required
 - 📅 Customizable time and date formats
 - 📝 Sidebar with:
-  - Sticky notes for quick reminders
   - Weather widget with location support
-  - Quotes widget with customization options
+  - Notifications manager to notify about various options
+  - Background customization options
+  - etc.
 - ⏰ Time customization (12/24 hour format, date format)
 - ⚡ Fast and lightweight - no performance impact
 - 🔒 Private — no data collection, no analytics
@@ -59,8 +60,6 @@ To make the extension your homepage:
 ![Backgrounds.png](Screenshots/Backgrounds.png "Various background modes")
 ![Notification_editor.png](Screenshots/Notification_editor.png "Notification editor")
 ![Weather.png](Screenshots/Weather.png "Weather widget")
-
----
 
 ## 💡 Developer Notes
 

@@ -11,19 +11,23 @@ function openMainSidebar() {
 toggleBtn.addEventListener("click", openMainSidebar);
 
 document.addEventListener("DOMContentLoaded", async () => {
-    await loadDefaultCustomizationSettings();
-    await loadCloudSettings();
-    await loadLocalization();
-    await loadBackground();
-    await loadTimeAndDate();
-    await loadLinks();
-    await loadStickyNotes();
-    await loadWeatherWidget();
-    await loadBookmarksWidget();
-    await loadSearchBarWidget();
-    await loadGreetingSettings();
+    await Promise.all([
+        loadDefaultCustomizationSettings(),
+        loadCloudSettings(),
+        loadLocalization()
+    ]);
+
+    await Promise.all([
+        loadBackground(),
+        loadTimeAndDate(),
+        loadLinks(),
+        loadWeatherWidget(),
+        loadBookmarksWidget()
+    ]);
+
     loadNotifications();
 
+    const sectionStates = new Map();
     document.querySelectorAll(".toggle-section").forEach(toggleBtn => {
         const section = toggleBtn.closest("section");
         const content = section.querySelector(".section-content");
@@ -34,6 +38,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             content.classList.add("open");
             toggleBtn.textContent = "−";
         }
+        sectionStates.set(section, { content, toggleBtn, key });
 
         toggleBtn.addEventListener("click", (e) => {
             e.stopPropagation();
@@ -44,18 +49,16 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     });
 
-    [document.getElementById("customization-title"), document.getElementById("settings-title")]
-        .forEach(element => element.addEventListener("click", () => {
-            document.querySelectorAll("section").forEach(section => {
-                const content = section.querySelector(".section-content");
-                const toggleBtn = section.querySelector(".toggle-section");
-                const key = "section_" + section.dataset.section;
+    const collapseAll = () => {
+        sectionStates.forEach(({ content, toggleBtn, key }) => {
+            if (content.classList.contains("open")) {
+                content.classList.remove("open");
+                toggleBtn.textContent = "+";
+                localStorage.setItem(key, false);
+            }
+        });
+    };
 
-                if (content.classList.contains("open")) {
-                    content.classList.remove("open");
-                    toggleBtn.textContent = "+";
-                    localStorage.setItem(key, false);
-                }
-            });
-        }));
+    document.getElementById("customization-title")?.addEventListener("click", collapseAll);
+    document.getElementById("settings-title")?.addEventListener("click", collapseAll);
 });

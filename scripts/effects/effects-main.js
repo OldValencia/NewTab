@@ -1,3 +1,5 @@
+let animationFrameId = null;
+
 function disableDynamicBackground() {
     backgroundLayer.innerHTML = "";
     backgroundLayer.style.backgroundImage = "";
@@ -10,6 +12,11 @@ function disableDynamicBackground() {
 }
 
 function cleanupBeforeEnableBackground(elementId = null) {
+    if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+        animationFrameId = null;
+    }
+
     if (window.dynamicLoop) {
         cancelAnimationFrame(window.dynamicLoop);
         window.dynamicLoop = null;
@@ -21,9 +28,12 @@ function cleanupBeforeEnableBackground(elementId = null) {
         const oldCanvas = document.getElementById(elementId);
         if (oldCanvas) oldCanvas.remove();
     }
+}
 
-    if (window.dynamicLoop) {
-        cancelAnimationFrame(window.dynamicLoop);
-        window.dynamicLoop = null;
-    }
+function setAnimationFrame(id) {
+    animationFrameId = id;
+}
+
+function getAnimationFrame() {
+    return animationFrameId;
 }

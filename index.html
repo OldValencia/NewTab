@@ -17,20 +17,14 @@
     <link rel="stylesheet" href="styles/links.css"/>
     <link rel="stylesheet" href="styles/sidebar.css"/>
     <link rel="stylesheet" href="styles/sidebar.homepage.css"/>
-    <link rel="stylesheet" href="styles/sticky-notes.css"/>
     <link rel="stylesheet" href="styles/weather.css"/>
-    <link rel="stylesheet" href="styles/greeting.css"/>
-    <link rel="stylesheet" href="styles/quotes.css"/>
     <link rel="stylesheet" href="styles/bookmarks.css"/>
-    <link rel="stylesheet" href="styles/search.css"/>
     <link rel="stylesheet" href="styles/notifications.css"/>
 
     <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Open+Sans&family=Lato&family=Quicksand&family=Fira+Sans&display=swap"
           rel="stylesheet">
 </head>
 <body>
-<div id="sticky-notes-container"></div>
-<button id="add-sticky-note" data-value-localization-key="add_sticky_note">➕ Add Sticky Note</button>
 
 <div id="background-layer"></div>
 <div id="vignette-layer"></div>
@@ -87,12 +81,6 @@
                     </li>
                     <li data-html-localization-key="hotkeys_third_line"><strong>Key Right →</strong> to open
                         the main sidebar
-                    </li>
-                    <li data-html-localization-key="hotkeys_fourth_line"><strong>Key Up ↑</strong> to create a
-                        sticky note (if it is enabled in the settings)
-                    </li>
-                    <li data-html-localization-key="hotkeys_fifth_line"><strong>Ctrl + V</strong> to create a sticky
-                        note with content from your clipboard (if it is enabled in the settings)
                     </li>
                     <li data-html-localization-key="hotkeys_sixth_line">Click on the <strong>Settings</strong> or <strong>Customization</strong>
                         header below to collapse all sections in this sidebar
@@ -487,32 +475,6 @@
         </div>
     </section>
 
-    <!-- 🔍 Search bar -->
-    <section data-section="search-bar-widget">
-        <div class="section-header">
-            <span class="section-icon">🔍</span>
-            <h3 data-value-localization-key="main_sidebar_search_bar_header">Search Bar</h3>
-            <button class="toggle-section">+</button>
-        </div>
-        <div class="section-content">
-            <button id="reset-search-bar-widget" class="sidebar-wide-button"
-                    data-value-localization-key="main_sidebar_search_bar_reset_settings_button">
-                Reset Search Bar Settings
-            </button>
-
-            <div class="section-toggle-controls">
-                <label data-value-localization-key="main_sidebar_search_bar_toggle_show_search_bar">
-                    <input type="checkbox" id="toggle-search-bar">
-                    Show Search Bar
-                </label>
-                <label data-value-localization-key="main_sidebar_search_bar_toggle_hide_search_bar">
-                    <input type="checkbox" id="toggle-search-open-in-new-tab">
-                    Open search results in new tab
-                </label>
-            </div>
-        </div>
-    </section>
-
     <!-- 🔔 Notifications -->
     <section data-section="notifications-widget">
         <div class="section-header">
@@ -536,171 +498,10 @@
         </div>
     </section>
 
-    <!-- 📝 Sticky notes -->
-    <section data-section="sticky-notes">
-        <div class="section-header">
-            <span class="section-icon">📝</span>
-            <h3 data-value-localization-key="sticky_notes_section_header">Sticky Notes</h3>
-            <button class="toggle-section">+</button>
-        </div>
-        <div class="section-content">
-            <button id="reset-sticky-notes" class="sidebar-wide-button"
-                    data-value-localization-key="sticky_notes_section_reset_button">Reset Sticky Notes Settings
-            </button>
-            <button id="clear-sticky-notes" class="sidebar-wide-button"
-                    data-value-localization-key="sticky_notes_section_clear_button">Clear Sticky Notes Content
-            </button>
-            <button id="remove-sticky-notes" class="sidebar-wide-button"
-                    data-value-localization-key="sticky_notes_section_remove_all_button">Remove all Sticky Notes
-            </button>
-
-            <div class="section-toggle-controls">
-                <label for="toggle-sticky-notes" class="wide-toggle-label"
-                       data-value-localization-key="sticky_notes_section_toggle_show_sticky_notes">
-                    <input type="checkbox" id="toggle-sticky-notes">
-                    Show Sticky Notes
-                </label>
-            </div>
-        </div>
-    </section>
-
-    <!-- 👋 Greeting Widget -->
-    <section data-section="greeting-widget">
-        <div class="section-header">
-            <span class="section-icon">👋</span>
-            <h3 data-value-localization-key="greeting_widget_section_header">Greeting</h3>
-            <button class="toggle-section">+</button>
-        </div>
-        <div class="section-content">
-            <div class="font-control">
-                <label for="greeting-font" data-value-localization-key="greeting_widget_font_label">Font:
-                    <select id="greeting-font">
-                        <option value="SF Pro Display"
-                                data-value-localization-key="option_sf_pro_display_default_label">SF Pro Display
-                            (default)
-                        </option>
-                        <option value="Arial">Arial</option>
-                        <option value="Segoe UI">Segoe UI</option>
-                        <option value="Georgia">Georgia</option>
-                        <option value="Courier New">Courier New</option>
-                        <option value="Roboto">Roboto</option>
-                        <option value="Helvetica">Helvetica</option>
-                        <option value="Verdana">Verdana</option>
-                        <option value="Tahoma">Tahoma</option>
-                        <option value="Trebuchet MS">Trebuchet MS</option>
-                        <option value="Lucida Sans">Lucida Sans</option>
-                        <option value="Times New Roman">Times New Roman</option>
-                        <option value="Fira Sans">Fira Sans</option>
-                        <option value="Open Sans">Open Sans</option>
-                        <option value="Lato">Lato</option>
-                        <option value="Quicksand">Quicksand</option>
-                        <option value="Monaco">Monaco</option>
-                    </select>
-                </label>
-            </div>
-            <div class="font-control">
-                <label for="greeting-color" data-value-localization-key="greeting_widget_font_color_label">
-                    Text color:
-                    <input type="color" id="greeting-color">
-                </label>
-            </div>
-            <div class="font-control">
-                <label for="greeting-size" data-value-localization-key="greeting_widget_font_size_label">
-                    Greeting size:
-                    <input type="number" id="greeting-size" min="10" max="48" value="18"> px
-                </label>
-            </div>
-            <div class="font-control">
-                <label for="greeting-username" data-value-localization-key="greeting_widget_font_username_label">
-                    Username:
-                    <input type="text" id="greeting-username"
-                           data-placeholder-localization-key="greeting_widget_username_input_placeholder"
-                           placeholder="Enter your name...">
-                </label>
-            </div>
-
-            <button id="reset-greeting-widget" class="sidebar-wide-button"
-                    data-value-localization-key="greeting_widget_reset_settings_button">
-                Reset Greeting Settings
-            </button>
-
-            <div class="section-toggle-controls">
-                <label data-value-localization-key="greeting_widget_toggle_show_greeting_widget"
-                       class="wide-toggle-label">
-                    <input type="checkbox" id="toggle-greeting">
-                    Show Greeting
-                </label>
-            </div>
-        </div>
-    </section>
-
-    <!-- 🗣️ Daily Quote -->
-    <section data-section="quote-widget" style="display: none">
-        <div class="section-header">
-            <span class="section-icon">🗣️</span>
-            <h3 data-value-localization-key="daily_quote_section_header">Daily Quote</h3>
-            <button class="toggle-section">+</button>
-        </div>
-        <div class="section-content">
-            <div class="font-control">
-                <label for="quote-font" data-value-localization-key="daily_quote_font_label">Font:
-                    <select id="quote-font">
-                        <option value="SF Pro Display"
-                                data-value-localization-key="option_sf_pro_display_default_label">SF Pro Display
-                            (default)
-                        </option>
-                        <option value="Arial">Arial</option>
-                        <option value="Segoe UI">Segoe UI</option>
-                        <option value="Georgia">Georgia</option>
-                        <option value="Courier New">Courier New</option>
-                        <option value="Roboto">Roboto</option>
-                        <option value="Helvetica">Helvetica</option>
-                        <option value="Verdana">Verdana</option>
-                        <option value="Tahoma">Tahoma</option>
-                        <option value="Trebuchet MS">Trebuchet MS</option>
-                        <option value="Lucida Sans">Lucida Sans</option>
-                        <option value="Times New Roman">Times New Roman</option>
-                        <option value="Fira Sans">Fira Sans</option>
-                        <option value="Open Sans">Open Sans</option>
-                        <option value="Lato">Lato</option>
-                        <option value="Quicksand">Quicksand</option>
-                        <option value="Monaco">Monaco</option>
-                    </select>
-                </label>
-            </div>
-            <div class="font-control">
-                <label for="quote-color" data-value-localization-key="daily_quote_font_color_label">
-                    Text color:
-                    <input type="color" id="quote-color">
-                </label>
-            </div>
-            <div class="font-control">
-                <label for="quote-size" data-value-localization-key="daily_quote_font_size_label">
-                    Quote size:
-                    <input type="number" id="quote-size" min="10" max="48" value="18"> px
-                </label>
-            </div>
-
-            <button id="reset-quote-widget" class="sidebar-wide-button"
-                    data-value-localization-key="daily_quote_reset_settings_button">
-                Reset Daily Quote Settings
-            </button>
-
-            <div class="section-toggle-controls">
-                <label for="toggle-quote" data-value-localization-key="daily_quote_toggle_show_quote_settings"
-                       class="wide-toggle-label">
-                    <input type="checkbox" id="toggle-quote">
-                    Show Daily Quote
-                </label>
-            </div>
-        </div>
-    </section>
     <div id="version-info">
         Version: loading...
     </div>
 </div>
-
-<div class="greeting" id="greeting"></div>
 
 <div class="time-container">
     <div id="multiple-clocks"></div>
@@ -709,27 +510,6 @@
         <div class="quote-text" id="quote-text" style="display: none"></div>
         <div class="quote-author" id="quote-author" style="display: none"></div>
     </div>
-</div>
-
-<div class="search-bar-container" id="search-bar">
-    <input type="text" id="universal-search" data-placeholder-localization-key="search_bar_input_placeholder"
-           placeholder="🔍 Search the web..." list="search-history"/>
-    <datalist id="search-history"></datalist>
-
-    <select id="search-engine-select">
-        <option value="google">Google</option>
-        <option value="duckduckgo">DuckDuckGo</option>
-        <option value="bing">Bing</option>
-        <option value="brave">Brave</option>
-        <option value="yandex">Yandex</option>
-        <option value="ecosia">Ecosia</option>
-        <option value="startpage">Startpage</option>
-        <option value="qwant">Qwant</option>
-    </select>
-
-    <button id="search-button" data-placeholder-localization-key="search_bar_button_go_button">
-        Go
-    </button>
 </div>
 
 <div class="links" id="links-container"></div>
@@ -778,14 +558,10 @@
 <script src="scripts/effects/falling-lines.js"></script>
 <script src="scripts/effects/floating-circles.js"></script>
 
-<script src="scripts/widgets/sticky-notes.js"></script>
 <script src="scripts/widgets/weather.js"></script>
-<script src="scripts/widgets/greeting.js"></script>
-<script src="scripts/widgets/quotes.js"></script>
 <script src="scripts/widgets/time.js"></script>
 <script src="scripts/widgets/links-service.js"></script>
 <script src="scripts/widgets/bookmarks.js"></script>
-<script src="scripts/widgets/search.js"></script>
 <script src="scripts/widgets/notifications.js"></script>
 
 <script src="scripts/sidebar/cloud.js"></script>
@@ -794,9 +570,7 @@
 <script src="scripts/sidebar/dateandtime.js"></script>
 <script src="scripts/sidebar/links.js"></script>
 <script src="scripts/sidebar/weather.js"></script>
-<script src="scripts/sidebar/stickynotes.js"></script>
 <script src="scripts/sidebar/bookmarks.js"></script>
-<script src="scripts/sidebar/search.js"></script>
 <script src="scripts/sidebar/sidebar.js"></script>
 <script src="scripts/sidebar/notifications.js"></script>
 

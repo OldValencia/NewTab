@@ -9,24 +9,22 @@ const bookmarksSearchInput = document.getElementById("bookmark-search");
 let allBookmarks = [];
 
 document.addEventListener("DOMContentLoaded", async () => {
-    loadBookmarks();
+    await loadBookmarks();
     await renderPinned();
 
     openBookmarksSidebarBtn.addEventListener("click", openBookmarksSidebar);
-
     setupCheckbox(toggleEmptyFoldersCheckbox, "showEmptyFolders", false, () => {
         renderBookmarkTree(allBookmarks, bookmarkTree);
     });
-
     setupCheckbox(openBookmarksInNewTabCheckbox, "openBookmarksInNewTab", false, () => {
         renderBookmarkTree(allBookmarks, bookmarkTree);
         renderPinned();
     });
 
-    bookmarksSearchInput.addEventListener("input", e => {
+    bookmarksSearchInput.addEventListener("input", debounce(e => {
         const query = e.target.value.toLowerCase();
         filterBookmarks(query);
-    });
+    }, 300));
 });
 
 function openBookmarksSidebar() {
@@ -39,7 +37,7 @@ function openBookmarksSidebar() {
 
 function setupCheckbox(checkbox, key, defaultValue, onChange) {
     checkbox.checked = getBookmarkSetting(key, defaultValue);
-    checkbox.addEventListener("change",async () => {
+    checkbox.addEventListener("change", async () => {
         await setBookmarkSetting(key, checkbox.checked);
         onChange();
     });
@@ -61,15 +59,14 @@ function getPinned() {
     return getBookmarkSetting("pinnedBookmarks", []);
 }
 
-function loadBookmarks() {
-    return browser.bookmarks.getTree().then(tree => {
-        allBookmarks = tree[0].children || [];
-        renderBookmarkTree(allBookmarks, bookmarkTree);
-    });
+async function loadBookmarks() {
+    const tree = await browser.bookmarks.getTree();
+    allBookmarks = tree[0].children || [];
+    renderBookmarkTree(allBookmarks, bookmarkTree);
 }
 
 function renderBookmarkTree(nodes, container, depth = 0) {
-    container.innerHTML = "";
+    const fragment = document.createDocumentFragment();
     const showEmpty = getBookmarkSetting("showEmptyFolders", false);
 
     nodes.forEach(node => {
@@ -78,8 +75,7 @@ function renderBookmarkTree(nodes, container, depth = 0) {
 
             const folder = document.createElement("details");
             folder.className = "bookmark-folder";
-            folder.style.marginLeft = `${depth * 12}px`;
-            folder.style.marginTop = "5px";
+            folder.style.cssText = `margin-left: ${depth * 12}px; margin-top: 5px;`;
 
             const summary = document.createElement("summary");
             summary.textContent = node.title?.trim() || "📁 No Name";
@@ -88,14 +84,16 @@ function renderBookmarkTree(nodes, container, depth = 0) {
             const innerContainer = document.createElement("div");
             renderBookmarkTree(node.children, innerContainer, depth + 1);
             folder.appendChild(innerContainer);
-
-            container.appendChild(folder);
+            fragment.appendChild(folder);
         } else if (node.url) {
             const item = createBookmarkItem(node, {draggable: false});
             item.style.marginLeft = `${depth * 12}px`;
-            container.appendChild(item);
+            fragment.appendChild(item);
         }
     });
+
+    container.innerHTML = "";
+    container.appendChild(fragment);
 }
 
 function createBookmarkItem(bookmark, {draggable = false} = {}) {
@@ -110,17 +108,23 @@ function createBookmarkItem(bookmark, {draggable = false} = {}) {
         link.target = "_blank";
     }
 
-    const pin = getPinned().includes(bookmark.id)
-        ? createButton("📌", async () => await unpinBookmark(bookmark.id))
-        : createButton("⭐", async () => await pinBookmark(bookmark.id));
+    const isPinned = getPinned().includes(bookmark.id);
+    const pin = createButton(isPinned ? "📌" : "⭐", async () => {
+        if (isPinned) {
+            await unpinBookmark(bookmark.id);
+        } else {
+            await pinBookmark(bookmark.id);
+        }
+    });
 
     const removeBtn = createButton("🗑️", async () => {
         const settings = loadCustomSettings();
         const localizedMessage = await getLocalizationByKey("delete_bookmark_confirmation_window_text", settings.locale);
         showConfirmation(localizedMessage, () => {
             const openFolders = getOpenFolderPaths(bookmarkTree);
-            browser.bookmarks.remove(bookmark.id).then(() => {
-                loadBookmarks().then(() => reRenderAndRestoreOpenFolders(openFolders));
+            browser.bookmarks.remove(bookmark.id).then(async () => {
+                await loadBookmarks();
+                reRenderAndRestoreOpenFolders(openFolders);
             });
         });
     });
@@ -135,13 +139,18 @@ function createBookmarkItem(bookmark, {draggable = false} = {}) {
             const newTitle = input.value.trim();
             if (newTitle) {
                 const settings = loadCustomSettings();
-                const firstConfirmationMessagePart = await getLocalizationByKey("rename_bookmark_confirmation_window_text_first_part", settings.locale);
-                const secondConfirmationMessagePart = await getLocalizationByKey("rename_bookmark_confirmation_window_text_second_part", settings.locale);
-                showConfirmation(`${firstConfirmationMessagePart} ${bookmark.title}\n${secondConfirmationMessagePart} ${newTitle}`,
+                const [firstPart, secondPart] = await Promise.all([
+                    getLocalizationByKey("rename_bookmark_confirmation_window_text_first_part", settings.locale),
+                    getLocalizationByKey("rename_bookmark_confirmation_window_text_second_part", settings.locale)
+                ]);
+
+                showConfirmation(
+                    `${firstPart} ${bookmark.title}\n${secondPart} ${newTitle}`,
                     () => {
                         const openFolders = getOpenFolderPaths(bookmarkTree);
-                        browser.bookmarks.update(bookmark.id, {title: newTitle}).then(() => {
-                            loadBookmarks().then(() => reRenderAndRestoreOpenFolders(openFolders));
+                        browser.bookmarks.update(bookmark.id, {title: newTitle}).then(async () => {
+                            await loadBookmarks();
+                            reRenderAndRestoreOpenFolders(openFolders);
                         });
                     },
                     () => {
@@ -157,7 +166,6 @@ function createBookmarkItem(bookmark, {draggable = false} = {}) {
     });
 
     item.append(link, pin, renameBtn, removeBtn);
-
     return item;
 }
 
@@ -197,8 +205,11 @@ function filterBookmarks(query) {
         (b.url || "").toLowerCase().includes(query)
     );
 
+    const fragment = document.createDocumentFragment();
+    filtered.forEach(b => fragment.appendChild(createBookmarkItem(b)));
+
     bookmarkTree.innerHTML = "";
-    filtered.forEach(b => bookmarkTree.appendChild(createBookmarkItem(b)));
+    bookmarkTree.appendChild(fragment);
 }
 
 async function unpinBookmark(bookmarkId) {
@@ -218,20 +229,22 @@ async function pinBookmark(bookmarkId) {
 }
 
 async function renderPinned() {
-    pinnedSection.innerHTML = "";
+    const fragment = document.createDocumentFragment();
     const pinnedBookmarkIds = getPinned();
+
     if (pinnedBookmarkIds.length === 0) {
         pinnedSection.style.display = "none";
         return;
     }
 
     pinnedSection.style.display = "flex";
+
     for (const bookmarkId of pinnedBookmarkIds) {
         const index = pinnedBookmarkIds.indexOf(bookmarkId);
         let bookmark;
 
         try {
-            bookmark = await browser.bookmarks.get(bookmarkId)
+            bookmark = await browser.bookmarks.get(bookmarkId);
         } catch (e) {
             await unpinBookmark(bookmarkId);
             continue;
@@ -249,18 +262,18 @@ async function renderPinned() {
 
         const link = document.createElement("a");
         link.href = bookmark[0].url;
-
         link.textContent = bookmark[0].title || bookmark[0].url;
         if (getBookmarkSetting("openBookmarksInNewTab", false)) {
             link.target = "_blank";
         }
 
         const remove = createButton("📌", async () => await unpinBookmark(bookmarkId));
-
         item.append(link, remove);
-        pinnedSection.appendChild(item);
+        fragment.appendChild(item);
     }
 
+    pinnedSection.innerHTML = "";
+    pinnedSection.appendChild(fragment);
     enableDragAndDrop(pinnedSection);
 }
 
@@ -317,7 +330,7 @@ function enableDragAndDrop(container) {
             const moved = pinned.splice(draggedIndex, 1)[0];
             pinned.splice(targetIndex, 0, moved);
 
-            setBookmarkSetting("pinnedBookmarks", pinned);
+            await setBookmarkSetting("pinnedBookmarks", pinned);
             await renderPinned();
         });
     });

@@ -6,14 +6,38 @@ const toggleOpenInNewTab = document.getElementById("toggle-open-in-new-tab");
 const toggleUnderlineLinksOnHover = document.getElementById("toggle-links-underline");
 const linksColorInput = document.getElementById("links-color");
 
+function createLinkEditElement(link, index) {
+    const div = document.createElement("div");
+    div.className = "link-edit";
+    div.draggable = true;
+    div.dataset.index = index;
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "✕";
+    deleteBtn.className = "delete-link";
+
+    const labelInput = document.createElement("input");
+    labelInput.type = "text";
+    labelInput.value = link.label;
+    labelInput.placeholder = "Название";
+
+    const urlInput = document.createElement("input");
+    urlInput.type = "text";
+    urlInput.value = link.url;
+    urlInput.placeholder = "URL";
+
+    div.appendChild(deleteBtn);
+    div.appendChild(labelInput);
+    div.appendChild(urlInput);
+
+    return { div, deleteBtn, labelInput, urlInput };
+}
+
 function renderEditor(links) {
-    linksEditor.innerHTML = "";
+    const fragment = document.createDocumentFragment();
 
     links.forEach((link, index) => {
-        const div = document.createElement("div");
-        div.className = "link-edit";
-        div.draggable = true;
-        div.dataset.index = index;
+        const { div, deleteBtn, labelInput, urlInput } = createLinkEditElement(link, index);
 
         div.addEventListener("dragstart", (e) => {
             e.dataTransfer.setData("text/plain", index);
@@ -48,10 +72,6 @@ function renderEditor(links) {
             div.classList.remove("dragging");
         });
 
-        // Delete button
-        const deleteBtn = document.createElement("button");
-        deleteBtn.textContent = "✕";
-        deleteBtn.className = "delete-link";
         deleteBtn.addEventListener("click", async () => {
             links.splice(index, 1);
             await saveLinksToStorage(links);
@@ -59,47 +79,31 @@ function renderEditor(links) {
             renderEditor(links);
         });
 
-        const labelInput = document.createElement("input");
-        labelInput.type = "text";
-        labelInput.value = link.label;
-        labelInput.placeholder = "Название";
-
-        const urlInput = document.createElement("input");
-        urlInput.type = "text";
-        urlInput.value = link.url;
-        urlInput.placeholder = "URL";
-
-        labelInput.addEventListener("input", async () => {
+        labelInput.addEventListener("input", debounce(async () => {
             link.label = labelInput.value;
             await saveLinksToStorage(links);
             renderLinks(links);
-        });
+        }, 300));
 
-        urlInput.addEventListener("input", async () => {
+        urlInput.addEventListener("input", debounce(async () => {
             if (validateUrlInput(urlInput)) {
                 link.url = urlInput.value;
                 await saveLinksToStorage(links);
                 renderLinks(links);
             }
-        });
+        }, 300));
 
-        div.appendChild(deleteBtn);
-        div.appendChild(labelInput);
-        div.appendChild(urlInput);
-        linksEditor.appendChild(div);
+        fragment.appendChild(div);
     });
+
+    linksEditor.innerHTML = "";
+    linksEditor.appendChild(fragment);
 }
 
 function validateUrlInput(input) {
     const value = input.value.trim();
     const isValid = value.startsWith("https://") || value.startsWith("http://");
-
-    if (!isValid && value !== "") {
-        input.style.border = "2px solid red";
-    } else {
-        input.style.border = "";
-    }
-
+    input.style.border = (!isValid && value !== "") ? "2px solid red" : "";
     return isValid;
 }
 
@@ -112,10 +116,11 @@ async function loadLinks() {
             underlineLinksOnHover: false,
             showLinks: true,
             openInNewTabState: false,
-            list: defaultLinks
+            list: links
         };
         await saveCustomSettings(settings);
     }
+
     renderLinks(links);
     renderEditor(links);
 
@@ -125,25 +130,20 @@ async function loadLinks() {
     let cols = settings.cols || 3;
     colsValue.textContent = cols;
     linksContainer.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
-    document.getElementById("cols-plus").addEventListener("click", async () => {
-        if (cols < 10) {
-            cols++;
-            colsValue.textContent = cols;
-            linksContainer.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
-            settings.cols = cols;
-            await saveCustomSettings(settings);
-        }
-    });
 
-    document.getElementById("cols-minus").addEventListener("click", async () => {
-        if (cols > 1) {
-            cols--;
+    const updateCols = async (delta) => {
+        const newCols = cols + delta;
+        if (newCols >= 1 && newCols <= 10) {
+            cols = newCols;
             colsValue.textContent = cols;
             linksContainer.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
             settings.cols = cols;
             await saveCustomSettings(settings);
         }
-    });
+    };
+
+    document.getElementById("cols-plus").addEventListener("click", () => updateCols(1));
+    document.getElementById("cols-minus").addEventListener("click", () => updateCols(-1));
 
     toggleUnderlineLinksOnHover.checked = settings.links.underlineLinksOnHover;
     document.querySelectorAll(".link").forEach(link => {
@@ -173,20 +173,23 @@ toggleLinksCheckbox.addEventListener("change", async () => {
 addLinkBtn.addEventListener("click", async () => {
     const links = await getLinksFromStorage();
     const settings = loadCustomSettings();
-    if (links.length >= 30) return alert(await getLocalizationByKey("links_alert_message_maximum_links", settings.locale));
+    if (links.length >= 30) {
+        const message = await getLocalizationByKey("links_alert_message_maximum_links", settings.locale);
+        return alert(message);
+    }
     links.push({url: "", label: ""});
     await saveLinksToStorage(links);
     renderLinks(links);
     renderEditor(links);
 });
 
-linksColorInput.addEventListener("input", async () => {
+linksColorInput.addEventListener("input", debounce(async () => {
     const settings = loadCustomSettings();
     settings.bg[settings.bg.bgMode].customization.linksColor = linksColorInput.value;
     await saveCustomSettings(settings);
     const links = await getLinksFromStorage();
     renderLinks(links);
-});
+}, 300));
 
 linksColorInput.addEventListener("contextmenu", async (e) => {
     e.preventDefault();
@@ -205,4 +208,4 @@ toggleUnderlineLinksOnHover.addEventListener("click", async () => {
     document.querySelectorAll(".link").forEach(link => {
         link.classList.toggle("underline", settings.links.underlineLinksOnHover);
     });
-})
+});
