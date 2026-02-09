@@ -31,8 +31,6 @@
 
 > ⚠️ Temporary extensions are removed when Firefox restarts.
 
----
-
 ## How to Set It as Your Homepage
 
 To make the extension your homepage:
@@ -43,8 +41,6 @@ To make the extension your homepage:
 4. Enter: `moz-extension://<your-extension-id>/index.html`
 
 > You can find your extension ID in `about:debugging` after loading it.
-
----
 
 ## 🛠 Features
 
@@ -64,8 +60,6 @@ To make the extension your homepage:
 ![Backgrounds.png](Screenshots/Backgrounds.png "Various background modes")
 ![Notification_editor.png](Screenshots/Notification_editor.png "Notification editor")
 ![Weather.png](Screenshots/Weather.png "Weather widget")
-
----
 
 ## 💡 Developer Notes
 
