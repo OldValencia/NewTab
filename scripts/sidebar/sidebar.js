@@ -17,11 +17,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     await loadBackground();
     await loadTimeAndDate();
     await loadLinks();
-    await loadStickyNotes();
     await loadWeatherWidget();
     await loadBookmarksWidget();
-    await loadSearchBarWidget();
-    await loadGreetingSettings();
     loadNotifications();
 
     document.querySelectorAll(".toggle-section").forEach(toggleBtn => {
