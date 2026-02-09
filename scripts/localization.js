@@ -1,10 +1,12 @@
 const defaultLocale = "en";
 let dictionary = {};
+let localizationCache = new Map();
 
 async function loadLocalizationSettings() {
     try {
         const res = await fetch('settings/localization.json');
         dictionary = await res.json();
+        localizationCache.clear();
     } catch (err) {
         console.error('Failed to load localization.json:', err);
     }
@@ -31,29 +33,32 @@ function setTextPreserveChildren(el, text) {
 }
 
 async function getLocalizationByKey(key, locale) {
+    const cacheKey = `${key}:${locale}`;
+    if (localizationCache.has(cacheKey)) {
+        return localizationCache.get(cacheKey);
+    }
+
     if (!dictionary || Object.keys(dictionary).length === 0) {
-        await loadLocalizationSettings()
+        await loadLocalizationSettings();
     }
 
-    let text = dictionary[key] && dictionary[key][locale];
-    if (text == null) {
-        text = dictionary[key] && dictionary[key][defaultLocale];
-        if (text == null) {
-            return key;
-        }
-    }
-
+    let text = dictionary[key]?.[locale] || dictionary[key]?.[defaultLocale] || key;
+    localizationCache.set(cacheKey, text);
     return text;
 }
 
 function applyLocalization(lang) {
-    document.querySelectorAll(
+    const elements = document.querySelectorAll(
         '[data-value-localization-key], [data-placeholder-localization-key], [data-html-localization-key]'
-    ).forEach(el => {
+    );
+
+    document.createDocumentFragment();
+
+    elements.forEach(el => {
         if (el.dataset.valueLocalizationKey) {
             const key = el.dataset.valueLocalizationKey;
-            const text = dictionary[key] && dictionary[key][lang];
-            if (text == null) return;
+            const text = dictionary[key]?.[lang];
+            if (!text) return;
 
             const tag = el.tagName;
             if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') {
@@ -67,13 +72,13 @@ function applyLocalization(lang) {
 
         if (el.dataset.placeholderLocalizationKey) {
             const key = el.dataset.placeholderLocalizationKey;
-            const text = dictionary[key] && dictionary[key][lang];
+            const text = dictionary[key]?.[lang];
             if (text != null) el.placeholder = text;
         }
 
         if (el.dataset.htmlLocalizationKey) {
             const key = el.dataset.htmlLocalizationKey;
-            const html = dictionary[key] && dictionary[key][lang];
+            const html = dictionary[key]?.[lang];
             if (html != null) el.innerHTML = html;
         }
     });

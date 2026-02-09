@@ -1,69 +1,65 @@
-document.addEventListener("keydown", async (e) => {
+const EDITABLE_TAGS = new Set(['INPUT', 'TEXTAREA']);
+
+function isEditableElement(target) {
+    return EDITABLE_TAGS.has(target.tagName) || target.isContentEditable;
+}
+
+async function handleDigitKey(digit) {
     const settings = loadCustomSettings();
-    const target = e.target;
-    const isEditableElement =
-        target.tagName === 'INPUT' ||
-        target.tagName === 'TEXTAREA' ||
-        target.isContentEditable;
+    const links = settings.links?.list || [];
+    const link = links[digit - 1];
 
-    switch(e.code) {
-        case "ArrowLeft":
-            if (isEditableElement) return;
-            e.preventDefault();
-            const isBookmarksActive = settings.bookmarks?.show ?? false;
-            if (isBookmarksActive) {
-                openBookmarksSidebar();
-            }
-            break;
-        case "ArrowRight":
-            if (isEditableElement) return;
-            e.preventDefault();
-            openMainSidebar();
-            break;
-        case "ArrowUp":
-            if (isEditableElement) return;
-            e.preventDefault();
-            const isStickyNotesActive = await getStickyNotesVisibilityState();
-
-            if (isStickyNotesActive) {
-                await createStickyNote();
-            }
-            break;
-        case "Digit1":
-        case "Digit2":
-        case "Digit3":
-        case "Digit4":
-        case "Digit5":
-        case "Digit6":
-        case "Digit7":
-        case "Digit8":
-        case "Digit9": {
-            if (isEditableElement) return;
-            e.preventDefault();
-            const digit = parseInt(e.code.replace('Digit', ''));
-            const links = settings.links?.list || [];
-            const link = links[digit - 1];
-            if (link && link.url) {
-                if (settings.links.openInNewTabState) {
-                    window.open(link.url, '_blank');
-                } else {
-                    window.location.href = link.url;
-                }
-            }
-            break;
+    if (link && link.url) {
+        if (settings.links.openInNewTabState) {
+            window.open(link.url, '_blank');
+        } else {
+            window.location.href = link.url;
         }
+    }
+}
+
+const keyHandlers = {
+    'ArrowLeft': async (settings) => {
+        const isBookmarksActive = settings.bookmarks?.show ?? false;
+        if (isBookmarksActive) {
+            openBookmarksSidebar();
+        }
+    },
+    'ArrowRight': () => {
+        openMainSidebar();
+    },
+    'ArrowUp': async () => {
+        const isStickyNotesActive = await getStickyNotesVisibilityState();
+        if (isStickyNotesActive) {
+            await createStickyNote();
+        }
+    }
+};
+
+document.addEventListener("keydown", async (e) => {
+    const target = e.target;
+
+    if (isEditableElement(target)) return;
+
+    const settings = loadCustomSettings();
+
+    if (keyHandlers[e.code]) {
+        e.preventDefault();
+        await keyHandlers[e.code](settings);
+        return;
+    }
+
+    if (e.code.startsWith('Digit')) {
+        e.preventDefault();
+        const digit = parseInt(e.code.replace('Digit', ''));
+        await handleDigitKey(digit);
     }
 });
 
 document.addEventListener('paste', async (e) => {
     const target = e.target;
 
-    const isEditableElement =
-        target.tagName === 'INPUT' ||
-        target.tagName === 'TEXTAREA' ||
-        target.isContentEditable;
-
-    if (isEditableElement) return;
+    if (isEditableElement(target)) return;
     if (!await getStickyNotesVisibilityState()) return;
 
     const pastedText = e.clipboardData.getData('text');

@@ -17,21 +17,51 @@ const starObserver = new IntersectionObserver((entries) => {
     threshold: 0
 });
 
-function disableStarfield() {
-    document.querySelectorAll(".star, .mini-star, .shooting-star").forEach(el => {
-        starObserver.unobserve(el);
-        el.remove();
+const stars = new Set();
+const miniStars = new Set();
+const shootingStars = new Set();
+
+function cleanupStars() {
+    stars.forEach(star => {
+        starObserver.unobserve(star);
+        star.remove();
     });
+    miniStars.forEach(star => {
+        starObserver.unobserve(star);
+        star.remove();
+    });
+    shootingStars.forEach(star => {
+        starObserver.unobserve(star);
+        star.remove();
+    });
+    stars.clear();
+    miniStars.clear();
+    shootingStars.clear();
+}
+
+function disableStarfield() {
+    cleanupStars();
     clearInterval(window.starfieldInterval);
+    window.starfieldInterval = null;
 }
 
 function enableStarfield() {
     disableStarfield();
     cleanupBeforeEnableBackground();
-    for (let i = 0; i < STARFIELD_CONFIG.numStars; i++) createStar();
-    for (let i = 0; i < STARFIELD_CONFIG.numMiniStars; i++) createStar({mini: true});
+
+    const fragment = document.createDocumentFragment();
+    for (let i = 0; i < STARFIELD_CONFIG.numStars; i++) {
+        fragment.appendChild(createStar());
+    }
+    for (let i = 0; i < STARFIELD_CONFIG.numMiniStars; i++) {
+        fragment.appendChild(createStar({mini: true}));
+    }
+    backgroundLayer.appendChild(fragment);
+
     window.starfieldInterval = setInterval(() => {
-        if (Math.random() < STARFIELD_CONFIG.shootingStarChance) createShootingStar();
+        if (Math.random() < STARFIELD_CONFIG.shootingStarChance) {
+            createShootingStar();
+        }
     }, STARFIELD_CONFIG.shootingStarInterval);
 }
 
@@ -43,7 +73,12 @@ function createShootingStar() {
     star.style.top = Math.random() * (width * 0.5) + 'px';
     star.style.left = (width * 0.7 + Math.random() * width * 0.3) + 'px';
     backgroundLayer.appendChild(star);
-    setTimeout(() => star.remove(), STARFIELD_CONFIG.shootingStarLifetime);
+    shootingStars.add(star);
+
+    setTimeout(() => {
+        star.remove();
+        shootingStars.delete(star);
+    }, STARFIELD_CONFIG.shootingStarLifetime);
 }
 
 function createStar({mini = false} = {}) {
@@ -53,39 +88,35 @@ function createStar({mini = false} = {}) {
     star.classList.add(mini ? 'mini-star' : 'star');
 
     const size = mini ? Math.random() + 0.2 : Math.random() * 2 + 0.5;
-    star.style.width = `${size}px`;
-    star.style.height = `${size}px`;
+    const brightness = (mini ? 0 : Math.random() < 0.35)
+        ? 200 + Math.floor(Math.random() * 55)
+        : 90 + Math.floor(Math.random() * 50);
 
-    star.style.top = Math.random() * height + 'px';
-    star.style.left = Math.random() * width + 'px';
+    star.style.cssText = `
+        width: ${size}px;
+        height: ${size}px;
+        top: ${Math.random() * height}px;
+        left: ${Math.random() * width}px;
+        animation-delay: ${Math.random() * 5}s;
+        animation-duration: ${3 + Math.random() * 3}s;
+        background: rgb(${brightness}, ${brightness}, ${brightness});
+        opacity: 0;
+    `;
 
-    star.style.animationDelay = (Math.random() * 5) + 's';
-    star.style.animationDuration = (3 + Math.random() * 3) + 's';
+    if (mini) {
+        miniStars.add(star);
+    } else {
+        stars.add(star);
+    }
 
-    const isBright = Math.random() < (mini ? 0 : 0.35);
-    const brightness = isBright ? 200 + Math.floor(Math.random() * 55) : 90 + Math.floor(Math.random() * 50);
-    const opacity = 0;
-
-    star.style.background = `rgb(${brightness}, ${brightness}, ${brightness})`;
-    star.style.opacity = opacity;
-
-    backgroundLayer.appendChild(star);
+    return star;
 }
 
-function throttle(fn, delay) {
-    let lastCall = 0;
-    return function (...args) {
-        const now = Date.now();
-        if (now - lastCall >= delay) {
-            lastCall = now;
-            fn(...args);
-        }
-    };
-}
-
-window.addEventListener('resize', throttle(() => {
+const resizeHandler = throttle(() => {
     const settings = loadCustomSettings();
     if (settings.bg.bgMode === "stars") {
         enableStarfield();
     }
-}, 1500));
+}, 1500);
+
+window.addEventListener('resize', resizeHandler);

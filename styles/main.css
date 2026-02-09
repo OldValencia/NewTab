@@ -20,6 +20,10 @@ body {
     user-select: none;
 }
 
+.links, .time-container, #weather-widget {
+    contain: layout style paint;
+}
+
 /* 🖼 Background Layer */
 #background-layer {
     position: fixed;

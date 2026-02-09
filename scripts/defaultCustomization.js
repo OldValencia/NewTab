@@ -1,4 +1,5 @@
 let defaultCustomization = {};
+let customizationLoaded = false;
 
 const backgroundLayerNames = {
     stars: 'stars',
@@ -15,23 +16,21 @@ const backgroundLayerNames = {
 };
 
 async function loadDefaultCustomizationSettings() {
+    if (customizationLoaded) return;
+
     try {
         const res = await fetch('settings/default-customization.json');
         defaultCustomization = await res.json();
+        customizationLoaded = true;
     } catch (err) {
         console.error('Failed to load default-customization.json:', err);
     }
 }
 
 async function getDefaultCustomizationByKey(key) {
-    if (!defaultCustomization || Object.keys(defaultCustomization).length === 0) {
-        await loadDefaultCustomizationSettings()
+    if (!customizationLoaded) {
+        await loadDefaultCustomizationSettings();
     }
 
-    let text = defaultCustomization[key];
-    if (text == null) {
-        return null;
-    }
-
-    return text;
+    return defaultCustomization[key] || null;
 }
