@@ -167,4 +167,16 @@ toggleDate.addEventListener("change", async () => {
     });
 });
 
-setInterval(updateTime, 60000);
+function startClock() {
+    updateTime();
+
+    const now = new Date();
+    const delay = (60 - now.getSeconds()) * 1000 - now.getMilliseconds();
+
+    setTimeout(() => {
+        updateTime();
+        setInterval(updateTime, 60000);
+    }, delay);
+}
+
+startClock();
