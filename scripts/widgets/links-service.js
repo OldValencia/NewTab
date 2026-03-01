@@ -30,7 +30,7 @@ async function saveLinksToStorage(links) {
     await saveCustomSettings(settings);
 }
 
-function createLinkElement(link, settings) {
+function createLinkElement(link, settings, allLinks) {
     const a = document.createElement("a");
     a.className = "link";
     a.href = link.url;
@@ -45,7 +45,32 @@ function createLinkElement(link, settings) {
     const img = document.createElement("img");
     img.className = "favicon";
     img.alt = "icon";
-    img.src = `https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${link.url}&size=64`;
+
+    const faviconFetchUrl = `https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${link.url}&size=64`;
+
+    if (link.cachedUrl === link.url && link.cachedFavicon) {
+        img.src = link.cachedFavicon;
+    } else {
+        img.src = faviconFetchUrl;
+
+        fetch(faviconFetchUrl)
+            .then(response => response.blob())
+            .then(blob => {
+                const reader = new FileReader();
+                reader.onloadend = async () => {
+                    const base64data = reader.result;
+
+                    link.cachedUrl = link.url;
+                    link.cachedFavicon = base64data;
+
+                    await saveLinksToStorage(allLinks);
+                };
+                reader.readAsDataURL(blob);
+            })
+            .catch(err => {
+                console.warn("Не удалось закэшировать иконку (возможно, CORS):", err);
+            });
+    }
 
     const span = document.createElement("span");
     span.textContent = link.label;
@@ -62,7 +87,7 @@ function renderLinks(links) {
 
     const fragment = document.createDocumentFragment();
     links.forEach(link => {
-        fragment.appendChild(createLinkElement(link, settings));
+        fragment.appendChild(createLinkElement(link, settings, links));
     });
 
     linksContainer.innerHTML = "";

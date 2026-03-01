@@ -96,25 +96,32 @@ function getWeatherByGeolocation() {
 function fetchWeather(query, cityLabel) {
     const {weatherWidget} = loadCustomSettings();
     fetch(`https://api.weatherapi.com/v1/current.json?key=${weatherWidget.weatherApiKey}&${query}&aqi=no`)
-        .then(res => res.json())
+        .then(async res => {
+            const data = await res.json();
+            if (!res.ok || data.error) {
+                throw new Error(data.error?.message || "API Error");
+            }
+            return data;
+        })
         .then(async data => {
             await updateWeather(data);
             await saveWeatherData(data, cityLabel);
         })
-        .catch(async () => {
-            weatherSummary.textContent = "Load error"
-            const settings = loadCustomSettings();
-            toggleWeatherWidget.checked = false;
-            settings.weatherWidget.showWeather = false;
-
-            await saveCustomSettings(settings);
-            await applyWeatherVisibilitySetting();
+        .catch(async (error) => {
+            console.warn("Weather load error:", error);
+            weatherSummary.textContent = "Load error";
         });
 }
 
 async function updateWeather(data) {
     const {weatherWidget} = loadCustomSettings();
     if (!weatherWidget.showWeather) return;
+
+    if (!data || !data.current || !data.current.condition) {
+        console.warn("Incorrect weather data", data);
+        weatherSummary.textContent = "Data error";
+        return;
+    }
 
     clearWeatherEffects();
 
