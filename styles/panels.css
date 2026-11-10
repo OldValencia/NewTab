@@ -356,3 +356,35 @@
     width: 14px;
     height: 14px;
 }
+
+/* Two or three mutually exclusive options shown side by side */
+.segmented {
+    display: flex;
+    padding: 3px;
+    border-radius: 10px;
+    background: var(--panel-surface);
+}
+
+.segmented-option {
+    flex: 1;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 7px;
+    background: transparent;
+    color: var(--panel-text-soft);
+    font: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.segmented-option:hover {
+    color: var(--panel-text);
+}
+
+.segmented-option.selected {
+    background: rgba(255, 255, 255, 0.14);
+    color: var(--panel-text);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}

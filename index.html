@@ -134,16 +134,6 @@
         </div>
         <div class="section-content">
             <p class="section-hint" data-i18n="time_and_date_section_theme_hint">These settings belong to the selected background.</p>
-            <div id="time-and-date-controls"></div>
-            <label id="clocks-layout-row" data-i18n="clocks_layout_label" hidden>Several clocks:
-                <select id="clocks-layout">
-                    <option value="row" data-i18n="clocks_layout_row">Side by side</option>
-                    <option value="column" data-i18n="clocks_layout_column">One under another</option>
-                </select>
-            </label>
-            <button id="add-clock" class="add-button" type="button" data-icon="plus"
-                    data-i18n="time_and_date_section_add_clock_button">Add clock</button>
-
             <div class="section-toggle-controls">
                 <label data-i18n="time_and_date_section_toggle_show_time">
                     <input type="checkbox" id="toggle-time">
@@ -154,6 +144,16 @@
                     Show Date
                 </label>
             </div>
+
+            <!-- One tab per clock (named after its city) and "+"; filled by scripts/sidebar/clocks-section.js -->
+            <div id="clock-tabs" class="clock-tabs" role="tablist"></div>
+            <div id="time-and-date-controls"></div>
+            <label id="clocks-layout-row" data-i18n="clocks_layout_label" hidden>Several clocks:
+                <select id="clocks-layout">
+                    <option value="row" data-i18n="clocks_layout_row">Side by side</option>
+                    <option value="column" data-i18n="clocks_layout_column">One under another</option>
+                </select>
+            </label>
             <button id="reset-time-date" class="sidebar-wide-button reset-button" type="button" data-icon="reset"
                     data-i18n="time_and_date_section_reset_button">Reset Time &amp; Date Settings</button>
         </div>
@@ -362,12 +362,14 @@
         <div class="weather-hourly" id="weather-hourly"></div>
         <div class="weather-forecast" id="weather-forecast"></div>
         <div class="weather-location">
-            <input type="text" id="location-input" data-i18n-placeholder="weather_widget_input_placeholder_city"
-                   placeholder="Enter your city...">
-            <div class="weather-location-buttons">
-                <button id="weather-city-btn" type="button" data-i18n="weather_widget_button_show_weather">🌍 Show weather</button>
-                <button id="weather-geo-btn" type="button" data-i18n="weather_widget_button_my_geolocation">📍 My Geolocation</button>
-            </div>
+            <label class="weather-search" data-icon="search">
+                <input type="text" id="location-input" data-i18n-placeholder="weather_widget_input_placeholder_city"
+                       placeholder="Enter your city...">
+            </label>
+            <button id="weather-city-btn" class="weather-round-button" type="button" data-icon="arrow-right"
+                    data-i18n-title="weather_widget_button_show_weather"></button>
+            <button id="weather-geo-btn" class="weather-round-button" type="button" data-icon="locate"
+                    data-i18n-title="weather_widget_button_my_geolocation"></button>
         </div>
     </div>
 </div>

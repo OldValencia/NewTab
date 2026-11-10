@@ -1,6 +1,7 @@
 import { getSettings, subscribe, updateSettings } from "../core/settings.js";
 import { getLocale, t } from "../core/i18n.js";
 import { createElement } from "../core/utils.js";
+import { createIcon } from "../core/icons.js";
 import { CityNotFoundError, fetchForecast, findCity, findPlaceName } from "./weather-api.js";
 import { convertSpeed, describeWeather, formatTemperature, localDateAt, upcomingDays, upcomingHours } from "./weather-conditions.js";
 import { createWeatherIcon } from "./weather-icons.js";
@@ -77,12 +78,18 @@ function renderSummary(current, location, units) {
     );
 }
 
-function detailItem(labelKey, value) {
+function detailItem(iconName, labelKey, value) {
     return createElement("div", {
         className: "weather-detail",
         children: [
-            createElement("span", { className: "weather-detail-label", text: t(labelKey) }),
-            createElement("span", { className: "weather-detail-value", text: value })
+            createIcon(iconName, { className: "weather-detail-icon" }),
+            createElement("span", {
+                className: "weather-detail-text",
+                children: [
+                    createElement("span", { className: "weather-detail-label", text: t(labelKey) }),
+                    createElement("span", { className: "weather-detail-value", text: value })
+                ]
+            })
         ]
     });
 }
@@ -91,10 +98,10 @@ function renderDetails(cache, units) {
     const { current } = cache;
     const today = upcomingDays(cache.daily, cache.utcOffsetSeconds, 1)[0];
     const items = [
-        current.feelsLike !== null && detailItem("weather_feels_like", formatTemperature(current.feelsLike, units)),
-        detailItem("weather_wind", formatSpeed(current.windSpeed, units)),
-        current.humidity !== null && detailItem("weather_humidity", `${Math.round(current.humidity)}%`),
-        today?.precipitationChance != null && detailItem("weather_precipitation", `${today.precipitationChance}%`)
+        current.feelsLike !== null && detailItem("thermometer", "weather_feels_like", formatTemperature(current.feelsLike, units)),
+        detailItem("wind", "weather_wind", formatSpeed(current.windSpeed, units)),
+        current.humidity !== null && detailItem("droplet", "weather_humidity", `${Math.round(current.humidity)}%`),
+        today?.precipitationChance != null && detailItem("umbrella", "weather_precipitation", `${today.precipitationChance}%`)
     ];
     details.replaceChildren(...items.filter(Boolean));
 }
@@ -108,20 +115,42 @@ function dayLabel(date, today) {
     return name.charAt(0).toLocaleUpperCase(getLocale()) + name.slice(1);
 }
 
+/** The bar shows where the day's low and high sit within the whole forecast period. */
+function temperatureRange(day, lowest, highest) {
+    const span = Math.max(highest - lowest, 1);
+    const fill = createElement("span", {
+        className: "weather-day-range-fill",
+        style: {
+            left: `${((day.min - lowest) / span) * 100}%`,
+            width: `${Math.max(((day.max - day.min) / span) * 100, 6)}%`
+        }
+    });
+    return createElement("span", { className: "weather-day-range", children: [fill] });
+}
+
 function renderForecast(cache, units) {
     const today = localDateAt(cache.utcOffsetSeconds);
     const days = upcomingDays(cache.daily, cache.utcOffsetSeconds, FORECAST_COLUMNS);
+    const lowest = Math.min(...days.map(day => day.min));
+    const highest = Math.max(...days.map(day => day.max));
+
     forecast.replaceChildren(...days.map(day => {
         const { labelKey, icon } = describeWeather({ weatherCode: day.weatherCode });
         const condition = t(labelKey);
+        const chance = day.precipitationChance;
         return createElement("div", {
             className: "weather-day",
             attrs: { title: condition },
             children: [
                 createElement("span", { className: "weather-day-name", text: dayLabel(day.date, today) }),
                 createWeatherIcon(icon, { label: condition }),
-                createElement("span", { className: "weather-day-max", text: formatTemperature(day.max, units) }),
-                createElement("span", { className: "weather-day-min", text: formatTemperature(day.min, units) })
+                createElement("span", {
+                    className: "weather-day-chance",
+                    text: chance !== null && chance >= SHOWN_PRECIPITATION_CHANCE ? `${chance}%` : ""
+                }),
+                createElement("span", { className: "weather-day-min", text: formatTemperature(day.min, units) }),
+                temperatureRange(day, lowest, highest),
+                createElement("span", { className: "weather-day-max", text: formatTemperature(day.max, units) })
             ]
         });
     }));

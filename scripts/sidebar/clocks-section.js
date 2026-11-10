@@ -1,5 +1,8 @@
 /**
- * "Time and date" section: up to MAX_CLOCKS clock editors for the active background's theme.
+ * "Time and date" section for the active background's theme (up to MAX_CLOCKS clocks).
+ *
+ * One clock is edited at a time (tabs named after each clock's city). The everyday options
+ * are on top; fonts, colors, sizes and shadows wait in a collapsed "Appearance" block.
  */
 import { getActiveTheme, getSettings, subscribe, updateSettings, onExternalChange } from "../core/settings.js";
 import { CLOCK_DATE_SIZE, CLOCK_TIME_SIZE, DEFAULT_FONT, MAX_CLOCKS, getDefaultClock, getDefaultTheme } from "../core/defaults.js";
@@ -9,8 +12,8 @@ import { createElement } from "../core/utils.js";
 import { createIcon } from "../core/icons.js";
 import { bindControl, createLabeledInput, createSelect, syncBoundControls } from "./controls.js";
 
-const editorsContainer = document.getElementById("time-and-date-controls");
-const addClockButton = document.getElementById("add-clock");
+const editorContainer = document.getElementById("time-and-date-controls");
+const tabsContainer = document.getElementById("clock-tabs");
 const resetButton = document.getElementById("reset-time-date");
 const showTimeCheckbox = document.getElementById("toggle-time");
 const showDateCheckbox = document.getElementById("toggle-date");
@@ -45,19 +48,28 @@ function dateFormatOptions() {
     ];
 }
 
-const STYLE_OPTIONS = [
+const STYLES = [
     { value: "digital", labelKey: "clock_style_digital" },
     { value: "analog", labelKey: "clock_style_analog" }
 ];
 
-/** Slider changes re-render the page clocks; saving waits until the slider stops for a moment. */
-const SIZE_DEBOUNCE_MS = 100;
+const SHADOW_SLIDERS = [
+    { key: "offsetX", labelKey: "clock_shadow_offset_x", min: -30, max: 30, step: 1 },
+    { key: "offsetY", labelKey: "clock_shadow_offset_y", min: -30, max: 30, step: 1 },
+    { key: "blur", labelKey: "date_and_time_clocks_customization_shadow_blur_label", min: 0, max: 20, step: 1 },
+    { key: "opacity", labelKey: "date_and_time_clocks_customization_shadow_opacity_label", min: 0, max: 1, step: 0.01 }
+];
 
-const SHADOW_STEPS = { up: [0, -1], down: [0, 1], left: [-1, 0], right: [1, 0] };
+/** Slider changes re-render the page clocks; saving waits until the slider stops for a moment. */
+const SLIDER_DEBOUNCE_MS = 100;
+
+let selectedIndex = 0;
+// Collapsed blocks stay as the user left them when the editor is rebuilt (another clock, a new background).
+const openBlocks = new Set();
 
 let timeZoneSelectTemplate = null;
 
-/** Builds the (large) time zone <select> once and clones it for every clock. */
+/** Builds the (large) time zone <select> once and clones it for every editor. */
 function createTimeZoneSelect(currentZone) {
     if (!timeZoneSelectTemplate) {
         const select = createElement("select");
@@ -103,6 +115,14 @@ function activeMode() {
     return getSettings().background.mode;
 }
 
+function clocks() {
+    return getActiveTheme(getSettings()).clocks;
+}
+
+function clockName(clock) {
+    return clock.label.trim() || defaultClockLabel(clock.timezone);
+}
+
 /** Binds a clock field of the active theme; right-click restores that theme's default. */
 function bindClockField(input, index, field, { debounceMs = 0 } = {}) {
     return bindControl(input, {
@@ -113,220 +133,209 @@ function bindClockField(input, index, field, { debounceMs = 0 } = {}) {
     });
 }
 
+/** `<label>Text <control></label>` row. */
+function row(labelKey, control, className = "") {
+    return createElement("label", {
+        className,
+        children: [document.createTextNode(`${t(labelKey)} `), control]
+    });
+}
+
 function clockSwitch(index, field, labelKey, className = "") {
     const { label, input } = createLabeledInput({ labelKey, type: "checkbox", className });
     bindClockField(input, index, field);
-    return label;
+    return { label, input };
 }
 
-function clockSlider(index, field, labelKey, range) {
-    const { label, input } = createLabeledInput({ labelKey, type: "range", min: range.min, max: range.max, step: 1 });
-    bindClockField(input, index, field, { debounceMs: SIZE_DEBOUNCE_MS });
-    return label;
+function slider(range) {
+    return createElement("input", { attrs: { type: "range", min: range.min, max: range.max, step: range.step ?? 1 } });
 }
 
-/** "Show city" switch and the text field for an own label (its placeholder is the city). */
-function createLabelControls(index, timeZoneSelect) {
-    const input = createElement("input", {
+/** A collapsible block whose open state survives re-rendering. */
+function collapsible(id, titleKey, children, className = "") {
+    const details = createElement("details", { className: `clock-block ${className}`.trim() });
+    details.open = openBlocks.has(id);
+    details.addEventListener("toggle", () => {
+        if (details.open) openBlocks.add(id);
+        else openBlocks.delete(id);
+    });
+    details.append(
+        createElement("summary", { children: [createIcon("chevron", { className: "block-chevron" }), document.createTextNode(t(titleKey))] }),
+        createElement("div", { className: "clock-block-content", children })
+    );
+    return details;
+}
+
+// ──────────────────────────────── Tabs ────────────────────────────────
+
+function renderTabs() {
+    const list = clocks();
+    const tabs = list.map((clock, index) => {
+        const tab = createElement("button", {
+            className: `clock-tab${index === selectedIndex ? " selected" : ""}`,
+            text: clockName(clock),
+            attrs: { type: "button", role: "tab", "aria-selected": String(index === selectedIndex) }
+        });
+        tab.addEventListener("click", () => selectClock(index));
+        return tab;
+    });
+
+    const addButton = createElement("button", {
+        className: "clock-tab clock-tab-add",
+        attrs: { type: "button", title: t("time_and_date_section_add_clock_button"), hidden: list.length >= MAX_CLOCKS },
+        children: [createIcon("plus")]
+    });
+    addButton.addEventListener("click", addClock);
+
+    tabsContainer.replaceChildren(...tabs, addButton);
+}
+
+function selectClock(index) {
+    selectedIndex = index;
+    renderTabs();
+    renderEditor();
+}
+
+// ──────────────────────────────── Editor ────────────────────────────────
+
+function createStyleSwitch(index, editor) {
+    const buttons = STYLES.map(({ value, labelKey }) => {
+        const button = createElement("button", { className: "segmented-option", text: t(labelKey), attrs: { type: "button", "data-value": value } });
+        button.addEventListener("click", () => {
+            updateSettings(settings => { getActiveTheme(settings).clocks[index].style = value; });
+            showStyle(value);
+        });
+        return button;
+    });
+    const showStyle = value => {
+        editor.dataset.style = value;
+        for (const button of buttons) button.classList.toggle("selected", button.dataset.value === value);
+    };
+    showStyle(clocks()[index].style);
+    return createElement("div", { className: "segmented", attrs: { role: "group" }, children: buttons });
+}
+
+function createCityControls(index, timeZoneSelect) {
+    const { label, input: toggle } = clockSwitch(index, "showLabel", "clock_show_label");
+    const text = createElement("input", {
         className: "clock-label-input",
         attrs: { type: "text", maxlength: 40, title: t("clock_label_title") }
     });
-    bindClockField(input, index, "label");
-    const updatePlaceholder = () => { input.placeholder = defaultClockLabel(timeZoneSelect.value); };
-    updatePlaceholder();
-    timeZoneSelect.addEventListener("change", updatePlaceholder);
-    return [clockSwitch(index, "showLabel", "clock_show_label"), input];
+    bindClockField(text, index, "label");
+
+    const update = () => {
+        text.placeholder = defaultClockLabel(timeZoneSelect.value);
+        text.hidden = !toggle.checked;
+    };
+    update();
+    toggle.addEventListener("change", update);
+    timeZoneSelect.addEventListener("change", update);
+    return [label, text];
 }
 
-function createLabeledRow(labelKey, control, className = "format-control") {
+function createShadowControls(index, target) {
+    const field = `${target}Shadow`;
+    const controls = SHADOW_SLIDERS.map(({ key, labelKey, ...range }) => {
+        const input = slider(range);
+        bindControl(input, {
+            get: settings => getActiveTheme(settings).clocks[index]?.[field][key],
+            set: (settings, value) => { getActiveTheme(settings).clocks[index][field][key] = value; },
+            defaultValue: () => getDefaultClock(activeMode())[field][key],
+            debounceMs: SLIDER_DEBOUNCE_MS
+        });
+        return row(labelKey, input);
+    });
+
+    const color = createElement("input", { attrs: { type: "color" } });
+    bindControl(color, {
+        get: settings => getActiveTheme(settings).clocks[index]?.[field].color,
+        set: (settings, value) => { getActiveTheme(settings).clocks[index][field].color = value; },
+        defaultValue: () => getDefaultClock(activeMode())[field].color
+    });
+    controls.push(row("date_and_time_clocks_customization_shadow_color_label", color));
+
+    return collapsible(`${target}-shadow`, "clock_shadow_title", controls, "clock-shadow");
+}
+
+/** Font, color, size and shadow of the time or the date text. */
+function createTextAppearance(index, target) {
+    const clock = clocks()[index];
+    const isTime = target === "time";
+    const font = bindClockField(createFontSelect(clock[`${target}Font`]), index, `${target}Font`);
+    const color = bindClockField(createElement("input", { attrs: { type: "color" } }), index, `${target}Color`);
+    const size = bindClockField(slider(isTime ? CLOCK_TIME_SIZE : CLOCK_DATE_SIZE), index, `${target}Size`, { debounceMs: SLIDER_DEBOUNCE_MS });
+
     return createElement("div", {
-        className,
-        children: [createElement("label", { text: t(labelKey) }), control]
-    });
-}
-
-function createTextStyleRow(index, target, isSelected, onSelectShadowTarget) {
-    const fontField = `${target}Font`;
-    const label = createElement("label", {
-        className: `shadow-target-label ${target}-label${isSelected ? " selected" : ""}`,
-        text: t(target === "time" ? "date_and_time_clocks_customization_time_label" : "date_and_time_clocks_customization_date_label"),
-        attrs: { title: t("clock_shadow_target_hint") }
-    });
-    label.addEventListener("click", () => onSelectShadowTarget(target));
-
-    const fontSelect = bindClockField(createFontSelect(getActiveTheme(getSettings()).clocks[index][fontField]), index, fontField);
-    const colorInput = bindClockField(createElement("input", { attrs: { type: "color" } }), index, `${target}Color`);
-
-    return { row: createElement("div", { className: "font-control", children: [label, fontSelect, colorInput] }), label, fontSelect };
-}
-
-function createShadowEditor(index, getTarget) {
-    const shadowKey = () => `${getTarget()}Shadow`;
-    const readShadow = () => getActiveTheme(getSettings()).clocks[index][shadowKey()];
-    const writeShadow = changes => updateSettings(settings => {
-        const clock = getActiveTheme(settings).clocks[index];
-        clock[shadowKey()] = { ...clock[shadowKey()], ...changes };
-    });
-    const defaultShadow = () => getDefaultClock(activeMode())[shadowKey()];
-
-    const offsetDisplay = createElement("span");
-    const blurInput = createElement("input", { attrs: { type: "range", min: 0, max: 20, step: 1 } });
-    const opacityInput = createElement("input", { attrs: { type: "range", min: 0, max: 1, step: 0.01 } });
-    const colorInput = createElement("input", { attrs: { type: "color" } });
-
-    const refresh = () => {
-        const shadow = readShadow();
-        blurInput.value = shadow.blur;
-        opacityInput.value = shadow.opacity;
-        colorInput.value = shadow.color;
-        offsetDisplay.textContent = `${shadow.offsetX}, ${shadow.offsetY}`;
-    };
-
-    const bindShadowInput = (input, field, parse) => {
-        input.addEventListener("input", async () => {
-            await writeShadow({ [field]: parse(input.value) });
-            refresh();
-        });
-        input.addEventListener("contextmenu", async event => {
-            event.preventDefault();
-            await writeShadow({ [field]: defaultShadow()[field] });
-            refresh();
-        });
-    };
-    bindShadowInput(blurInput, "blur", Number);
-    bindShadowInput(opacityInput, "opacity", Number);
-    bindShadowInput(colorInput, "color", String);
-
-    const grid = createElement("div", { className: "shadow-direction-grid" });
-    const cells = [null, "up", null, "left", "center", "right", null, "down", null];
-    for (const direction of cells) {
-        if (direction === "center") {
-            grid.append(createElement("button", { className: "shadow-dir-btn center", attrs: { type: "button", disabled: true }, children: [offsetDisplay] }));
-            continue;
-        }
-        if (!direction) {
-            grid.append(createElement("button", { className: "shadow-dir-btn corner", attrs: { type: "button", disabled: true } }));
-            continue;
-        }
-
-        const button = createElement("button", {
-            className: `shadow-dir-btn shadow-dir-${direction}`,
-            attrs: { type: "button" },
-            children: [createIcon("chevron")]
-        });
-        button.addEventListener("click", async () => {
-            const shadow = readShadow();
-            const [dx, dy] = SHADOW_STEPS[direction];
-            await writeShadow({ offsetX: shadow.offsetX + dx, offsetY: shadow.offsetY + dy });
-            refresh();
-        });
-        button.addEventListener("contextmenu", async event => {
-            event.preventDefault();
-            await writeShadow({ offsetX: 0, offsetY: 0 });
-            refresh();
-        });
-        grid.append(button);
-    }
-
-    const sliderLabel = (labelKey, input) => createElement("label", {
-        className: "shadow-slider-label",
-        children: [document.createTextNode(`${t(labelKey)} `), input]
-    });
-
-    const element = createElement("div", {
-        className: "format-control clock-shadow-control",
+        className: "clock-text-group",
         children: [
-            createElement("label", { text: t("date_and_time_clocks_customization_shadow_label") }),
-            createElement("div", {
-                className: "shadow-controls-row",
-                children: [
-                    grid,
-                    createElement("div", {
-                        className: "shadow-sliders",
-                        children: [
-                            sliderLabel("date_and_time_clocks_customization_shadow_blur_label", blurInput),
-                            sliderLabel("date_and_time_clocks_customization_shadow_opacity_label", opacityInput),
-                            sliderLabel("date_and_time_clocks_customization_shadow_color_label", colorInput)
-                        ]
-                    })
-                ]
-            })
+            createElement("h4", { text: t(isTime ? "clock_group_time" : "clock_group_date") }),
+            // The analog face has no font; its hands use the time color.
+            row("clock_font_label", font, isTime ? "digital-only" : ""),
+            row("date_and_time_clocks_customization_shadow_color_label", color),
+            row("clock_size_label", size),
+            createShadowControls(index, target)
         ]
     });
-
-    refresh();
-    return { element, refresh };
 }
 
-function createClockEditor(index, clockCount) {
-    let shadowTarget = "time";
-    const shadowEditor = createShadowEditor(index, () => shadowTarget);
-
-    const selectShadowTarget = target => {
-        shadowTarget = target;
-        timeRow.label.classList.toggle("selected", target === "time");
-        dateRow.label.classList.toggle("selected", target === "date");
-        shadowEditor.refresh();
-    };
-    const timeRow = createTextStyleRow(index, "time", true, selectShadowTarget);
-    const dateRow = createTextStyleRow(index, "date", false, selectShadowTarget);
-
-    const removeButton = createElement("button", {
-        className: "remove-element icon-button",
-        attrs: { type: "button", title: t("clock_remove_button_title"), hidden: clockCount <= 1 },
-        children: [createIcon("close")]
+function createRemoveButton(index) {
+    const button = createElement("button", {
+        className: "sidebar-wide-button reset-button",
+        attrs: { type: "button" },
+        children: [createIcon("trash"), document.createTextNode(t("clock_remove_button_title"))]
     });
-    removeButton.addEventListener("click", () => updateSettings(settings => {
-        const clocks = getActiveTheme(settings).clocks;
-        if (clocks.length > 1) clocks.splice(index, 1);
-    }));
+    button.addEventListener("click", async () => {
+        await updateSettings(settings => {
+            const list = getActiveTheme(settings).clocks;
+            if (list.length > 1) list.splice(index, 1);
+        });
+    });
+    return button;
+}
 
-    const clock = getActiveTheme(getSettings()).clocks[index];
-    const styleSelect = bindClockField(createSelect(STYLE_OPTIONS), index, "style");
+function createClockEditor(index) {
+    const clock = clocks()[index];
+    const editor = createElement("div", { className: "clock-editor" });
+
     const timeZoneSelect = bindClockField(createTimeZoneSelect(clock.timezone), index, "timezone");
-    const timeFormatRow = createLabeledRow("date_and_time_clocks_customization_time_format_label",
-        bindClockField(createSelect(TIME_FORMAT_OPTIONS), index, "timeFormat"));
+    const timeFormat = bindClockField(createSelect(TIME_FORMAT_OPTIONS), index, "timeFormat");
+    const dateFormat = bindClockField(createSelect(dateFormatOptions()), index, "dateFormat");
 
-    // Font, time format and the blinking colon mean nothing for an analog face.
-    timeRow.fontSelect.classList.add("digital-only");
-    timeFormatRow.classList.add("digital-only");
-
-    const editor = createElement("div", {
-        className: "time-and-date-wrapper",
-        children: [
-            removeButton,
-            createLabeledRow("clock_style_label", styleSelect),
-            timeRow.row,
-            dateRow.row,
-            shadowEditor.element,
-            clockSlider(index, "timeSize", "clock_time_size_label", CLOCK_TIME_SIZE),
-            clockSlider(index, "dateSize", "clock_date_size_label", CLOCK_DATE_SIZE),
-            timeFormatRow,
-            createLabeledRow("date_and_time_clocks_customization_timezone_label", timeZoneSelect),
-            createLabeledRow("date_and_time_clocks_customization_date_format_label",
-                bindClockField(createSelect(dateFormatOptions()), index, "dateFormat")),
-            ...createLabelControls(index, timeZoneSelect),
-            clockSwitch(index, "showSeconds", "clock_show_seconds"),
-            clockSwitch(index, "blinkColon", "clock_blink_colon", "digital-only")
-        ]
-    });
-    const showStyle = () => { editor.dataset.style = styleSelect.value; };
-    showStyle();
-    styleSelect.addEventListener("change", showStyle);
+    editor.append(
+        createStyleSwitch(index, editor),
+        row("date_and_time_clocks_customization_timezone_label", timeZoneSelect),
+        row("date_and_time_clocks_customization_time_format_label", timeFormat, "digital-only"),
+        row("date_and_time_clocks_customization_date_format_label", dateFormat),
+        clockSwitch(index, "showSeconds", "clock_show_seconds").label,
+        clockSwitch(index, "blinkColon", "clock_blink_colon", "digital-only").label,
+        ...createCityControls(index, timeZoneSelect),
+        collapsible("appearance", "clock_appearance_title", [
+            createTextAppearance(index, "time"),
+            createTextAppearance(index, "date")
+        ], "clock-appearance")
+    );
+    if (clocks().length > 1) editor.append(createRemoveButton(index));
     return editor;
 }
 
-function renderEditors() {
-    const clocks = getActiveTheme(getSettings()).clocks;
-    editorsContainer.replaceChildren(...clocks.map((_, index) => createClockEditor(index, clocks.length)));
-    addClockButton.hidden = clocks.length >= MAX_CLOCKS;
-    layoutRow.hidden = clocks.length < 2;
+function renderEditor() {
+    const count = clocks().length;
+    selectedIndex = Math.min(selectedIndex, count - 1);
+    editorContainer.replaceChildren(createClockEditor(selectedIndex));
+    layoutRow.hidden = count < 2;
+}
+
+function renderAll() {
+    renderTabs();
+    renderEditor();
 }
 
 async function addClock() {
+    const count = clocks().length;
+    if (count >= MAX_CLOCKS) return;
+    selectedIndex = count; // open the new clock right away
     await updateSettings(settings => {
-        const clocks = getActiveTheme(settings).clocks;
-        if (clocks.length < MAX_CLOCKS) clocks.push(getDefaultClock(settings.background.mode));
+        getActiveTheme(settings).clocks.push(getDefaultClock(settings.background.mode));
     });
 }
 
@@ -337,7 +346,7 @@ async function resetTimeAndDate() {
         // Links color shares the theme but has its own reset, so it is kept.
         Object.assign(theme, defaults, { linksColor: theme.linksColor });
     });
-    renderEditors();
+    renderAll();
     syncBoundControls();
 }
 
@@ -350,20 +359,20 @@ export function initClocksSection() {
         get: settings => getActiveTheme(settings).showDate,
         set: (settings, value) => { getActiveTheme(settings).showDate = value; }
     });
-
     bindControl(layoutSelect, {
         get: settings => getActiveTheme(settings).clocksLayout,
         set: (settings, value) => { getActiveTheme(settings).clocksLayout = value; },
         defaultValue: "row"
     });
 
-    renderEditors();
-    addClockButton.addEventListener("click", addClock);
+    renderAll();
     resetButton.addEventListener("click", resetTimeAndDate);
 
     subscribe(settings => [settings.background.mode, getActiveTheme(settings).clocks.length], () => {
-        renderEditors();
+        renderAll();
         syncBoundControls();
     });
-    onExternalChange(renderEditors);
+    // Tab names follow the city / own label while typing, without rebuilding the editor.
+    subscribe(settings => getActiveTheme(settings).clocks.map(clock => [clock.label, clock.timezone]), renderTabs);
+    onExternalChange(renderAll);
 }

@@ -603,22 +603,22 @@
     "uk": "Введіть своє місто..."
   },
   "weather_widget_button_show_weather": {
-    "en": "🌍 Show weather",
-    "ru": "🌍 Показать погоду",
-    "pl": "🌍 Pokaż pogodę",
-    "de": "🌍 Wetter anzeigen",
-    "es": "🌍 Mostrar el tiempo",
-    "be": "🌍 Паказаць надвор'е",
-    "uk": "🌍 Показати погоду"
+    "en": "Show weather",
+    "ru": "Показать погоду",
+    "pl": "Pokaż pogodę",
+    "de": "Wetter anzeigen",
+    "es": "Mostrar el tiempo",
+    "be": "Паказаць надвор'е",
+    "uk": "Показати погоду"
   },
   "weather_widget_button_my_geolocation": {
-    "en": "📍 My Geolocation",
-    "ru": "📍 Моя локация",
-    "pl": "📍 Moja lokalizacja",
-    "de": "📍 Mein Standort",
-    "es": "📍 Mi ubicación",
-    "be": "📍 Мая лакацыя",
-    "uk": "📍 Моя геолокація"
+    "en": "My Geolocation",
+    "ru": "Моя локация",
+    "pl": "Moja lokalizacja",
+    "de": "Mein Standort",
+    "es": "Mi ubicación",
+    "be": "Мая лакацыя",
+    "uk": "Моя геолокація"
   },
   "main_sidebar_localization_header": {
     "en": "Localization",
@@ -809,24 +809,6 @@
     "be": "Inter (па змаўчанні)",
     "uk": "Inter (за замовчуванням)"
   },
-  "date_and_time_clocks_customization_time_label": {
-    "en": "Time: ",
-    "ru": "Время: ",
-    "pl": "Godzina: ",
-    "de": "Zeit: ",
-    "es": "Hora: ",
-    "be": "Час: ",
-    "uk": "Час: "
-  },
-  "date_and_time_clocks_customization_date_label": {
-    "en": "Date: ",
-    "ru": "Дата: ",
-    "pl": "Data: ",
-    "de": "Datum: ",
-    "es": "Fecha: ",
-    "be": "Дата: ",
-    "uk": "Дата: "
-  },
   "date_and_time_clocks_customization_time_format_label": {
     "en": "Time format: ",
     "ru": "Формат времени: ",
@@ -935,15 +917,6 @@
     "be": "2025 Ліпень 20",
     "uk": "2025 Липень 20"
   },
-  "clock_style_label": {
-    "en": "Style:",
-    "ru": "Вид:",
-    "pl": "Styl:",
-    "de": "Stil:",
-    "es": "Estilo:",
-    "be": "Выгляд:",
-    "uk": "Вигляд:"
-  },
   "clock_style_digital": {
     "en": "Digital",
     "ru": "Цифровые",
@@ -962,23 +935,77 @@
     "be": "Стрэлачны",
     "uk": "Стрілочний"
   },
-  "clock_time_size_label": {
-    "en": "Time size:",
-    "ru": "Размер времени:",
-    "pl": "Rozmiar godziny:",
-    "de": "Größe der Uhrzeit:",
-    "es": "Tamaño de la hora:",
-    "be": "Памер часу:",
-    "uk": "Розмір часу:"
+  "clock_appearance_title": {
+    "en": "Appearance",
+    "ru": "Оформление",
+    "pl": "Wygląd",
+    "de": "Darstellung",
+    "es": "Apariencia",
+    "be": "Афармленне",
+    "uk": "Оформлення"
   },
-  "clock_date_size_label": {
-    "en": "Date size:",
-    "ru": "Размер даты:",
-    "pl": "Rozmiar daty:",
-    "de": "Größe des Datums:",
-    "es": "Tamaño de la fecha:",
-    "be": "Памер даты:",
-    "uk": "Розмір дати:"
+  "clock_group_time": {
+    "en": "Time",
+    "ru": "Время",
+    "pl": "Godzina",
+    "de": "Uhrzeit",
+    "es": "Hora",
+    "be": "Час",
+    "uk": "Час"
+  },
+  "clock_group_date": {
+    "en": "Date",
+    "ru": "Дата",
+    "pl": "Data",
+    "de": "Datum",
+    "es": "Fecha",
+    "be": "Дата",
+    "uk": "Дата"
+  },
+  "clock_font_label": {
+    "en": "Font:",
+    "ru": "Шрифт:",
+    "pl": "Czcionka:",
+    "de": "Schriftart:",
+    "es": "Fuente:",
+    "be": "Шрыфт:",
+    "uk": "Шрифт:"
+  },
+  "clock_size_label": {
+    "en": "Size:",
+    "ru": "Размер:",
+    "pl": "Rozmiar:",
+    "de": "Größe:",
+    "es": "Tamaño:",
+    "be": "Памер:",
+    "uk": "Розмір:"
+  },
+  "clock_shadow_title": {
+    "en": "Shadow",
+    "ru": "Тень",
+    "pl": "Cień",
+    "de": "Schatten",
+    "es": "Sombra",
+    "be": "Цень",
+    "uk": "Тінь"
+  },
+  "clock_shadow_offset_x": {
+    "en": "Horizontal:",
+    "ru": "По горизонтали:",
+    "pl": "W poziomie:",
+    "de": "Horizontal:",
+    "es": "Horizontal:",
+    "be": "Па гарызанталі:",
+    "uk": "По горизонталі:"
+  },
+  "clock_shadow_offset_y": {
+    "en": "Vertical:",
+    "ru": "По вертикали:",
+    "pl": "W pionie:",
+    "de": "Vertikal:",
+    "es": "Vertical:",
+    "be": "Па вертыкалі:",
+    "uk": "По вертикалі:"
   },
   "clock_show_label": {
     "en": "Show city",
@@ -1205,15 +1232,6 @@
     "be": "Рэгіён (з улікам летняга часу)",
     "uk": "Регіон (з урахуванням літнього часу)"
   },
-  "clock_shadow_target_hint": {
-    "en": "Click to edit the shadow of this text",
-    "ru": "Нажмите, чтобы настроить тень этого текста",
-    "pl": "Kliknij, aby edytować cień tego tekstu",
-    "de": "Klicken, um den Schatten dieses Textes zu bearbeiten",
-    "es": "Haz clic para editar la sombra de este texto",
-    "be": "Націсніце, каб наладзіць цень гэтага тэксту",
-    "uk": "Натисніть, щоб налаштувати тінь цього тексту"
-  },
   "clock_remove_button_title": {
     "en": "Remove clock",
     "ru": "Удалить часы",
@@ -1222,15 +1240,6 @@
     "es": "Eliminar reloj",
     "be": "Выдаліць гадзіннік",
     "uk": "Видалити годинник"
-  },
-  "date_and_time_clocks_customization_shadow_label": {
-    "en": "Shadow:",
-    "ru": "Тень:",
-    "pl": "Cień:",
-    "de": "Schatten:",
-    "es": "Sombra:",
-    "be": "Цень:",
-    "uk": "Тінь:"
   },
   "date_and_time_clocks_customization_shadow_blur_label": {
     "en": "Blur:",

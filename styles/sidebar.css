@@ -173,162 +173,150 @@ section:has(> .section-content.open) .section-icon {
 /* ──────────────────────────────── */
 /* Clocks (built in scripts/sidebar/clocks-section.js) */
 /* ──────────────────────────────── */
-#time-and-date-controls {
+.clock-tabs {
     display: flex;
-    flex-direction: column;
-    gap: 8px;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 4px;
 }
 
-.time-and-date-wrapper {
-    position: relative;
+.clock-tab {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    max-width: 130px;
+    padding: 6px 12px;
+    overflow: hidden;
+    border: 1px solid var(--panel-control-border);
+    border-radius: 8px;
+    background: transparent;
+    color: var(--panel-text-soft);
+    font: inherit;
+    font-size: 13px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.clock-tab:hover {
+    background: var(--panel-surface);
+}
+
+.clock-tab.selected {
+    border-color: rgba(111, 183, 255, 0.5);
+    background: var(--panel-accent-soft);
+    color: var(--panel-text);
+}
+
+.clock-tab-add {
+    padding: 6px 9px;
+    border-style: dashed;
+}
+
+.clock-tab-add .ui-icon {
+    width: 14px;
+    height: 14px;
+}
+
+.clock-editor {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 2px;
     padding: 12px;
     border: 1px solid var(--panel-border);
     border-radius: 12px;
     background: rgba(255, 255, 255, 0.035);
 }
 
-/* Room for the remove button when there is more than one clock */
-.time-and-date-wrapper:has(> .remove-element:not([hidden])) {
-    padding-top: 40px;
+/* Analog clocks have no font, time format or colon to style */
+.clock-editor[data-style="analog"] .digital-only {
+    display: none;
 }
 
-.remove-element {
-    position: absolute;
-    top: 8px;
-    right: 8px;
+.clock-editor > .segmented {
+    margin-bottom: 6px;
 }
 
-/* "Time" / "Date" rows: the label picks which text the shadow editor below changes */
-.font-control {
+.clock-label-input {
+    width: 100%;
+    margin-bottom: 4px;
+}
+
+/* Collapsible blocks: "Appearance" and the shadow of each text */
+.clock-block {
+    margin-top: 6px;
+    border-top: 1px solid var(--panel-border);
+}
+
+.clock-block > summary {
     display: flex;
     align-items: center;
     gap: 8px;
-}
-
-.font-control > select {
-    flex: 1;
-}
-
-.section-content label.shadow-target-label {
-    flex: none;
-    justify-content: center;
-    min-width: 64px;
-    min-height: 0;
-    box-sizing: border-box;
-    padding: 6px 10px;
-    border: 1px solid transparent;
-    border-radius: 8px;
-    color: var(--panel-text-dim);
+    min-height: 36px;
+    list-style: none;
+    color: var(--panel-text-soft);
+    font-size: 13.5px;
+    font-weight: 500;
     cursor: pointer;
-    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
 
-.section-content label.shadow-target-label:hover {
-    background: var(--panel-surface);
-}
-
-.section-content label.shadow-target-label.selected {
-    border-color: rgba(111, 183, 255, 0.5);
-    background: var(--panel-accent-soft);
+.clock-block > summary:hover {
     color: var(--panel-text);
 }
 
-/* Time format / time zone / date format */
-.format-control {
-    display: grid;
-    grid-template-columns: 38% 1fr;
-    align-items: center;
-    gap: 8px;
-}
-
-.format-control > label {
-    min-height: 0;
-}
-
-.format-control > select {
-    width: 100%;
-}
-
-.clock-shadow-control {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin: 4px 0;
-    padding: 10px 0;
-    border-top: 1px solid var(--panel-border);
-    border-bottom: 1px solid var(--panel-border);
-}
-
-.clock-shadow-control > label {
-    min-height: 0;
-    color: var(--panel-text-dim);
-    font-size: 12px;
-}
-
-.shadow-controls-row {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-}
-
-.shadow-direction-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 28px);
-    grid-template-rows: repeat(3, 28px);
-    gap: 3px;
-}
-
-.shadow-dir-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    border: none;
-    border-radius: 7px;
-    background: var(--panel-surface);
-    color: var(--panel-text-soft);
-    cursor: pointer;
-    transition: background 0.15s ease;
-}
-
-.shadow-dir-btn .ui-icon {
+.block-chevron {
     width: 14px;
     height: 14px;
+    color: var(--panel-text-dim);
+    transition: transform 0.15s ease;
 }
 
-.shadow-dir-up .ui-icon { transform: rotate(-90deg); }
-.shadow-dir-down .ui-icon { transform: rotate(90deg); }
-.shadow-dir-left .ui-icon { transform: rotate(180deg); }
-
-.shadow-dir-btn:hover:not(:disabled) {
-    background: var(--panel-surface-hover);
+.clock-block[open] > summary .block-chevron {
+    transform: rotate(90deg);
 }
 
-.shadow-dir-btn.center {
-    background: transparent;
-    color: var(--panel-accent);
-    font-size: 11px;
-    font-weight: 600;
-    cursor: default;
-}
-
-.shadow-dir-btn.corner {
-    visibility: hidden;
-}
-
-.shadow-sliders {
+.clock-block-content {
     display: flex;
-    flex: 1;
     flex-direction: column;
-    min-width: 0;
+    gap: 2px;
+    padding-bottom: 6px;
 }
 
-.section-content label.shadow-slider-label {
+.clock-text-group + .clock-text-group {
+    margin-top: 8px;
+}
+
+.clock-text-group h4 {
+    margin: 4px 0 2px;
+    color: var(--panel-text-dim);
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+/* Shadow sits inside its text group, so it is lighter and indented */
+.clock-shadow {
+    margin-top: 2px;
+    border-top: none;
+}
+
+.clock-shadow > summary {
     min-height: 30px;
     font-size: 13px;
+    font-weight: 400;
+}
+
+.clock-shadow > .clock-block-content {
+    margin-left: 6px;
+    padding-left: 14px;
+    border-left: 2px solid var(--panel-border);
+}
+
+.clock-editor > .reset-button {
+    margin-top: 8px;
 }
 
 /* ──────────────────────────────── */
@@ -510,13 +498,4 @@ section:has(> .section-content.open) .section-icon {
 #version-info a:hover {
     color: var(--panel-text);
     text-decoration: underline;
-}
-
-/* Analog clocks have no font, time format or colon to style */
-.time-and-date-wrapper[data-style="analog"] .digital-only {
-    display: none;
-}
-
-.clock-label-input {
-    width: 100%;
 }

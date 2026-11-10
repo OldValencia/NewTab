@@ -41,7 +41,13 @@ const ICONS = {
     minus: [["path", { d: "M5 12h14" }]],
     menu: [["path", { d: "M4 7h16M4 12h16M4 17h16" }]],
     reset: [["path", { d: "M4.5 12a7.5 7.5 0 1 0 2.2-5.3M4.5 4.5v4h4" }]],
-    "collapse-all": [["path", { d: "M8 10.5l4-4 4 4M8 17.5l4-4 4 4" }]]
+    "collapse-all": [["path", { d: "M8 10.5l4-4 4 4M8 17.5l4-4 4 4" }]],
+    thermometer: [["path", { d: "M10 4.5a2 2 0 0 1 4 0v9.3a4 4 0 1 1-4 0z" }], ["path", { d: "M12 10v6" }]],
+    wind: [["path", { d: "M3.5 9h11a2.5 2.5 0 1 0-2.5-2.5M3.5 15h14a2.5 2.5 0 1 1-2.5 2.5M3.5 12h7" }]],
+    droplet: [["path", { d: "M12 3.5s6 6.4 6 10.5a6 6 0 0 1-12 0c0-4.1 6-10.5 6-10.5z" }]],
+    umbrella: [["path", { d: "M3.5 12a8.5 8.5 0 0 1 17 0zM12 12v6.5a2 2 0 0 1-4 0M12 3.5v-1" }]],
+    locate: [["circle", { cx: 12, cy: 12, r: 6.5 }], ["circle", { cx: 12, cy: 12, r: 2 }], ["path", { d: "M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3" }]],
+    "arrow-right": [["path", { d: "M5 12h14M13 6l6 6-6 6" }]]
 };
 
 function svgElement(tag, attrs) {
