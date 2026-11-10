@@ -1,71 +1,80 @@
-# 🌌 New Tab Extension ([Addons.Mozilla.org](https://addons.mozilla.org/en-US/firefox/addon/newtabaddon/))
+<p align="center">
+  <img src="icons/icon-128.png" alt="" width="96" height="96">
+</p>
 
-**New Tab Extension** is a minimalist browser extension that:
-
-- Replaces Firefox's default new tab page
-- Lets you choose from multiple animated or static backgrounds
-- Saves your preferences locally using `localStorage`
-- Works entirely offline - no external servers or dependencies
+<h1 align="center">New Tab Extension</h1>
 
 <p align="center">
-<img src="./icons/icon-96.svg" alt="Loom Icon" width="500px"/>
+  A calm, good-looking new tab for Firefox: a clock, your links and the weather on top of a background you like.
+  <br>
+  <a href="https://addons.mozilla.org/en-US/firefox/addon/newtabaddon/"><b>Get it on addons.mozilla.org</b></a>
 </p>
+
+![New tab with a canyon photo, the clock, links and weather](Screenshots/01-new-tab.jpg)
+
+## What you get
+
+**Backgrounds.** Eleven animated scenes (waves, a solar system, drifting particles and more), your own picture,
+a random photo from Unsplash, photos for a keyword, or the Wikimedia Commons picture of the day.
+You can also have a different background at night that switches by itself.
+
+**Clocks.** Up to three, each in its own time zone and labelled with the city, so "Tokyo · +8 h" is one glance away.
+Digital or analog, with seconds if you want them, and any font, color, size and shadow.
+
+**Weather.** Current conditions, the next 24 hours and five days ahead, in °C or °F.
+The card stays small until you hover it. No account or API key needed.
+
+**Links and bookmarks.** A grid of your favorite sites (keys 1–9 open them), and a bookmarks panel with
+site icons, pinned bookmarks and a search that shows where each bookmark lives.
+
+**Settings that stay out of the way.** Everything is in one side panel. Right-click any control to reset it,
+and export everything to a file to move it to another computer. Available in English, Русский, Polski, Deutsch,
+Español, Беларуская and Українська.
 
 ## Screenshots
 
-### Main page
-![Main page](Screenshots/Main_page.png "Main page")
-### Bookmarks and widgets
-![Widgets](Screenshots/Widgets.png "Time and date format, sidebar")
-### Sidebar
-![Sidebar.png](Screenshots/Sidebar.png "Search bar widget")
+| | |
+|---|---|
+| ![Weather card with the hourly and five-day forecast](Screenshots/02-weather.jpg) | ![Three clocks: Lisbon, Tokyo (analog) and New York](Screenshots/03-world-clocks.jpg) |
+| **Weather** — hourly and five-day forecast | **World clocks** — city labels, analog style |
+| ![Bookmarks panel with pinned bookmarks and folders](Screenshots/04-bookmarks.jpg) | ![Settings panel with the clock editor](Screenshots/05-settings.jpg) |
+| **Bookmarks** — pinned, folders, search | **Settings** — one clock at a time |
 
----
+![Nine of the animated backgrounds](Screenshots/06-backgrounds.jpg)
 
-## How to Load the Extension Temporarily (via `about:debugging`)
+## Privacy
 
-1. Open Firefox
-2. Go to: `about:debugging#/runtime/this-firefox`
-3. Click **"Load Temporary Add-on"**
-4. Select the `manifest.json` file from your extension folder
+Settings stay in your Firefox profile. There are no accounts, no analytics and no servers of our own.
+The page goes online only for the features you turn on:
 
-> ⚠️ Temporary extensions are removed when Firefox restarts.
+| Feature | Service | What it receives |
+|---|---|---|
+| Weather | [Open-Meteo](https://open-meteo.com) | the city you typed, or your coordinates |
+| Name of your location | [OpenStreetMap Nominatim](https://nominatim.org) | your coordinates, once, after you press "My location" |
+| Online photo | [Picsum](https://picsum.photos) / [Openverse](https://openverse.org) | your search keyword, if any |
+| Photo of the day | [Wikimedia](https://commons.wikimedia.org/wiki/Commons:Picture_of_the_day) | today's date |
+| Site icons | each site's own `/favicon.ico` | a normal icon request |
+| Site icons through Google (off by default) | Google | the addresses of your links and bookmarks |
 
-## How to Set It as Your Homepage
+Fonts are bundled with the extension, so no font services are contacted.
 
-To make the extension your homepage:
+## Development
 
-1. Open Firefox settings (`about:preferences`)
-2. Scroll to **Home > New Windows and Tabs**
-3. Under **New tabs**, select **Custom URLs...**
-4. Enter: `moz-extension://<your-extension-id>/index.html`
+Plain JavaScript modules, HTML and CSS. No build step and no dependencies.
 
-> You can find your extension ID in `about:debugging` after loading it.
+1. Open `about:debugging#/runtime/this-firefox` and click **Load Temporary Add-on**.
+2. Pick `manifest.json` from this folder and open a new tab.
+3. After changing files, press **Reload** on the add-on card.
 
-## 🛠 Features
+```
+node --test "tests/*.test.mjs"     # settings migration, formatting, weather, schedule
+npx web-ext lint --source-dir . --ignore-files "tests/**" "Screenshots/**" review.md "*.zip"
+python release.py                  # builds "New Tab Extension.zip" for AMO
+```
 
-- 🎨 Multiple background modes: stars, particles, grids, images, and more
-- 💾 Settings saved locally - no cloud, no sync required
-- 📅 Customizable time and date formats
-- 📝 Sidebar with:
-  - Weather widget with location support
-  - Notifications manager to notify about various options
-  - Background customization options
-  - etc.
-- ⏰ Time customization (12/24 hour format, date format)
-- ⚡ Fast and lightweight - no performance impact
-- 🔒 Private — no data collection, no analytics
+The code starts at `scripts/app.js`. `CLAUDE.md` describes the structure, the settings format and the rules
+that keep existing users' settings working after an update.
 
+## License
 
-![Backgrounds.png](Screenshots/Backgrounds.png "Various background modes")
-![Notification_editor.png](Screenshots/Notification_editor.png "Notification editor")
-![Weather.png](Screenshots/Weather.png "Weather widget")
-
-## 💡 Developer Notes
-
-- Built with vanilla JavaScript, HTML, and CSS
-- Uses `localStorage` for persistent settings
-- Supports multiple background modes: stars, particles, grids, images, and more
-- Includes a sidebar with sticky notes, weather widget, quotes widget, and time customization
-- Designed to be lightweight and fast, with no external dependencies
-- Designed to be easily modifiable
+[MIT](LICENSE)

@@ -1,3 +1,21 @@
+#background-layer .cloudy-spiral-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 2;
+    perspective: 500px;
+}
+
+/* Size, color, timing and position are set per particle in scripts/backgrounds/effects/cloudy-spiral.js */
+#background-layer .cloudy-spiral-wrapper i {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0;
+    animation-name: spin;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
 @keyframes spin {
     from {
         opacity: 0.0;

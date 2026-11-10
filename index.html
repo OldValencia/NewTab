@@ -6,6 +6,7 @@
 
     <link rel="icon" type="image/x-icon" href="icons/favicon.ico">
 
+    <link rel="stylesheet" href="styles/fonts.css"/>
     <link rel="stylesheet" href="styles/main.css"/>
     <link rel="stylesheet" href="styles/background/starfield.css"/>
     <link rel="stylesheet" href="styles/background/cloudy-spiral.css"/>
@@ -15,459 +16,326 @@
     <link rel="stylesheet" href="styles/background/floating-circles.css"/>
     <link rel="stylesheet" href="styles/time.css"/>
     <link rel="stylesheet" href="styles/links.css"/>
+    <link rel="stylesheet" href="styles/panels.css"/>
     <link rel="stylesheet" href="styles/sidebar.css"/>
-    <link rel="stylesheet" href="styles/sidebar.homepage.css"/>
     <link rel="stylesheet" href="styles/weather.css"/>
     <link rel="stylesheet" href="styles/bookmarks.css"/>
-    <link rel="stylesheet" href="styles/notifications.css"/>
 
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Open+Sans&family=Lato&family=Quicksand&family=Fira+Sans&display=swap"
-          rel="stylesheet">
+    <script type="module" src="scripts/app.js"></script>
 </head>
 <body>
 
 <div id="background-layer"></div>
 <div id="vignette-layer"></div>
+<div id="photo-credit" hidden></div>
 
-<button id="bookmark-toggle" class="sidebar-menu-button">📚</button>
-<div id="bookmark-sidebar" class="hidden">
-    <h2 data-value-localization-key="bookmark_sidebar_header">Bookmarks</h2>
+<!-- 📚 Bookmarks sidebar (left) -->
+<button id="bookmark-toggle" class="panel-toggle-button" type="button" hidden
+        data-icon="bookmark" data-i18n-title="bookmark_sidebar_header"></button>
+<div id="bookmark-sidebar" class="glass-panel">
+    <div class="panel-header">
+        <h2 data-i18n="bookmark_sidebar_header">Bookmarks</h2>
+        <button id="bookmarks-collapse-all" class="icon-button" type="button" data-icon="collapse-all"
+                data-i18n-title="bookmarks_collapse_all_title"></button>
+    </div>
 
-    <div class="bookmark-section-content open bookmark-style-gap no-border">
-        <input type="text" id="bookmark-search" data-placeholder-localization-key="bookmarks_search_input_placeholder"
-               placeholder="🔍 Find bookmark..."/>
-        <label for="toggle-empty-folders" data-value-localization-key="bookmarks_search_input_empty_folders">
+    <label class="bookmark-search" data-icon="search">
+        <input type="text" id="bookmark-search" data-i18n-placeholder="bookmarks_search_input_placeholder"
+               placeholder="Find bookmark..."/>
+    </label>
+
+    <div class="panel-scroll">
+        <section class="bookmark-group" id="pinned-group">
+            <h3 class="panel-group-title" data-icon="star"><span data-i18n="bookmark_pinned_section_header">Pinned</span></h3>
+            <div class="bookmark-list" id="pinned-section"></div>
+        </section>
+        <section class="bookmark-group">
+            <h3 class="panel-group-title" data-icon="folder"><span data-i18n="bookmark_all_bookmarks_section_header">All bookmarks</span></h3>
+            <div class="bookmark-list" id="bookmark-tree"></div>
+        </section>
+    </div>
+
+    <div class="panel-footer">
+        <label data-i18n="bookmarks_search_input_empty_folders">
             <input type="checkbox" id="toggle-empty-folders"/>
             Show empty bookmark folders
         </label>
-        <label for="open-bookmark-in-new-tab"
-               data-value-localization-key="bookmarks_search_input_open_bookmark_in_new_tab">
+        <label data-i18n="bookmarks_search_input_open_bookmark_in_new_tab">
             <input type="checkbox" id="open-bookmark-in-new-tab"/>
             Open bookmarks in new tab
         </label>
     </div>
-
-    <div class="bookmark-section-header">
-        <h3 data-value-localization-key="bookmark_pinned_section_header">⭐ Pinned</h3>
-    </div>
-    <div class="bookmark-section-content open" id="pinned-section"></div>
-
-    <div class="bookmark-section-header">
-        <h3 data-value-localization-key="bookmark_all_bookmarks_section_header">📁 All bookmarks</h3>
-    </div>
-    <div class="bookmark-section-content open" id="bookmark-tree"></div>
 </div>
 
-<button id="menu-toggle" class="menu-button">☰</button>
-<div id="sidebar" class="sidebar">
-    <h2 id="settings-title" data-value-localization-key="sidebar_h2_title_settings_text">Settings</h2>
+<!-- ⚙️ Settings sidebar (right) -->
+<button id="menu-toggle" class="menu-button panel-toggle-button" type="button" aria-controls="sidebar" aria-expanded="false"
+        data-icon="menu" data-i18n-title="sidebar_h2_title_settings_text"></button>
+<div id="sidebar" class="sidebar glass-panel">
+    <h2 class="sidebar-group-title" data-i18n="sidebar_h2_title_settings_text">Settings</h2>
 
     <section data-section="hotkeys-section">
         <div class="section-header">
-            <span class="section-icon">⌨️</span>
-            <h3 data-value-localization-key="main_sidebar_hotkeys_header">Hotkeys</h3>
-            <button class="toggle-section">+</button>
+            <span class="section-icon" data-icon="keyboard"></span>
+            <h3 data-i18n="main_sidebar_hotkeys_header">Hotkeys</h3>
+            <button class="toggle-section" type="button" data-icon="chevron" tabindex="-1"></button>
         </div>
         <div class="section-content">
             <div class="instructions">
-                <h3 data-value-localization-key="main_sidebar_hotkeys_instructions_header">List of hotkeys
-                    available:</h3>
+                <h3 data-i18n="main_sidebar_hotkeys_instructions_header">List of hotkeys available:</h3>
                 <ol>
-                    <li data-html-localization-key="hotkeys_first_line"><strong>Right Mouse Click</strong> on any input
-                        field (color, font, or text input) - the field will revert to default setting
-                    </li>
-                    <li data-html-localization-key="hotkeys_second_line"><strong>Key Left ←</strong> to open
-                        the bookmarks sidebar (if it is enabled in the settings)
-                    </li>
-                    <li data-html-localization-key="hotkeys_third_line"><strong>Key Right →</strong> to open
-                        the main sidebar
-                    </li>
-                    <li data-html-localization-key="hotkeys_sixth_line">Click on the <strong>Settings</strong> or <strong>Customization</strong>
-                        header below to collapse all sections in this sidebar
-                    </li>
-                    <li data-html-localization-key="hotkeys_seventh_line"><strong>Keys 1-9</strong> to open the corresponding link
-                        from your links list (if no input is focused). For example, <strong>Key 1</strong> opens the first link, <strong>Key 2</strong> opens the second, etc.
-                    </li>
+                    <li data-i18n-html="hotkeys_first_line"></li>
+                    <li data-i18n-html="hotkeys_second_line"></li>
+                    <li data-i18n-html="hotkeys_third_line"></li>
+                    <li data-i18n-html="hotkeys_sixth_line"></li>
+                    <li data-i18n-html="hotkeys_seventh_line"></li>
                 </ol>
             </div>
         </div>
     </section>
 
-    <!-- 🔍 Localization -->
     <section data-section="localization-widget">
         <div class="section-header">
-            <span class="section-icon">🌐</span>
-            <h3 data-value-localization-key="main_sidebar_localization_header">Localization</h3>
-            <button class="toggle-section">+</button>
+            <span class="section-icon" data-icon="globe"></span>
+            <h3 data-i18n="main_sidebar_localization_header">Localization</h3>
+            <button class="toggle-section" type="button" data-icon="chevron" tabindex="-1"></button>
         </div>
         <div class="section-content">
-            <button id="reset-localization-settings" class="sidebar-wide-button"
-                    data-value-localization-key="main_sidebar_localization_reset_settings_button">
-                Reset Localization Settings
-            </button>
-
-            <div class="font-control localization-fix">
-                <label for="localization-select" data-value-localization-key="localization_section_font_label">Select
-                    localization:
-                    <select id="localization-select">
-                        <option value="en">English</option>
-                        <option value="ru">Русский</option>
-                        <option value="pl">Polski</option>
-                        <option value="de">Deutsch</option>
-                        <option value="es">Español</option>
-                        <option value="be">Беларуская</option>
-                        <option value="uk">Українська</option>
-                    </select>
-                </label>
-            </div>
+            <label data-i18n="localization_section_font_label">Select localization:
+                <select id="localization-select"></select>
+            </label>
+            <button id="reset-localization-settings" class="sidebar-wide-button reset-button" type="button" data-icon="reset"
+                    data-i18n="main_sidebar_localization_reset_settings_button">Reset Localization Settings</button>
         </div>
     </section>
 
-    <!-- 🔍 Cloud Save -->
-    <section data-section="cloud-save-widget">
+    <section data-section="backup">
         <div class="section-header">
-            <span class="section-icon">☁️</span>
-            <h3 data-value-localization-key="sidebar_section_name_cloud_save_text">Cloud Save</h3>
-            <button class="toggle-section">+</button>
+            <span class="section-icon" data-icon="backup"></span>
+            <h3 data-i18n="backup_section_header">Backup</h3>
+            <button class="toggle-section" type="button" data-icon="chevron" tabindex="-1"></button>
         </div>
         <div class="section-content">
-            <button id="force-cloud-save-settings" class="sidebar-wide-button"
-                    data-value-localization-key="sidebar_button_force_save_settings_to_cloud_text">
-                Force Save Settings to Cloud
-            </button>
-            <button id="delete-settings-from-cloud" class="sidebar-wide-button"
-                    data-value-localization-key="sidebar_button_delete_settings_from_cloud_text">
-                Delete Settings from Cloud
-            </button>
-
-            <div class="section-toggle-controls">
-                <label for="toggle-auto-save-to-cloud" class="wide-toggle-label"
-                       data-value-localization-key="sidebar_toggle_auto_save_settings_to_cloud_text">
-                    <input type="checkbox" id="toggle-auto-save-to-cloud">
-                    Auto-Save Settings to Cloud
-                </label>
-            </div>
+            <p class="section-hint" data-i18n="backup_section_hint">Save all your settings to a file, or restore them on another computer.</p>
+            <button id="export-settings" class="sidebar-wide-button" type="button"
+                    data-i18n="backup_export_button">Export settings to a file</button>
+            <button id="import-settings" class="sidebar-wide-button" type="button"
+                    data-i18n="backup_import_button">Import settings from a file</button>
+            <input type="file" id="import-settings-file" accept="application/json,.json" hidden>
         </div>
     </section>
 
-    <h2 id="customization-title" data-value-localization-key="main_sidebar_customization_header">Customization</h2>
+    <h2 class="sidebar-group-title" data-i18n="main_sidebar_customization_header">Customization</h2>
 
-    <!-- 🕒 Time and Date -->
     <section data-section="time-date">
         <div class="section-header">
-            <span class="section-icon">🕒</span>
-            <h3 data-value-localization-key="time_and_date_section_header">Time and Date</h3>
-            <button class="toggle-section">+</button>
+            <span class="section-icon" data-icon="clock"></span>
+            <h3 data-i18n="time_and_date_section_header">Time and Date</h3>
+            <button class="toggle-section" type="button" data-icon="chevron" tabindex="-1"></button>
         </div>
         <div class="section-content">
-            <div id="time-and-date-controls"></div>
-            <button id="add-clock" class="add-clock"
-                    data-value-localization-key="time_and_date_section_add_clock_button">Add clock
-            </button>
-
-            <button id="reset-time-date" class="sidebar-wide-button"
-                    data-value-localization-key="time_and_date_section_reset_button">Reset Time & Date Settings
-            </button>
-
+            <p class="section-hint" data-i18n="time_and_date_section_theme_hint">These settings belong to the selected background.</p>
             <div class="section-toggle-controls">
-                <label for="toggle-time" data-value-localization-key="time_and_date_section_toggle_show_time">
-                    <input type="checkbox" id="toggle-time" checked>
+                <label data-i18n="time_and_date_section_toggle_show_time">
+                    <input type="checkbox" id="toggle-time">
                     Show Time
                 </label>
-                <label for="toggle-date" data-value-localization-key="time_and_date_section_toggle_show_date">
-                    <input type="checkbox" id="toggle-date" checked>
+                <label data-i18n="time_and_date_section_toggle_show_date">
+                    <input type="checkbox" id="toggle-date">
                     Show Date
                 </label>
             </div>
+
+            <!-- One tab per clock (named after its city) and "+"; filled by scripts/sidebar/clocks-section.js -->
+            <div id="clock-tabs" class="clock-tabs" role="tablist"></div>
+            <div id="time-and-date-controls"></div>
+            <label id="clocks-layout-row" data-i18n="clocks_layout_label" hidden>Several clocks:
+                <select id="clocks-layout">
+                    <option value="row" data-i18n="clocks_layout_row">Side by side</option>
+                    <option value="column" data-i18n="clocks_layout_column">One under another</option>
+                </select>
+            </label>
+            <button id="reset-time-date" class="sidebar-wide-button reset-button" type="button" data-icon="reset"
+                    data-i18n="time_and_date_section_reset_button">Reset Time &amp; Date Settings</button>
         </div>
     </section>
 
-    <!-- 🔗 Links -->
     <section data-section="links">
         <div class="section-header">
-            <span class="section-icon">🔗</span>
-            <h3 data-value-localization-key="main_sidebar_links_section_header">Links</h3>
-            <button class="toggle-section">+</button>
+            <span class="section-icon" data-icon="link"></span>
+            <h3 data-i18n="main_sidebar_links_section_header">Links</h3>
+            <button class="toggle-section" type="button" data-icon="chevron" tabindex="-1"></button>
         </div>
         <div class="section-content">
             <div class="cols-control">
-                <span data-value-localization-key="links_section_columns">Columns:</span>
-                <button id="cols-minus">−</button>
+                <span data-i18n="links_section_columns">Columns:</span>
+                <button id="cols-minus" type="button" data-icon="minus"></button>
                 <span id="cols-value">3</span>
-                <button id="cols-plus">+</button>
+                <button id="cols-plus" type="button" data-icon="plus"></button>
             </div>
 
             <div id="links-editor"></div>
 
             <div class="links-controls-row">
-                <button id="add-link" data-value-localization-key="links_section_add_link_button">Add link</button>
+                <button id="add-link" class="add-button" type="button" data-icon="plus" data-i18n="links_section_add_link_button">Add link</button>
                 <div class="links-toggle-control">
                     <div class="toggle-control-first-line">
-                        <label for="toggle-links" data-value-localization-key="links_section_toggle_show_links">
-                            <input type="checkbox" id="toggle-links" checked>
+                        <label data-i18n="links_section_toggle_show_links">
+                            <input type="checkbox" id="toggle-links">
                             Show links
                         </label>
-
-                        <label for="toggle-open-in-new-tab"
-                               data-value-localization-key="links_section_toggle_open_in_new_tab">
+                        <label data-i18n="links_section_toggle_open_in_new_tab">
                             <input type="checkbox" id="toggle-open-in-new-tab">
                             Open links in new tab
                         </label>
                     </div>
-
                     <div class="toggle-control-second-line">
-                        <label for="toggle-links-underline"
-                               data-value-localization-key="links_section_toggle_underline_underline">
+                        <label data-i18n="links_section_toggle_underline_underline">
                             <input type="checkbox" id="toggle-links-underline">
                             Underline links on hover
                         </label>
-
-                        <label for="links-color" data-value-localization-key="links_section_color_input_label">Links
-                            color:
+                        <label data-i18n="links_section_color_input_label">Links color:
                             <input type="color" id="links-color">
                         </label>
                     </div>
+                    <div class="section-toggle-controls">
+                        <label data-i18n="links_section_toggle_google_icons">
+                            <input type="checkbox" id="toggle-google-icons">
+                            Load site icons through Google
+                        </label>
+                    </div>
+                    <p class="section-hint" data-i18n="links_section_google_icons_hint">More sites get an icon, but Google receives the addresses of your links. When off, icons are loaded from the sites themselves.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 🌌 Background -->
     <section data-section="background">
         <div class="section-header">
-            <span class="section-icon">🌌</span>
-            <h3 data-value-localization-key="background_section_header">Background</h3>
-            <button class="toggle-section">+</button>
+            <span class="section-icon" data-icon="image"></span>
+            <h3 data-i18n="background_section_header">Background</h3>
+            <button class="toggle-section" type="button" data-icon="chevron" tabindex="-1"></button>
         </div>
         <div class="section-content">
-            <button id="reset-bg" class="sidebar-wide-button"
-                    data-value-localization-key="background_section_reset_button">
-                Reset All Backgrounds
-            </button>
+            <!-- Filled from scripts/backgrounds/registry.js -->
+            <div id="background-modes" class="background-modes"></div>
 
-            <label data-value-localization-key="background_section_stars_background">
-                <input type="radio" name="bg-mode" value="stars" checked>
-                Starfield (default)
-            </label>
+            <div id="custom-image-options" class="procedural-controls-element" hidden>
+                <button id="choose-custom-image" class="sidebar-wide-button" type="button"
+                        data-i18n="background_custom_image_choose_button">Choose image…</button>
+                <input type="file" id="bg-upload" accept="image/*" hidden>
+            </div>
 
-            <label data-value-localization-key="background_section_blob_flow">
-                <input type="radio" name="bg-mode" value="blobFlow">
-                Blob Flow
-            </label>
-            <div id="procedural-controls--blobFlow" class="procedural-controls-element" style="display: none;"></div>
+            <div id="photo-of-the-day-options" class="procedural-controls-element" hidden>
+                <p class="section-hint" data-i18n-html="background_photo_of_the_day_hint"></p>
+                <div id="photo-of-the-day-status" class="section-hint" hidden></div>
+            </div>
 
-            <label data-value-localization-key="background_section_nebula_dust">
-                <input type="radio" name="bg-mode" value="nebulaDust">
-                Nebula Dust
-            </label>
-            <div id="procedural-controls--nebulaDust" class="procedural-controls-element" style="display: none;"></div>
-
-            <label data-value-localization-key="background_section_glass_grid">
-                <input type="radio" name="bg-mode" value="glassGrid">
-                Glass Grid
-            </label>
-            <div id="procedural-controls--glassGrid" class="procedural-controls-element" style="display: none;"></div>
-
-            <label data-value-localization-key="background_section_orbital_rings">
-                <input type="radio" name="bg-mode" value="orbitalRings">
-                Orbital Rings
-            </label>
-            <div id="procedural-controls--orbitalRings" class="procedural-controls-element"
-                 style="display: none;"></div>
-
-            <label data-value-localization-key="background_section_particle_drift">
-                <input type="radio" name="bg-mode" value="particleDrift">
-                Particle Drift
-            </label>
-            <div id="procedural-controls--particleDrift" class="procedural-controls-element"
-                 style="display: none;"></div>
-
-            <label data-value-localization-key="background_section_cloudy_spiral">
-                <input type="radio" name="bg-mode" value="cloudySpiral">
-                Cloudy Spiral
-            </label>
-            <div id="procedural-controls--cloudySpiral" class="procedural-controls-element"
-                 style="display: none;"></div>
-
-            <label data-value-localization-key="background_section_solar_system">
-                <input type="radio" name="bg-mode" value="solarSystem">
-                Solar System
-            </label>
-
-            <label data-value-localization-key="background_section_waves">
-                <input type="radio" name="bg-mode" value="waves">
-                Waves
-            </label>
-            <div id="procedural-controls--waves" class="procedural-controls-element" style="display: none;"></div>
-
-            <label data-value-localization-key="background_section_falling_lines">
-                <input type="radio" name="bg-mode" value="fallingLines">
-                Falling Lines
-            </label>
-            <div id="procedural-controls--fallingLines" class="procedural-controls-element"
-                 style="display: none;"></div>
-
-            <label data-value-localization-key="background_section_floating_circles">
-                <input type="radio" name="bg-mode" value="floatingCircles">
-                Floating Circles
-            </label>
-            <div id="procedural-controls--floatingCircles" class="procedural-controls-element"
-                 style="display: none;"></div>
-
-            <label data-value-localization-key="background_section_custom_image">
-                <input type="radio" name="bg-mode" value="custom-image">
-                Custom Image
-            </label>
-            <input type="file" id="bg-upload" accept="image/*" style="display: none;">
-
-            <label data-value-localization-key="background_section_dynamic_search">
-                <input type="radio" name="bg-mode" value="dynamic-search">
-                Dynamic Search Background (Pixabay)
-            </label>
-
-            <label data-value-localization-key="background_section_search_image">
-                <input type="radio" name="bg-mode" value="search-image">
-                Search Image (Pixabay)
-            </label>
-            <div id="dynamic-search-config" style="display: none;">
-                <input type="text" id="dynamic-tag" placeholder="e.g. Nature">
-                <label data-value-localization-key="background_section_dynamic_search_interval_header">Change interval:
-                    <select id="dynamic-interval">
-                        <option value="onload"
-                                data-value-localization-key="background_section_dynamic_search_interval_first_option">
-                            On page load
-                        </option>
-                        <option value="3"
-                                data-value-localization-key="background_section_dynamic_search_interval_second_option">
-                            Every 3 min
-                        </option>
-                        <option value="5"
-                                data-value-localization-key="background_section_dynamic_search_interval_third_option">
-                            Every 5 min
-                        </option>
-                        <option value="15"
-                                data-value-localization-key="background_section_dynamic_search_interval_fourth_option">
-                            Every 15 min
-                        </option>
-                        <option value="30"
-                                data-value-localization-key="background_section_dynamic_search_interval_fifth_option">
-                            Every 30 min
-                        </option>
-                        <option value="60"
-                                data-value-localization-key="background_section_dynamic_search_interval_sixth_option">
-                            Every 60 min
-                        </option>
+            <div id="online-photo-options" class="procedural-controls-element" hidden>
+                <input type="text" id="online-photo-query" class="sidebar-text-input"
+                       data-i18n-placeholder="background_online_photo_query_placeholder"
+                       placeholder="Keyword, e.g. mountains (empty = random photo)">
+                <label data-i18n="background_section_dynamic_search_interval_header">Change interval:
+                    <select id="online-photo-interval">
+                        <option value="onload" data-i18n="background_section_dynamic_search_interval_first_option">On page load</option>
+                        <option value="3" data-i18n="background_section_dynamic_search_interval_second_option">Every 3 min</option>
+                        <option value="5" data-i18n="background_section_dynamic_search_interval_third_option">Every 5 min</option>
+                        <option value="15" data-i18n="background_section_dynamic_search_interval_fourth_option">Every 15 min</option>
+                        <option value="30" data-i18n="background_section_dynamic_search_interval_fifth_option">Every 30 min</option>
+                        <option value="60" data-i18n="background_section_dynamic_search_interval_sixth_option">Every 60 min</option>
+                        <option value="never" data-i18n="background_online_photo_interval_never">Never (only with the button)</option>
                     </select>
                 </label>
+                <button id="online-photo-next" class="sidebar-wide-button" type="button"
+                        data-i18n="background_online_photo_next_button">Next photo</button>
+                <div id="online-photo-status" class="section-hint" hidden></div>
+                <p class="section-hint" data-i18n-html="background_online_photo_sources"></p>
             </div>
 
-            <label for="background-api-key">
-                <div class="background-api-info-line">
-                    <a class="background-api-url-link" href="https://pixabay.com/">Pixabay</a>
-                    <span>API Key:</span>
-                </div>
-                <input type="text" placeholder="Get your API key from Pixabay.com"
-                       id="background-api-key" class="background-api-input"
-                       data-placeholder-localization-key="background_widget_api_key_input_placeholder">
-            </label>
-            <input type="text" id="bg-search" data-placeholder-localization-key="background_section_search_placeholder"
-                   placeholder="e.g. Nature" style="display: none;">
-            <div id="bg-loading" style="display: none; color: #ccc; font-size: 14px;"
-                 data-value-localization-key="background_section_search_process_text">Searching...
-            </div>
-            <div id="bg-results" class="bg-gallery"></div>
-
-            <div id="bg-effects-group">
-                <h4 data-value-localization-key="background_section_effects_header">Background Effects</h4>
-                <label data-value-localization-key="background_section_effects_blur">Blur: <input type="range"
-                                                                                                  id="bg-blur" min="0"
-                                                                                                  max="40" step="1"
-                                                                                                  value="0"></label>
-                <label data-value-localization-key="background_section_effects_brightness">Brightness: <input
-                        type="range" id="bg-brightness" min="20" max="150" step="1"
-                        value="100"></label>
-                <label data-value-localization-key="background_section_effects_vignette">Vignette Intensity: <input
-                        type="range" id="bg-vignette" min="0" max="100" step="1"
-                        value="0"></label>
-                <label for="bg-fit" data-value-localization-key="background_section_effects_image_fit">
-                    Image Fit:
+            <div id="bg-effects-group" hidden>
+                <h4 data-i18n="background_section_effects_header">Background Effects</h4>
+                <label data-i18n="background_section_effects_blur">Blur:
+                    <input type="range" id="bg-blur" min="0" max="40" step="1">
+                </label>
+                <label data-i18n="background_section_effects_brightness">Brightness:
+                    <input type="range" id="bg-brightness" min="20" max="150" step="1">
+                </label>
+                <label data-i18n="background_section_effects_vignette">Vignette Intensity:
+                    <input type="range" id="bg-vignette" min="0" max="100" step="1">
+                </label>
+                <label data-i18n="background_section_effects_image_fit">Image Fit:
                     <select id="bg-fit">
-                        <option value="cover"
-                                data-value-localization-key="background_section_effects_image_fit_cover_option">
-                            Cover
-                        </option>
-                        <option value="contain"
-                                data-value-localization-key="background_section_effects_image_fit_contain_option">
-                            Contain
-                        </option>
-                        <option value="repeat"
-                                data-value-localization-key="background_section_effects_image_fit_repeat_option">
-                            Repeat
-                        </option>
-                        <option value="stretch"
-                                data-value-localization-key="background_section_effects_image_fit_stretch_option">
-                            Stretch
-                        </option>
-                        <option value="center"
-                                data-value-localization-key="background_section_effects_image_fit_center_option">
-                            Center
-                        </option>
+                        <option value="cover" data-i18n="background_section_effects_image_fit_cover_option">Cover</option>
+                        <option value="contain" data-i18n="background_section_effects_image_fit_contain_option">Contain</option>
+                        <option value="repeat" data-i18n="background_section_effects_image_fit_repeat_option">Repeat</option>
+                        <option value="stretch" data-i18n="background_section_effects_image_fit_stretch_option">Stretch</option>
+                        <option value="center" data-i18n="background_section_effects_image_fit_center_option">Center</option>
                     </select>
                 </label>
             </div>
+            <div class="background-schedule">
+                <label data-i18n="background_schedule_toggle">
+                    <input type="checkbox" id="bg-schedule-enabled">
+                    Different background at night
+                </label>
+                <div id="bg-schedule-options" class="procedural-controls-element" hidden>
+                    <label data-i18n="background_schedule_day_mode">Day background:
+                        <select id="bg-schedule-day-mode"></select>
+                    </label>
+                    <label data-i18n="background_schedule_night_mode">Night background:
+                        <select id="bg-schedule-night-mode"></select>
+                    </label>
+                    <label data-i18n="background_schedule_night_start">Night from:
+                        <input type="time" id="bg-schedule-night-start" required>
+                    </label>
+                    <label data-i18n="background_schedule_day_start">Day from:
+                        <input type="time" id="bg-schedule-day-start" required>
+                    </label>
+                    <p class="section-hint" data-i18n="background_schedule_hint">The background picked in the list above is remembered for the current part of the day.</p>
+                </div>
+            </div>
+            <button id="reset-bg" class="sidebar-wide-button reset-button" type="button" data-icon="reset"
+                    data-i18n="background_section_reset_button">Reset All Backgrounds</button>
         </div>
     </section>
 
-    <!-- 🌦️ Weather -->
     <section data-section="weather-widget">
         <div class="section-header">
-            <span class="section-icon">🌦️</span>
-            <h3 data-value-localization-key="main_sidebar_weather_widget_header">Weather</h3>
-            <button class="toggle-section">+</button>
+            <span class="section-icon" data-icon="cloud"></span>
+            <h3 data-i18n="main_sidebar_weather_widget_header">Weather</h3>
+            <button class="toggle-section" type="button" data-icon="chevron" tabindex="-1"></button>
         </div>
         <div class="section-content">
-            <label for="weather-api-key">
-                <div class="weather-api-info-line">
-                    <a class="weather-api-url-link" href="https://www.weatherapi.com/">WeatherAPI</a>
-                    <span>Key:</span>
-                </div>
-                <input type="text" placeholder="Get your API key from WeatherAPI.com"
-                       id="weather-api-key" class="weather-api-input"
-                       data-placeholder-localization-key="weather_widget_api_key_input_placeholder">
-            </label>
-
-            <button id="reset-weather-settings" class="sidebar-wide-button"
-                    data-value-localization-key="weather_widget_section_reset_button">Reset Weather Settings
-            </button>
-
-            <div class="section-toggle-controls">
-                <label class="weather-toggle-label"
-                       data-value-localization-key="weather_widget_toggle_show_weather_widget">
+            <div class="section-toggle-controls vertical">
+                <label data-i18n="weather_widget_toggle_show_weather_widget">
                     <input type="checkbox" id="toggle-weather-widget">
                     Show Weather
                 </label>
+                <label data-i18n="weather_units_label">Units:
+                    <select id="weather-units">
+                        <option value="metric" data-i18n="weather_units_metric">°C, km/h</option>
+                        <option value="imperial" data-i18n="weather_units_imperial">°F, mph</option>
+                    </select>
+                </label>
             </div>
+            <button id="reset-weather-settings" class="sidebar-wide-button reset-button" type="button" data-icon="reset"
+                    data-i18n="weather_widget_section_reset_button">Reset Weather Settings</button>
+            <p class="section-hint" data-i18n-html="weather_widget_data_source"></p>
         </div>
     </section>
 
-    <!-- 📂 Bookmarks -->
     <section data-section="bookmarks-widget">
         <div class="section-header">
-            <span class="section-icon">📂</span>
-            <h3 data-value-localization-key="main_sidebar_bookmarks_section_header">
-                Bookmarks
-            </h3>
-            <button class="toggle-section">+</button>
+            <span class="section-icon" data-icon="bookmark"></span>
+            <h3 data-i18n="main_sidebar_bookmarks_section_header">Bookmarks</h3>
+            <button class="toggle-section" type="button" data-icon="chevron" tabindex="-1"></button>
         </div>
-        <div class="section-content bookmarks-widget">
-            <div class="section-toggle-controls bookmarks-widget">
-                <label class="bookmarks-toggle-label bookmarks-widget"
-                       data-value-localization-key="bookmarks_section_toggle_show_bookmarks">
+        <div class="section-content">
+            <div class="section-toggle-controls vertical">
+                <label data-i18n="bookmarks_section_toggle_show_bookmarks">
                     <input type="checkbox" id="toggle-bookmarks-widget">
                     Show bookmarks
                 </label>
-                <label class="bookmarks-toggle-label bookmarks-widget"
-                       data-value-localization-key="bookmarks_section_toggle_hide_bookmarks">
+                <label data-i18n="bookmarks_section_toggle_hide_bookmarks">
                     <input type="checkbox" id="toggle-bookmarks-widget-always-open">
                     Open bookmarks widget by default
                 </label>
@@ -475,105 +343,44 @@
         </div>
     </section>
 
-    <!-- 🔔 Notifications -->
-    <section data-section="notifications-widget">
-        <div class="section-header">
-            <span class="section-icon">🔔</span>
-            <h3 data-value-localization-key="sidebar_section_title_notifications_text">Notifications</h3>
-            <button class="toggle-section">+</button>
-        </div>
-        <div class="section-content">
-            <button id="delete-all-notifications" class="sidebar-wide-button"
-                    data-value-localization-key="sidebar_delete_all_notifications_button_text">
-                Delete all notifications
-            </button>
-
-            <div class="section-toggle-controls">
-                <label class="notif-toggle-label"
-                       data-value-localization-key="sidebar_show_notifications_editor_button_text">
-                    <input type="checkbox" id="toggle-notifications-editor">
-                    Show Notifications Editor
-                </label>
-            </div>
-        </div>
-    </section>
-
-    <div id="version-info">
-        Version: loading...
-    </div>
+    <div id="version-info"></div>
 </div>
 
+<!-- 🕒 Clocks -->
 <div class="time-container">
     <div id="multiple-clocks"></div>
-
-    <div class="quote-container" id="quote-container" style="display: none">
-        <div class="quote-text" id="quote-text" style="display: none"></div>
-        <div class="quote-author" id="quote-author" style="display: none"></div>
-    </div>
 </div>
 
+<!-- 🔗 Links -->
 <div class="links" id="links-container"></div>
 
-<div id="weather-widget">
-    <div class="weather-summary" id="weather-summary">🌦️ —</div>
+<!-- 🌦️ Weather -->
+<div id="weather-widget" hidden>
+    <div class="weather-summary" id="weather-summary"></div>
     <div class="weather-panel" id="weather-panel">
-        <input type="text" id="location-input" data-placeholder-localization-key="weather_widget_input_placeholder_city"
-               placeholder="Enter your city...">
-        <button id="weather-city-btn" data-value-localization-key="weather_widget_button_show_weather">
-            🌍 Show weather
-        </button>
-        <button id="weather-geo-btn" data-value-localization-key="weather_widget_button_my_geolocation">
-            📍 My Geolocation
-        </button>
+        <div class="weather-details" id="weather-details"></div>
+        <div class="weather-hourly" id="weather-hourly"></div>
+        <div class="weather-forecast" id="weather-forecast"></div>
+        <div class="weather-location">
+            <label class="weather-search" data-icon="search">
+                <input type="text" id="location-input" data-i18n-placeholder="weather_widget_input_placeholder_city"
+                       placeholder="Enter your city...">
+            </label>
+            <button id="weather-city-btn" class="weather-round-button" type="button" data-icon="arrow-right"
+                    data-i18n-title="weather_widget_button_show_weather"></button>
+            <button id="weather-geo-btn" class="weather-round-button" type="button" data-icon="locate"
+                    data-i18n-title="weather_widget_button_my_geolocation"></button>
+        </div>
     </div>
 </div>
 
-<div id="confirm-modal" class="hidden confirm-modal">
+<div id="confirm-modal" class="hidden confirm-modal" role="dialog" aria-modal="true">
     <div class="confirm-box">
-        <p id="confirm-message" data-value-localization-key="modal_confirm_message_html_default">Are you sure?</p>
-        <button id="confirm-yes" data-value-localization-key="modal_confirm_yes_button_html_default">Yes</button>
-        <button id="confirm-no" data-value-localization-key="modal_confirm_no_button_html_default">No</button>
+        <p id="confirm-message"></p>
+        <button id="confirm-yes" type="button"></button>
+        <button id="confirm-no" type="button"></button>
     </div>
 </div>
 
-<button id="add-custom-notification" data-value-localization-key="add_custom_notification_button_test">
-    ➕ Add Custom Notification
-</button>
-
-<script src="scripts/main.js"></script>
-<script src="scripts/version.js"></script>
-<script src="scripts/localization.js"></script>
-<script src="scripts/defaultCustomization.js"></script>
-
-<script src="scripts/effects/effects-main.js"></script>
-<script src="scripts/effects/star-generator.js"></script>
-<script src="scripts/effects/blob-flow.js"></script>
-<script src="scripts/effects/nebula-dust.js"></script>
-<script src="scripts/effects/glass-grid.js"></script>
-<script src="scripts/effects/orbital-rings.js"></script>
-<script src="scripts/effects/particle-drift.js"></script>
-<script src="scripts/effects/cloudy-spiral.js"></script>
-<script src="scripts/effects/solar-system.js"></script>
-<script src="scripts/effects/waves.js"></script>
-<script src="scripts/effects/falling-lines.js"></script>
-<script src="scripts/effects/floating-circles.js"></script>
-
-<script src="scripts/widgets/weather.js"></script>
-<script src="scripts/widgets/time.js"></script>
-<script src="scripts/widgets/links-service.js"></script>
-<script src="scripts/widgets/bookmarks.js"></script>
-<script src="scripts/widgets/notifications.js"></script>
-
-<script src="scripts/sidebar/cloud.js"></script>
-<script src="scripts/sidebar/localization.js"></script>
-<script src="scripts/sidebar/background.js"></script>
-<script src="scripts/sidebar/dateandtime.js"></script>
-<script src="scripts/sidebar/links.js"></script>
-<script src="scripts/sidebar/weather.js"></script>
-<script src="scripts/sidebar/bookmarks.js"></script>
-<script src="scripts/sidebar/sidebar.js"></script>
-<script src="scripts/sidebar/notifications.js"></script>
-
-<script src="scripts/hotkeys.js"></script>
 </body>
 </html>

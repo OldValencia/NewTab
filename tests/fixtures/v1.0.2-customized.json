@@ -1,0 +1,478 @@
+{
+  "autoCloudSave": false,
+  "lastUpdated": 1794284986870,
+  "locale": "ru",
+  "info": {
+    "name": "Firefox",
+    "vendor": "Mozilla",
+    "version": "159.0.1",
+    "buildID": "20261102144711"
+  },
+  "platform": {
+    "os": "win",
+    "arch": "x86-64"
+  },
+  "links": {
+    "list": [
+      {
+        "url": "https://youtube.com",
+        "label": "YouTube"
+      },
+      {
+        "url": "https://instagram.com",
+        "label": "Instagram"
+      },
+      {
+        "url": "https://www.firefox.com/en-US/",
+        "label": "Mozilla Firefox"
+      }
+    ]
+  },
+  "weatherWidget": {
+    "showWeather": true,
+    "weatherCity": "Warsaw",
+    "cachedWeather": "",
+    "weatherApiKey": "abc"
+  },
+  "bg": {
+    "bgMode": "blobFlow",
+    "bgImage": "",
+    "bgSource": "",
+    "bgBlur": 20,
+    "bgBrightness": 100,
+    "bgVignette": 5,
+    "bgFit": "cover",
+    "dynamicTag": "",
+    "dynamicInterval": "",
+    "nightMode": true,
+    "bgApiKey": "",
+    "stars": {
+      "customization": {
+        "linksColor": "#ff8800",
+        "showTime": true,
+        "showDate": true,
+        "elements": 1,
+        "clocks": [
+          {
+            "timeFont": "SF Pro Display",
+            "timeColor": "#7e4600",
+            "dateFont": "SF Pro Display",
+            "dateColor": "#aaaaaa",
+            "timeFormat": "24",
+            "dateFormat": "day-month-year",
+            "timezone": "local",
+            "timeShadow": {
+              "color": "#000000",
+              "opacity": 0,
+              "blur": 0,
+              "offsetX": 0,
+              "offsetY": 0
+            },
+            "dateShadow": {
+              "color": "#000000",
+              "opacity": 0,
+              "blur": 0,
+              "offsetX": 0,
+              "offsetY": 0
+            }
+          }
+        ]
+      }
+    },
+    "blobFlow": {
+      "customization": {
+        "linksColor": "#fff",
+        "showTime": true,
+        "showDate": true,
+        "elements": 2,
+        "clocks": [
+          {
+            "timeFont": "Verdana",
+            "timeColor": "#123456",
+            "dateFont": "Verdana",
+            "dateColor": "#c7c7c7",
+            "timeFormat": "24",
+            "dateFormat": "day-month-year",
+            "timezone": "local",
+            "timeShadow": {
+              "color": "#000000",
+              "opacity": 0,
+              "blur": 6,
+              "offsetX": 0,
+              "offsetY": 0
+            },
+            "dateShadow": {
+              "color": "#000000",
+              "opacity": 0,
+              "blur": 0,
+              "offsetX": 0,
+              "offsetY": 0
+            }
+          },
+          {
+            "timeFont": "Verdana",
+            "timeColor": "#7e97a5",
+            "dateFont": "Verdana",
+            "dateColor": "#c7c7c7",
+            "timeFormat": "24",
+            "dateFormat": "day-month-year",
+            "timezone": "local",
+            "timeShadow": {
+              "color": "#000000",
+              "opacity": 0,
+              "blur": 0,
+              "offsetX": 0,
+              "offsetY": 0
+            },
+            "dateShadow": {
+              "color": "#000000",
+              "opacity": 0,
+              "blur": 0,
+              "offsetX": 0,
+              "offsetY": 0
+            }
+          }
+        ]
+      },
+      "backgroundColor": "rgb(0, 0, 0)",
+      "blur": 0,
+      "size": "100"
+    },
+    "nebulaDust": {
+      "customization": {
+        "linksColor": "#fff",
+        "showTime": true,
+        "showDate": true,
+        "elements": 1,
+        "clocks": [
+          {
+            "timeFont": "Courier New",
+            "timeColor": "#aa6aff",
+            "dateFont": "Verdana",
+            "dateColor": "#aaaaaa",
+            "timeFormat": "24",
+            "dateFormat": "day-month-year",
+            "timezone": "local",
+            "timeShadow": {
+              "color": "#000000",
+              "opacity": 0,
+              "blur": 0,
+              "offsetX": 0,
+              "offsetY": 0
+            },
+            "dateShadow": {
+              "color": "#000000",
+              "opacity": 0,
+              "blur": 0,
+              "offsetX": 0,
+              "offsetY": 0
+            }
+          }
+        ]
+      },
+      "backgroundColor": "rgb(0, 0, 0)",
+      "numberOfParticles": 150,
+      "particlesColor": "#aa66ff"
+    },
+    "glassGrid": {
+      "customization": {
+        "linksColor": "#fff",
+        "showTime": true,
+        "showDate": true,
+        "elements": 1,
+        "clocks": [
+          {
+            "timeFont": "Georgia",
+            "timeColor": "#9e6247",
+            "dateFont": "Courier New",
+            "dateColor": "#aaaaaa",
+            "timeFormat": "24",
+            "dateFormat": "day-month-year",
+            "timezone": "local",
+            "timeShadow": {
+              "color": "#000000",
+              "opacity": 0,
+              "blur": 0,
+              "offsetX": 0,
+              "offsetY": 0
+            },
+            "dateShadow": {
+              "color": "#000000",
+              "opacity": 0,
+              "blur": 0,
+              "offsetX": 0,
+              "offsetY": 0
+            }
+          }
+        ]
+      },
+      "backgroundColor": "rgb(0, 0, 0)",
+      "particlesColor": "#ffffff",
+      "numberOfParticles": 40,
+      "particlesTransparency": 0.05
+    },
+    "orbitalRings": {
+      "customization": {
+        "linksColor": "#fff",
+        "showTime": true,
+        "showDate": true,
+        "elements": 1,
+        "clocks": [
+          {
+            "timeFont": "Tahoma",
+            "timeColor": "#b9b9b9",
+            "dateFont": "Verdana",
+            "dateColor": "#b9b9b9",
+            "timeFormat": "24",
+            "dateFormat": "day-month-year",
+            "timezone": "local",
+            "timeShadow": {
+              "color": "#000000",
+              "opacity": 0,
+              "blur": 0,
+              "offsetX": 0,
+              "offsetY": 0
+            },
+            "dateShadow": {
+              "color": "#000000",
+              "opacity": 0,
+              "blur": 0,
+              "offsetX": 0,
+              "offsetY": 0
+            }
+          }
+        ]
+      },
+      "backgroundColor": "rgb(0, 0, 0)",
+      "particlesColor": "#ffffff",
+      "numberOfParticles": 5
+    },
+    "particleDrift": {
+      "customization": {
+        "linksColor": "#fff",
+        "showTime": true,
+        "showDate": true,
+        "elements": 1,
+        "clocks": [
+          {
+            "timeFont": "Arial",
+            "timeColor": "#b9b9b9",
+            "dateFont": "Arial",
+            "dateColor": "#b9b9b9",
+            "timeFormat": "24",
+            "dateFormat": "day-month-year",
+            "timezone": "local",
+            "timeShadow": {
+              "color": "#000000",
+              "opacity": 0,
+              "blur": 0,
+              "offsetX": 0,
+              "offsetY": 0
+            },
+            "dateShadow": {
+              "color": "#000000",
+              "opacity": 0,
+              "blur": 0,
+              "offsetX": 0,
+              "offsetY": 0
+            }
+          }
+        ]
+      },
+      "backgroundColor": "rgb(0, 0, 0)",
+      "particlesColor": "#ffffff",
+      "numberOfParticles": 100
+    },
+    "cloudySpiral": {
+      "customization": {
+        "linksColor": "#15507b",
+        "showTime": true,
+        "showDate": true,
+        "elements": 1,
+        "clocks": [
+          {
+            "timeFont": "Roboto",
+            "timeColor": "#15507b",
+            "dateFont": "Open Sans",
+            "dateColor": "#15507b",
+            "timeFormat": "12",
+            "dateFormat": "day-month-year",
+            "timezone": "local",
+            "timeShadow": {
+              "color": "#e2e3fc",
+              "opacity": 0.71,
+              "blur": 7,
+              "offsetX": 0,
+              "offsetY": 0
+            },
+            "dateShadow": {
+              "color": "#e2e3fc",
+              "opacity": 0.65,
+              "blur": 4,
+              "offsetX": 0,
+              "offsetY": 0
+            }
+          }
+        ]
+      },
+      "backgroundColor": "#6593c5",
+      "particlesColor": "#ffffff",
+      "radius": 80,
+      "particleSize": 8,
+      "lapDuration": 3000,
+      "numberOfParticles": 62
+    },
+    "solarSystem": {
+      "customization": {
+        "linksColor": "#ffffff",
+        "showTime": true,
+        "showDate": true,
+        "elements": 1,
+        "clocks": [
+          {
+            "timeFont": "Tahoma",
+            "timeColor": "#fd7d40",
+            "dateFont": "Tahoma",
+            "dateColor": "#ffffff",
+            "timeFormat": "24",
+            "dateFormat": "day-month-year",
+            "timezone": "local",
+            "timeShadow": {
+              "color": "#000000",
+              "opacity": 0.87,
+              "blur": 19,
+              "offsetX": 2,
+              "offsetY": 2
+            },
+            "dateShadow": {
+              "color": "#000000",
+              "opacity": 0,
+              "blur": 0,
+              "offsetX": 0,
+              "offsetY": 0
+            }
+          }
+        ]
+      }
+    },
+    "waves": {
+      "customization": {
+        "linksColor": "#2974bc",
+        "showTime": true,
+        "showDate": true,
+        "elements": 1,
+        "clocks": [
+          {
+            "timeFont": "SF Pro Display",
+            "timeColor": "#75d5ff",
+            "dateFont": "SF Pro Display",
+            "dateColor": "#ffffff",
+            "timeFormat": "24",
+            "dateFormat": "day-month-year",
+            "timezone": "local",
+            "timeShadow": {
+              "color": "#000000",
+              "opacity": 0.27,
+              "blur": 5,
+              "offsetX": 2,
+              "offsetY": 2
+            },
+            "dateShadow": {
+              "color": "#000000",
+              "opacity": 0.34,
+              "blur": 5,
+              "offsetX": 1,
+              "offsetY": 1
+            }
+          }
+        ]
+      },
+      "firstWaveColor": "#ffffff",
+      "secondWaveColor": "#ffffff",
+      "thirdWaveColor": "#ffffff",
+      "fourthWaveColor": "#ffffff",
+      "leftBackgroundColor": "#543ab7",
+      "rightBackgroundColor": "#00acc1",
+      "useOnlyFirstWaveColor": false
+    },
+    "fallingLines": {
+      "customization": {
+        "linksColor": "#ffffff",
+        "showTime": true,
+        "showDate": true,
+        "elements": 1,
+        "clocks": [
+          {
+            "timeFont": "Halvetica",
+            "timeColor": "#770000",
+            "dateFont": "Halvetica",
+            "dateColor": "#9e9e9e",
+            "timeFormat": "24",
+            "dateFormat": "day-month-year",
+            "timezone": "local",
+            "timeShadow": {
+              "color": "#000000",
+              "opacity": 0,
+              "blur": 0,
+              "offsetX": 0,
+              "offsetY": 0
+            },
+            "dateShadow": {
+              "color": "#000000",
+              "opacity": 0,
+              "blur": 0,
+              "offsetX": 0,
+              "offsetY": 0
+            }
+          }
+        ]
+      },
+      "backgroundColor": "#171717",
+      "particlesColor": "#ffffff",
+      "numberOfLines": 3
+    },
+    "floatingCircles": {
+      "customization": {
+        "linksColor": "#ffffff",
+        "showTime": true,
+        "showDate": true,
+        "elements": 1,
+        "clocks": [
+          {
+            "timeFont": "Courier New",
+            "timeColor": "#ced0f0",
+            "dateFont": "Courier New",
+            "dateColor": "#ced0f0",
+            "timeFormat": "24",
+            "dateFormat": "day-month-year",
+            "timezone": "local",
+            "timeShadow": {
+              "color": "#000000",
+              "opacity": 0,
+              "blur": 0,
+              "offsetX": 0,
+              "offsetY": 0
+            },
+            "dateShadow": {
+              "color": "#000000",
+              "opacity": 0,
+              "blur": 0,
+              "offsetX": 0,
+              "offsetY": 0
+            }
+          }
+        ]
+      },
+      "backgroundColor": "#4e54c8",
+      "particlesColor": "#ffffff"
+    }
+  },
+  "cols": 5,
+  "bookmarks": {
+    "show": true,
+    "alwaysOpen": true,
+    "pinnedBookmarks": [
+      "toolbar_____"
+    ]
+  }
+}

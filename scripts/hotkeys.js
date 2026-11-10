@@ -1,68 +1,51 @@
-const EDITABLE_TAGS = new Set(['INPUT', 'TEXTAREA']);
+/**
+ * Keyboard shortcuts (listed in the "Hotkeys" sidebar section):
+ *   ←    toggle the bookmarks sidebar (when bookmarks are enabled)
+ *   →    toggle the settings sidebar
+ *   1–9  open the corresponding link
+ */
+import { getSettings } from "./core/settings.js";
+import { isDialogOpen } from "./core/dialog.js";
+import { getOpenableLinks } from "./widgets/links.js";
+import { isBookmarksEnabled, toggleBookmarksSidebar } from "./widgets/bookmarks.js";
+import { toggleSettingsSidebar } from "./sidebar/sidebar.js";
 
-function isEditableElement(target) {
-    return EDITABLE_TAGS.has(target.tagName) || target.isContentEditable;
+const TEXT_ENTRY_TAGS = new Set(["INPUT", "TEXTAREA", "SELECT"]);
+
+function shouldIgnore(event) {
+    if (event.defaultPrevented || event.repeat || isDialogOpen()) return true;
+    if (event.ctrlKey || event.altKey || event.metaKey || event.shiftKey) return true;
+    const target = event.target;
+    return TEXT_ENTRY_TAGS.has(target.tagName) || target.isContentEditable;
 }
 
-async function handleDigitKey(digit) {
-    const settings = loadCustomSettings();
-    const links = settings.links?.list || [];
-    const link = links[digit - 1];
+/** Works even when the links grid is hidden, as in 1.0.x. */
+function openLink(position) {
+    const settings = getSettings();
+    const link = getOpenableLinks(settings)[position - 1];
+    if (!link) return;
 
-    if (link && link.url) {
-        if (settings.links.openInNewTabState) {
-            window.open(link.url, '_blank');
-        } else {
-            window.location.href = link.url;
-        }
+    if (settings.links.openInNewTab) {
+        window.open(link.url, "_blank", "noopener");
+    } else {
+        window.location.href = link.url;
     }
 }
 
-const keyHandlers = {
-    'ArrowLeft': async (settings) => {
-        const isBookmarksActive = settings.bookmarks?.show ?? false;
-        if (isBookmarksActive) {
-            openBookmarksSidebar();
+export function initHotkeys() {
+    document.addEventListener("keydown", event => {
+        if (shouldIgnore(event)) return;
+
+        if (event.key === "ArrowLeft") {
+            if (!isBookmarksEnabled()) return;
+            event.preventDefault();
+            toggleBookmarksSidebar();
+        } else if (event.key === "ArrowRight") {
+            event.preventDefault();
+            toggleSettingsSidebar();
+        } else if (/^Digit[1-9]$/.test(event.code)) {
+            event.preventDefault();
+            openLink(Number(event.code.slice("Digit".length)));
         }
-    },
-    'ArrowRight': () => {
-        openMainSidebar();
-    },
-    'ArrowUp': async () => {
-        const isStickyNotesActive = await getStickyNotesVisibilityState();
-        if (isStickyNotesActive) {
-            await createStickyNote();
-        }
-    }
-};
-
-document.addEventListener("keydown", async (e) => {
-    const target = e.target;
-
-    if (isEditableElement(target)) return;
-
-    const settings = loadCustomSettings();
-
-    if (keyHandlers[e.code]) {
-        e.preventDefault();
-        await keyHandlers[e.code](settings);
-        return;
-    }
-
-    if (e.code.startsWith('Digit')) {
-        e.preventDefault();
-        const digit = parseInt(e.code.replace('Digit', ''));
-        await handleDigitKey(digit);
-    }
-});
-
-document.addEventListener('paste', async (e) => {
-    const target = e.target;
-
-    if (isEditableElement(target)) return;
-    if (!await getStickyNotesVisibilityState()) return;
-
-    const pastedText = e.clipboardData.getData('text');
-    const noteId = createStickyNote({ text: pastedText });
-    saveNote(noteId);
-});
+    });
+}

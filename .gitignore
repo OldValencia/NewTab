@@ -13,3 +13,5 @@
 /.idea/Newtab.iml
 *.iml
 /.idea/vcs.xml
+# Release archive built by release.py
+New Tab Extension.zip

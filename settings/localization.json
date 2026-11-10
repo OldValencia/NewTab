@@ -1,13 +1,4 @@
 {
-  "add_sticky_note": {
-    "en": "➕ Add Sticky Note",
-    "ru": "➕ Добавить заметку",
-    "pl": "➕ Dodaj notatkę",
-    "de": "➕ Haftnotiz hinzufügen",
-    "es": "➕ Añadir nota adhesiva",
-    "be": "➕ Дадаць нататку",
-    "uk": "➕ Додати нотатку"
-  },
   "bookmark_sidebar_header": {
     "en": "Bookmarks",
     "ru": "Закладки",
@@ -18,13 +9,13 @@
     "uk": "Закладки"
   },
   "bookmarks_search_input_placeholder": {
-    "en": "🔍 Find bookmark...",
-    "ru": "🔍 Найти закладку...",
-    "pl": "🔍 Znajdź zakładkę...",
-    "de": "🔍 Lesezeichen finden...",
-    "es": "🔍 Buscar marcador...",
-    "be": "🔍 Знайсці закладку...",
-    "uk": "🔍 Знайти закладку..."
+    "en": "Find bookmark...",
+    "ru": "Найти закладку...",
+    "pl": "Znajdź zakładkę...",
+    "de": "Lesezeichen finden...",
+    "es": "Buscar marcador...",
+    "be": "Знайсці закладку...",
+    "uk": "Знайти закладку..."
   },
   "bookmarks_search_input_empty_folders": {
     "en": "Show empty bookmark folders",
@@ -45,22 +36,40 @@
     "uk": "Відкривати закладки в новій вкладці"
   },
   "bookmark_pinned_section_header": {
-    "en": "⭐ Pinned",
-    "ru": "⭐ Закреплённое",
-    "pl": "⭐ Przypięte",
-    "de": "⭐ Angeheftet",
-    "es": "⭐ Fijado",
-    "be": "⭐ Прымацаванае",
-    "uk": "⭐ Прикріплене"
+    "en": "Pinned",
+    "ru": "Закреплённое",
+    "pl": "Przypięte",
+    "de": "Angeheftet",
+    "es": "Fijado",
+    "be": "Прымацаванае",
+    "uk": "Прикріплене"
   },
   "bookmark_all_bookmarks_section_header": {
-    "en": "📁 All bookmarks",
-    "ru": "📁 Все закладки",
-    "pl": "📁 Wszystkie zakładki",
-    "de": "📁 Alle Lesezeichen",
-    "es": "📁 Todos los marcadores",
-    "be": "📁 Усе закладкі",
-    "uk": "📁 Усі закладки"
+    "en": "All bookmarks",
+    "ru": "Все закладки",
+    "pl": "Wszystkie zakładki",
+    "de": "Alle Lesezeichen",
+    "es": "Todos los marcadores",
+    "be": "Усе закладкі",
+    "uk": "Усі закладки"
+  },
+  "bookmarks_collapse_all_title": {
+    "en": "Collapse all folders",
+    "ru": "Свернуть все папки",
+    "pl": "Zwiń wszystkie foldery",
+    "de": "Alle Ordner einklappen",
+    "es": "Contraer todas las carpetas",
+    "be": "Згарнуць усе тэчкі",
+    "uk": "Згорнути всі папки"
+  },
+  "bookmarks_search_no_results": {
+    "en": "Nothing found",
+    "ru": "Ничего не найдено",
+    "pl": "Nic nie znaleziono",
+    "de": "Nichts gefunden",
+    "es": "No se encontró nada",
+    "be": "Нічога не знойдзена",
+    "uk": "Нічого не знайдено"
   },
   "main_sidebar_hotkeys_header": {
     "en": "Hotkeys",
@@ -86,41 +95,41 @@
     "pl": "<strong>Prawy klik</strong> na dowolnym polu (kolor, czcionka, tekst) — przywraca domyślne ustawienia",
     "de": "<strong>Rechtsklick</strong> auf ein Eingabefeld (Farbe, Schriftart oder Text) setzt es zurück",
     "es": "<strong>Clic derecho</strong> en cualquier campo (color, fuente o texto) lo restablece",
-    "be": "<strong>Права кнопка мышы</strong> на полі (колер, шрыфт, тэкст) — скід да стандартных налад",
+    "be": "<strong>Правая кнопка мышы</strong> на полі (колер, шрыфт, тэкст) — скід да стандартных налад",
     "uk": "<strong>Правий клік</strong> на полі (колір, шрифт, текст) — скидає до стандартних налаштувань"
   },
   "hotkeys_second_line": {
-    "en": "<strong>Key Left ←</strong> opens the bookmarks sidebar (if enabled)",
-    "ru": "<strong>Клавиша Left ←</strong> откроет боковое меню закладок (если включено)",
-    "pl": "<strong>Klawisz Lewo ←</strong> otwiera panel zakładek (jeśli włączony)",
-    "de": "<strong>Taste Links ←</strong> öffnet die Lesezeichen-Seitenleiste (wenn aktiviert)",
-    "es": "<strong>Tecla Izquierda ←</strong> abre la barra de marcadores (si está activada)",
-    "be": "<strong>Клавіша Left ←</strong> адкрые бакавое меню закладак (калі ўключана)",
-    "uk": "<strong>Клавіша Left ←</strong> відкриває бокове меню закладок (якщо увімкнено)"
+    "en": "<strong>Left arrow ←</strong> opens the bookmarks sidebar (if enabled)",
+    "ru": "<strong>Стрелка влево ←</strong> откроет боковое меню закладок (если включено)",
+    "pl": "<strong>Strzałka w lewo ←</strong> otwiera panel zakładek (jeśli włączony)",
+    "de": "<strong>Pfeiltaste links ←</strong> öffnet die Lesezeichen-Seitenleiste (wenn aktiviert)",
+    "es": "<strong>Flecha izquierda ←</strong> abre la barra de marcadores (si está activada)",
+    "be": "<strong>Стрэлка ўлева ←</strong> адкрые бакавое меню закладак (калі ўключана)",
+    "uk": "<strong>Стрілка вліво ←</strong> відкриває бокове меню закладок (якщо увімкнено)"
   },
   "hotkeys_third_line": {
-    "en": "<strong>Key Right →</strong> opens the main sidebar",
-    "ru": "<strong>Клавиша Right →</strong> откроет основное боковое меню",
-    "pl": "<strong>Klawisz Prawo →</strong> otwiera główny panel boczny",
-    "de": "<strong>Taste Rechts →</strong> öffnet die Hauptseitenleiste",
-    "es": "<strong>Tecla Derecha →</strong> abre la barra lateral principal",
-    "be": "<strong>Клавіша Right →</strong> адкрые галоўнае бакавое меню",
-    "uk": "<strong>Клавіша Right →</strong> відкриває головне бокове меню"
+    "en": "<strong>Right arrow →</strong> opens the main sidebar",
+    "ru": "<strong>Стрелка вправо →</strong> откроет основное боковое меню",
+    "pl": "<strong>Strzałka w prawo →</strong> otwiera główny panel boczny",
+    "de": "<strong>Pfeiltaste rechts →</strong> öffnet die Hauptseitenleiste",
+    "es": "<strong>Flecha derecha →</strong> abre la barra lateral principal",
+    "be": "<strong>Стрэлка ўправа →</strong> адкрые галоўнае бакавое меню",
+    "uk": "<strong>Стрілка вправо →</strong> відкриває головне бокове меню"
   },
   "hotkeys_sixth_line": {
     "en": "Click on the <strong>Settings</strong> or <strong>Customization</strong> header below to collapse all sections in this sidebar",
     "ru": "Нажмите на заголовок <strong>Настройки</strong> или <strong>Кастомизация</strong> ниже, чтобы свернуть все секции в боковом меню",
     "pl": "Kliknij nagłówek <strong>Ustawienia</strong> lub <strong>Personalizacja</strong> poniżej, aby zwinąć wszystkie sekcje w tym panelu",
-    "de": "Klicke auf die Überschrift <strong>Einstellungen</strong> oder <strong>Anpassung</strong> unten, um alle Bereiche in dieser Seitenleiste zu schließen",
+    "de": "Klicken Sie auf die Überschrift <strong>Einstellungen</strong> oder <strong>Anpassung</strong> unten, um alle Bereiche in dieser Seitenleiste einzuklappen",
     "es": "Haz clic en el encabezado <strong>Configuración</strong> o <strong>Personalización</strong> abajo para contraer todas las secciones de esta barra lateral",
-    "be": "Націсніце на загаловак <strong>Настройкі</strong> або <strong>Кастомізацыя</strong> ніжэй, каб згарнуць усе секцыі ў бакавым меню",
-    "uk": "Натисніть на заголовок <strong>Налаштування</strong> або <strong>Кастомізація</strong> нижче, щоб згорнути всі секції в цій боковій панелі"
+    "be": "Націсніце на загаловак <strong>Налады</strong> або <strong>Кастомізацыя</strong> ніжэй, каб згарнуць усе секцыі ў бакавым меню",
+    "uk": "Натисніть на заголовок <strong>Налаштування</strong> або <strong>Персоналізація</strong> нижче, щоб згорнути всі секції в цій боковій панелі"
   },
   "hotkeys_seventh_line": {
     "en": "<strong>Keys 1-9</strong> to open the corresponding link from your links list (if no input is focused). For example, <strong>Key 1</strong> opens the first link, <strong>Key 2</strong> opens the second, etc.",
     "ru": "<strong>Клавиши 1-9</strong> открывают соответствующую ссылку из вашего списка (если ни одно поле ввода не в фокусе). Например, <strong>Клавиша 1</strong> откроет первую ссылку, <strong>Клавиша 2</strong> — вторую и так далее.",
-    "pl": "<strong>Klawisze 1-9</strong> otwierają odpowiedni link z twojej listy (jeśli żadne pole nie jest aktywne). Na przykład, <strong>Klawisz 1</strong> otwiera pierwszy link, <strong>Klawisz 2</strong> otwiera drugi, itd.",
-    "de": "<strong>Tasten 1-9</strong> öffnen den entsprechenden Link aus deiner Linkliste (wenn kein Eingabefeld fokussiert ist). Zum Beispiel öffnet <strong>Taste 1</strong> den ersten Link, <strong>Taste 2</strong> den zweiten, usw.",
+    "pl": "<strong>Klawisze 1-9</strong> otwierają odpowiedni link z twojej listy (jeśli żadne pole nie jest aktywne). Na przykład <strong>Klawisz 1</strong> otwiera pierwszy link, <strong>Klawisz 2</strong> otwiera drugi, itd.",
+    "de": "<strong>Tasten 1-9</strong> öffnen den entsprechenden Link aus Ihrer Linkliste (wenn kein Eingabefeld fokussiert ist). Zum Beispiel öffnet <strong>Taste 1</strong> den ersten Link, <strong>Taste 2</strong> den zweiten, usw.",
     "es": "<strong>Teclas 1-9</strong> para abrir el enlace correspondiente de tu lista de enlaces (si ningún campo de entrada está enfocado). Por ejemplo, <strong>Tecla 1</strong> abre el primer enlace, <strong>Tecla 2</strong> abre el segundo, etc.",
     "be": "<strong>Клавішы 1-9</strong> адкрываюць адпаведную спасылку з вашага спісу (калі ніводнае поле не ў фокусе). Напрыклад, <strong>Клавіша 1</strong> адкрые першую спасылку, <strong>Клавіша 2</strong> — другую і гэтак далей.",
     "uk": "<strong>Клавіші 1-9</strong> відкривають відповідне посилання з вашого списку (якщо жодне поле не в фокусі). Наприклад, <strong>Клавіша 1</strong> відкриє перше посилання, <strong>Клавіша 2</strong> — друге і так далі."
@@ -132,7 +141,7 @@
     "de": "Anpassung",
     "es": "Personalización",
     "be": "Кастомізацыя",
-    "uk": "Налаштування"
+    "uk": "Персоналізація"
   },
   "main_sidebar_links_section_header": {
     "en": "Links",
@@ -217,7 +226,7 @@
   },
   "time_and_date_section_reset_button": {
     "en": "Reset Time & Date Settings",
-    "ru": "Сбросить настройки виджета",
+    "ru": "Сбросить настройки времени и даты",
     "pl": "Zresetuj ustawienia czasu i daty",
     "de": "Zeit- und Datumseinstellungen zurücksetzen",
     "es": "Restablecer configuración de hora y fecha",
@@ -241,51 +250,6 @@
     "es": "Mostrar fecha",
     "be": "Паказваць дату",
     "uk": "Показувати дату"
-  },
-  "sticky_notes_section_header": {
-    "en": "Sticky Notes",
-    "ru": "Заметки",
-    "pl": "Notatki",
-    "de": "Haftnotizen",
-    "es": "Notas adhesivas",
-    "be": "Нататкі",
-    "uk": "Нотатки"
-  },
-  "sticky_notes_section_reset_button": {
-    "en": "Reset Sticky Notes Settings",
-    "ru": "Сбросить настройки заметок",
-    "pl": "Zresetuj ustawienia notatek",
-    "de": "Haftnotizen-Einstellungen zurücksetzen",
-    "es": "Restablecer configuración de notas",
-    "be": "Скінуць налады нататак",
-    "uk": "Скинути налаштування нотаток"
-  },
-  "sticky_notes_section_clear_button": {
-    "en": "Clear Sticky Notes Content",
-    "ru": "Удалить содержимое всех заметок",
-    "pl": "Wyczyść treść notatek",
-    "de": "Inhalt der Haftnotizen löschen",
-    "es": "Borrar contenido de las notas",
-    "be": "Ачысціць змест нататак",
-    "uk": "Очистити вміст нотаток"
-  },
-  "sticky_notes_section_remove_all_button": {
-    "en": "Remove All Sticky Notes",
-    "ru": "Удалить все заметки",
-    "pl": "Usuń wszystkie notatki",
-    "de": "Alle Haftnotizen entfernen",
-    "es": "Eliminar todas las notas",
-    "be": "Выдаліць усе нататкі",
-    "uk": "Видалити всі нотатки"
-  },
-  "sticky_notes_section_toggle_show_sticky_notes": {
-    "en": "Show Sticky Notes",
-    "ru": "Показывать заметки",
-    "pl": "Pokaż notatki",
-    "de": "Haftnotizen anzeigen",
-    "es": "Mostrar notas adhesivas",
-    "be": "Паказваць нататкі",
-    "uk": "Показувати нотатки"
   },
   "background_section_header": {
     "en": "Background",
@@ -410,26 +374,8 @@
     "pl": "Własny obraz",
     "de": "Benutzerdefiniertes Bild",
     "es": "Imagen personalizada",
-    "be": "Уласнае выява",
+    "be": "Уласная выява",
     "uk": "Власне зображення"
-  },
-  "background_section_dynamic_search": {
-    "en": "Dynamic Search Background",
-    "ru": "Фон с динамическим поиском",
-    "pl": "Tło z dynamicznym wyszukiwaniem",
-    "de": "Dynamischer Suchhintergrund",
-    "es": "Fondo de búsqueda dinámica",
-    "be": "Фон з дынамічным пошукам",
-    "uk": "Фон з динамічним пошуком"
-  },
-  "background_section_search_image": {
-    "en": "Search Image (Pixabay)",
-    "ru": "Поиск изображения (Pixabay)",
-    "pl": "Wyszukaj obraz (Pixabay)",
-    "de": "Bildsuche (Pixabay)",
-    "es": "Buscar imagen (Pixabay)",
-    "be": "Пошук выявы (Pixabay)",
-    "uk": "Пошук зображення (Pixabay)"
   },
   "background_section_dynamic_search_interval_header": {
     "en": "Change interval:",
@@ -494,15 +440,6 @@
     "be": "Кожныя 60 хвілін",
     "uk": "Кожні 60 хвилин"
   },
-  "background_section_search_placeholder": {
-    "en": "e.g. Nature",
-    "ru": "например, Природа",
-    "pl": "np. Natura",
-    "de": "z. B. Natur",
-    "es": "p. ej. Naturaleza",
-    "be": "напрыклад, Прырода",
-    "uk": "наприклад, Природа"
-  },
   "background_section_search_process_text": {
     "en": "Searching...",
     "ru": "Поиск...",
@@ -560,8 +497,8 @@
   "background_section_effects_image_fit_cover_option": {
     "en": "Cover",
     "ru": "Масштабировать",
-    "pl": "Zakryj",
-    "de": "Abdecken",
+    "pl": "Wypełnij",
+    "de": "Ausfüllen",
     "es": "Cubrir",
     "be": "Пакрыць",
     "uk": "Покрити"
@@ -577,7 +514,7 @@
   },
   "background_section_effects_image_fit_repeat_option": {
     "en": "Repeat",
-    "ru": "Заполнить",
+    "ru": "Замостить",
     "pl": "Powtórz",
     "de": "Wiederholen",
     "es": "Repetir",
@@ -607,7 +544,7 @@
     "ru": "Погода",
     "pl": "Pogoda",
     "de": "Wetter",
-    "es": "Clima",
+    "es": "El tiempo",
     "be": "Надвор'е",
     "uk": "Погода"
   },
@@ -616,7 +553,7 @@
     "ru": "Сбросить настройки погоды",
     "pl": "Zresetuj ustawienia pogody",
     "de": "Wettereinstellungen zurücksetzen",
-    "es": "Restablecer configuración del clima",
+    "es": "Restablecer configuración del tiempo",
     "be": "Скінуць налады надвор'я",
     "uk": "Скинути налаштування погоди"
   },
@@ -625,7 +562,7 @@
     "ru": "Показывать погоду",
     "pl": "Pokaż pogodę",
     "de": "Wetter anzeigen",
-    "es": "Mostrar clima",
+    "es": "Mostrar el tiempo",
     "be": "Паказваць надвор'е",
     "uk": "Показувати погоду"
   },
@@ -640,12 +577,12 @@
   },
   "bookmarks_section_toggle_show_bookmarks": {
     "en": "Show bookmarks",
-    "ru": "Показать закладки",
+    "ru": "Показывать закладки",
     "pl": "Pokaż zakładki",
     "de": "Lesezeichen anzeigen",
     "es": "Mostrar marcadores",
-    "be": "Паказаць закладкі",
-    "uk": "Показати закладки"
+    "be": "Паказваць закладкі",
+    "uk": "Показувати закладки"
   },
   "bookmarks_section_toggle_hide_bookmarks": {
     "en": "Open bookmarks widget by default",
@@ -654,52 +591,34 @@
     "de": "Lesezeichen-Widget standardmäßig öffnen",
     "es": "Abrir el widget de marcadores por defecto",
     "be": "Адкрываць віджэт закладак па змаўчанні",
-    "uk": "Віджет закладок відкривати за замовчуванням"
-  },
-  "main_sidebar_search_bar_header": {
-    "en": "Search bar",
-    "ru": "Поисковая строка",
-    "pl": "Pasek wyszukiwania",
-    "de": "Suchleiste",
-    "es": "Barra de búsqueda",
-    "be": "Радок пошуку",
-    "uk": "Рядок пошуку"
-  },
-  "main_sidebar_search_bar_reset_settings_button": {
-    "en": "Reset Search Bar Settings",
-    "ru": "Сбросить настройки поисковой строки",
-    "pl": "Zresetuj ustawienia paska wyszukiwania",
-    "de": "Suchleisteneinstellungen zurücksetzen",
-    "es": "Restablecer configuración de búsqueda",
-    "be": "Скінуць налады радка пошуку",
-    "uk": "Скинути налаштування рядка пошуку"
+    "uk": "Відкривати віджет закладок за замовчуванням"
   },
   "weather_widget_input_placeholder_city": {
     "en": "Enter your city...",
     "ru": "Введите ваш город...",
     "pl": "Wpisz swoje miasto...",
-    "de": "Gib deine Stadt ein...",
+    "de": "Geben Sie Ihre Stadt ein...",
     "es": "Introduce tu ciudad...",
     "be": "Увядзіце ваш горад...",
     "uk": "Введіть своє місто..."
   },
   "weather_widget_button_show_weather": {
-    "en": "🌍 Show weather",
-    "ru": "🌍 Показать погоду",
-    "pl": "🌍 Pokaż pogodę",
-    "de": "🌍 Wetter anzeigen",
-    "es": "🌍 Mostrar clima",
-    "be": "🌍 Паказаць надвор'е",
-    "uk": "🌍 Показати погоду"
+    "en": "Show weather",
+    "ru": "Показать погоду",
+    "pl": "Pokaż pogodę",
+    "de": "Wetter anzeigen",
+    "es": "Mostrar el tiempo",
+    "be": "Паказаць надвор'е",
+    "uk": "Показати погоду"
   },
   "weather_widget_button_my_geolocation": {
-    "en": "📍 My Geolocation",
-    "ru": "📍 Моя локация",
-    "pl": "📍 Moja lokalizacja",
-    "de": "📍 Mein Standort",
-    "es": "📍 Mi ubicación",
-    "be": "📍 Мая лакацыя",
-    "uk": "📍 Моя геолокація"
+    "en": "My Geolocation",
+    "ru": "Моя локация",
+    "pl": "Moja lokalizacja",
+    "de": "Mein Standort",
+    "es": "Mi ubicación",
+    "be": "Мая лакацыя",
+    "uk": "Моя геолокація"
   },
   "main_sidebar_localization_header": {
     "en": "Localization",
@@ -881,32 +800,14 @@
     "be": "Колькасць ліній: ",
     "uk": "Кількість ліній: "
   },
-  "option_sf_pro_display_default_label": {
-    "en": "SF Pro Display (default)",
-    "ru": "SF Pro Display (стандартный)",
-    "pl": "SF Pro Display (domyślny)",
-    "de": "SF Pro Display (Standard)",
-    "es": "SF Pro Display (predeterminado)",
-    "be": "SF Pro Display (па змаўчанні)",
-    "uk": "SF Pro Display (за замовчуванням)"
-  },
-  "date_and_time_clocks_customization_time_label": {
-    "en": "Time: ",
-    "ru": "Часы: ",
-    "pl": "Godzina: ",
-    "de": "Zeit: ",
-    "es": "Hora: ",
-    "be": "Час: ",
-    "uk": "Час: "
-  },
-  "date_and_time_clocks_customization_date_label": {
-    "en": "Date: ",
-    "ru": "Дата: ",
-    "pl": "Data: ",
-    "de": "Datum: ",
-    "es": "Fecha: ",
-    "be": "Дата: ",
-    "uk": "Дата: "
+  "option_default_font_label": {
+    "en": "Inter (default)",
+    "ru": "Inter (стандартный)",
+    "pl": "Inter (domyślny)",
+    "de": "Inter (Standard)",
+    "es": "Inter (predeterminado)",
+    "be": "Inter (па змаўчанні)",
+    "uk": "Inter (за замовчуванням)"
   },
   "date_and_time_clocks_customization_time_format_label": {
     "en": "Time format: ",
@@ -919,7 +820,7 @@
   },
   "date_and_time_clocks_customization_time_format_first_option": {
     "en": "24-hour",
-    "ru": "24-х часовой",
+    "ru": "24-часовой",
     "pl": "24-godzinny",
     "de": "24-Stunden",
     "es": "24 horas",
@@ -928,7 +829,7 @@
   },
   "date_and_time_clocks_customization_time_format_second_option": {
     "en": "12-hour (AM/PM)",
-    "ru": "12-и часовой (AM/PM)",
+    "ru": "12-часовой (AM/PM)",
     "pl": "12-godzinny (AM/PM)",
     "de": "12-Stunden (AM/PM)",
     "es": "12 horas (AM/PM)",
@@ -1016,9 +917,171 @@
     "be": "2025 Ліпень 20",
     "uk": "2025 Липень 20"
   },
+  "clock_style_digital": {
+    "en": "Digital",
+    "ru": "Цифровые",
+    "pl": "Cyfrowy",
+    "de": "Digital",
+    "es": "Digital",
+    "be": "Лічбавы",
+    "uk": "Цифровий"
+  },
+  "clock_style_analog": {
+    "en": "Analog",
+    "ru": "Стрелочные",
+    "pl": "Analogowy",
+    "de": "Analog",
+    "es": "Analógico",
+    "be": "Стрэлачны",
+    "uk": "Стрілочний"
+  },
+  "clock_appearance_title": {
+    "en": "Appearance",
+    "ru": "Оформление",
+    "pl": "Wygląd",
+    "de": "Darstellung",
+    "es": "Apariencia",
+    "be": "Афармленне",
+    "uk": "Оформлення"
+  },
+  "clock_group_time": {
+    "en": "Time",
+    "ru": "Время",
+    "pl": "Godzina",
+    "de": "Uhrzeit",
+    "es": "Hora",
+    "be": "Час",
+    "uk": "Час"
+  },
+  "clock_group_date": {
+    "en": "Date",
+    "ru": "Дата",
+    "pl": "Data",
+    "de": "Datum",
+    "es": "Fecha",
+    "be": "Дата",
+    "uk": "Дата"
+  },
+  "clock_font_label": {
+    "en": "Font:",
+    "ru": "Шрифт:",
+    "pl": "Czcionka:",
+    "de": "Schriftart:",
+    "es": "Fuente:",
+    "be": "Шрыфт:",
+    "uk": "Шрифт:"
+  },
+  "clock_size_label": {
+    "en": "Size:",
+    "ru": "Размер:",
+    "pl": "Rozmiar:",
+    "de": "Größe:",
+    "es": "Tamaño:",
+    "be": "Памер:",
+    "uk": "Розмір:"
+  },
+  "clock_shadow_title": {
+    "en": "Shadow",
+    "ru": "Тень",
+    "pl": "Cień",
+    "de": "Schatten",
+    "es": "Sombra",
+    "be": "Цень",
+    "uk": "Тінь"
+  },
+  "clock_shadow_offset_x": {
+    "en": "Horizontal:",
+    "ru": "По горизонтали:",
+    "pl": "W poziomie:",
+    "de": "Horizontal:",
+    "es": "Horizontal:",
+    "be": "Па гарызанталі:",
+    "uk": "По горизонталі:"
+  },
+  "clock_shadow_offset_y": {
+    "en": "Vertical:",
+    "ru": "По вертикали:",
+    "pl": "W pionie:",
+    "de": "Vertikal:",
+    "es": "Vertical:",
+    "be": "Па вертыкалі:",
+    "uk": "По вертикалі:"
+  },
+  "clock_show_label": {
+    "en": "Show city",
+    "ru": "Показывать город",
+    "pl": "Pokaż miasto",
+    "de": "Stadt anzeigen",
+    "es": "Mostrar ciudad",
+    "be": "Паказваць горад",
+    "uk": "Показувати місто"
+  },
+  "clock_label_title": {
+    "en": "Your own text instead of the city name",
+    "ru": "Свой текст вместо названия города",
+    "pl": "Własny tekst zamiast nazwy miasta",
+    "de": "Eigener Text statt des Stadtnamens",
+    "es": "Tu propio texto en lugar del nombre de la ciudad",
+    "be": "Свой тэкст замест назвы горада",
+    "uk": "Власний текст замість назви міста"
+  },
+  "clock_show_seconds": {
+    "en": "Show seconds",
+    "ru": "Показывать секунды",
+    "pl": "Pokaż sekundy",
+    "de": "Sekunden anzeigen",
+    "es": "Mostrar segundos",
+    "be": "Паказваць секунды",
+    "uk": "Показувати секунди"
+  },
+  "clock_blink_colon": {
+    "en": "Blinking colon",
+    "ru": "Мигающее двоеточие",
+    "pl": "Migający dwukropek",
+    "de": "Blinkender Doppelpunkt",
+    "es": "Dos puntos parpadeantes",
+    "be": "Мігатлівае двукроп'е",
+    "uk": "Блимаюча двокрапка"
+  },
+  "clock_offset_hours": {
+    "en": "{value} h",
+    "ru": "{value} ч",
+    "pl": "{value} godz.",
+    "de": "{value} Std.",
+    "es": "{value} h",
+    "be": "{value} г",
+    "uk": "{value} год"
+  },
+  "clocks_layout_label": {
+    "en": "Several clocks:",
+    "ru": "Несколько часов:",
+    "pl": "Kilka zegarów:",
+    "de": "Mehrere Uhren:",
+    "es": "Varios relojes:",
+    "be": "Некалькі гадзіннікаў:",
+    "uk": "Кілька годинників:"
+  },
+  "clocks_layout_row": {
+    "en": "Side by side",
+    "ru": "В ряд",
+    "pl": "Obok siebie",
+    "de": "Nebeneinander",
+    "es": "En fila",
+    "be": "У шэраг",
+    "uk": "В ряд"
+  },
+  "clocks_layout_column": {
+    "en": "One under another",
+    "ru": "Друг под другом",
+    "pl": "Jeden pod drugim",
+    "de": "Untereinander",
+    "es": "Uno debajo de otro",
+    "be": "Адзін пад адным",
+    "uk": "Один під одним"
+  },
   "date_and_time_clocks_customization_timezone_local_label_option": {
     "en": "Local",
-    "ru": "ЛОкальный",
+    "ru": "Локальный",
     "pl": "Lokalna",
     "de": "Lokal",
     "es": "Local",
@@ -1052,33 +1115,6 @@
     "be": "Выдаліць гэтую закладку?",
     "uk": "Видалити цю закладку?"
   },
-  "rename_bookmark_confirmation_window_text_first_part": {
-    "en": "Rename this bookmark?\n\nOld name:",
-    "ru": "Переименовать эту закладку?\n\nПредыдущее название:",
-    "pl": "Zmień nazwę tej zakładki?\n\nPoprzednia nazwa:",
-    "de": "Dieses Lesezeichen umbenennen?\n\nAlter Name:",
-    "es": "¿Renombrar este marcador?\n\nNombre anterior:",
-    "be": "Перайменаваць гэтую закладку?\n\nСтарая назва:",
-    "uk": "Перейменувати цю закладку?\n\nСтара назва:"
-  },
-  "rename_bookmark_confirmation_window_text_second_part": {
-    "en": "New name:",
-    "ru": "Новое название:",
-    "pl": "Nowa nazwa:",
-    "de": "Neuer Name:",
-    "es": "Nuevo nombre:",
-    "be": "Новая назва:",
-    "uk": "Нова назва:"
-  },
-  "modal_confirm_message_html_default": {
-    "en": "Are you sure?",
-    "ru": "Вы уверены?",
-    "pl": "Jesteś pewien?",
-    "de": "Bist du sicher?",
-    "es": "¿Estás seguro?",
-    "be": "Вы ўпэўнены?",
-    "uk": "Ви впевнені?"
-  },
   "modal_confirm_yes_button_html_default": {
     "en": "Yes",
     "ru": "Да",
@@ -1097,402 +1133,6 @@
     "be": "Не",
     "uk": "Ні"
   },
-  "add_custom_notification_button_test": {
-    "en": "➕ Add Custom Notification",
-    "ru": "➕ Добавить своё уведомление",
-    "pl": "➕ Dodaj własne powiadomienie",
-    "de": "➕ Benutzerdefinierte Benachrichtigung hinzufügen",
-    "es": "➕ Añadir notificación personalizada",
-    "be": "➕ Дадаць уласнае апавяшчэнне",
-    "uk": "➕ Додати власне сповіщення"
-  },
-  "notification_saved_alert_message": {
-    "en": "✅ Notification saved!",
-    "ru": "✅ Уведомление сохранено!",
-    "pl": "✅ Powiadomienie zapisane!",
-    "de": "✅ Benachrichtigung gespeichert!",
-    "es": "✅ ¡Notificación guardada!",
-    "be": "✅ Апавяшчэнне захавана!",
-    "uk": "✅ Сповіщення збережено!"
-  },
-  "warning_alert_choose_different_trigger_type": {
-    "en": "⚠️ Warning!\nPlease choose a different trigger type and reload this page\nbecause the weather widget is turned off.\nOr enable the weather widget to use the temperature trigger!",
-    "ru": "⚠️ Внимание!\nПожалуйста выберите другой тип триггера, потому что данный\nтип недоступен, так как виджет погоды выключен.\nИли включите виджет погоды, чтобы использовать температурный триггер!",
-    "pl": "⚠️ Uwaga!\nWybierz inny typ wyzwalacza i przeładuj stronę,\nponieważ widżet pogodowy jest wyłączony.\nLub włącz widżet, aby użyć wyzwalacza temperatury!",
-    "de": "⚠️ Warnung!\nBitte wählen Sie einen anderen Auslöser und laden Sie die Seite neu,\nda das Wetter-Widget deaktiviert ist.\nOder aktivieren Sie es, um den Temperaturauslöser zu verwenden!",
-    "es": "⚠️ ¡Advertencia!\nElige otro tipo de activador y recarga la página,\nporque el widget del clima está desactivado.\nO activa el widget para usar el activador de temperatura.",
-    "be": "⚠️ Увага!\nВыберыце іншы тып трыгера і перазагрузіце старонку,\nбо віджэт надвор'я выключаны.\nАбо ўключыце яго, каб выкарыстоўваць трыгер тэмпературы!",
-    "uk": "⚠️ Увага!\nОберіть інший тип тригера і перезавантажте сторінку,\nоскільки віджет погоди вимкнено.\nАбо увімкніть його, щоб використовувати тригер температури!"
-  },
-  "timer_trigger_type_option_sec": {
-    "en": "sec",
-    "ru": "сек",
-    "pl": "sek",
-    "de": "Sek",
-    "es": "seg",
-    "be": "сек",
-    "uk": "сек"
-  },
-  "timer_trigger_type_option_min": {
-    "en": "min",
-    "ru": "мин",
-    "pl": "min",
-    "de": "Min",
-    "es": "min",
-    "be": "хвіл",
-    "uk": "хв"
-  },
-  "timer_trigger_type_option_hour": {
-    "en": "hr",
-    "ru": "час",
-    "pl": "godz",
-    "de": "Std",
-    "es": "h",
-    "be": "гадз",
-    "uk": "год"
-  },
-  "timer_trigger_label_notify_after_text": {
-    "en": "Notify After:",
-    "ru": "Уведомить через:",
-    "pl": "Powiadom po:",
-    "de": "Benachrichtigen nach:",
-    "es": "Notificar después de:",
-    "be": "Апавясціць праз:",
-    "uk": "Сповістити через:"
-  },
-  "timer_trigger_label_notify_after_tooltip": {
-    "en": "If you want to set a notification to appear after a specific timer, select the units and the duration you need.\n\nFor example, if you choose 15 minutes, then after 15 minutes a notification will appear with the specified Title and Body text.",
-    "ru": "Если вы хотите установить уведомление, которое появится через определённый таймер, выберите нужные единицы измерения и длительность.\n\nНапример, если вы выберете 15 минут, то через 15 минут появится уведомление с указанным заголовком и текстом.",
-    "pl": "Jeśli chcesz ustawić powiadomienie po określonym czasie, wybierz jednostki i czas trwania.\n\nNa przykład: wybierając 15 minut, po tym czasie pojawi się powiadomienie z podanym tytułem i treścią.",
-    "de": "Wenn Sie eine Benachrichtigung nach einem bestimmten Timer anzeigen möchten, wählen Sie die Einheiten und die Dauer.\n\nBeispiel: Nach 15 Minuten erscheint eine Benachrichtigung mit dem angegebenen Titel und Text.",
-    "es": "Si deseas que aparezca una notificación tras cierto tiempo, selecciona las unidades y duración.\n\nPor ejemplo, tras 15 minutos aparecerá una notificación con el título y texto indicados.",
-    "be": "Калі вы хочаце паказаць апавяшчэнне праз пэўны час, выберыце адзінкі і працягласць.\n\nНапрыклад, праз 15 хвілін з'явіцца апавяшчэнне з загалоўкам і тэкстам.",
-    "uk": "Якщо ви хочете показати сповіщення через певний час, оберіть одиниці та тривалість.\n\nНаприклад, через 15 хвилин з’явиться сповіщення з вказаним заголовком і текстом."
-  },
-  "timer_trigger_label_url_contains_text": {
-    "en": "URL Contains:",
-    "ru": "URL содержит:",
-    "pl": "Adres URL zawiera:",
-    "de": "URL enthält:",
-    "es": "La URL contiene:",
-    "be": "URL змяшчае:",
-    "uk": "URL містить:"
-  },
-  "timer_trigger_label_url_contains_tooltip": {
-    "en": "If you want to trigger a notification when visiting a website, enter part of the URL or the full URL.\n\nFor example, https://google.com — then, when you visit google.com, you will receive a notification with your Title and Body.",
-    "ru": "Если вы хотите сработать уведомление при посещении какого-либо сайта, введите часть URL или полный URL.\n\nНапример, https://google.com — тогда, когда вы посетите google.com, вы получите уведомление с вашим заголовком и текстом.",
-    "pl": "Aby wywołać powiadomienie po wejściu na stronę, wpisz część lub cały adres URL.\n\nNp. https://google.com — po wejściu na stronę pojawi się powiadomienie z tytułem i treścią.",
-    "de": "Um eine Benachrichtigung beim Besuch einer Website auszulösen, geben Sie einen Teil oder die vollständige URL ein.\n\nBeispiel: https://google.com — beim Besuch erscheint eine Benachrichtigung mit Titel und Text.",
-    "es": "Para activar una notificación al visitar un sitio, introduce parte o toda la URL.\n\nEjemplo: https://google.com — al visitarlo, aparecerá una notificación con tu título y texto.",
-    "be": "Каб выклікаць апавяшчэнне пры наведванні сайта, увядзіце частку або поўны URL.\n\nНапрыклад, https://google.com — пры наведванні з'явіцца апавяшчэнне з загалоўкам і тэкстам.",
-    "uk": "Щоб викликати сповіщення при відвідуванні сайту, введіть частину або повну URL.\n\nНаприклад, https://google.com — при відвідуванні з’явиться сповіщення з заголовком і текстом."
-  },
-  "timer_trigger_label_temperature_text": {
-    "en": "Temperature (°C):",
-    "ru": "Температура (°C):",
-    "pl": "Temperatura (°C):",
-    "de": "Temperatur (°C):",
-    "es": "Temperatura (°C):",
-    "be": "Тэмпература (°C):",
-    "uk": "Температура (°C):"
-  },
-  "timer_trigger_label_temperature_tooltip": {
-    "en": "If you want to set a notification to appear at a specific temperature, enter the desired temperature.\n\nFor example, at +13 a notification will appear with the specified Title and Body text.",
-    "ru": "Если вы хотите установить уведомление, которое появится при определённой температуре, введите нужную температуру.\n\nНапример, при +13 появится уведомление с указанным заголовком и текстом.",
-    "pl": "Jeśli chcesz ustawić powiadomienie dla określonej temperatury, wpisz żądaną wartość.\n\nNa przykład przy +13 pojawi się powiadomienie z podanym tytułem i treścią.",
-    "de": "Wenn Sie eine Benachrichtigung bei einer bestimmten Temperatur anzeigen möchten, geben Sie die gewünschte Temperatur ein.\n\nZum Beispiel erscheint bei +13 eine Benachrichtigung mit dem angegebenen Titel und Text.",
-    "es": "Si deseas que aparezca una notificación a una temperatura específica, introduce la temperatura deseada.\n\nPor ejemplo, a +13 aparecerá una notificación con el título y texto especificados.",
-    "be": "Калі вы хочаце паказаць апавяшчэнне пры пэўнай тэмпературы, увядзіце патрэбную велічыню.\n\nНапрыклад, пры +13 з'явіцца апавяшчэнне з загалоўкам і тэкстам.",
-    "uk": "Якщо ви хочете показати сповіщення при певній температурі, введіть потрібне значення.\n\nНаприклад, при +13 з’явиться сповіщення з заголовком і текстом."
-  },
-  "timer_trigger_label_set_time_text": {
-    "en": "Set Time:",
-    "ru": "Установить время:",
-    "pl": "Ustaw czas:",
-    "de": "Zeit einstellen:",
-    "es": "Establecer hora:",
-    "be": "Усталяваць час:",
-    "uk": "Встановити час:"
-  },
-  "timer_trigger_label_set_time_tooltip": {
-    "en": "If you want to set a notification to appear at a specific time, enter the time you need.\n\nFor example, at 13:30 a notification will appear with the specified Title and Body text.",
-    "ru": "Если вы хотите установить уведомление, которое появится в определённое время, введите нужное время.\n\nНапример, в 13:30 появится уведомление с указанным заголовком и текстом.",
-    "pl": "Jeśli chcesz ustawić powiadomienie na konkretną godzinę, wpisz odpowiedni czas.\n\nNa przykład o 13:30 pojawi się powiadomienie z podanym tytułem i treścią.",
-    "de": "Wenn Sie eine Benachrichtigung zu einer bestimmten Uhrzeit anzeigen möchten, geben Sie die gewünschte Zeit ein.\n\nZum Beispiel erscheint um 13:30 eine Benachrichtigung mit dem angegebenen Titel und Text.",
-    "es": "Si deseas que aparezca una notificación a una hora específica, introduce la hora deseada.\n\nPor ejemplo, a las 13:30 aparecerá una notificación con el título y texto especificados.",
-    "be": "Калі вы хочаце паказаць апавяшчэнне ў пэўны час, увядзіце патрэбны час.\n\nНапрыклад, у 13:30 з'явіцца апавяшчэнне з загалоўкам і тэкстам.",
-    "uk": "Якщо ви хочете показати сповіщення у певний час, введіть потрібну годину.\n\nНаприклад, о 13:30 з’явиться сповіщення з заголовком і текстом."
-  },
-  "notifications_editor_save_button_text": {
-    "en": "💾 Save",
-    "ru": "💾 Сохранить",
-    "pl": "💾 Zapisz",
-    "de": "💾 Speichern",
-    "es": "💾 Guardar",
-    "be": "💾 Захаваць",
-    "uk": "💾 Зберегти"
-  },
-  "notifications_editor_preview_button_text": {
-    "en": "👁️ Preview",
-    "ru": "👁️ Предпросмотр",
-    "pl": "👁️ Podgląd",
-    "de": "👁️ Vorschau",
-    "es": "👁️ Vista previa",
-    "be": "👁️ Папярэдні прагляд",
-    "uk": "👁️ Попередній перегляд"
-  },
-  "notifications_editor_link_label_text": {
-    "en": "Link (optional):",
-    "ru": "Ссылка (необязательно):",
-    "pl": "Link (opcjonalnie):",
-    "de": "Link (optional):",
-    "es": "Enlace (opcional):",
-    "be": "Спасылка (неабавязкова):",
-    "uk": "Посилання (необов’язково):"
-  },
-  "notifications_editor_link_label_tooltip": {
-    "en": "If you want the notification to open a specific link when clicked, enter the URL here.",
-    "ru": "Если вы хотите, чтобы уведомление открывало при клике какую-либо ссылку, введите здесь URL.",
-    "pl": "Jeśli chcesz, aby powiadomienie otwierało link po kliknięciu, wpisz tutaj adres URL.",
-    "de": "Wenn die Benachrichtigung beim Klicken einen Link öffnen soll, geben Sie hier die URL ein.",
-    "es": "Si deseas que la notificación abra un enlace al hacer clic, introduce aquí la URL.",
-    "be": "Калі вы хочаце, каб апавяшчэнне адкрывала спасылку пры кліку, увядзіце тут URL.",
-    "uk": "Якщо ви хочете, щоб сповіщення відкривало посилання при натисканні, введіть тут URL."
-  },
-  "notifications_editor_body_label_text": {
-    "en": "Notification content:",
-    "ru": "Текст нотификации:",
-    "pl": "Treść powiadomienia:",
-    "de": "Benachrichtigungsinhalt:",
-    "es": "Contenido de la notificación:",
-    "be": "Змест апавяшчэння:",
-    "uk": "Зміст сповіщення:"
-  },
-  "notifications_editor_body_label_tooltip": {
-    "en": "Enter the text that you want to see in the notification body.",
-    "ru": "Введите текст, который вы хотите видеть в теле уведомления.",
-    "pl": "Wpisz tekst, który ma się pojawić w treści powiadomienia.",
-    "de": "Geben Sie den Text ein, der im Benachrichtigungstext erscheinen soll.",
-    "es": "Introduce el texto que deseas ver en el cuerpo de la notificación.",
-    "be": "Увядзіце тэкст, які вы хочаце бачыць у целе апавяшчэння.",
-    "uk": "Введіть текст, який ви хочете бачити в тілі сповіщення."
-  },
-  "notifications_editor_title_label_text": {
-    "en": "Notification title:",
-    "ru": "Заголовок нотификации:",
-    "pl": "Tytuł powiadomienia:",
-    "de": "Titel der Benachrichtigung:",
-    "es": "Título de la notificación:",
-    "be": "Загаловак апавяшчэння:",
-    "uk": "Заголовок сповіщення:"
-  },
-  "notifications_editor_title_label_tooltip": {
-    "en": "Enter the text that you want to see in the notification title.",
-    "ru": "Введите текст, который вы хотите видеть в заголовке уведомления.",
-    "pl": "Wpisz tekst, który ma się pojawić w tytule powiadomienia.",
-    "de": "Geben Sie den Text ein, der im Titel der Benachrichtigung erscheinen soll.",
-    "es": "Introduce el texto que deseas ver en el título de la notificación.",
-    "be": "Увядзіце тэкст, які вы хочаце бачыць у загалоўку апавяшчэння.",
-    "uk": "Введіть текст, який ви хочете бачити в заголовку сповіщення."
-  },
-  "notifications_trigger_type_timer_option": {
-    "en": "⏳ Timer",
-    "ru": "⏳ Таймер",
-    "pl": "⏳ Timer",
-    "de": "⏳ Timer",
-    "es": "⏳ Temporizador",
-    "be": "⏳ Таймер",
-    "uk": "⏳ Таймер"
-  },
-  "notifications_trigger_type_url_visit_option": {
-    "en": "🌐 URL Visit",
-    "ru": "🌐 URL сайта",
-    "pl": "🌐 Odwiedzenie URL",
-    "de": "🌐 URL-Besuch",
-    "es": "🌐 Visita a URL",
-    "be": "🌐 Візіт па URL",
-    "uk": "🌐 Відвідування URL"
-  },
-  "notifications_trigger_type_temperature_option": {
-    "en": "🌡️ Temperature",
-    "ru": "🌡️ Температура",
-    "pl": "🌡️ Temperatura",
-    "de": "🌡️ Temperatur",
-    "es": "🌡️ Temperatura",
-    "be": "🌡️ Тэмпература",
-    "uk": "🌡️ Температура"
-  },
-  "notifications_trigger_type_time_option": {
-    "en": "⏰ Time",
-    "ru": "⏰ Время",
-    "pl": "⏰ Czas",
-    "de": "⏰ Uhrzeit",
-    "es": "⏰ Hora",
-    "be": "⏰ Час",
-    "uk": "⏰ Час"
-  },
-  "notifications_trigger_type_label_text": {
-    "en": "Trigger Type:",
-    "ru": "Тип триггера:",
-    "pl": "Typ wyzwalacza:",
-    "de": "Auslösertyp:",
-    "es": "Tipo de activador:",
-    "be": "Тып трыгера:",
-    "uk": "Тип тригера:"
-  },
-  "notifications_trigger_type_label_tooltip": {
-    "en": "Defines what triggers the notification.\n\nExample:\n1. Send a notification with your chosen Title and Body at 12:00.\n2. Trigger notification when visiting a specific website with your Title and Body.\n3. Trigger notification after 5 minutes, etc.",
-    "ru": "Определяет, что запускает уведомление.\n\nПример:\n1. Отправить уведомление с вашим заголовком и текстом в 12:00.\n2. При посещении определённого сайта появится уведомление с вашим заголовком и текстом.\n3. Уведомление сработает через 5 минут и т.д.",
-    "pl": "Określa, co uruchamia powiadomienie.\n\nPrzykład:\n1. Wyślij powiadomienie o 12:00.\n2. Wyzwól powiadomienie po wejściu na stronę.\n3. Wyzwól po 5 minutach itd.",
-    "de": "Legt fest, was die Benachrichtigung auslöst.\n\nBeispiel:\n1. Benachrichtigung um 12:00 senden.\n2. Auslösen beim Besuch einer Website.\n3. Auslösen nach 5 Minuten usw.",
-    "es": "Define qué activa la notificación.\n\nEjemplo:\n1. Enviar notificación a las 12:00.\n2. Activar al visitar un sitio web.\n3. Activar tras 5 minutos, etc.",
-    "be": "Вызначае, што запускае апавяшчэнне.\n\nПрыклад:\n1. Адправіць апавяшчэнне ў 12:00.\n2. Пры наведванні сайта.\n3. Праз 5 хвілін і г.д.",
-    "uk": "Визначає, що запускає сповіщення.\n\nПриклад:\n1. Надіслати сповіщення о 12:00.\n2. При відвідуванні сайту.\n3. Через 5 хвилин тощо."
-  },
-  "notifications_editor_repeatable_label_text": {
-    "en": "Repeatable notification:",
-    "ru": "Повторяющееся уведомление:",
-    "pl": "Powiadomienie cykliczne:",
-    "de": "Wiederholbare Benachrichtigung:",
-    "es": "Notificación repetible:",
-    "be": "Паўторнае апавяшчэнне:",
-    "uk": "Повторюване сповіщення:"
-  },
-  "notifications_editor_repeatable_label_tooltip": {
-    "en": "If you want the notification to appear multiple times, enable this option.\n\nFor example, if you set a timer for 10 minutes and enable this option, then every 10 minutes a notification will appear with your specified Title and Body.",
-    "ru": "Если вы хотите, чтобы уведомление появлялось несколько раз, включите эту опцию.\n\nНапример, если вы установите таймер на 10 минут и включите эту опцию, то каждые 10 минут будет появляться уведомление с вашим указанным заголовком и текстом.",
-    "pl": "Jeśli chcesz, aby powiadomienie pojawiało się wielokrotnie, włącz tę opcję.\n\nNp. co 10 minut pojawi się powiadomienie z podanym tytułem i treścią.",
-    "de": "Wenn die Benachrichtigung mehrfach erscheinen soll, aktivieren Sie diese Option.\n\nBeispiel: Alle 10 Minuten erscheint eine Benachrichtigung mit Titel und Text.",
-    "es": "Si deseas que la notificación aparezca varias veces, activa esta opción.\n\nPor ejemplo, cada 10 minutos aparecerá una notificación con el título y texto indicados.",
-    "be": "Калі вы хочаце, каб апавяшчэнне з'яўлялася некалькі разоў, уключыце гэтую опцыю.\n\nНапрыклад, кожныя 10 хвілін з'явіцца апавяшчэнне з загалоўкам і тэкстам.",
-    "uk": "Якщо ви хочете, щоб сповіщення з’являлося кілька разів, увімкніть цю опцію.\n\nНаприклад, кожні 10 хвилин з’являтиметься сповіщення з заголовком і текстом."
-  },
-  "notifications_editor_header_title_h2_text": {
-    "en": "🔔 Notification Editor",
-    "ru": "🔔 Редактор уведомлений",
-    "pl": "🔔 Edytor powiadomień",
-    "de": "🔔 Benachrichtigungseditor",
-    "es": "🔔 Editor de notificaciones",
-    "be": "🔔 Рэдактар апавяшчэнняў",
-    "uk": "🔔 Редактор сповіщень"
-  },
-  "saved_notifications_header_h2_text": {
-    "en": "📋 Saved Notifications",
-    "ru": "📋 Сохранённые уведомления",
-    "pl": "📋 Zapisane powiadomienia",
-    "de": "📋 Gespeicherte Benachrichtigungen",
-    "es": "📋 Notificaciones guardadas",
-    "be": "📋 Захаваныя апавяшчэнні",
-    "uk": "📋 Збережені сповіщення"
-  },
-  "saved_notifications_no_notifications_text": {
-    "en": "No saved notifications yet.",
-    "ru": "Пока нет сохранённых уведомлений.",
-    "pl": "Brak zapisanych powiadomień.",
-    "de": "Noch keine gespeicherten Benachrichtigungen.",
-    "es": "Aún no hay notificaciones guardadas.",
-    "be": "Пакуль няма захаваных апавяшчэнняў.",
-    "uk": "Ще немає збережених сповіщень."
-  },
-  "saved_notifications_no_title_text": {
-    "en": "No Title",
-    "ru": "Без заголовка",
-    "pl": "Brak tytułu",
-    "de": "Kein Titel",
-    "es": "Sin título",
-    "be": "Без загалоўка",
-    "uk": "Без заголовка"
-  },
-  "saved_notifications_no_text_text": {
-    "en": "No Text",
-    "ru": "Без текста",
-    "pl": "Brak tekstu",
-    "de": "Kein Text",
-    "es": "Sin texto",
-    "be": "Без тэксту",
-    "uk": "Без тексту"
-  },
-  "saved_notifications_meta_type_text": {
-    "en": "Type:",
-    "ru": "Тип:",
-    "pl": "Typ:",
-    "de": "Typ:",
-    "es": "Tipo:",
-    "be": "Тып:",
-    "uk": "Тип:"
-  },
-  "saved_notifications_meta_active_text": {
-    "en": "Active:",
-    "ru": "Активно:",
-    "pl": "Aktywne:",
-    "de": "Aktiv:",
-    "es": "Activo:",
-    "be": "Актыўна:",
-    "uk": "Активне:"
-  },
-  "saved_notifications_meta_repeatable_text": {
-    "en": "Repeatable:",
-    "ru": "Повторяющееся:",
-    "pl": "Powtarzalne:",
-    "de": "Wiederholbar:",
-    "es": "Repetible:",
-    "be": "Паўторнае:",
-    "uk": "Повторюване:"
-  },
-  "saved_notifications_deactivate_button_text": {
-    "en": "🚫 Deactivate",
-    "ru": "🚫 Деактивировать",
-    "pl": "🚫 Dezaktywuj",
-    "de": "🚫 Deaktivieren",
-    "es": "🚫 Desactivar",
-    "be": "🚫 Дэактываваць",
-    "uk": "🚫 Деактивувати"
-  },
-  "saved_notifications_activate_button_text": {
-    "en": "⏻ Activate",
-    "ru": "⏻ Активировать",
-    "pl": "⏻ Aktywuj",
-    "de": "⏻ Aktivieren",
-    "es": "⏻ Activar",
-    "be": "⏻ Актываваць",
-    "uk": "⏻ Активувати"
-  },
-  "saved_notifications_delete_button_text": {
-    "en": "🗑️ Delete",
-    "ru": "🗑️ Удалить",
-    "pl": "🗑️ Usuń",
-    "de": "🗑️ Löschen",
-    "es": "🗑️ Eliminar",
-    "be": "🗑️ Выдаліць",
-    "uk": "🗑️ Видалити"
-  },
-  "sidebar_section_title_notifications_text": {
-    "en": "Notifications",
-    "ru": "Уведомления",
-    "pl": "Powiadomienia",
-    "de": "Benachrichtigungen",
-    "es": "Notificaciones",
-    "be": "Апавяшчэнні",
-    "uk": "Сповіщення"
-  },
-  "sidebar_delete_all_notifications_button_text": {
-    "en": "Delete all notifications",
-    "ru": "Удалить все уведомления",
-    "pl": "Usuń wszystkie powiadomienia",
-    "de": "Alle Benachrichtigungen löschen",
-    "es": "Eliminar todas las notificaciones",
-    "be": "Выдаліць усе апавяшчэнні",
-    "uk": "Видалити всі сповіщення"
-  },
-  "sidebar_show_notifications_editor_button_text": {
-    "en": "Show Notification Editor",
-    "ru": "Показать редактор уведомлений",
-    "pl": "Pokaż edytor powiadomień",
-    "de": "Benachrichtigungseditor anzeigen",
-    "es": "Mostrar editor de notificaciones",
-    "be": "Паказаць рэдактар апавяшчэнняў",
-    "uk": "Показати редактор сповіщень"
-  },
   "sidebar_h2_title_settings_text": {
     "en": "Settings",
     "ru": "Настройки",
@@ -1502,139 +1142,742 @@
     "be": "Налады",
     "uk": "Налаштування"
   },
-  "sidebar_section_name_cloud_save_text": {
-    "en": "Cloud Save",
-    "ru": "Облачное сохранение",
-    "pl": "Zapis w chmurze",
-    "de": "Cloud-Speicherung",
-    "es": "Guardado en la nube",
-    "be": "Аблачнае захаванне",
-    "uk": "Хмарне збереження"
+  "dialog_ok_button": {
+    "en": "OK",
+    "ru": "ОК",
+    "pl": "OK",
+    "de": "OK",
+    "es": "Aceptar",
+    "be": "ОК",
+    "uk": "ОК"
   },
-  "sidebar_button_force_save_settings_to_cloud_text": {
-    "en": "Force Save Settings to Cloud",
-    "ru": "Принудительно сохранить настройки в облако",
-    "pl": "Wymuś zapis ustawień w chmurze",
-    "de": "Einstellungen zwangsweise in der Cloud speichern",
-    "es": "Forzar guardado de configuración en la nube",
-    "be": "Прымусова захаваць налады ў воблаку",
-    "uk": "Примусово зберегти налаштування в хмарі"
+  "backup_section_header": {
+    "en": "Backup",
+    "ru": "Резервная копия",
+    "pl": "Kopia zapasowa",
+    "de": "Sicherung",
+    "es": "Copia de seguridad",
+    "be": "Рэзервовая копія",
+    "uk": "Резервна копія"
   },
-  "sidebar_button_delete_settings_from_cloud_text": {
-    "en": "Delete Settings from Cloud",
-    "ru": "Удалить настройки из облака",
-    "pl": "Usuń ustawienia z chmury",
-    "de": "Einstellungen aus der Cloud löschen",
-    "es": "Eliminar configuración de la nube",
-    "be": "Выдаліць налады з воблака",
-    "uk": "Видалити налаштування з хмари"
+  "backup_section_hint": {
+    "en": "Save all your settings to a file, or restore them from one (for example, on another computer).",
+    "ru": "Сохраните все настройки в файл или восстановите их из файла (например, на другом компьютере).",
+    "pl": "Zapisz wszystkie ustawienia do pliku lub przywróć je z pliku (np. na innym komputerze).",
+    "de": "Speichern Sie alle Einstellungen in einer Datei oder stellen Sie sie daraus wieder her (z. B. auf einem anderen Computer).",
+    "es": "Guarda todos tus ajustes en un archivo o restáuralos desde uno (por ejemplo, en otro ordenador).",
+    "be": "Захавайце ўсе налады ў файл або аднавіце іх з файла (напрыклад, на іншым камп'ютары).",
+    "uk": "Збережіть усі налаштування у файл або відновіть їх із файлу (наприклад, на іншому комп'ютері)."
   },
-  "sidebar_toggle_auto_save_settings_to_cloud_text": {
-    "en": "Auto-Save Settings to Cloud",
-    "ru": "Автосохранение настроек в облако",
-    "pl": "Automatyczne zapisywanie ustawień w chmurze",
-    "de": "Einstellungen automatisch in der Cloud speichern",
-    "es": "Guardar configuración automáticamente en la nube",
-    "be": "Аўтаматычнае захаванне налад у воблаку",
-    "uk": "Автозбереження налаштувань в хмарі"
+  "backup_export_button": {
+    "en": "Export settings to a file",
+    "ru": "Экспортировать настройки в файл",
+    "pl": "Eksportuj ustawienia do pliku",
+    "de": "Einstellungen in Datei exportieren",
+    "es": "Exportar ajustes a un archivo",
+    "be": "Экспартаваць налады ў файл",
+    "uk": "Експортувати налаштування у файл"
   },
-  "auto_save_cloud_alert_force_save_text": {
-    "en": "Your settings have been saved to the cloud. You can now access them from any device where you use this extension.",
-    "ru": "Ваши настройки были сохранены в облако. Теперь вы можете получить к ним доступ с любого устройства, где используете это расширение.",
-    "pl": "Twoje ustawienia zostały zapisane w chmurze. Teraz możesz uzyskać do nich dostęp z dowolnego urządzenia, na którym korzystasz z tego rozszerzenia.",
-    "de": "Ihre Einstellungen wurden in der Cloud gespeichert. Sie können jetzt von jedem Gerät darauf zugreifen, auf dem Sie diese Erweiterung verwenden.",
-    "es": "Tu configuración se ha guardado en la nube. Ahora puedes acceder a ella desde cualquier dispositivo donde uses esta extensión.",
-    "be": "Вашы налады былі захаваны ў воблаку. Цяпер вы можаце атрымаць да іх доступ з любога прылады, дзе выкарыстоўваеце гэтае пашырэнне.",
-    "uk": "Ваші налаштування було збережено в хмарі. Тепер ви можете отримати до них доступ з будь-якого пристрою, де використовуєте це розширення."
+  "backup_import_button": {
+    "en": "Import settings from a file",
+    "ru": "Импортировать настройки из файла",
+    "pl": "Importuj ustawienia z pliku",
+    "de": "Einstellungen aus Datei importieren",
+    "es": "Importar ajustes desde un archivo",
+    "be": "Імпартаваць налады з файла",
+    "uk": "Імпортувати налаштування з файлу"
   },
-  "auto_save_cloud_confirm_delete_settings_text": {
-    "en": "Are you sure you want to delete your settings from the cloud? This action cannot be undone.",
-    "ru": "Вы уверены, что хотите удалить ваши настройки из облака? Это действие нельзя будет отменить.",
-    "pl": "Czy na pewno chcesz usunąć swoje ustawienia z chmury? Tej akcji nie można cofnąć.",
-    "de": "Möchten Sie Ihre Einstellungen wirklich aus der Cloud löschen? Diese Aktion kann nicht rückgängig gemacht werden.",
-    "es": "¿Estás seguro de que deseas eliminar tu configuración de la nube? Esta acción no se puede deshacer.",
-    "be": "Вы ўпэўнены, што хочаце выдаліць свае налады з воблака? Гэта дзеянне нельга будзе адмяніць.",
-    "uk": "Ви впевнені, що хочете видалити свої налаштування з хмари? Цю дію не можна буде скасувати."
+  "backup_import_confirm": {
+    "en": "Replace all current settings with the ones from this file?",
+    "ru": "Заменить все текущие настройки настройками из этого файла?",
+    "pl": "Zastąpić wszystkie obecne ustawienia ustawieniami z tego pliku?",
+    "de": "Alle aktuellen Einstellungen durch die aus dieser Datei ersetzen?",
+    "es": "¿Reemplazar todos los ajustes actuales por los de este archivo?",
+    "be": "Замяніць усе бягучыя налады наладамі з гэтага файла?",
+    "uk": "Замінити всі поточні налаштування налаштуваннями з цього файлу?"
   },
-  "auto_save_cloud_alert_delete_success_text": {
-    "en": "Your settings have been deleted from the cloud. To re-upload your settings, please click the 'Force Save Settings to Cloud' button.",
-    "ru": "Ваши настройки были удалены из облака. Чтобы заново загрузить ваши настройки, пожалуйста, нажмите кнопку 'Принудительно сохранить настройки в облако'.",
-    "pl": "Twoje ustawienia zostały usunięte z chmury. Aby ponownie je przesłać, kliknij przycisk 'Wymuś zapis ustawień w chmurze'.",
-    "de": "Ihre Einstellungen wurden aus der Cloud gelöscht. Um Ihre Einstellungen erneut hochzuladen, klicken Sie bitte auf die Schaltfläche 'Einstellungen zwangsweise in der Cloud speichern'.",
-    "es": "Tu configuración se ha eliminado de la nube. Para volver a subir tu configuración, haz clic en el botón 'Forzar guardado de configuración en la nube'.",
-    "be": "Вашы налады былі выдалены з воблака. Каб зноў іх загрузіць, націсніце кнопку 'Прымусова захаваць налады ў воблаку'.",
-    "uk": "Ваші налаштування було видалено з хмари. Щоб знову їх завантажити, натисніть кнопку 'Примусово зберегти налаштування в хмарі'."
+  "backup_import_invalid_file": {
+    "en": "This file is not a settings backup of this extension.",
+    "ru": "Этот файл не является резервной копией настроек этого расширения.",
+    "pl": "Ten plik nie jest kopią zapasową ustawień tego rozszerzenia.",
+    "de": "Diese Datei ist keine Einstellungssicherung dieser Erweiterung.",
+    "es": "Este archivo no es una copia de seguridad de los ajustes de esta extensión.",
+    "be": "Гэты файл не з'яўляецца рэзервовай копіяй налад гэтага пашырэння.",
+    "uk": "Цей файл не є резервною копією налаштувань цього розширення."
   },
-  "main_confirmation_window_dom_loaded_auto_save_cloud_first_line": {
-    "en": "Cloud settings doesn't match local settings. Do you want to load settings from the cloud?\n\n",
-    "ru": "Настройки в облаке не совпадают с локальными настройками. Вы хотите загрузить настройки из облака?\n\n",
-    "pl": "Ustawienia w chmurze nie zgadzają się z lokalnymi ustawieniami. Czy chcesz załadować ustawienia z chmury?\n\n",
-    "de": "Die Einstellungen in der Cloud stimmen nicht mit den lokalen Einstellungen überein. Möchten Sie die Einstellungen aus der Cloud laden?\n\n",
-    "es": "La configuración en la nube no coincide con la configuración local. ¿Deseas cargar la configuración desde la nube?\n\n",
-    "be": "Налады ў воблаку не супадаюць з лакальнымі наладамі. Ці хочаце вы загрузіць налады з воблака?\n\n",
-    "uk": "Налаштування в хмарі не збігаються з локальними налаштуваннями. Чи хочете ви завантажити налаштування з хмари?\n\n"
+  "time_and_date_section_theme_hint": {
+    "en": "Clocks and the links color are saved separately for each background.",
+    "ru": "Часы и цвет ссылок сохраняются отдельно для каждого фона.",
+    "pl": "Zegary i kolor linków są zapisywane osobno dla każdego tła.",
+    "de": "Uhren und Linkfarbe werden für jeden Hintergrund separat gespeichert.",
+    "es": "Los relojes y el color de los enlaces se guardan por separado para cada fondo.",
+    "be": "Гадзіннікі і колер спасылак захоўваюцца асобна для кожнага фону.",
+    "uk": "Годинники та колір посилань зберігаються окремо для кожного фону."
   },
-  "main_confirmation_window_dom_loaded_auto_save_cloud_second_line": {
-    "en": "Local settings metadata:",
-    "ru": "Метаданные локальных настроек:",
-    "pl": "Metadane lokalnych ustawień:",
-    "de": "Metadaten der lokalen Einstellungen:",
-    "es": "Metadatos de la configuración local:",
-    "be": "Метададзены лакальных налад:",
-    "uk": "Метадані локальних налаштувань:"
+  "timezone_group_fixed_offsets": {
+    "en": "Fixed UTC offset",
+    "ru": "Фиксированное смещение UTC",
+    "pl": "Stałe przesunięcie UTC",
+    "de": "Fester UTC-Versatz",
+    "es": "Desfase UTC fijo",
+    "be": "Фіксаванае зрушэнне UTC",
+    "uk": "Фіксований зсув UTC"
   },
-  "main_confirmation_window_dom_loaded_auto_save_cloud_third_line": {
-    "en": "• Last updated: ",
-    "ru": "• Последнее обновление: ",
-    "pl": "• Ostatnia aktualizacja: ",
-    "de": "• Zuletzt aktualisiert: ",
-    "es": "• Última actualización: ",
-    "be": "• Апошняе абнаўленне: ",
-    "uk": "• Останнє оновлення: "
+  "timezone_group_regions": {
+    "en": "Region (daylight saving time aware)",
+    "ru": "Регион (с учётом летнего времени)",
+    "pl": "Region (z uwzględnieniem czasu letniego)",
+    "de": "Region (mit Sommerzeit)",
+    "es": "Región (con horario de verano)",
+    "be": "Рэгіён (з улікам летняга часу)",
+    "uk": "Регіон (з урахуванням літнього часу)"
   },
-  "main_confirmation_window_dom_loaded_auto_save_cloud_fourth_line": {
-    "en": "• Platform: OS: ",
-    "ru": "• Платформа: ОС: ",
-    "pl": "• Platforma: OS: ",
-    "de": "• Plattform: OS: ",
-    "es": "• Plataforma: SO: ",
-    "be": "• Платформа: АС: ",
-    "uk": "• Платформа: ОС: "
+  "clock_remove_button_title": {
+    "en": "Remove clock",
+    "ru": "Удалить часы",
+    "pl": "Usuń zegar",
+    "de": "Uhr entfernen",
+    "es": "Eliminar reloj",
+    "be": "Выдаліць гадзіннік",
+    "uk": "Видалити годинник"
   },
-  "main_confirmation_window_dom_loaded_auto_save_cloud_fifth_line": {
-    "en": "• Browser version: ",
-    "ru": "• Версия браузера: ",
-    "pl": "• Wersja przeglądarki: ",
-    "de": "• Browserversion: ",
-    "es": "• Versión del navegador: ",
-    "be": "• Версія браўзэра: ",
-    "uk": "• Версія браузера: "
+  "date_and_time_clocks_customization_shadow_blur_label": {
+    "en": "Blur:",
+    "ru": "Размытие:",
+    "pl": "Rozmycie:",
+    "de": "Unschärfe:",
+    "es": "Desenfoque:",
+    "be": "Размыццё:",
+    "uk": "Розмиття:"
   },
-  "main_confirmation_window_dom_loaded_auto_save_cloud_sixth_line": {
-    "en": "Yes = Load from Cloud, No = Keep Local",
-    "ru": "Да = Загрузить из облака, Нет = Оставить локальные",
-    "pl": "Tak = Załaduj z chmury, Nie = Zachowaj lokalne",
-    "de": "Ja = Aus der Cloud laden, Nein = Lokal behalten",
-    "es": "Sí = Cargar desde la nube, No = Mantener local",
-    "be": "Так = Загрузіць з воблака, Не = Захаваць лакальныя",
-    "uk": "Так = Завантажити з хмари, Ні = Зберегти локальні"
+  "date_and_time_clocks_customization_shadow_opacity_label": {
+    "en": "Opacity:",
+    "ru": "Непрозрачность:",
+    "pl": "Krycie:",
+    "de": "Deckkraft:",
+    "es": "Opacidad:",
+    "be": "Непразрыстасць:",
+    "uk": "Непрозорість:"
   },
-  "main_confirmation_window_dom_loaded_auto_save_cloud_cloud_settings_metadata_text": {
-    "en": "Cloud settings metadata:",
-    "ru": "Метаданные настроек в облаке:",
-    "pl": "Metadane ustawień w chmurze:",
-    "de": "Metadaten der Cloud-Einstellungen:",
-    "es": "Metadatos de la configuración en la nube:",
-    "be": "Метададзены налад у воблаку:",
-    "uk": "Метадані налаштувань в хмарі:"
+  "date_and_time_clocks_customization_shadow_color_label": {
+    "en": "Color:",
+    "ru": "Цвет:",
+    "pl": "Kolor:",
+    "de": "Farbe:",
+    "es": "Color:",
+    "be": "Колер:",
+    "uk": "Колір:"
   },
-  "main_confirmation_window_dom_loaded_auto_save_cloud_not_available_na_text": {
-    "en": "N/A",
-    "ru": "Н/Д",
-    "pl": "N/D",
-    "de": "k.A.",
-    "es": "N/D",
-    "be": "Н/Д",
-    "uk": "Н/Д"
+  "links_section_label_placeholder": {
+    "en": "Name",
+    "ru": "Название",
+    "pl": "Nazwa",
+    "de": "Name",
+    "es": "Nombre",
+    "be": "Назва",
+    "uk": "Назва"
+  },
+  "links_section_delete_link_title": {
+    "en": "Delete link",
+    "ru": "Удалить ссылку",
+    "pl": "Usuń link",
+    "de": "Link löschen",
+    "es": "Eliminar enlace",
+    "be": "Выдаліць спасылку",
+    "uk": "Видалити посилання"
+  },
+  "background_section_online_photo": {
+    "en": "Online photo",
+    "ru": "Фото из интернета",
+    "pl": "Zdjęcie z internetu",
+    "de": "Online-Foto",
+    "es": "Foto de internet",
+    "be": "Фота з інтэрнэту",
+    "uk": "Фото з інтернету"
+  },
+  "background_section_photo_of_the_day": {
+    "en": "Photo of the day",
+    "ru": "Фото дня",
+    "pl": "Zdjęcie dnia",
+    "de": "Foto des Tages",
+    "es": "Foto del día",
+    "be": "Фота дня",
+    "uk": "Фото дня"
+  },
+  "background_photo_of_the_day_hint": {
+    "en": "Every day a new photo chosen by the <a href=\"https://commons.wikimedia.org/wiki/Commons:Picture_of_the_day\">Wikimedia Commons</a> community. The author is shown in the bottom-left corner.",
+    "ru": "Каждый день новое фото, выбранное сообществом <a href=\"https://commons.wikimedia.org/wiki/Commons:Picture_of_the_day\">Wikimedia Commons</a>. Автор указан в левом нижнем углу.",
+    "pl": "Codziennie nowe zdjęcie wybrane przez społeczność <a href=\"https://commons.wikimedia.org/wiki/Commons:Picture_of_the_day\">Wikimedia Commons</a>. Autor jest podany w lewym dolnym rogu.",
+    "de": "Jeden Tag ein neues Foto, ausgewählt von der <a href=\"https://commons.wikimedia.org/wiki/Commons:Picture_of_the_day\">Wikimedia Commons</a>-Community. Der Urheber steht unten links.",
+    "es": "Cada día una foto nueva elegida por la comunidad de <a href=\"https://commons.wikimedia.org/wiki/Commons:Picture_of_the_day\">Wikimedia Commons</a>. El autor aparece abajo a la izquierda.",
+    "be": "Кожны дзень новае фота, выбранае супольнасцю <a href=\"https://commons.wikimedia.org/wiki/Commons:Picture_of_the_day\">Wikimedia Commons</a>. Аўтар паказаны ў левым ніжнім куце.",
+    "uk": "Щодня нове фото, обране спільнотою <a href=\"https://commons.wikimedia.org/wiki/Commons:Picture_of_the_day\">Wikimedia Commons</a>. Автора вказано в лівому нижньому куті."
+  },
+  "background_photo_of_the_day_error": {
+    "en": "Could not load today's photo. It will be tried again in a few minutes.",
+    "ru": "Не удалось загрузить фото дня. Через несколько минут попробуем снова.",
+    "pl": "Nie udało się wczytać zdjęcia dnia. Spróbujemy ponownie za kilka minut.",
+    "de": "Das Foto des Tages konnte nicht geladen werden. In ein paar Minuten wird es erneut versucht.",
+    "es": "No se pudo cargar la foto del día. Se volverá a intentar en unos minutos.",
+    "be": "Не ўдалося загрузіць фота дня. Праз некалькі хвілін паспрабуем зноў.",
+    "uk": "Не вдалося завантажити фото дня. Через кілька хвилин спробуємо знову."
+  },
+  "background_schedule_toggle": {
+    "en": "Different background at night",
+    "ru": "Другой фон ночью",
+    "pl": "Inne tło w nocy",
+    "de": "Anderer Hintergrund nachts",
+    "es": "Otro fondo por la noche",
+    "be": "Іншы фон уначы",
+    "uk": "Інший фон уночі"
+  },
+  "background_schedule_day_mode": {
+    "en": "Day background:",
+    "ru": "Дневной фон:",
+    "pl": "Tło w dzień:",
+    "de": "Hintergrund am Tag:",
+    "es": "Fondo de día:",
+    "be": "Дзённы фон:",
+    "uk": "Денний фон:"
+  },
+  "background_schedule_night_mode": {
+    "en": "Night background:",
+    "ru": "Ночной фон:",
+    "pl": "Tło w nocy:",
+    "de": "Hintergrund nachts:",
+    "es": "Fondo de noche:",
+    "be": "Начны фон:",
+    "uk": "Нічний фон:"
+  },
+  "background_schedule_night_start": {
+    "en": "Night from:",
+    "ru": "Ночь с:",
+    "pl": "Noc od:",
+    "de": "Nacht ab:",
+    "es": "Noche desde:",
+    "be": "Ноч з:",
+    "uk": "Ніч з:"
+  },
+  "background_schedule_day_start": {
+    "en": "Day from:",
+    "ru": "День с:",
+    "pl": "Dzień od:",
+    "de": "Tag ab:",
+    "es": "Día desde:",
+    "be": "Дзень з:",
+    "uk": "День з:"
+  },
+  "background_schedule_hint": {
+    "en": "The background picked in the list above is remembered for the current part of the day.",
+    "ru": "Фон, выбранный в списке выше, запоминается для текущей части суток.",
+    "pl": "Tło wybrane na liście powyżej jest zapamiętywane dla bieżącej pory dnia.",
+    "de": "Der oben in der Liste gewählte Hintergrund wird für die aktuelle Tageszeit gespeichert.",
+    "es": "El fondo elegido en la lista de arriba se guarda para la parte del día actual.",
+    "be": "Фон, выбраны ў спісе вышэй, запамінаецца для бягучай часткі сутак.",
+    "uk": "Фон, вибраний у списку вище, запам'ятовується для поточної частини доби."
+  },
+  "background_custom_image_choose_button": {
+    "en": "Choose image…",
+    "ru": "Выбрать изображение…",
+    "pl": "Wybierz obraz…",
+    "de": "Bild auswählen…",
+    "es": "Elegir imagen…",
+    "be": "Выбраць выяву…",
+    "uk": "Вибрати зображення…"
+  },
+  "background_custom_image_not_an_image": {
+    "en": "Please choose an image file.",
+    "ru": "Выберите файл изображения.",
+    "pl": "Wybierz plik obrazu.",
+    "de": "Bitte wählen Sie eine Bilddatei.",
+    "es": "Elige un archivo de imagen.",
+    "be": "Выберыце файл выявы.",
+    "uk": "Виберіть файл зображення."
+  },
+  "background_online_photo_query_placeholder": {
+    "en": "Keyword, e.g. mountains (empty = random photo)",
+    "ru": "Ключевое слово, например горы (пусто = случайное фото)",
+    "pl": "Słowo kluczowe, np. góry (puste = losowe zdjęcie)",
+    "de": "Stichwort, z. B. Berge (leer = zufälliges Foto)",
+    "es": "Palabra clave, p. ej. montañas (vacío = foto aleatoria)",
+    "be": "Ключавое слова, напрыклад горы (пуста = выпадковае фота)",
+    "uk": "Ключове слово, наприклад гори (порожньо = випадкове фото)"
+  },
+  "background_online_photo_interval_never": {
+    "en": "Never (only with the button)",
+    "ru": "Никогда (только кнопкой)",
+    "pl": "Nigdy (tylko przyciskiem)",
+    "de": "Nie (nur per Schaltfläche)",
+    "es": "Nunca (solo con el botón)",
+    "be": "Ніколі (толькі кнопкай)",
+    "uk": "Ніколи (лише кнопкою)"
+  },
+  "background_online_photo_next_button": {
+    "en": "Next photo",
+    "ru": "Следующее фото",
+    "pl": "Następne zdjęcie",
+    "de": "Nächstes Foto",
+    "es": "Siguiente foto",
+    "be": "Наступнае фота",
+    "uk": "Наступне фото"
+  },
+  "background_online_photo_error": {
+    "en": "Could not load a photo. Check your connection or try another keyword.",
+    "ru": "Не удалось загрузить фото. Проверьте подключение или попробуйте другое слово.",
+    "pl": "Nie udało się wczytać zdjęcia. Sprawdź połączenie lub spróbuj innego słowa.",
+    "de": "Foto konnte nicht geladen werden. Prüfen Sie die Verbindung oder versuchen Sie ein anderes Stichwort.",
+    "es": "No se pudo cargar la foto. Comprueba la conexión o prueba otra palabra.",
+    "be": "Не ўдалося загрузіць фота. Праверце падключэнне або паспрабуйце іншае слова.",
+    "uk": "Не вдалося завантажити фото. Перевірте з'єднання або спробуйте інше слово."
+  },
+  "background_online_photo_sources": {
+    "en": "Random photos come from <a href=\"https://picsum.photos\">Picsum</a> (Unsplash), keyword search from <a href=\"https://openverse.org\">Openverse</a>. The author is shown in the bottom-left corner.",
+    "ru": "Случайные фото берутся с <a href=\"https://picsum.photos\">Picsum</a> (Unsplash), поиск по слову — из <a href=\"https://openverse.org\">Openverse</a>. Автор указан в левом нижнем углу.",
+    "pl": "Losowe zdjęcia pochodzą z <a href=\"https://picsum.photos\">Picsum</a> (Unsplash), wyszukiwanie — z <a href=\"https://openverse.org\">Openverse</a>. Autor jest podany w lewym dolnym rogu.",
+    "de": "Zufällige Fotos stammen von <a href=\"https://picsum.photos\">Picsum</a> (Unsplash), die Stichwortsuche von <a href=\"https://openverse.org\">Openverse</a>. Der Urheber steht unten links.",
+    "es": "Las fotos aleatorias vienen de <a href=\"https://picsum.photos\">Picsum</a> (Unsplash) y la búsqueda de <a href=\"https://openverse.org\">Openverse</a>. El autor aparece abajo a la izquierda.",
+    "be": "Выпадковыя фота бяруцца з <a href=\"https://picsum.photos\">Picsum</a> (Unsplash), пошук па слове — з <a href=\"https://openverse.org\">Openverse</a>. Аўтар паказаны ў левым ніжнім куце.",
+    "uk": "Випадкові фото беруться з <a href=\"https://picsum.photos\">Picsum</a> (Unsplash), пошук за словом — з <a href=\"https://openverse.org\">Openverse</a>. Автора вказано в лівому нижньому куті."
+  },
+  "background_photo_credit_prefix": {
+    "en": "Photo:",
+    "ru": "Фото:",
+    "pl": "Zdjęcie:",
+    "de": "Foto:",
+    "es": "Foto:",
+    "be": "Фота:",
+    "uk": "Фото:"
+  },
+  "background_reset_confirm": {
+    "en": "Reset all backgrounds, including clock and link styles for every background?",
+    "ru": "Сбросить все фоны, включая стиль часов и ссылок для каждого фона?",
+    "pl": "Zresetować wszystkie tła, w tym styl zegarów i linków dla każdego tła?",
+    "de": "Alle Hintergründe zurücksetzen, einschließlich Uhr- und Linkstil jedes Hintergrunds?",
+    "es": "¿Restablecer todos los fondos, incluido el estilo de relojes y enlaces de cada fondo?",
+    "be": "Скінуць усе фоны, уключаючы стыль гадзіннікаў і спасылак для кожнага фону?",
+    "uk": "Скинути всі фони, включно зі стилем годинників і посилань для кожного фону?"
+  },
+  "weather_widget_data_source": {
+    "en": "Weather data by <a href=\"https://open-meteo.com/\">Open-Meteo.com</a> (CC BY 4.0). No API key needed. Place names: <a href=\"https://www.openstreetmap.org/copyright\">© OpenStreetMap</a>.",
+    "ru": "Данные о погоде: <a href=\"https://open-meteo.com/\">Open-Meteo.com</a> (CC BY 4.0). API-ключ не нужен. Названия мест: <a href=\"https://www.openstreetmap.org/copyright\">© OpenStreetMap</a>.",
+    "pl": "Dane pogodowe: <a href=\"https://open-meteo.com/\">Open-Meteo.com</a> (CC BY 4.0). Klucz API nie jest potrzebny. Nazwy miejsc: <a href=\"https://www.openstreetmap.org/copyright\">© OpenStreetMap</a>.",
+    "de": "Wetterdaten von <a href=\"https://open-meteo.com/\">Open-Meteo.com</a> (CC BY 4.0). Kein API-Schlüssel nötig. Ortsnamen: <a href=\"https://www.openstreetmap.org/copyright\">© OpenStreetMap</a>.",
+    "es": "Datos del tiempo: <a href=\"https://open-meteo.com/\">Open-Meteo.com</a> (CC BY 4.0). No se necesita clave API. Nombres de lugares: <a href=\"https://www.openstreetmap.org/copyright\">© OpenStreetMap</a>.",
+    "be": "Даныя пра надвор'е: <a href=\"https://open-meteo.com/\">Open-Meteo.com</a> (CC BY 4.0). API-ключ не патрэбны. Назвы месцаў: <a href=\"https://www.openstreetmap.org/copyright\">© OpenStreetMap</a>.",
+    "uk": "Дані про погоду: <a href=\"https://open-meteo.com/\">Open-Meteo.com</a> (CC BY 4.0). API-ключ не потрібен. Назви місць: <a href=\"https://www.openstreetmap.org/copyright\">© OpenStreetMap</a>."
+  },
+  "weather_my_location": {
+    "en": "My location",
+    "ru": "Моё местоположение",
+    "pl": "Moja lokalizacja",
+    "de": "Mein Standort",
+    "es": "Mi ubicación",
+    "be": "Маё месцазнаходжанне",
+    "uk": "Моє місцезнаходження"
+  },
+  "weather_city_not_found": {
+    "en": "City not found",
+    "ru": "Город не найден",
+    "pl": "Nie znaleziono miasta",
+    "de": "Stadt nicht gefunden",
+    "es": "Ciudad no encontrada",
+    "be": "Горад не знойдзены",
+    "uk": "Місто не знайдено"
+  },
+  "weather_load_error": {
+    "en": "Could not load weather",
+    "ru": "Не удалось загрузить погоду",
+    "pl": "Nie udało się wczytać pogody",
+    "de": "Wetter konnte nicht geladen werden",
+    "es": "No se pudo cargar el tiempo",
+    "be": "Не ўдалося загрузіць надвор'е",
+    "uk": "Не вдалося завантажити погоду"
+  },
+  "weather_geolocation_unsupported": {
+    "en": "Geolocation is not supported",
+    "ru": "Геолокация не поддерживается",
+    "pl": "Geolokalizacja nie jest obsługiwana",
+    "de": "Standortbestimmung wird nicht unterstützt",
+    "es": "La geolocalización no es compatible",
+    "be": "Геалакацыя не падтрымліваецца",
+    "uk": "Геолокація не підтримується"
+  },
+  "weather_geolocation_denied": {
+    "en": "Access to location was denied",
+    "ru": "Доступ к местоположению запрещён",
+    "pl": "Odmówiono dostępu do lokalizacji",
+    "de": "Zugriff auf den Standort verweigert",
+    "es": "Se denegó el acceso a la ubicación",
+    "be": "Доступ да месцазнаходжання забаронены",
+    "uk": "Доступ до місцезнаходження заборонено"
+  },
+  "weather_units_label": {
+    "en": "Units:",
+    "ru": "Единицы:",
+    "pl": "Jednostki:",
+    "de": "Einheiten:",
+    "es": "Unidades:",
+    "be": "Адзінкі:",
+    "uk": "Одиниці:"
+  },
+  "weather_units_metric": {
+    "en": "°C, km/h",
+    "ru": "°C, км/ч",
+    "pl": "°C, km/h",
+    "de": "°C, km/h",
+    "es": "°C, km/h",
+    "be": "°C, км/г",
+    "uk": "°C, км/год"
+  },
+  "weather_units_imperial": {
+    "en": "°F, mph",
+    "ru": "°F, миль/ч",
+    "pl": "°F, mph",
+    "de": "°F, mph",
+    "es": "°F, mph",
+    "be": "°F, міль/г",
+    "uk": "°F, миль/год"
+  },
+  "weather_unit_kmh": {
+    "en": "km/h",
+    "ru": "км/ч",
+    "pl": "km/h",
+    "de": "km/h",
+    "es": "km/h",
+    "be": "км/г",
+    "uk": "км/год"
+  },
+  "weather_unit_mph": {
+    "en": "mph",
+    "ru": "миль/ч",
+    "pl": "mph",
+    "de": "mph",
+    "es": "mph",
+    "be": "міль/г",
+    "uk": "миль/год"
+  },
+  "weather_feels_like": {
+    "en": "Feels like",
+    "ru": "Ощущается как",
+    "pl": "Odczuwalna",
+    "de": "Gefühlt",
+    "es": "Sensación térmica",
+    "be": "Адчуваецца як",
+    "uk": "Відчувається як"
+  },
+  "weather_wind": {
+    "en": "Wind",
+    "ru": "Ветер",
+    "pl": "Wiatr",
+    "de": "Wind",
+    "es": "Viento",
+    "be": "Вецер",
+    "uk": "Вітер"
+  },
+  "weather_humidity": {
+    "en": "Humidity",
+    "ru": "Влажность",
+    "pl": "Wilgotność",
+    "de": "Luftfeuchtigkeit",
+    "es": "Humedad",
+    "be": "Вільготнасць",
+    "uk": "Вологість"
+  },
+  "weather_precipitation": {
+    "en": "Chance of precipitation",
+    "ru": "Вероятность осадков",
+    "pl": "Prawdopodobieństwo opadów",
+    "de": "Niederschlagsrisiko",
+    "es": "Probabilidad de precipitación",
+    "be": "Верагоднасць ападкаў",
+    "uk": "Ймовірність опадів"
+  },
+  "weather_today": {
+    "en": "Today",
+    "ru": "Сегодня",
+    "pl": "Dziś",
+    "de": "Heute",
+    "es": "Hoy",
+    "be": "Сёння",
+    "uk": "Сьогодні"
+  },
+  "weather_now": {
+    "en": "Now",
+    "ru": "Сейчас",
+    "pl": "Teraz",
+    "de": "Jetzt",
+    "es": "Ahora",
+    "be": "Зараз",
+    "uk": "Зараз"
+  },
+  "weather_condition_clear": {
+    "en": "Clear",
+    "ru": "Ясно",
+    "pl": "Bezchmurnie",
+    "de": "Klar",
+    "es": "Despejado",
+    "be": "Ясна",
+    "uk": "Ясно"
+  },
+  "weather_condition_mainly_clear": {
+    "en": "Mostly clear",
+    "ru": "Преимущественно ясно",
+    "pl": "Przeważnie bezchmurnie",
+    "de": "Überwiegend klar",
+    "es": "Mayormente despejado",
+    "be": "Пераважна ясна",
+    "uk": "Переважно ясно"
+  },
+  "weather_condition_partly_cloudy": {
+    "en": "Partly cloudy",
+    "ru": "Переменная облачность",
+    "pl": "Częściowe zachmurzenie",
+    "de": "Teilweise bewölkt",
+    "es": "Parcialmente nublado",
+    "be": "Пераменная воблачнасць",
+    "uk": "Мінлива хмарність"
+  },
+  "weather_condition_overcast": {
+    "en": "Overcast",
+    "ru": "Пасмурно",
+    "pl": "Pochmurno",
+    "de": "Bedeckt",
+    "es": "Cubierto",
+    "be": "Пахмурна",
+    "uk": "Похмуро"
+  },
+  "weather_condition_fog": {
+    "en": "Fog",
+    "ru": "Туман",
+    "pl": "Mgła",
+    "de": "Nebel",
+    "es": "Niebla",
+    "be": "Туман",
+    "uk": "Туман"
+  },
+  "weather_condition_drizzle": {
+    "en": "Drizzle",
+    "ru": "Морось",
+    "pl": "Mżawka",
+    "de": "Nieselregen",
+    "es": "Llovizna",
+    "be": "Імжа",
+    "uk": "Мряка"
+  },
+  "weather_condition_freezing_drizzle": {
+    "en": "Freezing drizzle",
+    "ru": "Ледяная морось",
+    "pl": "Marznąca mżawka",
+    "de": "Gefrierender Nieselregen",
+    "es": "Llovizna helada",
+    "be": "Ледзяная імжа",
+    "uk": "Крижана мряка"
+  },
+  "weather_condition_light_rain": {
+    "en": "Light rain",
+    "ru": "Небольшой дождь",
+    "pl": "Słaby deszcz",
+    "de": "Leichter Regen",
+    "es": "Lluvia ligera",
+    "be": "Невялікі дождж",
+    "uk": "Невеликий дощ"
+  },
+  "weather_condition_rain": {
+    "en": "Rain",
+    "ru": "Дождь",
+    "pl": "Deszcz",
+    "de": "Regen",
+    "es": "Lluvia",
+    "be": "Дождж",
+    "uk": "Дощ"
+  },
+  "weather_condition_heavy_rain": {
+    "en": "Heavy rain",
+    "ru": "Сильный дождь",
+    "pl": "Ulewa",
+    "de": "Starker Regen",
+    "es": "Lluvia intensa",
+    "be": "Моцны дождж",
+    "uk": "Сильний дощ"
+  },
+  "weather_condition_freezing_rain": {
+    "en": "Freezing rain",
+    "ru": "Ледяной дождь",
+    "pl": "Marznący deszcz",
+    "de": "Gefrierender Regen",
+    "es": "Lluvia helada",
+    "be": "Ледзяны дождж",
+    "uk": "Крижаний дощ"
+  },
+  "weather_condition_light_snow": {
+    "en": "Light snow",
+    "ru": "Небольшой снег",
+    "pl": "Słaby śnieg",
+    "de": "Leichter Schneefall",
+    "es": "Nevada ligera",
+    "be": "Невялікі снег",
+    "uk": "Невеликий сніг"
+  },
+  "weather_condition_snow": {
+    "en": "Snow",
+    "ru": "Снег",
+    "pl": "Śnieg",
+    "de": "Schneefall",
+    "es": "Nieve",
+    "be": "Снег",
+    "uk": "Сніг"
+  },
+  "weather_condition_heavy_snow": {
+    "en": "Heavy snow",
+    "ru": "Сильный снег",
+    "pl": "Intensywne opady śniegu",
+    "de": "Starker Schneefall",
+    "es": "Nevada intensa",
+    "be": "Моцны снег",
+    "uk": "Сильний сніг"
+  },
+  "weather_condition_snow_grains": {
+    "en": "Snow grains",
+    "ru": "Снежная крупа",
+    "pl": "Śnieg ziarnisty",
+    "de": "Schneegriesel",
+    "es": "Cinarra",
+    "be": "Снежная крупа",
+    "uk": "Снігова крупа"
+  },
+  "weather_condition_rain_showers": {
+    "en": "Rain showers",
+    "ru": "Ливень",
+    "pl": "Przelotny deszcz",
+    "de": "Regenschauer",
+    "es": "Chubascos",
+    "be": "Лівень",
+    "uk": "Злива"
+  },
+  "weather_condition_heavy_showers": {
+    "en": "Heavy showers",
+    "ru": "Сильный ливень",
+    "pl": "Silne przelotne opady",
+    "de": "Starke Regenschauer",
+    "es": "Chubascos fuertes",
+    "be": "Моцны лівень",
+    "uk": "Сильна злива"
+  },
+  "weather_condition_snow_showers": {
+    "en": "Snow showers",
+    "ru": "Снегопад",
+    "pl": "Przelotny śnieg",
+    "de": "Schneeschauer",
+    "es": "Chubascos de nieve",
+    "be": "Снегапад",
+    "uk": "Снігопад"
+  },
+  "weather_condition_thunderstorm": {
+    "en": "Thunderstorm",
+    "ru": "Гроза",
+    "pl": "Burza",
+    "de": "Gewitter",
+    "es": "Tormenta",
+    "be": "Навальніца",
+    "uk": "Гроза"
+  },
+  "weather_condition_thunderstorm_hail": {
+    "en": "Thunderstorm with hail",
+    "ru": "Гроза с градом",
+    "pl": "Burza z gradem",
+    "de": "Gewitter mit Hagel",
+    "es": "Tormenta con granizo",
+    "be": "Навальніца з градам",
+    "uk": "Гроза з градом"
+  },
+  "weather_condition_unknown": {
+    "en": "No data",
+    "ru": "Нет данных",
+    "pl": "Brak danych",
+    "de": "Keine Daten",
+    "es": "Sin datos",
+    "be": "Няма даных",
+    "uk": "Немає даних"
+  },
+  "bookmark_folder_no_name": {
+    "en": "No name",
+    "ru": "Без названия",
+    "pl": "Bez nazwy",
+    "de": "Ohne Namen",
+    "es": "Sin nombre",
+    "be": "Без назвы",
+    "uk": "Без назви"
+  },
+  "bookmark_button_pin_title": {
+    "en": "Pin",
+    "ru": "Закрепить",
+    "pl": "Przypnij",
+    "de": "Anheften",
+    "es": "Fijar",
+    "be": "Замацаваць",
+    "uk": "Закріпити"
+  },
+  "bookmark_button_unpin_title": {
+    "en": "Unpin",
+    "ru": "Открепить",
+    "pl": "Odepnij",
+    "de": "Nicht mehr anheften",
+    "es": "Desfijar",
+    "be": "Адмацаваць",
+    "uk": "Відкріпити"
+  },
+  "bookmark_button_rename_title": {
+    "en": "Rename",
+    "ru": "Переименовать",
+    "pl": "Zmień nazwę",
+    "de": "Umbenennen",
+    "es": "Renombrar",
+    "be": "Перайменаваць",
+    "uk": "Перейменувати"
+  },
+  "bookmark_button_delete_title": {
+    "en": "Delete",
+    "ru": "Удалить",
+    "pl": "Usuń",
+    "de": "Löschen",
+    "es": "Eliminar",
+    "be": "Выдаліць",
+    "uk": "Видалити"
+  },
+  "bookmark_button_save_title": {
+    "en": "Save",
+    "ru": "Сохранить",
+    "pl": "Zapisz",
+    "de": "Speichern",
+    "es": "Guardar",
+    "be": "Захаваць",
+    "uk": "Зберегти"
+  },
+  "rename_bookmark_confirmation": {
+    "en": "Rename this bookmark?\n\nOld name: {oldName}\nNew name: {newName}",
+    "ru": "Переименовать эту закладку?\n\nСтарое название: {oldName}\nНовое название: {newName}",
+    "pl": "Zmienić nazwę tej zakładki?\n\nStara nazwa: {oldName}\nNowa nazwa: {newName}",
+    "de": "Dieses Lesezeichen umbenennen?\n\nAlter Name: {oldName}\nNeuer Name: {newName}",
+    "es": "¿Renombrar este marcador?\n\nNombre anterior: {oldName}\nNombre nuevo: {newName}",
+    "be": "Перайменаваць гэтую закладку?\n\nСтарая назва: {oldName}\nНовая назва: {newName}",
+    "uk": "Перейменувати цю закладку?\n\nСтара назва: {oldName}\nНова назва: {newName}"
+  },
+  "links_section_toggle_google_icons": {
+    "en": "Load site icons through Google",
+    "ru": "Загружать иконки сайтов через Google",
+    "pl": "Wczytuj ikony stron przez Google",
+    "de": "Website-Symbole über Google laden",
+    "es": "Cargar iconos de sitios a través de Google",
+    "be": "Загружаць значкі сайтаў праз Google",
+    "uk": "Завантажувати значки сайтів через Google"
+  },
+  "links_section_google_icons_hint": {
+    "en": "More sites get an icon, but Google receives the addresses of your links and bookmarks. When off, icons are loaded from the sites themselves.",
+    "ru": "Иконки будут у большего числа сайтов, но Google получит адреса ваших ссылок и закладок. Если выключено, иконки загружаются с самих сайтов.",
+    "pl": "Więcej stron dostanie ikonę, ale Google otrzyma adresy twoich linków i zakładek. Gdy wyłączone, ikony są pobierane z samych stron.",
+    "de": "Mehr Websites erhalten ein Symbol, aber Google erhält die Adressen Ihrer Links und Lesezeichen. Wenn aus, werden Symbole direkt von den Websites geladen.",
+    "es": "Más sitios tendrán icono, pero Google recibirá las direcciones de tus enlaces y marcadores. Si está desactivado, los iconos se cargan desde los propios sitios.",
+    "be": "Значкі будуць у большай колькасці сайтаў, але Google атрымае адрасы вашых спасылак і закладак. Калі выключана, значкі загружаюцца з саміх сайтаў.",
+    "uk": "Значки будуть у більшої кількості сайтів, але Google отримає адреси ваших посилань і закладок. Якщо вимкнено, значки завантажуються з самих сайтів."
   }
 }
