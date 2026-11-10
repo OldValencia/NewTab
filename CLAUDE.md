@@ -32,6 +32,7 @@ scripts/core/
   image-store.js                The uploaded background image (stored separately, can be MBs)
   i18n.js, locales.js           Translations from settings/localization.json
   dialog.js                     In-page confirm/message dialogs (instead of alert/confirm)
+  icons.js                      Line SVG icons for the panels (<span data-icon="name">, createIcon())
   time-format.js                Pure clock/date formatting with Intl time zones
   color.js, utils.js            Small helpers
 scripts/backgrounds/
@@ -40,10 +41,12 @@ scripts/backgrounds/
   manager.js                    Shows the selected background, fades between modes, filters, photo credit
   online-photo.js               Picsum (random) / Openverse (keyword) photo queue
   canvas.js, controls-presets.js
-scripts/widgets/                What renders on the page: clocks, links, weather (+ api, conditions, icons, effects), bookmarks
+scripts/widgets/                What renders on the page: clocks, links, weather (+ api, conditions, icons, effects), bookmarks,
+                                favicon.js (site icons for links and bookmarks)
 scripts/sidebar/                Settings UI, one file per section; controls.js binds inputs to settings
 settings/localization.json      All UI strings: { key: { en, ru, pl, de, es, be, uk } }
-styles/                         CSS per area; styles/background/ for effect CSS; styles/fonts.css bundled fonts
+styles/                         CSS per area; panels.css = shared look of both side panels (colors, controls);
+                                styles/background/ for effect CSS; styles/fonts.css bundled fonts
 fonts/                          Bundled font files + licenses (fonts/README.md)
 tests/                          node:test tests + fixtures captured from a real 1.0.2 profile
 release.py                      Builds "New Tab Extension.zip" for AMO (fonts, icons, scripts, settings, styles)
@@ -56,6 +59,7 @@ release.py                      Builds "New Tab Extension.zip" for AMO (fonts, i
   `themes` (per background mode: `linksColor`, `showTime`, `showDate`, `clocks[]`), `links`, `weather`, `bookmarks`.
 - `browser.storage.local["customImage"]` — uploaded picture as a data: URL.
 - `localStorage["section_<name>"]` — open/closed sidebar sections (per device).
+- `localStorage["bookmarks_open_folders"]` — ids of open bookmark folders (per device).
 - Left untouched for safety: `localStorage["custom_settings"]` (1.0.x settings, migrated on first run) and
   `storage.local` keys `custom_settings`, `customNotifications`, `isNotificationsEnabled` from 1.0.x.
 

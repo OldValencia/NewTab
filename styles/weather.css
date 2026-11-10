@@ -17,7 +17,7 @@
 }
 
 body.settings-open #weather-widget {
-    right: 470px;
+    right: calc(var(--panel-width) + 20px);
 }
 
 .weather-summary,

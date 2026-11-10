@@ -6,6 +6,7 @@ import { MAX_LINKS, getDefaultTheme } from "../core/defaults.js";
 import { messageDialog } from "../core/dialog.js";
 import { t } from "../core/i18n.js";
 import { createElement, getDraggedIndex, isListReorderDrag, isValidHttpUrl, setDraggedIndex } from "../core/utils.js";
+import { createIcon } from "../core/icons.js";
 import { bindControl } from "./controls.js";
 
 const editor = document.getElementById("links-editor");
@@ -44,9 +45,9 @@ function createLinkRow(link, index) {
     const row = createElement("div", { className: "link-edit", attrs: { draggable: "true" } });
 
     const deleteButton = createElement("button", {
-        className: "delete-link",
-        text: "✕",
-        attrs: { type: "button", title: t("links_section_delete_link_title") }
+        className: "delete-link icon-button",
+        attrs: { type: "button", title: t("links_section_delete_link_title") },
+        children: [createIcon("close")]
     });
     deleteButton.addEventListener("click", () => changeLinkList(items => items.splice(index, 1)));
 

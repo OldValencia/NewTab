@@ -9,13 +9,13 @@
     "uk": "Закладки"
   },
   "bookmarks_search_input_placeholder": {
-    "en": "🔍 Find bookmark...",
-    "ru": "🔍 Найти закладку...",
-    "pl": "🔍 Znajdź zakładkę...",
-    "de": "🔍 Lesezeichen finden...",
-    "es": "🔍 Buscar marcador...",
-    "be": "🔍 Знайсці закладку...",
-    "uk": "🔍 Знайти закладку..."
+    "en": "Find bookmark...",
+    "ru": "Найти закладку...",
+    "pl": "Znajdź zakładkę...",
+    "de": "Lesezeichen finden...",
+    "es": "Buscar marcador...",
+    "be": "Знайсці закладку...",
+    "uk": "Знайти закладку..."
   },
   "bookmarks_search_input_empty_folders": {
     "en": "Show empty bookmark folders",
@@ -36,22 +36,40 @@
     "uk": "Відкривати закладки в новій вкладці"
   },
   "bookmark_pinned_section_header": {
-    "en": "⭐ Pinned",
-    "ru": "⭐ Закреплённое",
-    "pl": "⭐ Przypięte",
-    "de": "⭐ Angeheftet",
-    "es": "⭐ Fijado",
-    "be": "⭐ Прымацаванае",
-    "uk": "⭐ Прикріплене"
+    "en": "Pinned",
+    "ru": "Закреплённое",
+    "pl": "Przypięte",
+    "de": "Angeheftet",
+    "es": "Fijado",
+    "be": "Прымацаванае",
+    "uk": "Прикріплене"
   },
   "bookmark_all_bookmarks_section_header": {
-    "en": "📁 All bookmarks",
-    "ru": "📁 Все закладки",
-    "pl": "📁 Wszystkie zakładki",
-    "de": "📁 Alle Lesezeichen",
-    "es": "📁 Todos los marcadores",
-    "be": "📁 Усе закладкі",
-    "uk": "📁 Усі закладки"
+    "en": "All bookmarks",
+    "ru": "Все закладки",
+    "pl": "Wszystkie zakładki",
+    "de": "Alle Lesezeichen",
+    "es": "Todos los marcadores",
+    "be": "Усе закладкі",
+    "uk": "Усі закладки"
+  },
+  "bookmarks_collapse_all_title": {
+    "en": "Collapse all folders",
+    "ru": "Свернуть все папки",
+    "pl": "Zwiń wszystkie foldery",
+    "de": "Alle Ordner einklappen",
+    "es": "Contraer todas las carpetas",
+    "be": "Згарнуць усе тэчкі",
+    "uk": "Згорнути всі папки"
+  },
+  "bookmarks_search_no_results": {
+    "en": "Nothing found",
+    "ru": "Ничего не найдено",
+    "pl": "Nic nie znaleziono",
+    "de": "Nichts gefunden",
+    "es": "No se encontró nada",
+    "be": "Нічога не знойдзена",
+    "uk": "Нічого не знайдено"
   },
   "main_sidebar_hotkeys_header": {
     "en": "Hotkeys",
@@ -1566,13 +1584,13 @@
     "uk": "Немає даних"
   },
   "bookmark_folder_no_name": {
-    "en": "📁 No name",
-    "ru": "📁 Без названия",
-    "pl": "📁 Bez nazwy",
-    "de": "📁 Ohne Namen",
-    "es": "📁 Sin nombre",
-    "be": "📁 Без назвы",
-    "uk": "📁 Без назви"
+    "en": "No name",
+    "ru": "Без названия",
+    "pl": "Bez nazwy",
+    "de": "Ohne Namen",
+    "es": "Sin nombre",
+    "be": "Без назвы",
+    "uk": "Без назви"
   },
   "bookmark_button_pin_title": {
     "en": "Pin",
@@ -1638,12 +1656,12 @@
     "uk": "Завантажувати значки сайтів через Google"
   },
   "links_section_google_icons_hint": {
-    "en": "More sites get an icon, but Google receives the addresses of your links. When off, icons are loaded from the sites themselves.",
-    "ru": "Иконки будут у большего числа сайтов, но Google получит адреса ваших ссылок. Если выключено, иконки загружаются с самих сайтов.",
-    "pl": "Więcej stron dostanie ikonę, ale Google otrzyma adresy twoich linków. Gdy wyłączone, ikony są pobierane z samych stron.",
-    "de": "Mehr Websites erhalten ein Symbol, aber Google erhält die Adressen Ihrer Links. Wenn aus, werden Symbole direkt von den Websites geladen.",
-    "es": "Más sitios tendrán icono, pero Google recibirá las direcciones de tus enlaces. Si está desactivado, los iconos se cargan desde los propios sitios.",
-    "be": "Значкі будуць у большай колькасці сайтаў, але Google атрымае адрасы вашых спасылак. Калі выключана, значкі загружаюцца з саміх сайтаў.",
-    "uk": "Значки будуть у більшої кількості сайтів, але Google отримає адреси ваших посилань. Якщо вимкнено, значки завантажуються з самих сайтів."
+    "en": "More sites get an icon, but Google receives the addresses of your links and bookmarks. When off, icons are loaded from the sites themselves.",
+    "ru": "Иконки будут у большего числа сайтов, но Google получит адреса ваших ссылок и закладок. Если выключено, иконки загружаются с самих сайтов.",
+    "pl": "Więcej stron dostanie ikonę, ale Google otrzyma adresy twoich linków i zakładek. Gdy wyłączone, ikony są pobierane z samych stron.",
+    "de": "Mehr Websites erhalten ein Symbol, aber Google erhält die Adressen Ihrer Links und Lesezeichen. Wenn aus, werden Symbole direkt von den Websites geladen.",
+    "es": "Más sitios tendrán icono, pero Google recibirá las direcciones de tus enlaces y marcadores. Si está desactivado, los iconos se cargan desde los propios sitios.",
+    "be": "Значкі будуць у большай колькасці сайтаў, але Google атрымае адрасы вашых спасылак і закладак. Калі выключана, значкі загружаюцца з саміх сайтаў.",
+    "uk": "Значки будуть у більшої кількості сайтів, але Google отримає адреси ваших посилань і закладок. Якщо вимкнено, значки завантажуються з самих сайтів."
   }
 }

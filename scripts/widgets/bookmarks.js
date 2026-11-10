@@ -1,30 +1,62 @@
 /**
  * Bookmarks sidebar (left side): pinned bookmarks, the full tree and search.
+ * Which folders are open is remembered per device in localStorage (like the settings sections).
  */
 import { getSettings, subscribe, updateSettings } from "../core/settings.js";
 import { confirmDialog } from "../core/dialog.js";
 import { t } from "../core/i18n.js";
+import { createIcon } from "../core/icons.js";
 import { createElement, debounce, getDraggedIndex, isListReorderDrag, setDraggedIndex } from "../core/utils.js";
 import { bindControl } from "../sidebar/controls.js";
+import { createFavicon } from "./favicon.js";
 
 const toggleButton = document.getElementById("bookmark-toggle");
 const sidebar = document.getElementById("bookmark-sidebar");
 const searchInput = document.getElementById("bookmark-search");
+const collapseAllButton = document.getElementById("bookmarks-collapse-all");
 const showEmptyFoldersCheckbox = document.getElementById("toggle-empty-folders");
 const openInNewTabCheckbox = document.getElementById("open-bookmark-in-new-tab");
 const treeContainer = document.getElementById("bookmark-tree");
+const pinnedGroup = document.getElementById("pinned-group");
 const pinnedContainer = document.getElementById("pinned-section");
 
-const INDENT_PX = 12;
+const OPEN_FOLDERS_KEY = "bookmarks_open_folders";
+const MAX_SEARCH_RESULTS = 200;
 
 let rootNodes = [];
 let bookmarksById = new Map();
-const openFolderIds = new Set();
+// Bookmark id → names of the folders it is in, shown under search results.
+let folderPathById = new Map();
+const openFolderIds = loadOpenFolders();
 
-function indexBookmarks(nodes) {
+function loadOpenFolders() {
+    try {
+        const ids = JSON.parse(localStorage.getItem(OPEN_FOLDERS_KEY));
+        return new Set(Array.isArray(ids) ? ids.filter(id => typeof id === "string") : []);
+    } catch {
+        return new Set(); // private window or blocked storage: start with everything closed
+    }
+}
+
+function saveOpenFolders() {
+    try {
+        localStorage.setItem(OPEN_FOLDERS_KEY, JSON.stringify([...openFolderIds]));
+    } catch {
+        // Not being able to remember open folders is not worth bothering the user.
+    }
+}
+
+function folderName(folder) {
+    return folder.title?.trim() || t("bookmark_folder_no_name");
+}
+
+function indexBookmarks(nodes, path = []) {
     for (const node of nodes) {
-        if (node.url) bookmarksById.set(node.id, node);
-        if (node.children) indexBookmarks(node.children);
+        if (node.url) {
+            bookmarksById.set(node.id, node);
+            folderPathById.set(node.id, path);
+        }
+        if (node.children) indexBookmarks(node.children, [...path, folderName(node)]);
     }
 }
 
@@ -32,15 +64,20 @@ async function loadBookmarkTree() {
     const [root] = await browser.bookmarks.getTree();
     rootNodes = root.children ?? [];
     bookmarksById = new Map();
+    folderPathById = new Map();
     indexBookmarks(rootNodes);
 }
 
-function hasBookmarks(folder) {
-    return folder.children?.some(child => child.url || hasBookmarks(child)) ?? false;
+function countBookmarks(folder) {
+    return (folder.children ?? []).reduce((sum, child) => sum + (child.url ? 1 : countBookmarks(child)), 0);
 }
 
-function createButton(text, titleKey, onClick) {
-    const button = createElement("button", { className: "bookmark-button", text, attrs: { type: "button", title: t(titleKey) } });
+function createActionButton(iconName, titleKey, onClick, { filled = false } = {}) {
+    const button = createElement("button", {
+        className: "icon-button bookmark-button",
+        attrs: { type: "button", title: t(titleKey) },
+        children: [createIcon(iconName, { filled })]
+    });
     button.addEventListener("click", event => {
         event.preventDefault();
         event.stopPropagation();
@@ -49,14 +86,43 @@ function createButton(text, titleKey, onClick) {
     return button;
 }
 
-function createBookmarkLink(bookmark) {
+/** `text` with every case-insensitive occurrence of `query` wrapped in <mark>. */
+function highlighted(text, query) {
+    if (!query) return [document.createTextNode(text)];
+    const parts = [];
+    const lower = text.toLowerCase();
+    let position = 0;
+    for (let index = lower.indexOf(query); index !== -1; index = lower.indexOf(query, position)) {
+        if (index > position) parts.push(document.createTextNode(text.slice(position, index)));
+        parts.push(createElement("mark", { text: text.slice(index, index + query.length) }));
+        position = index + query.length;
+    }
+    if (position < text.length) parts.push(document.createTextNode(text.slice(position)));
+    return parts;
+}
+
+/** @param {{ query?: string, subtitle?: string }} [options] search results get a highlighted title and a second line */
+function createBookmarkLink(bookmark, { query = "", subtitle = "" } = {}) {
+    const settings = getSettings();
+    const title = bookmark.title || bookmark.url;
+    const text = createElement("span", {
+        className: "bookmark-text",
+        children: [
+            createElement("span", { className: "bookmark-title", children: highlighted(title, query) }),
+            subtitle && createElement("span", { className: "bookmark-subtitle", children: highlighted(subtitle, query) })
+        ]
+    });
     return createElement("a", {
-        text: bookmark.title || bookmark.url,
+        className: "bookmark-link",
         attrs: {
             href: bookmark.url,
             title: bookmark.url,
-            target: getSettings().bookmarks.openInNewTab ? "_blank" : undefined
-        }
+            target: settings.bookmarks.openInNewTab ? "_blank" : undefined
+        },
+        children: [
+            createFavicon({ url: bookmark.url, label: title, useGoogleIcons: settings.links.useGoogleIcons, lazy: true }),
+            text
+        ]
     });
 }
 
@@ -97,71 +163,110 @@ function startRename(item, bookmark) {
         if (event.key === "Escape") renderAll();
     });
 
-    item.replaceChildren(input, createButton("💾", "bookmark_button_save_title", save));
+    item.classList.add("renaming");
+    item.replaceChildren(input, createActionButton("check", "bookmark_button_save_title", save));
     input.focus();
     input.select();
 }
 
-function createBookmarkItem(bookmark, depth = 0) {
+function createBookmarkItem(bookmark, linkOptions) {
     const item = createElement("div", { className: "bookmark-item" });
-    item.style.marginLeft = `${depth * INDENT_PX}px`;
-
     const isPinned = getSettings().bookmarks.pinned.includes(bookmark.id);
     item.append(
-        createBookmarkLink(bookmark),
-        createButton(isPinned ? "📌" : "⭐", isPinned ? "bookmark_button_unpin_title" : "bookmark_button_pin_title", () => togglePin(bookmark.id)),
-        createButton("✏️", "bookmark_button_rename_title", () => startRename(item, bookmark)),
-        createButton("🗑️", "bookmark_button_delete_title", () => deleteBookmark(bookmark))
+        createBookmarkLink(bookmark, linkOptions),
+        createElement("span", {
+            className: "bookmark-actions",
+            children: [
+                createActionButton("star", isPinned ? "bookmark_button_unpin_title" : "bookmark_button_pin_title",
+                    () => togglePin(bookmark.id), { filled: isPinned }),
+                createActionButton("pencil", "bookmark_button_rename_title", () => startRename(item, bookmark)),
+                createActionButton("trash", "bookmark_button_delete_title", () => deleteBookmark(bookmark))
+            ]
+        })
     );
     return item;
 }
 
-function createFolder(folder, depth) {
+function createFolder(folder) {
     const details = createElement("details", { className: "bookmark-folder" });
-    details.style.marginLeft = `${depth * INDENT_PX}px`;
     details.open = openFolderIds.has(folder.id);
     details.addEventListener("toggle", () => {
         if (details.open) openFolderIds.add(folder.id);
         else openFolderIds.delete(folder.id);
+        saveOpenFolders();
     });
 
-    const content = createElement("div");
-    content.append(...createTreeNodes(folder.children, depth + 1));
-    details.append(createElement("summary", { text: folder.title?.trim() || t("bookmark_folder_no_name") }), content);
+    const count = countBookmarks(folder);
+    const summary = createElement("summary", {
+        children: [
+            createIcon("chevron", { className: "folder-chevron" }),
+            createIcon("folder", { className: "folder-icon" }),
+            createElement("span", { className: "folder-name", text: folderName(folder) }),
+            count > 0 && createElement("span", { className: "folder-count", text: String(count) })
+        ]
+    });
+    const content = createElement("div", { className: "bookmark-folder-children" });
+    content.append(...createTreeNodes(folder.children));
+    details.append(summary, content);
     return details;
 }
 
-function createTreeNodes(nodes, depth = 0) {
+function createTreeNodes(nodes) {
     const showEmptyFolders = getSettings().bookmarks.showEmptyFolders;
     return nodes.flatMap(node => {
         if (node.children) {
-            return showEmptyFolders || hasBookmarks(node) ? [createFolder(node, depth)] : [];
+            return showEmptyFolders || countBookmarks(node) > 0 ? [createFolder(node)] : [];
         }
-        return node.url ? [createBookmarkItem(node, depth)] : [];
+        return node.url ? [createBookmarkItem(node)] : [];
     });
+}
+
+function createSearchResult(bookmark, query) {
+    const title = (bookmark.title || bookmark.url).toLowerCase();
+    // Say where the bookmark lives; when only its address matched, show the address instead.
+    const subtitle = title.includes(query) ? folderPathById.get(bookmark.id).join(" › ") : bookmark.url;
+    return createBookmarkItem(bookmark, { query, subtitle });
 }
 
 function renderTree() {
     const query = searchInput.value.trim().toLowerCase();
+    treeContainer.classList.toggle("search-results", query !== "");
     if (!query) {
         treeContainer.replaceChildren(...createTreeNodes(rootNodes));
         return;
     }
 
-    const matches = [...bookmarksById.values()].filter(bookmark =>
-        (bookmark.title ?? "").toLowerCase().includes(query) || bookmark.url.toLowerCase().includes(query));
-    treeContainer.replaceChildren(...matches.map(bookmark => createBookmarkItem(bookmark)));
+    const matches = [...bookmarksById.values()]
+        .filter(bookmark => (bookmark.title ?? "").toLowerCase().includes(query) || bookmark.url.toLowerCase().includes(query))
+        .slice(0, MAX_SEARCH_RESULTS);
+    treeContainer.replaceChildren(...(matches.length > 0
+        ? matches.map(bookmark => createSearchResult(bookmark, query))
+        : [createElement("p", { className: "bookmark-empty", text: t("bookmarks_search_no_results") })]));
 }
 
 function createPinnedItem(bookmark, index) {
-    const item = createElement("div", { className: "bookmark-item", attrs: { draggable: "true" } });
-    item.append(createBookmarkLink(bookmark), createButton("📌", "bookmark_button_unpin_title", () => togglePin(bookmark.id)));
+    const item = createElement("div", { className: "bookmark-item pinned-item", attrs: { draggable: "true" } });
+    item.append(
+        createBookmarkLink(bookmark),
+        createElement("span", {
+            className: "bookmark-actions",
+            children: [createActionButton("star", "bookmark_button_unpin_title", () => togglePin(bookmark.id), { filled: true })]
+        })
+    );
 
-    item.addEventListener("dragstart", event => setDraggedIndex(event, index));
-    item.addEventListener("dragover", event => {
-        if (isListReorderDrag(event)) event.preventDefault();
+    item.addEventListener("dragstart", event => {
+        setDraggedIndex(event, index);
+        item.classList.add("dragging");
     });
+    item.addEventListener("dragend", () => item.classList.remove("dragging"));
+    item.addEventListener("dragover", event => {
+        if (!isListReorderDrag(event)) return;
+        event.preventDefault();
+        item.classList.add("drag-over");
+    });
+    item.addEventListener("dragleave", () => item.classList.remove("drag-over"));
     item.addEventListener("drop", async event => {
+        item.classList.remove("drag-over");
         const fromIndex = getDraggedIndex(event);
         if (fromIndex === null) return;
         event.preventDefault();
@@ -180,13 +285,19 @@ function renderPinned() {
         .map(id => bookmarksById.get(id))
         .filter(Boolean);
 
-    pinnedContainer.hidden = pinnedBookmarks.length === 0;
+    pinnedGroup.hidden = pinnedBookmarks.length === 0;
     pinnedContainer.replaceChildren(...pinnedBookmarks.map(createPinnedItem));
 }
 
 function renderAll() {
     renderPinned();
     renderTree();
+}
+
+function collapseAllFolders() {
+    openFolderIds.clear();
+    saveOpenFolders();
+    for (const folder of treeContainer.querySelectorAll("details.bookmark-folder")) folder.open = false;
 }
 
 /** Drops pinned ids of bookmarks that were deleted (in this page or elsewhere in Firefox). */
@@ -229,10 +340,23 @@ export async function initBookmarks() {
         set: (settings, value) => { settings.bookmarks.openInNewTab = value; }
     });
     toggleButton.addEventListener("click", () => toggleBookmarksSidebar());
+    collapseAllButton.addEventListener("click", collapseAllFolders);
     searchInput.addEventListener("input", debounce(renderTree, 200));
+    searchInput.addEventListener("keydown", event => {
+        if (event.key === "Escape" && searchInput.value) {
+            event.stopPropagation();
+            searchInput.value = "";
+            renderTree();
+        }
+    });
 
     subscribe(settings => [settings.bookmarks.enabled, settings.bookmarks.openByDefault], applyEnabledState);
-    subscribe(settings => [settings.bookmarks.pinned, settings.bookmarks.showEmptyFolders, settings.bookmarks.openInNewTab], renderAll);
+    subscribe(settings => [
+        settings.bookmarks.pinned,
+        settings.bookmarks.showEmptyFolders,
+        settings.bookmarks.openInNewTab,
+        settings.links.useGoogleIcons
+    ], renderAll);
 
     const reloadSoon = debounce(reloadBookmarks, 100);
     for (const event of [browser.bookmarks.onCreated, browser.bookmarks.onRemoved, browser.bookmarks.onChanged, browser.bookmarks.onMoved]) {

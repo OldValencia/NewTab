@@ -17,9 +17,8 @@ function sectionStorageKey(section) {
 
 function setSectionOpen(section, isOpen) {
     section.querySelector(".section-content").classList.toggle("open", isOpen);
-    const toggle = section.querySelector(".toggle-section");
-    toggle.textContent = isOpen ? "−" : "+";
-    toggle.setAttribute("aria-expanded", String(isOpen));
+    // The chevron in .toggle-section turns via CSS ([aria-expanded="true"]).
+    section.querySelector(".toggle-section").setAttribute("aria-expanded", String(isOpen));
     localStorage.setItem(sectionStorageKey(section), String(isOpen));
 }
 

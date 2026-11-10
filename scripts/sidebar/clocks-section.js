@@ -6,6 +6,7 @@ import { DEFAULT_FONT, MAX_CLOCKS, getDefaultClock, getDefaultTheme } from "../c
 import { formatUtcOffset } from "../core/time-format.js";
 import { t } from "../core/i18n.js";
 import { createElement } from "../core/utils.js";
+import { createIcon } from "../core/icons.js";
 import { bindControl, createSelect, syncBoundControls } from "./controls.js";
 
 const editorsContainer = document.getElementById("time-and-date-controls");
@@ -166,8 +167,11 @@ function createShadowEditor(index, getTarget) {
             continue;
         }
 
-        const arrow = { up: "▲", down: "▼", left: "◀", right: "▶" }[direction];
-        const button = createElement("button", { className: "shadow-dir-btn", text: arrow, attrs: { type: "button" } });
+        const button = createElement("button", {
+            className: `shadow-dir-btn shadow-dir-${direction}`,
+            attrs: { type: "button" },
+            children: [createIcon("chevron")]
+        });
         button.addEventListener("click", async () => {
             const shadow = readShadow();
             const [dx, dy] = SHADOW_STEPS[direction];
@@ -226,9 +230,9 @@ function createClockEditor(index, clockCount) {
     const dateRow = createTextStyleRow(index, "date", false, selectShadowTarget);
 
     const removeButton = createElement("button", {
-        className: "remove-element",
-        text: "✖",
-        attrs: { type: "button", title: t("clock_remove_button_title"), hidden: clockCount <= 1 }
+        className: "remove-element icon-button",
+        attrs: { type: "button", title: t("clock_remove_button_title"), hidden: clockCount <= 1 },
+        children: [createIcon("close")]
     });
     removeButton.addEventListener("click", () => updateSettings(settings => {
         const clocks = getActiveTheme(settings).clocks;

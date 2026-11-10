@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="styles/background/floating-circles.css"/>
     <link rel="stylesheet" href="styles/time.css"/>
     <link rel="stylesheet" href="styles/links.css"/>
+    <link rel="stylesheet" href="styles/panels.css"/>
     <link rel="stylesheet" href="styles/sidebar.css"/>
     <link rel="stylesheet" href="styles/weather.css"/>
     <link rel="stylesheet" href="styles/bookmarks.css"/>
@@ -29,14 +30,32 @@
 <div id="photo-credit" hidden></div>
 
 <!-- 📚 Bookmarks sidebar (left) -->
-<button id="bookmark-toggle" class="sidebar-menu-button" type="button" hidden
-        data-i18n-title="bookmark_sidebar_header">📚</button>
-<div id="bookmark-sidebar">
-    <h2 data-i18n="bookmark_sidebar_header">Bookmarks</h2>
+<button id="bookmark-toggle" class="panel-toggle-button" type="button" hidden
+        data-icon="bookmark" data-i18n-title="bookmark_sidebar_header"></button>
+<div id="bookmark-sidebar" class="glass-panel">
+    <div class="panel-header">
+        <h2 data-i18n="bookmark_sidebar_header">Bookmarks</h2>
+        <button id="bookmarks-collapse-all" class="icon-button" type="button" data-icon="collapse-all"
+                data-i18n-title="bookmarks_collapse_all_title"></button>
+    </div>
 
-    <div class="bookmark-section-content bookmark-style-gap no-border">
+    <label class="bookmark-search" data-icon="search">
         <input type="text" id="bookmark-search" data-i18n-placeholder="bookmarks_search_input_placeholder"
-               placeholder="🔍 Find bookmark..."/>
+               placeholder="Find bookmark..."/>
+    </label>
+
+    <div class="panel-scroll">
+        <section class="bookmark-group" id="pinned-group">
+            <h3 class="panel-group-title" data-icon="star"><span data-i18n="bookmark_pinned_section_header">Pinned</span></h3>
+            <div class="bookmark-list" id="pinned-section"></div>
+        </section>
+        <section class="bookmark-group">
+            <h3 class="panel-group-title" data-icon="folder"><span data-i18n="bookmark_all_bookmarks_section_header">All bookmarks</span></h3>
+            <div class="bookmark-list" id="bookmark-tree"></div>
+        </section>
+    </div>
+
+    <div class="panel-footer">
         <label data-i18n="bookmarks_search_input_empty_folders">
             <input type="checkbox" id="toggle-empty-folders"/>
             Show empty bookmark folders
@@ -46,29 +65,19 @@
             Open bookmarks in new tab
         </label>
     </div>
-
-    <div class="bookmark-section-header">
-        <h3 data-i18n="bookmark_pinned_section_header">⭐ Pinned</h3>
-    </div>
-    <div class="bookmark-section-content" id="pinned-section"></div>
-
-    <div class="bookmark-section-header">
-        <h3 data-i18n="bookmark_all_bookmarks_section_header">📁 All bookmarks</h3>
-    </div>
-    <div class="bookmark-section-content" id="bookmark-tree"></div>
 </div>
 
 <!-- ⚙️ Settings sidebar (right) -->
-<button id="menu-toggle" class="menu-button" type="button" aria-controls="sidebar" aria-expanded="false"
-        data-i18n-title="sidebar_h2_title_settings_text">☰</button>
-<div id="sidebar" class="sidebar">
+<button id="menu-toggle" class="menu-button panel-toggle-button" type="button" aria-controls="sidebar" aria-expanded="false"
+        data-icon="menu" data-i18n-title="sidebar_h2_title_settings_text"></button>
+<div id="sidebar" class="sidebar glass-panel">
     <h2 class="sidebar-group-title" data-i18n="sidebar_h2_title_settings_text">Settings</h2>
 
     <section data-section="hotkeys-section">
         <div class="section-header">
-            <span class="section-icon">⌨️</span>
+            <span class="section-icon" data-icon="keyboard"></span>
             <h3 data-i18n="main_sidebar_hotkeys_header">Hotkeys</h3>
-            <button class="toggle-section" type="button">+</button>
+            <button class="toggle-section" type="button" data-icon="chevron" tabindex="-1"></button>
         </div>
         <div class="section-content">
             <div class="instructions">
@@ -86,26 +95,24 @@
 
     <section data-section="localization-widget">
         <div class="section-header">
-            <span class="section-icon">🌐</span>
+            <span class="section-icon" data-icon="globe"></span>
             <h3 data-i18n="main_sidebar_localization_header">Localization</h3>
-            <button class="toggle-section" type="button">+</button>
+            <button class="toggle-section" type="button" data-icon="chevron" tabindex="-1"></button>
         </div>
         <div class="section-content">
-            <button id="reset-localization-settings" class="sidebar-wide-button" type="button"
+            <label data-i18n="localization_section_font_label">Select localization:
+                <select id="localization-select"></select>
+            </label>
+            <button id="reset-localization-settings" class="sidebar-wide-button reset-button" type="button" data-icon="reset"
                     data-i18n="main_sidebar_localization_reset_settings_button">Reset Localization Settings</button>
-            <div class="font-control localization-fix">
-                <label data-i18n="localization_section_font_label">Select localization:
-                    <select id="localization-select"></select>
-                </label>
-            </div>
         </div>
     </section>
 
     <section data-section="backup">
         <div class="section-header">
-            <span class="section-icon">💾</span>
+            <span class="section-icon" data-icon="backup"></span>
             <h3 data-i18n="backup_section_header">Backup</h3>
-            <button class="toggle-section" type="button">+</button>
+            <button class="toggle-section" type="button" data-icon="chevron" tabindex="-1"></button>
         </div>
         <div class="section-content">
             <p class="section-hint" data-i18n="backup_section_hint">Save all your settings to a file, or restore them on another computer.</p>
@@ -121,17 +128,15 @@
 
     <section data-section="time-date">
         <div class="section-header">
-            <span class="section-icon">🕒</span>
+            <span class="section-icon" data-icon="clock"></span>
             <h3 data-i18n="time_and_date_section_header">Time and Date</h3>
-            <button class="toggle-section" type="button">+</button>
+            <button class="toggle-section" type="button" data-icon="chevron" tabindex="-1"></button>
         </div>
         <div class="section-content">
             <p class="section-hint" data-i18n="time_and_date_section_theme_hint">These settings belong to the selected background.</p>
             <div id="time-and-date-controls"></div>
-            <button id="add-clock" class="add-clock" type="button"
+            <button id="add-clock" class="add-button" type="button" data-icon="plus"
                     data-i18n="time_and_date_section_add_clock_button">Add clock</button>
-            <button id="reset-time-date" class="sidebar-wide-button" type="button"
-                    data-i18n="time_and_date_section_reset_button">Reset Time &amp; Date Settings</button>
 
             <div class="section-toggle-controls">
                 <label data-i18n="time_and_date_section_toggle_show_time">
@@ -143,27 +148,29 @@
                     Show Date
                 </label>
             </div>
+            <button id="reset-time-date" class="sidebar-wide-button reset-button" type="button" data-icon="reset"
+                    data-i18n="time_and_date_section_reset_button">Reset Time &amp; Date Settings</button>
         </div>
     </section>
 
     <section data-section="links">
         <div class="section-header">
-            <span class="section-icon">🔗</span>
+            <span class="section-icon" data-icon="link"></span>
             <h3 data-i18n="main_sidebar_links_section_header">Links</h3>
-            <button class="toggle-section" type="button">+</button>
+            <button class="toggle-section" type="button" data-icon="chevron" tabindex="-1"></button>
         </div>
         <div class="section-content">
             <div class="cols-control">
                 <span data-i18n="links_section_columns">Columns:</span>
-                <button id="cols-minus" type="button">−</button>
+                <button id="cols-minus" type="button" data-icon="minus"></button>
                 <span id="cols-value">3</span>
-                <button id="cols-plus" type="button">+</button>
+                <button id="cols-plus" type="button" data-icon="plus"></button>
             </div>
 
             <div id="links-editor"></div>
 
             <div class="links-controls-row">
-                <button id="add-link" type="button" data-i18n="links_section_add_link_button">Add link</button>
+                <button id="add-link" class="add-button" type="button" data-icon="plus" data-i18n="links_section_add_link_button">Add link</button>
                 <div class="links-toggle-control">
                     <div class="toggle-control-first-line">
                         <label data-i18n="links_section_toggle_show_links">
@@ -185,7 +192,7 @@
                         </label>
                     </div>
                     <div class="section-toggle-controls">
-                        <label class="wide-toggle-label" data-i18n="links_section_toggle_google_icons">
+                        <label data-i18n="links_section_toggle_google_icons">
                             <input type="checkbox" id="toggle-google-icons">
                             Load site icons through Google
                         </label>
@@ -198,14 +205,11 @@
 
     <section data-section="background">
         <div class="section-header">
-            <span class="section-icon">🌌</span>
+            <span class="section-icon" data-icon="image"></span>
             <h3 data-i18n="background_section_header">Background</h3>
-            <button class="toggle-section" type="button">+</button>
+            <button class="toggle-section" type="button" data-icon="chevron" tabindex="-1"></button>
         </div>
         <div class="section-content">
-            <button id="reset-bg" class="sidebar-wide-button" type="button"
-                    data-i18n="background_section_reset_button">Reset All Backgrounds</button>
-
             <!-- Filled from scripts/backgrounds/registry.js -->
             <div id="background-modes" class="background-modes"></div>
 
@@ -257,29 +261,31 @@
                     </select>
                 </label>
             </div>
+            <button id="reset-bg" class="sidebar-wide-button reset-button" type="button" data-icon="reset"
+                    data-i18n="background_section_reset_button">Reset All Backgrounds</button>
         </div>
     </section>
 
     <section data-section="weather-widget">
         <div class="section-header">
-            <span class="section-icon">🌦️</span>
+            <span class="section-icon" data-icon="cloud"></span>
             <h3 data-i18n="main_sidebar_weather_widget_header">Weather</h3>
-            <button class="toggle-section" type="button">+</button>
+            <button class="toggle-section" type="button" data-icon="chevron" tabindex="-1"></button>
         </div>
         <div class="section-content">
             <div class="section-toggle-controls vertical">
-                <label class="wide-toggle-label" data-i18n="weather_widget_toggle_show_weather_widget">
+                <label data-i18n="weather_widget_toggle_show_weather_widget">
                     <input type="checkbox" id="toggle-weather-widget">
                     Show Weather
                 </label>
-                <label class="wide-toggle-label" data-i18n="weather_units_label">Units:
+                <label data-i18n="weather_units_label">Units:
                     <select id="weather-units">
                         <option value="metric" data-i18n="weather_units_metric">°C, km/h</option>
                         <option value="imperial" data-i18n="weather_units_imperial">°F, mph</option>
                     </select>
                 </label>
             </div>
-            <button id="reset-weather-settings" class="sidebar-wide-button" type="button"
+            <button id="reset-weather-settings" class="sidebar-wide-button reset-button" type="button" data-icon="reset"
                     data-i18n="weather_widget_section_reset_button">Reset Weather Settings</button>
             <p class="section-hint" data-i18n-html="weather_widget_data_source"></p>
         </div>
@@ -287,17 +293,17 @@
 
     <section data-section="bookmarks-widget">
         <div class="section-header">
-            <span class="section-icon">📂</span>
+            <span class="section-icon" data-icon="bookmark"></span>
             <h3 data-i18n="main_sidebar_bookmarks_section_header">Bookmarks</h3>
-            <button class="toggle-section" type="button">+</button>
+            <button class="toggle-section" type="button" data-icon="chevron" tabindex="-1"></button>
         </div>
         <div class="section-content">
             <div class="section-toggle-controls vertical">
-                <label class="wide-toggle-label" data-i18n="bookmarks_section_toggle_show_bookmarks">
+                <label data-i18n="bookmarks_section_toggle_show_bookmarks">
                     <input type="checkbox" id="toggle-bookmarks-widget">
                     Show bookmarks
                 </label>
-                <label class="wide-toggle-label" data-i18n="bookmarks_section_toggle_hide_bookmarks">
+                <label data-i18n="bookmarks_section_toggle_hide_bookmarks">
                     <input type="checkbox" id="toggle-bookmarks-widget-always-open">
                     Open bookmarks widget by default
                 </label>
