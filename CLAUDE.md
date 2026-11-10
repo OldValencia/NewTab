@@ -12,7 +12,8 @@ change must keep settings saved by older versions working (see "Compatibility ru
 - Vanilla JavaScript **ES modules** (`<script type="module" src="scripts/app.js">`), HTML, CSS.
   No framework, no bundler, no npm dependencies.
 - Browser APIs: the `browser.*` namespace (Promise-based), not `chrome.*`.
-- Permissions: only `storage` and `bookmarks`. Network calls go to Open-Meteo, Picsum, Openverse,
+- Permissions: only `storage` and `bookmarks`. Network calls go to Open-Meteo, OpenStreetMap Nominatim (name of the
+  geolocated place, once per click), Picsum, Openverse,
   the linked sites' `/favicon.ico` and (opt-in) Google's favicon service — all allow CORS, so no host permissions.
 
 ## Project layout
@@ -39,7 +40,7 @@ scripts/backgrounds/
   manager.js                    Shows the selected background, fades between modes, filters, photo credit
   online-photo.js               Picsum (random) / Openverse (keyword) photo queue
   canvas.js, controls-presets.js
-scripts/widgets/                What renders on the page: clocks, links, weather (+ api, effects), bookmarks
+scripts/widgets/                What renders on the page: clocks, links, weather (+ api, conditions, icons, effects), bookmarks
 scripts/sidebar/                Settings UI, one file per section; controls.js binds inputs to settings
 settings/localization.json      All UI strings: { key: { en, ru, pl, de, es, be, uk } }
 styles/                         CSS per area; styles/background/ for effect CSS; styles/fonts.css bundled fonts
@@ -92,7 +93,7 @@ The goal is simple, working code that a human can read without effort.
 ### Run and check
 1. Firefox → `about:debugging#/runtime/this-firefox` → **Load Temporary Add-on** → `manifest.json`; open a new tab.
 2. After edits press **Reload** on the add-on card. Page errors: F12 on the new tab.
-3. `node --test "tests/*.test.mjs"` — migration, normalization and time formatting tests.
+3. `node --test "tests/*.test.mjs"` — migration, normalization, time formatting and weather tests.
 4. `npx web-ext lint --source-dir . --ignore-files "tests/**" "Screenshots/**" review.md "*.zip"` — must stay at
    0 errors / 0 warnings (AMO runs the same linter).
 

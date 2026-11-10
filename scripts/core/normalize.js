@@ -19,6 +19,7 @@ import { SUPPORTED_LOCALE_CODES } from "./locales.js";
 
 export const IMAGE_FITS = ["cover", "contain", "repeat", "stretch", "center"];
 export const PHOTO_INTERVALS = ["onload", "3", "5", "15", "30", "60", "never"];
+export const WEATHER_UNITS = ["metric", "imperial"];
 
 function toBoolean(value, fallback) {
     if (value === true || value === "true") return true;
@@ -148,11 +149,47 @@ function normalizeLocation(location) {
     };
 }
 
+const finiteOrNull = value => (Number.isFinite(value) ? value : null);
+const allFinite = (...values) => values.every(Number.isFinite);
+
+function normalizeForecastDay(day) {
+    if (!isPlainObject(day) || typeof day.date !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(day.date)) return null;
+    if (!allFinite(day.weatherCode, day.max, day.min)) return null;
+    return {
+        date: day.date,
+        weatherCode: day.weatherCode,
+        max: day.max,
+        min: day.min,
+        precipitationChance: finiteOrNull(day.precipitationChance)
+    };
+}
+
+/**
+ * Last weather response (see fetchForecast() in widgets/weather-api.js). It is only a cache:
+ * anything unexpected — including the flat shape of 1.1.0 pre-release builds — becomes null
+ * and is simply fetched again.
+ */
 function normalizeWeatherCache(cache) {
-    if (!isPlainObject(cache)) return null;
-    const fields = ["fetchedAt", "latitude", "longitude", "temperature", "weatherCode", "windSpeed"];
-    if (fields.some(field => !Number.isFinite(cache[field]))) return null;
-    return { ...Object.fromEntries(fields.map(field => [field, cache[field]])), isDay: cache.isDay !== false };
+    if (!isPlainObject(cache) || !isPlainObject(cache.current)) return null;
+    const { current } = cache;
+    if (!allFinite(cache.fetchedAt, cache.latitude, cache.longitude)) return null;
+    if (!allFinite(current.temperature, current.weatherCode, current.windSpeed)) return null;
+
+    return {
+        fetchedAt: cache.fetchedAt,
+        latitude: cache.latitude,
+        longitude: cache.longitude,
+        utcOffsetSeconds: finiteOrNull(cache.utcOffsetSeconds) ?? 0,
+        current: {
+            temperature: current.temperature,
+            feelsLike: finiteOrNull(current.feelsLike),
+            humidity: finiteOrNull(current.humidity),
+            weatherCode: current.weatherCode,
+            windSpeed: current.windSpeed,
+            isDay: current.isDay !== false
+        },
+        daily: Array.isArray(cache.daily) ? cache.daily.map(normalizeForecastDay).filter(Boolean).slice(0, 16) : []
+    };
 }
 
 export function normalizeSettings(raw) {
@@ -192,6 +229,7 @@ export function normalizeSettings(raw) {
     const weather = settings.weather;
     weather.city = weather.city.trim();
     weather.location = normalizeLocation(weather.location);
+    weather.units = oneOf(weather.units, WEATHER_UNITS, defaults.weather.units);
     weather.cache = normalizeWeatherCache(weather.cache);
 
     const bookmarks = settings.bookmarks;

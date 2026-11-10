@@ -1,10 +1,18 @@
+/* One card: the summary is always visible, the panel (details, forecast, city) opens on hover. */
 #weather-widget {
     position: fixed;
     bottom: 20px;
     right: 20px;
     z-index: 1000;
+    overflow: hidden;
     font-family: "Inter", sans-serif;
+    color: #fff;
+    text-shadow: 0 0 3px rgba(0, 0, 0, 0.7);
     border-radius: 16px;
+    background: rgba(30, 30, 30, 0.6);
+    backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     transition: right 0.3s ease;
 }
 
@@ -12,48 +20,172 @@ body.settings-open #weather-widget {
     right: 470px;
 }
 
+.weather-summary,
+.weather-panel {
+    position: relative;
+    z-index: 1; /* above .weather-effect */
+}
+
 .weather-summary {
-    font-size: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 16px 8px 10px;
+}
+
+.weather-icon {
+    display: block;
+    width: 28px;
+    height: 28px;
+    flex: none;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.35));
+}
+
+.weather-summary-icon {
+    width: 40px;
+    height: 40px;
+}
+
+.weather-temperature {
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+}
+
+.weather-summary-text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    line-height: 1.3;
+}
+
+.weather-place {
+    font-size: 14px;
     font-weight: 500;
-    padding: 12px 16px;
-    border-radius: 16px;
-    background: rgba(30, 30, 30, 0.6);
-    backdrop-filter: blur(24px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    font-family: "Inter", sans-serif;
-    color: #fff;
-    z-index: 9999;
-    transition: all 0.3s ease;
-    text-shadow: 0 0 3px rgba(0, 0, 0, 0.7);
+    max-width: 220px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.weather-condition {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.weather-status {
+    font-size: 16px;
+    font-weight: 500;
 }
 
 .weather-panel {
     display: none;
     flex-direction: column;
+    gap: 10px;
+    padding: 0 12px 12px;
+}
+
+#weather-widget:hover .weather-panel,
+#weather-widget:focus-within .weather-panel {
+    display: flex;
+    animation: weatherPanelIn 0.18s ease-out;
+}
+
+.weather-details,
+.weather-forecast,
+.weather-location {
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.weather-details:empty,
+.weather-forecast:empty {
+    display: none;
+}
+
+.weather-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 16px;
+}
+
+.weather-detail {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.3;
+}
+
+.weather-detail-label {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.65);
+}
+
+.weather-detail-value {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.weather-forecast {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(46px, 1fr));
+    gap: 4px;
+}
+
+.weather-day {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 6px 2px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.06);
+    font-variant-numeric: tabular-nums;
+}
+
+.weather-day-name {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.75);
+    white-space: nowrap;
+}
+
+.weather-day-max {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.weather-day-min {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.weather-location {
+    display: flex;
+    flex-direction: column;
     gap: 6px;
-    margin-top: 8px;
-    background: rgba(30, 30, 30, 0.6);
-    backdrop-filter: blur(24px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    font-family: "Inter", sans-serif;
-    color: #fff;
-    padding: 10px;
-    border-radius: 16px;
+}
+
+.weather-location-buttons {
+    display: flex;
+    gap: 6px;
 }
 
 #location-input {
-    padding: 6px;
-    border-radius: 6px;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 7px 10px;
+    border-radius: 8px;
     border: none;
+    font-family: inherit;
     font-size: 14px;
 }
 
 #weather-panel button {
+    flex: 1 1 0;
     padding: 8px 12px;
     border: none;
     border-radius: 8px;
+    font-family: inherit;
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
@@ -71,138 +203,284 @@ body.settings-open #weather-widget {
     color: #ffffff;
 }
 
-#weather-widget:hover .weather-panel {
-    display: flex;
+@keyframes weatherPanelIn {
+    from {
+        opacity: 0;
+        transform: translateY(4px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
 }
 
-/* Animations inside the widget (scripts/widgets/weather-effects.js) */
+/* ──────────────────────────────── */
+/* Animations behind the content (scripts/widgets/weather-effects.js).
+   Duration and delay of each element are set inline, so they are random. */
+/* ──────────────────────────────── */
 .weather-effect {
     position: absolute;
     inset: 0;
     overflow: hidden;
     pointer-events: none;
     z-index: 0;
-    border-radius: 16px;
 }
 
+/* Sun: a warm glow and slowly turning rays behind the summary icon */
+.sun-glow {
+    position: absolute;
+    top: -60px;
+    left: -50px;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 196, 77, 0.45) 0%, rgba(255, 196, 77, 0.12) 45%, transparent 70%);
+    animation: sunPulse 6s ease-in-out infinite;
+}
+
+.sun-rays {
+    position: absolute;
+    top: -140px;
+    left: -130px;
+    width: 340px;
+    height: 340px;
+    background: repeating-conic-gradient(rgba(255, 220, 130, 0.1) 0deg 5deg, transparent 5deg 15deg);
+    mask-image: radial-gradient(circle, #000 15%, transparent 60%);
+    animation: sunSpin 90s linear infinite;
+}
+
+/* Clear night */
+.star {
+    position: absolute;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
+    animation-name: starTwinkle;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+/* Clouds and fog */
+.cloud-puff {
+    position: absolute;
+    left: -220px;
+    aspect-ratio: 2.2;
+    border-radius: 50%;
+    background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0) 70%);
+    filter: blur(6px);
+    animation-name: cloudDrift;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+.fog-bank {
+    position: absolute;
+    left: -30%;
+    width: 160%;
+    height: 40px;
+    margin-top: -20px;
+    background: radial-gradient(ellipse at center, rgba(220, 226, 236, 0.35), transparent 70%);
+    animation-name: fogSway;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+/* Rain, snow, hail. --drift / --angle (rain) and --sway (snow) are set per element in JS. */
 .rain-drop {
     position: absolute;
+    top: -20%;
     width: 2px;
-    height: 12px;
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    animation: rainDrop 1.5s linear infinite;
+    border-radius: 1px;
+    background: linear-gradient(transparent, rgba(190, 220, 255, 0.9));
+    animation-name: rainFall;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
 }
 
 .snow-flake {
     position: absolute;
-    opacity: 0.8;
+    top: -10%;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 4px rgba(255, 255, 255, 0.6);
     animation-name: snowFall;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
 }
 
-.fog-cloud {
+.hail-stone {
     position: absolute;
-    width: 200px;
-    height: 120px;
-    background-size: cover;
+    top: -10%;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: #e6f0ff;
+    animation-name: hailFall;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
 }
 
-.weather-effect.thunder {
-    background: rgba(255, 255, 255, 0.3);
-    animation: thunderFlash 3s ease-in-out infinite;
+/* Thunder: the whole card lights up and a bolt shows at the same moment */
+.lightning-flash,
+.lightning-bolt {
+    position: absolute;
+    opacity: 0;
+    animation-name: thunderFlash;
+    animation-timing-function: ease-out;
+    animation-iteration-count: infinite;
+}
+
+.lightning-flash {
+    inset: 0;
+    background: rgba(255, 255, 255, 0.35);
+}
+
+.lightning-bolt {
+    top: -5%;
+    width: 24px;
+    height: 75%;
+    background: linear-gradient(#fffbe6, rgba(255, 251, 230, 0.3));
+    clip-path: polygon(55% 0, 15% 55%, 45% 55%, 25% 100%, 90% 40%, 58% 40%, 80% 0);
+}
+
+/* Wind */
+.wind-streak {
+    position: absolute;
+    left: -30%;
+    height: 1.5px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+    animation-name: windStreak;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
 }
 
 .wind-leaf {
     position: absolute;
-    opacity: 0.8;
+    left: -10%;
+    opacity: 0.85;
     animation-name: leafDrift;
     animation-timing-function: ease-in-out;
     animation-iteration-count: infinite;
 }
 
-@keyframes rainDrop {
-    0% {
-        top: -20px;
-        opacity: 0;
+@keyframes sunPulse {
+    0%, 100% {
+        transform: scale(0.95);
+        opacity: 0.85;
     }
     50% {
+        transform: scale(1.05);
         opacity: 1;
     }
-    100% {
-        top: 100%;
-        opacity: 0;
+}
+
+@keyframes sunSpin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes starTwinkle {
+    from {
+        opacity: 0.25;
+    }
+    to {
+        opacity: 0.9;
+    }
+}
+
+@keyframes cloudDrift {
+    from {
+        left: -220px;
+    }
+    to {
+        left: 105%;
+    }
+}
+
+@keyframes fogSway {
+    from {
+        transform: translateX(-15%);
+    }
+    to {
+        transform: translateX(15%);
+    }
+}
+
+@keyframes rainFall {
+    from {
+        top: -20%;
+        transform: translateX(0) rotate(var(--angle, 0deg));
+    }
+    to {
+        top: 110%;
+        transform: translateX(var(--drift, 0px)) rotate(var(--angle, 0deg));
     }
 }
 
 @keyframes snowFall {
     0% {
-        transform: translateY(0);
-        opacity: 1;
+        top: -10%;
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(var(--sway, 0px));
     }
     100% {
-        transform: translateY(100vh);
-        opacity: 0;
+        top: 110%;
+        transform: translateX(0);
     }
 }
 
-@keyframes fogFloat0 {
-    0% {
-        transform: translateX(0);
+@keyframes hailFall {
+    from {
+        top: -10%;
     }
-    100% {
-        transform: translateX(120%);
-    }
-}
-
-@keyframes fogFloat1 {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(100%);
-    }
-}
-
-@keyframes fogFloat2 {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(140%);
+    to {
+        top: 110%;
     }
 }
 
 @keyframes thunderFlash {
-    0%, 100% {
+    0%, 70%, 100% {
         opacity: 0;
     }
-    45% {
-        opacity: 0.6;
+    72% {
+        opacity: 1;
     }
-    50% {
+    74% {
+        opacity: 0.2;
+    }
+    76% {
+        opacity: 0.9;
+    }
+    80% {
         opacity: 0;
     }
-    55% {
-        opacity: 0.6;
+}
+
+@keyframes windStreak {
+    from {
+        left: -30%;
     }
-    60% {
-        opacity: 0;
+    to {
+        left: 110%;
     }
 }
 
 @keyframes leafDrift {
     0% {
-        transform: translateX(0) rotate(0deg);
-        opacity: 1;
+        left: -10%;
+        transform: translateY(0) rotate(0deg);
     }
     50% {
-        transform: translateX(100px) rotate(180deg);
-        opacity: 0.7;
+        transform: translateY(-10px) rotate(180deg);
     }
     100% {
-        transform: translateX(200px) rotate(360deg);
-        opacity: 0;
+        left: 110%;
+        transform: translateY(6px) rotate(360deg);
     }
 }

@@ -484,6 +484,7 @@ input[type="radio"]:checked {
 }
 
 .section-toggle-controls .wide-toggle-label {
+    box-sizing: border-box; /* padding must not push the full-width row past the section */
     width: 100% !important;
     justify-content: center;
 }

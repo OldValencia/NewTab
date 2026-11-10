@@ -267,10 +267,16 @@
             <button class="toggle-section" type="button">+</button>
         </div>
         <div class="section-content">
-            <div class="section-toggle-controls">
+            <div class="section-toggle-controls vertical">
                 <label class="wide-toggle-label" data-i18n="weather_widget_toggle_show_weather_widget">
                     <input type="checkbox" id="toggle-weather-widget">
                     Show Weather
+                </label>
+                <label class="wide-toggle-label" data-i18n="weather_units_label">Units:
+                    <select id="weather-units">
+                        <option value="metric" data-i18n="weather_units_metric">°C, km/h</option>
+                        <option value="imperial" data-i18n="weather_units_imperial">°F, mph</option>
+                    </select>
                 </label>
             </div>
             <button id="reset-weather-settings" class="sidebar-wide-button" type="button"
@@ -314,10 +320,16 @@
 <div id="weather-widget" hidden>
     <div class="weather-summary" id="weather-summary"></div>
     <div class="weather-panel" id="weather-panel">
-        <input type="text" id="location-input" data-i18n-placeholder="weather_widget_input_placeholder_city"
-               placeholder="Enter your city...">
-        <button id="weather-city-btn" type="button" data-i18n="weather_widget_button_show_weather">🌍 Show weather</button>
-        <button id="weather-geo-btn" type="button" data-i18n="weather_widget_button_my_geolocation">📍 My Geolocation</button>
+        <div class="weather-details" id="weather-details"></div>
+        <div class="weather-forecast" id="weather-forecast"></div>
+        <div class="weather-location">
+            <input type="text" id="location-input" data-i18n-placeholder="weather_widget_input_placeholder_city"
+                   placeholder="Enter your city...">
+            <div class="weather-location-buttons">
+                <button id="weather-city-btn" type="button" data-i18n="weather_widget_button_show_weather">🌍 Show weather</button>
+                <button id="weather-geo-btn" type="button" data-i18n="weather_widget_button_my_geolocation">📍 My Geolocation</button>
+            </div>
+        </div>
     </div>
 </div>
 

@@ -1233,13 +1233,13 @@
     "uk": "Скинути всі фони, включно зі стилем годинників і посилань для кожного фону?"
   },
   "weather_widget_data_source": {
-    "en": "Weather data by <a href=\"https://open-meteo.com/\">Open-Meteo.com</a> (CC BY 4.0). No API key needed.",
-    "ru": "Данные о погоде: <a href=\"https://open-meteo.com/\">Open-Meteo.com</a> (CC BY 4.0). API-ключ не нужен.",
-    "pl": "Dane pogodowe: <a href=\"https://open-meteo.com/\">Open-Meteo.com</a> (CC BY 4.0). Klucz API nie jest potrzebny.",
-    "de": "Wetterdaten von <a href=\"https://open-meteo.com/\">Open-Meteo.com</a> (CC BY 4.0). Kein API-Schlüssel nötig.",
-    "es": "Datos del tiempo: <a href=\"https://open-meteo.com/\">Open-Meteo.com</a> (CC BY 4.0). No se necesita clave API.",
-    "be": "Даныя пра надвор'е: <a href=\"https://open-meteo.com/\">Open-Meteo.com</a> (CC BY 4.0). API-ключ не патрэбны.",
-    "uk": "Дані про погоду: <a href=\"https://open-meteo.com/\">Open-Meteo.com</a> (CC BY 4.0). API-ключ не потрібен."
+    "en": "Weather data by <a href=\"https://open-meteo.com/\">Open-Meteo.com</a> (CC BY 4.0). No API key needed. Place names: <a href=\"https://www.openstreetmap.org/copyright\">© OpenStreetMap</a>.",
+    "ru": "Данные о погоде: <a href=\"https://open-meteo.com/\">Open-Meteo.com</a> (CC BY 4.0). API-ключ не нужен. Названия мест: <a href=\"https://www.openstreetmap.org/copyright\">© OpenStreetMap</a>.",
+    "pl": "Dane pogodowe: <a href=\"https://open-meteo.com/\">Open-Meteo.com</a> (CC BY 4.0). Klucz API nie jest potrzebny. Nazwy miejsc: <a href=\"https://www.openstreetmap.org/copyright\">© OpenStreetMap</a>.",
+    "de": "Wetterdaten von <a href=\"https://open-meteo.com/\">Open-Meteo.com</a> (CC BY 4.0). Kein API-Schlüssel nötig. Ortsnamen: <a href=\"https://www.openstreetmap.org/copyright\">© OpenStreetMap</a>.",
+    "es": "Datos del tiempo: <a href=\"https://open-meteo.com/\">Open-Meteo.com</a> (CC BY 4.0). No se necesita clave API. Nombres de lugares: <a href=\"https://www.openstreetmap.org/copyright\">© OpenStreetMap</a>.",
+    "be": "Даныя пра надвор'е: <a href=\"https://open-meteo.com/\">Open-Meteo.com</a> (CC BY 4.0). API-ключ не патрэбны. Назвы месцаў: <a href=\"https://www.openstreetmap.org/copyright\">© OpenStreetMap</a>.",
+    "uk": "Дані про погоду: <a href=\"https://open-meteo.com/\">Open-Meteo.com</a> (CC BY 4.0). API-ключ не потрібен. Назви місць: <a href=\"https://www.openstreetmap.org/copyright\">© OpenStreetMap</a>."
   },
   "weather_my_location": {
     "en": "My location",
@@ -1285,6 +1285,285 @@
     "es": "Se denegó el acceso a la ubicación",
     "be": "Доступ да месцазнаходжання забаронены",
     "uk": "Доступ до місцезнаходження заборонено"
+  },
+  "weather_units_label": {
+    "en": "Units:",
+    "ru": "Единицы:",
+    "pl": "Jednostki:",
+    "de": "Einheiten:",
+    "es": "Unidades:",
+    "be": "Адзінкі:",
+    "uk": "Одиниці:"
+  },
+  "weather_units_metric": {
+    "en": "°C, km/h",
+    "ru": "°C, км/ч",
+    "pl": "°C, km/h",
+    "de": "°C, km/h",
+    "es": "°C, km/h",
+    "be": "°C, км/г",
+    "uk": "°C, км/год"
+  },
+  "weather_units_imperial": {
+    "en": "°F, mph",
+    "ru": "°F, миль/ч",
+    "pl": "°F, mph",
+    "de": "°F, mph",
+    "es": "°F, mph",
+    "be": "°F, міль/г",
+    "uk": "°F, миль/год"
+  },
+  "weather_unit_kmh": {
+    "en": "km/h",
+    "ru": "км/ч",
+    "pl": "km/h",
+    "de": "km/h",
+    "es": "km/h",
+    "be": "км/г",
+    "uk": "км/год"
+  },
+  "weather_unit_mph": {
+    "en": "mph",
+    "ru": "миль/ч",
+    "pl": "mph",
+    "de": "mph",
+    "es": "mph",
+    "be": "міль/г",
+    "uk": "миль/год"
+  },
+  "weather_feels_like": {
+    "en": "Feels like",
+    "ru": "Ощущается как",
+    "pl": "Odczuwalna",
+    "de": "Gefühlt",
+    "es": "Sensación térmica",
+    "be": "Адчуваецца як",
+    "uk": "Відчувається як"
+  },
+  "weather_wind": {
+    "en": "Wind",
+    "ru": "Ветер",
+    "pl": "Wiatr",
+    "de": "Wind",
+    "es": "Viento",
+    "be": "Вецер",
+    "uk": "Вітер"
+  },
+  "weather_humidity": {
+    "en": "Humidity",
+    "ru": "Влажность",
+    "pl": "Wilgotność",
+    "de": "Luftfeuchtigkeit",
+    "es": "Humedad",
+    "be": "Вільготнасць",
+    "uk": "Вологість"
+  },
+  "weather_precipitation": {
+    "en": "Chance of precipitation",
+    "ru": "Вероятность осадков",
+    "pl": "Szansa opadów",
+    "de": "Niederschlagsrisiko",
+    "es": "Probabilidad de lluvia",
+    "be": "Верагоднасць ападкаў",
+    "uk": "Ймовірність опадів"
+  },
+  "weather_today": {
+    "en": "Today",
+    "ru": "Сегодня",
+    "pl": "Dziś",
+    "de": "Heute",
+    "es": "Hoy",
+    "be": "Сёння",
+    "uk": "Сьогодні"
+  },
+  "weather_condition_clear": {
+    "en": "Clear",
+    "ru": "Ясно",
+    "pl": "Bezchmurnie",
+    "de": "Klar",
+    "es": "Despejado",
+    "be": "Ясна",
+    "uk": "Ясно"
+  },
+  "weather_condition_mainly_clear": {
+    "en": "Mostly clear",
+    "ru": "Преимущественно ясно",
+    "pl": "Przeważnie bezchmurnie",
+    "de": "Überwiegend klar",
+    "es": "Mayormente despejado",
+    "be": "Пераважна ясна",
+    "uk": "Переважно ясно"
+  },
+  "weather_condition_partly_cloudy": {
+    "en": "Partly cloudy",
+    "ru": "Переменная облачность",
+    "pl": "Częściowe zachmurzenie",
+    "de": "Teilweise bewölkt",
+    "es": "Parcialmente nublado",
+    "be": "Пераменная воблачнасць",
+    "uk": "Мінлива хмарність"
+  },
+  "weather_condition_overcast": {
+    "en": "Overcast",
+    "ru": "Пасмурно",
+    "pl": "Pochmurno",
+    "de": "Bedeckt",
+    "es": "Cubierto",
+    "be": "Пахмурна",
+    "uk": "Похмуро"
+  },
+  "weather_condition_fog": {
+    "en": "Fog",
+    "ru": "Туман",
+    "pl": "Mgła",
+    "de": "Nebel",
+    "es": "Niebla",
+    "be": "Туман",
+    "uk": "Туман"
+  },
+  "weather_condition_drizzle": {
+    "en": "Drizzle",
+    "ru": "Морось",
+    "pl": "Mżawka",
+    "de": "Nieselregen",
+    "es": "Llovizna",
+    "be": "Імжа",
+    "uk": "Мряка"
+  },
+  "weather_condition_freezing_drizzle": {
+    "en": "Freezing drizzle",
+    "ru": "Ледяная морось",
+    "pl": "Marznąca mżawka",
+    "de": "Gefrierender Nieselregen",
+    "es": "Llovizna helada",
+    "be": "Ледзяная імжа",
+    "uk": "Крижана мряка"
+  },
+  "weather_condition_light_rain": {
+    "en": "Light rain",
+    "ru": "Небольшой дождь",
+    "pl": "Słaby deszcz",
+    "de": "Leichter Regen",
+    "es": "Lluvia ligera",
+    "be": "Невялікі дождж",
+    "uk": "Невеликий дощ"
+  },
+  "weather_condition_rain": {
+    "en": "Rain",
+    "ru": "Дождь",
+    "pl": "Deszcz",
+    "de": "Regen",
+    "es": "Lluvia",
+    "be": "Дождж",
+    "uk": "Дощ"
+  },
+  "weather_condition_heavy_rain": {
+    "en": "Heavy rain",
+    "ru": "Сильный дождь",
+    "pl": "Ulewa",
+    "de": "Starker Regen",
+    "es": "Lluvia intensa",
+    "be": "Моцны дождж",
+    "uk": "Сильний дощ"
+  },
+  "weather_condition_freezing_rain": {
+    "en": "Freezing rain",
+    "ru": "Ледяной дождь",
+    "pl": "Marznący deszcz",
+    "de": "Gefrierender Regen",
+    "es": "Lluvia helada",
+    "be": "Ледзяны дождж",
+    "uk": "Крижаний дощ"
+  },
+  "weather_condition_light_snow": {
+    "en": "Light snow",
+    "ru": "Небольшой снег",
+    "pl": "Słaby śnieg",
+    "de": "Leichter Schneefall",
+    "es": "Nevada ligera",
+    "be": "Невялікі снег",
+    "uk": "Невеликий сніг"
+  },
+  "weather_condition_snow": {
+    "en": "Snow",
+    "ru": "Снег",
+    "pl": "Śnieg",
+    "de": "Schneefall",
+    "es": "Nieve",
+    "be": "Снег",
+    "uk": "Сніг"
+  },
+  "weather_condition_heavy_snow": {
+    "en": "Heavy snow",
+    "ru": "Сильный снег",
+    "pl": "Intensywne opady śniegu",
+    "de": "Starker Schneefall",
+    "es": "Nevada intensa",
+    "be": "Моцны снег",
+    "uk": "Сильний сніг"
+  },
+  "weather_condition_snow_grains": {
+    "en": "Snow grains",
+    "ru": "Снежная крупа",
+    "pl": "Śnieg ziarnisty",
+    "de": "Schneegriesel",
+    "es": "Cinarra",
+    "be": "Снежная крупа",
+    "uk": "Снігова крупа"
+  },
+  "weather_condition_rain_showers": {
+    "en": "Rain showers",
+    "ru": "Ливень",
+    "pl": "Przelotny deszcz",
+    "de": "Regenschauer",
+    "es": "Chubascos",
+    "be": "Лівень",
+    "uk": "Злива"
+  },
+  "weather_condition_heavy_showers": {
+    "en": "Heavy showers",
+    "ru": "Сильный ливень",
+    "pl": "Silne przelotne opady",
+    "de": "Starke Regenschauer",
+    "es": "Chubascos fuertes",
+    "be": "Моцны лівень",
+    "uk": "Сильна злива"
+  },
+  "weather_condition_snow_showers": {
+    "en": "Snow showers",
+    "ru": "Снегопад",
+    "pl": "Przelotny śnieg",
+    "de": "Schneeschauer",
+    "es": "Chubascos de nieve",
+    "be": "Снегапад",
+    "uk": "Снігопад"
+  },
+  "weather_condition_thunderstorm": {
+    "en": "Thunderstorm",
+    "ru": "Гроза",
+    "pl": "Burza",
+    "de": "Gewitter",
+    "es": "Tormenta",
+    "be": "Навальніца",
+    "uk": "Гроза"
+  },
+  "weather_condition_thunderstorm_hail": {
+    "en": "Thunderstorm with hail",
+    "ru": "Гроза с градом",
+    "pl": "Burza z gradem",
+    "de": "Gewitter mit Hagel",
+    "es": "Tormenta con granizo",
+    "be": "Навальніца з градам",
+    "uk": "Гроза з градом"
+  },
+  "weather_condition_unknown": {
+    "en": "No data",
+    "ru": "Нет данных",
+    "pl": "Brak danych",
+    "de": "Keine Daten",
+    "es": "Sin datos",
+    "be": "Няма даных",
+    "uk": "Немає даних"
   },
   "bookmark_folder_no_name": {
     "en": "📁 No name",

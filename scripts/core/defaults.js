@@ -119,6 +119,7 @@ export function createDefaultSettings() {
             enabled: false,
             city: "",
             location: null,
+            units: "metric",
             cache: null
         },
         bookmarks: {
