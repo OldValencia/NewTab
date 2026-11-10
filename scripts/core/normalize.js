@@ -244,6 +244,10 @@ export function normalizeSettings(raw) {
     photo.current = normalizePhoto(photo.current);
     photo.queue = photo.queue.map(normalizePhoto).filter(Boolean).slice(0, 50);
 
+    const photoOfTheDay = background.photoOfTheDay;
+    photoOfTheDay.photo = normalizePhoto(photoOfTheDay.photo);
+    photoOfTheDay.date = /^\d{4}-\d{2}-\d{2}$/.test(photoOfTheDay.date) && photoOfTheDay.photo ? photoOfTheDay.date : "";
+
     for (const mode of BACKGROUND_MODES) {
         settings.themes[mode] = normalizeTheme(settings.themes[mode], source.themes?.[mode], mode);
     }

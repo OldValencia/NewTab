@@ -31,7 +31,7 @@ export const EFFECTS = [
 ];
 
 /** Background modes that show a picture instead of an effect. */
-export const IMAGE_MODES = ["customImage", "onlinePhoto"];
+export const IMAGE_MODES = ["customImage", "onlinePhoto", "photoOfTheDay"];
 
 export function getEffect(mode) {
     return EFFECTS.find(effect => effect.id === mode) ?? null;

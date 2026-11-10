@@ -8,6 +8,7 @@ import { debounce, wait } from "../core/utils.js";
 import { t } from "../core/i18n.js";
 import { getEffect, isImageMode } from "./registry.js";
 import { canLoadImage, isPhotoChangeDue, msUntilNextPhoto, pickNextPhoto } from "./online-photo.js";
+import { fetchPhotoOfTheDay, localDateKey, msUntilNextDay } from "./photo-of-the-day.js";
 
 const layer = document.getElementById("background-layer");
 const vignetteLayer = document.getElementById("vignette-layer");
@@ -15,6 +16,8 @@ const photoCredit = document.getElementById("photo-credit");
 
 const FADE_MS = 400;
 const RETRY_AFTER_ERROR_MS = 5 * 60 * 1000;
+// Modes whose picture has an author to credit in the bottom-left corner.
+const CREDITED_MODES = new Set(["onlinePhoto", "photoOfTheDay"]);
 const IMAGE_FITS = {
     cover: { size: "cover", repeat: "no-repeat", position: "center" },
     contain: { size: "contain", repeat: "no-repeat", position: "center" },
@@ -80,7 +83,7 @@ function applyImageFilters() {
 
 function renderPhotoCredit(photo) {
     photoCredit.replaceChildren();
-    const showCredit = getSettings().background.mode === "onlinePhoto" && photo?.author;
+    const showCredit = CREDITED_MODES.has(getSettings().background.mode) && photo?.author;
     photoCredit.hidden = !showCredit;
     if (!showCredit) return;
 
@@ -158,6 +161,50 @@ export async function showNextOnlinePhoto() {
     }
 }
 
+function showPhoto(photo) {
+    setLayerImage(photo.url);
+    renderPhotoCredit(photo);
+}
+
+/** While the page stays open, the next day's photo replaces this one after midnight. */
+function scheduleNextPhotoOfTheDay(delay = msUntilNextDay()) {
+    clearTimeout(photoTimerId);
+    photoTimerId = setTimeout(() => showPhotoOfTheDay(), delay);
+}
+
+async function showPhotoOfTheDay() {
+    const token = renderToken;
+    const today = localDateKey();
+    const saved = getSettings().background.photoOfTheDay;
+
+    if (saved.photo) showPhoto(saved.photo);
+    if (saved.date === today && await canLoadImage(saved.photo.url)) {
+        if (token === renderToken) scheduleNextPhotoOfTheDay();
+        return;
+    }
+    if (token !== renderToken) return;
+
+    setPhotoStatus("loading");
+    try {
+        const photo = await fetchPhotoOfTheDay(today);
+        if (!await canLoadImage(photo.url)) throw new Error(`Picture of the day did not load: ${photo.url}`);
+        if (token !== renderToken) return;
+
+        await updateSettings(settings => {
+            settings.background.photoOfTheDay = { date: today, photo };
+        });
+        showPhoto(photo);
+        setPhotoStatus("idle");
+        scheduleNextPhotoOfTheDay();
+    } catch (error) {
+        console.warn("Could not load the picture of the day:", error);
+        if (token !== renderToken) return;
+        // Keep yesterday's photo (if any) and try again a bit later.
+        setPhotoStatus("error");
+        scheduleNextPhotoOfTheDay(RETRY_AFTER_ERROR_MS);
+    }
+}
+
 async function render() {
     const token = ++renderToken;
     const { mode, effects, onlinePhoto } = getSettings().background;
@@ -189,6 +236,8 @@ async function render() {
 
     if (mode === "onlinePhoto") {
         await showOnlinePhoto({ forceNew: isNewPhotoQuery });
+    } else if (mode === "photoOfTheDay") {
+        await showPhotoOfTheDay();
     }
 }
 

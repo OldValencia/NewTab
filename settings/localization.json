@@ -1286,6 +1286,33 @@
     "be": "Фота з інтэрнэту",
     "uk": "Фото з інтернету"
   },
+  "background_section_photo_of_the_day": {
+    "en": "Photo of the day",
+    "ru": "Фото дня",
+    "pl": "Zdjęcie dnia",
+    "de": "Foto des Tages",
+    "es": "Foto del día",
+    "be": "Фота дня",
+    "uk": "Фото дня"
+  },
+  "background_photo_of_the_day_hint": {
+    "en": "Every day a new photo chosen by the <a href=\"https://commons.wikimedia.org/wiki/Commons:Picture_of_the_day\">Wikimedia Commons</a> community. The author is shown in the bottom-left corner.",
+    "ru": "Каждый день новое фото, выбранное сообществом <a href=\"https://commons.wikimedia.org/wiki/Commons:Picture_of_the_day\">Wikimedia Commons</a>. Автор указан в левом нижнем углу.",
+    "pl": "Codziennie nowe zdjęcie wybrane przez społeczność <a href=\"https://commons.wikimedia.org/wiki/Commons:Picture_of_the_day\">Wikimedia Commons</a>. Autor jest podany w lewym dolnym rogu.",
+    "de": "Jeden Tag ein neues Foto, ausgewählt von der <a href=\"https://commons.wikimedia.org/wiki/Commons:Picture_of_the_day\">Wikimedia Commons</a>-Community. Der Urheber steht unten links.",
+    "es": "Cada día una foto nueva elegida por la comunidad de <a href=\"https://commons.wikimedia.org/wiki/Commons:Picture_of_the_day\">Wikimedia Commons</a>. El autor aparece abajo a la izquierda.",
+    "be": "Кожны дзень новае фота, выбранае супольнасцю <a href=\"https://commons.wikimedia.org/wiki/Commons:Picture_of_the_day\">Wikimedia Commons</a>. Аўтар паказаны ў левым ніжнім куце.",
+    "uk": "Щодня нове фото, обране спільнотою <a href=\"https://commons.wikimedia.org/wiki/Commons:Picture_of_the_day\">Wikimedia Commons</a>. Автора вказано в лівому нижньому куті."
+  },
+  "background_photo_of_the_day_error": {
+    "en": "Could not load today's photo. It will be tried again in a few minutes.",
+    "ru": "Не удалось загрузить фото дня. Через несколько минут попробуем снова.",
+    "pl": "Nie udało się wczytać zdjęcia dnia. Spróbujemy ponownie za kilka minut.",
+    "de": "Das Foto des Tages konnte nicht geladen werden. In ein paar Minuten wird es erneut versucht.",
+    "es": "No se pudo cargar la foto del día. Se volverá a intentar en unos minutos.",
+    "be": "Не ўдалося загрузіць фота дня. Праз некалькі хвілін паспрабуем зноў.",
+    "uk": "Не вдалося завантажити фото дня. Через кілька хвилин спробуємо знову."
+  },
   "background_custom_image_choose_button": {
     "en": "Choose image…",
     "ru": "Выбрать изображение…",

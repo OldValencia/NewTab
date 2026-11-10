@@ -13,7 +13,7 @@ change must keep settings saved by older versions working (see "Compatibility ru
   No framework, no bundler, no npm dependencies.
 - Browser APIs: the `browser.*` namespace (Promise-based), not `chrome.*`.
 - Permissions: only `storage` and `bookmarks`. Network calls go to Open-Meteo, OpenStreetMap Nominatim (name of the
-  geolocated place, once per click), Picsum, Openverse,
+  geolocated place, once per click), Picsum, Openverse, Wikimedia (picture of the day),
   the linked sites' `/favicon.ico` and (opt-in) Google's favicon service — all allow CORS, so no host permissions.
 
 ## Project layout
@@ -40,6 +40,7 @@ scripts/backgrounds/
   effects/*.js                  One effect per file: { id, labelKey, defaults, controls, restartOnResize, start() }
   manager.js                    Shows the selected background, fades between modes, filters, photo credit
   online-photo.js               Picsum (random) / Openverse (keyword) photo queue
+  photo-of-the-day.js           Wikimedia Commons picture of the day (one per local day)
   canvas.js, controls-presets.js
 scripts/widgets/                What renders on the page: clocks, links, weather (+ api, conditions, icons, effects), bookmarks,
                                 favicon.js (site icons for links and bookmarks)

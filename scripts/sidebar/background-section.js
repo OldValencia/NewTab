@@ -20,6 +20,8 @@ const chooseImageButton = document.getElementById("choose-custom-image");
 const imageFileInput = document.getElementById("bg-upload");
 
 const onlinePhotoOptions = document.getElementById("online-photo-options");
+const photoOfTheDayOptions = document.getElementById("photo-of-the-day-options");
+const photoOfTheDayStatus = document.getElementById("photo-of-the-day-status");
 const photoQueryInput = document.getElementById("online-photo-query");
 const photoIntervalSelect = document.getElementById("online-photo-interval");
 const nextPhotoButton = document.getElementById("online-photo-next");
@@ -27,7 +29,14 @@ const photoStatus = document.getElementById("online-photo-status");
 
 const IMAGE_MODE_LABELS = {
     customImage: "background_section_custom_image",
-    onlinePhoto: "background_section_online_photo"
+    onlinePhoto: "background_section_online_photo",
+    photoOfTheDay: "background_section_photo_of_the_day"
+};
+
+const IMAGE_MODE_OPTIONS = {
+    customImage: customImageOptions,
+    onlinePhoto: onlinePhotoOptions,
+    photoOfTheDay: photoOfTheDayOptions
 };
 
 /** Effect params change on every slider step; the effect restarts only after the user pauses. */
@@ -86,7 +95,7 @@ function renderModeList() {
     }
     for (const [mode, labelKey] of Object.entries(IMAGE_MODE_LABELS)) {
         items.push(createModeOption(mode, labelKey));
-        const options = mode === "customImage" ? customImageOptions : onlinePhotoOptions;
+        const options = IMAGE_MODE_OPTIONS[mode];
         options.dataset.mode = mode;
         items.push(options);
     }
@@ -163,6 +172,11 @@ function initOnlinePhotoOptions() {
         photoStatus.textContent = status === "loading" ? t("background_section_search_process_text") : t("background_online_photo_error");
         photoStatus.classList.toggle("error", status === "error");
         nextPhotoButton.disabled = status === "loading";
+
+        // Both photo modes report through the same status; only the visible block matters.
+        photoOfTheDayStatus.hidden = status === "idle";
+        photoOfTheDayStatus.textContent = status === "loading" ? t("background_section_search_process_text") : t("background_photo_of_the_day_error");
+        photoOfTheDayStatus.classList.toggle("error", status === "error");
     });
 }
 

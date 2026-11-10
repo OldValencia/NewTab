@@ -69,7 +69,8 @@ const THEME_DEFAULTS = {
     fallingLines: theme("#ffffff", { timeFont: "Helvetica", timeColor: "#770000", dateColor: "#9e9e9e" }),
     floatingCircles: theme("#ffffff", { timeFont: "Courier New", timeColor: "#ced0f0", dateColor: "#ced0f0" }),
     customImage: theme("#ffffff", { timeFont: "Inter", timeColor: "#ffffff", dateColor: "#ffffff", ...PHOTO_SHADOWS }),
-    onlinePhoto: theme("#ffffff", { timeFont: "Inter", timeColor: "#ffffff", dateColor: "#ffffff", ...PHOTO_SHADOWS })
+    onlinePhoto: theme("#ffffff", { timeFont: "Inter", timeColor: "#ffffff", dateColor: "#ffffff", ...PHOTO_SHADOWS }),
+    photoOfTheDay: theme("#ffffff", { timeFont: "Inter", timeColor: "#ffffff", dateColor: "#ffffff", ...PHOTO_SHADOWS })
 };
 
 export function getDefaultTheme(mode) {
@@ -111,6 +112,8 @@ export function createDefaultSettings() {
             mode: "stars",
             effects,
             imageFilters: { ...DEFAULT_IMAGE_FILTERS },
+            // The Wikimedia Commons picture of the day; `date` is the local day it was loaded for.
+            photoOfTheDay: { date: "", photo: null },
             onlinePhoto: {
                 query: "",
                 interval: "onload",

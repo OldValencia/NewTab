@@ -463,7 +463,8 @@ section:has(> .section-content.open) .section-icon {
     width: 100%;
 }
 
-#online-photo-status.error {
+#online-photo-status.error,
+#photo-of-the-day-status.error {
     color: var(--panel-danger);
 }
 
