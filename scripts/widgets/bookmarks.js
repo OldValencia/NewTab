@@ -27,6 +27,8 @@ let rootNodes = [];
 let bookmarksById = new Map();
 // Bookmark id → names of the folders it is in, shown under search results.
 let folderPathById = new Map();
+// Folder id → number of bookmarks inside it (all levels), counted once per tree load.
+let bookmarkCountById = new Map();
 const openFolderIds = loadOpenFolders();
 
 function loadOpenFolders() {
@@ -50,14 +52,22 @@ function folderName(folder) {
     return folder.title?.trim() || t("bookmark_folder_no_name");
 }
 
+/** Indexes bookmarks and folder sizes; returns how many bookmarks `nodes` hold. */
 function indexBookmarks(nodes, path = []) {
+    let count = 0;
     for (const node of nodes) {
         if (node.url) {
             bookmarksById.set(node.id, node);
             folderPathById.set(node.id, path);
+            count++;
         }
-        if (node.children) indexBookmarks(node.children, [...path, folderName(node)]);
+        if (node.children) {
+            const inside = indexBookmarks(node.children, [...path, folderName(node)]);
+            bookmarkCountById.set(node.id, inside);
+            count += inside;
+        }
     }
+    return count;
 }
 
 async function loadBookmarkTree() {
@@ -65,11 +75,12 @@ async function loadBookmarkTree() {
     rootNodes = root.children ?? [];
     bookmarksById = new Map();
     folderPathById = new Map();
+    bookmarkCountById = new Map();
     indexBookmarks(rootNodes);
 }
 
 function countBookmarks(folder) {
-    return (folder.children ?? []).reduce((sum, child) => sum + (child.url ? 1 : countBookmarks(child)), 0);
+    return bookmarkCountById.get(folder.id) ?? 0;
 }
 
 function createActionButton(iconName, titleKey, onClick, { filled = false } = {}) {
@@ -187,12 +198,26 @@ function createBookmarkItem(bookmark, linkOptions) {
     return item;
 }
 
+/**
+ * Folder contents are built the first time the folder is opened: with thousands of bookmarks
+ * in closed folders the panel then creates only what is visible.
+ */
 function createFolder(folder) {
     const details = createElement("details", { className: "bookmark-folder" });
+    const content = createElement("div", { className: "bookmark-folder-children" });
+    const fillContent = () => {
+        if (content.childElementCount === 0) content.append(...createTreeNodes(folder.children));
+    };
+
     details.open = openFolderIds.has(folder.id);
+    if (details.open) fillContent();
     details.addEventListener("toggle", () => {
-        if (details.open) openFolderIds.add(folder.id);
-        else openFolderIds.delete(folder.id);
+        if (details.open) {
+            fillContent();
+            openFolderIds.add(folder.id);
+        } else {
+            openFolderIds.delete(folder.id);
+        }
         saveOpenFolders();
     });
 
@@ -205,8 +230,6 @@ function createFolder(folder) {
             count > 0 && createElement("span", { className: "folder-count", text: String(count) })
         ]
     });
-    const content = createElement("div", { className: "bookmark-folder-children" });
-    content.append(...createTreeNodes(folder.children));
     details.append(summary, content);
     return details;
 }
