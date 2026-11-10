@@ -177,6 +177,18 @@ function normalizeForecastDay(day) {
     };
 }
 
+function normalizeForecastHour(hour) {
+    if (!isPlainObject(hour) || typeof hour.time !== "string" || !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(hour.time)) return null;
+    if (!allFinite(hour.weatherCode, hour.temperature)) return null;
+    return {
+        time: hour.time,
+        weatherCode: hour.weatherCode,
+        temperature: hour.temperature,
+        precipitationChance: finiteOrNull(hour.precipitationChance),
+        isDay: hour.isDay !== false
+    };
+}
+
 /**
  * Last weather response (see fetchForecast() in widgets/weather-api.js). It is only a cache:
  * anything unexpected — including the flat shape of 1.1.0 pre-release builds — becomes null
@@ -201,6 +213,7 @@ function normalizeWeatherCache(cache) {
             windSpeed: current.windSpeed,
             isDay: current.isDay !== false
         },
+        hourly: Array.isArray(cache.hourly) ? cache.hourly.map(normalizeForecastHour).filter(Boolean).slice(0, 48) : [],
         daily: Array.isArray(cache.daily) ? cache.daily.map(normalizeForecastDay).filter(Boolean).slice(0, 16) : []
     };
 }

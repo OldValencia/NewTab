@@ -1511,6 +1511,15 @@
     "be": "Сёння",
     "uk": "Сьогодні"
   },
+  "weather_now": {
+    "en": "Now",
+    "ru": "Сейчас",
+    "pl": "Teraz",
+    "de": "Jetzt",
+    "es": "Ahora",
+    "be": "Зараз",
+    "uk": "Зараз"
+  },
   "weather_condition_clear": {
     "en": "Clear",
     "ru": "Ясно",

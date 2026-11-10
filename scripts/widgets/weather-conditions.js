@@ -109,6 +109,12 @@ export function localDateAt(utcOffsetSeconds, now = Date.now()) {
     return new Date(now + utcOffsetSeconds * 1000).toISOString().slice(0, 10);
 }
 
+/** Hours from the current one on (the cache can be up to 30 minutes old). */
+export function upcomingHours(hourly, utcOffsetSeconds, count, now = Date.now()) {
+    const currentHour = new Date(now + utcOffsetSeconds * 1000).toISOString().slice(0, 13);
+    return hourly.filter(hour => hour.time.slice(0, 13) >= currentHour).slice(0, count);
+}
+
 /** Forecast days from today on (a stale cache may still start with yesterday). */
 export function upcomingDays(daily, utcOffsetSeconds, count, now = Date.now()) {
     const today = localDateAt(utcOffsetSeconds, now);

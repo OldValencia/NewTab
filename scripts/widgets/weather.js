@@ -2,7 +2,7 @@ import { getSettings, subscribe, updateSettings } from "../core/settings.js";
 import { getLocale, t } from "../core/i18n.js";
 import { createElement } from "../core/utils.js";
 import { CityNotFoundError, fetchForecast, findCity, findPlaceName } from "./weather-api.js";
-import { convertSpeed, describeWeather, formatTemperature, localDateAt, upcomingDays } from "./weather-conditions.js";
+import { convertSpeed, describeWeather, formatTemperature, localDateAt, upcomingDays, upcomingHours } from "./weather-conditions.js";
 import { createWeatherIcon } from "./weather-icons.js";
 import { showWeatherEffects } from "./weather-effects.js";
 
@@ -10,6 +10,7 @@ const widget = document.getElementById("weather-widget");
 const summary = document.getElementById("weather-summary");
 const details = document.getElementById("weather-details");
 const forecast = document.getElementById("weather-forecast");
+const hourlyStrip = document.getElementById("weather-hourly");
 const cityInput = document.getElementById("location-input");
 const cityButton = document.getElementById("weather-city-btn");
 const geolocationButton = document.getElementById("weather-geo-btn");
@@ -18,6 +19,9 @@ const CACHE_MAX_AGE_MS = 30 * 60 * 1000;
 // How often an open tab checks whether the cached weather has become stale.
 const STALE_CHECK_INTERVAL_MS = 5 * 60 * 1000;
 const FORECAST_COLUMNS = 5;
+const HOURLY_COLUMNS = 24;
+// Below this chance the hourly strip does not mention precipitation, to keep it calm.
+const SHOWN_PRECIPITATION_CHANCE = 20;
 
 // Weather loads run one after another, so a slow answer for an old city can't overwrite a new one.
 let loadQueue = Promise.resolve();
@@ -28,7 +32,8 @@ const placeNameLookups = new Set();
 const sameCoordinates = (a, b) => a !== null && b !== null && a.latitude === b.latitude && a.longitude === b.longitude;
 
 function isCacheFresh(cache, location) {
-    return sameCoordinates(cache, location) && Date.now() - cache.fetchedAt < CACHE_MAX_AGE_MS;
+    // Caches from before the hourly forecast existed are fetched again.
+    return sameCoordinates(cache, location) && cache.hourly.length > 0 && Date.now() - cache.fetchedAt < CACHE_MAX_AGE_MS;
 }
 
 function placeName(location) {
@@ -48,6 +53,7 @@ function showStatus(text) {
         createElement("span", { className: "weather-status", text })
     );
     details.replaceChildren();
+    hourlyStrip.replaceChildren();
     forecast.replaceChildren();
     showWeatherEffects(widget, []);
 }
@@ -121,9 +127,38 @@ function renderForecast(cache, units) {
     }));
 }
 
+function hourLabel(time, isFirst) {
+    if (isFirst) return t("weather_now");
+    // The time is the wall clock of the place; formatting it as UTC keeps it unchanged.
+    return new Intl.DateTimeFormat(getLocale(), { hour: "numeric", timeZone: "UTC" }).format(new Date(`${time}:00Z`));
+}
+
+function renderHourly(cache, units) {
+    const hours = upcomingHours(cache.hourly, cache.utcOffsetSeconds, HOURLY_COLUMNS);
+    hourlyStrip.replaceChildren(...hours.map((hour, index) => {
+        const { labelKey, icon } = describeWeather(hour);
+        const condition = t(labelKey);
+        const chance = hour.precipitationChance;
+        return createElement("div", {
+            className: "weather-hour",
+            attrs: { title: condition },
+            children: [
+                createElement("span", { className: "weather-hour-time", text: hourLabel(hour.time, index === 0) }),
+                createWeatherIcon(icon, { label: condition }),
+                createElement("span", { className: "weather-hour-temp", text: formatTemperature(hour.temperature, units) }),
+                createElement("span", {
+                    className: "weather-hour-chance",
+                    text: chance !== null && chance >= SHOWN_PRECIPITATION_CHANCE ? `${chance}%` : ""
+                })
+            ]
+        });
+    }));
+}
+
 function showWeather(cache, location, units) {
     renderSummary(cache.current, location, units);
     renderDetails(cache, units);
+    renderHourly(cache, units);
     renderForecast(cache, units);
     showWeatherEffects(widget, describeWeather(cache.current).effects);
 }
@@ -265,6 +300,12 @@ export function initWeather() {
         if (event.key === "Enter") useCity();
     });
     geolocationButton.addEventListener("click", useGeolocation);
+    // A mouse wheel scrolls the hourly strip sideways.
+    hourlyStrip.addEventListener("wheel", event => {
+        if (event.deltaX !== 0 || event.deltaY === 0) return;
+        event.preventDefault();
+        hourlyStrip.scrollLeft += event.deltaY;
+    }, { passive: false });
 
     // A new tab can stay open for days; keep the weather (and day/night) current.
     document.addEventListener("visibilitychange", refreshIfVisible);

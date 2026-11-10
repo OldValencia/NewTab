@@ -9,9 +9,10 @@ import {
     describeWeather,
     formatTemperature,
     localDateAt,
-    upcomingDays
+    upcomingDays,
+    upcomingHours
 } from "../scripts/widgets/weather-conditions.js";
-import { placeFromNominatim } from "../scripts/widgets/weather-api.js";
+import { localHourAt, placeFromNominatim } from "../scripts/widgets/weather-api.js";
 import { normalizeSettings } from "../scripts/core/normalize.js";
 import { createDefaultSettings } from "../scripts/core/defaults.js";
 
@@ -27,6 +28,7 @@ const VALID_CACHE = {
     longitude: 21.01,
     utcOffsetSeconds: 3600,
     current: { temperature: 4.2, feelsLike: 1.1, humidity: 81, weatherCode: 61, windSpeed: 12, isDay: true },
+    hourly: [{ time: "2023-11-14T22:00", weatherCode: 61, temperature: 4, precipitationChance: 60, isDay: false }],
     daily: [{ date: "2023-11-14", weatherCode: 61, max: 6, min: 2, precipitationChance: 70 }]
 };
 
@@ -103,10 +105,26 @@ test("a valid weather cache is kept, a broken or old-shaped one is dropped", () 
         current: { ...VALID_CACHE.current, feelsLike: undefined, humidity: null },
         daily: [...VALID_CACHE.daily, { date: "tomorrow", weatherCode: 1, max: 1, min: 0 }]
     };
+    partial.hourly = [...VALID_CACHE.hourly, { time: "22:00", weatherCode: 1, temperature: 3 }, { time: "2023-11-14T23:00" }];
     const normalized = normalizeSettings({ weather: { cache: partial } }).weather.cache;
     assert.equal(normalized.current.feelsLike, null);
     assert.equal(normalized.current.humidity, null);
     assert.equal(normalized.daily.length, 1);
+    assert.equal(normalized.hourly.length, 1);
+
+    // Caches written before the hourly forecast existed are kept, just without hours.
+    const withoutHours = { ...VALID_CACHE };
+    delete withoutHours.hourly;
+    assert.deepEqual(normalizeSettings({ weather: { cache: withoutHours } }).weather.cache.hourly, []);
+});
+
+test("the hourly strip starts at the current hour of the place", () => {
+    // 21:40 UTC is 22:40 in Warsaw (UTC+1).
+    const now = Date.UTC(2023, 10, 14, 21, 40);
+    assert.equal(localHourAt(3600, now), "2023-11-14T22");
+    const hourly = ["21:00", "22:00", "23:00"].map(time => ({ time: `2023-11-14T${time}` }));
+    assert.deepEqual(upcomingHours(hourly, 3600, 24, now).map(hour => hour.time), ["2023-11-14T22:00", "2023-11-14T23:00"]);
+    assert.equal(upcomingHours(hourly, 3600, 1, now).length, 1);
 });
 
 test("geolocated places get a short name from OpenStreetMap", () => {

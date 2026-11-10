@@ -15,6 +15,8 @@ const PLACE_NAME_FIELDS = ["city", "town", "village", "hamlet", "municipality", 
 
 // Today + 5 days: the widget shows 5 columns and drops days that are already over.
 const FORECAST_DAYS = 6;
+// The widget shows 24 hours; a few more keep the strip full while the cache ages (30 min).
+const CACHED_HOURS = 30;
 
 export class CityNotFoundError extends Error {}
 
@@ -64,6 +66,27 @@ export async function findPlaceName({ latitude, longitude }, language) {
     return placeFromNominatim(await fetchJson(`${REVERSE_GEOCODING_URL}?${params}`));
 }
 
+/** "YYYY-MM-DDTHH" of the current hour at the place (Open-Meteo times are local wall times). */
+export function localHourAt(utcOffsetSeconds, now = Date.now()) {
+    return new Date(now + utcOffsetSeconds * 1000).toISOString().slice(0, 13);
+}
+
+function parseHourly(hourly, utcOffsetSeconds) {
+    if (!hourly || !Array.isArray(hourly.time)) return [];
+    const currentHour = localHourAt(utcOffsetSeconds);
+    return hourly.time
+        .map((time, index) => ({
+            time,
+            weatherCode: hourly.weather_code?.[index],
+            temperature: hourly.temperature_2m?.[index],
+            precipitationChance: finiteOrNull(hourly.precipitation_probability?.[index]),
+            isDay: hourly.is_day?.[index] !== 0
+        }))
+        .filter(hour => typeof hour.time === "string" && hour.time.slice(0, 13) >= currentHour)
+        .filter(hour => Number.isFinite(hour.weatherCode) && Number.isFinite(hour.temperature))
+        .slice(0, CACHED_HOURS);
+}
+
 function parseDaily(daily) {
     if (!daily || !Array.isArray(daily.time)) return [];
     return daily.time
@@ -86,6 +109,7 @@ export async function fetchForecast({ latitude, longitude }) {
         latitude: String(latitude),
         longitude: String(longitude),
         current: "temperature_2m,apparent_temperature,relative_humidity_2m,weather_code,wind_speed_10m,is_day",
+        hourly: "temperature_2m,weather_code,precipitation_probability,is_day",
         daily: "weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max",
         forecast_days: String(FORECAST_DAYS),
         wind_speed_unit: "kmh",
@@ -95,11 +119,12 @@ export async function fetchForecast({ latitude, longitude }) {
     const current = data.current;
     if (!current || !Number.isFinite(current.temperature_2m)) throw new Error("Unexpected weather response");
 
+    const utcOffsetSeconds = finiteOrNull(data.utc_offset_seconds) ?? 0;
     return {
         fetchedAt: Date.now(),
         latitude,
         longitude,
-        utcOffsetSeconds: finiteOrNull(data.utc_offset_seconds) ?? 0,
+        utcOffsetSeconds,
         current: {
             temperature: current.temperature_2m,
             feelsLike: finiteOrNull(current.apparent_temperature),
@@ -108,6 +133,7 @@ export async function fetchForecast({ latitude, longitude }) {
             windSpeed: finiteOrNull(current.wind_speed_10m) ?? 0,
             isDay: current.is_day !== 0
         },
+        hourly: parseHourly(data.hourly, utcOffsetSeconds),
         daily: parseDaily(data.daily)
     };
 }

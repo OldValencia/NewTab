@@ -93,6 +93,7 @@ body.settings-open #weather-widget {
 }
 
 .weather-details,
+.weather-hourly,
 .weather-forecast,
 .weather-location {
     padding-top: 10px;
@@ -100,6 +101,7 @@ body.settings-open #weather-widget {
 }
 
 .weather-details:empty,
+.weather-hourly:empty,
 .weather-forecast:empty {
     display: none;
 }
@@ -124,6 +126,51 @@ body.settings-open #weather-widget {
 .weather-detail-value {
     font-size: 14px;
     font-weight: 500;
+}
+
+/* 24 hours in a strip that scrolls sideways (mouse wheel too, see weather.js).
+   width: 0 + min-width: 100% keeps the strip from widening the card. */
+.weather-hourly {
+    display: flex;
+    gap: 2px;
+    width: 0;
+    min-width: 100%;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
+    font-variant-numeric: tabular-nums;
+}
+
+.weather-hour {
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    width: 42px;
+}
+
+.weather-hour .weather-icon {
+    width: 24px;
+    height: 24px;
+}
+
+.weather-hour-time {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+.weather-hour-temp {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.weather-hour-chance {
+    min-height: 13px;
+    color: #8cc8ff;
+    font-size: 10.5px;
 }
 
 .weather-forecast {
