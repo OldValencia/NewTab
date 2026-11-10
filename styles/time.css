@@ -1,6 +1,13 @@
 #multiple-clocks {
     display: inline-flex;
+    align-items: center;
     column-gap: 20px;
+}
+
+/* "One under another" layout for several clocks */
+#multiple-clocks.column {
+    flex-direction: column;
+    row-gap: 24px;
 }
 
 .time-container {
@@ -12,10 +19,39 @@
 }
 
 .time {
-    font-size: 64px;
+    font-size: 64px; /* overridden per clock (size slider) */
     font-weight: bold;
-    height: 62px;
+    height: 0.97em; /* 62px at the default size, as before */
     color: #7e4600;
+    white-space: nowrap;
+}
+
+/* City (or custom text) above the time; off by default */
+.clock-label {
+    margin-bottom: 6px;
+    letter-spacing: 0.03em;
+    opacity: 0.85;
+    white-space: nowrap;
+}
+
+.clock-colon {
+    animation: clockColonBlink 1s steps(1, end) infinite;
+}
+
+@keyframes clockColonBlink {
+    50% {
+        opacity: 0.2;
+    }
+}
+
+.analog-clock {
+    display: block;
+    margin: 0 auto;
+    overflow: visible;
+}
+
+.clock-analog .date {
+    margin-top: 12px;
 }
 
 .date {

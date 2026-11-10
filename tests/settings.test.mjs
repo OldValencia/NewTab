@@ -175,3 +175,32 @@ test("garbage input falls back to defaults", () => {
     assert.equal(repaired.links.columns, 10);
     assert.deepEqual(repaired.links.items, []);
 });
+
+test("clocks saved before 1.1.0 get the new options with the old look", () => {
+    const { settings } = migrateLegacySettings(CUSTOMIZED);
+    for (const mode of BACKGROUND_MODES) {
+        const theme = settings.themes[mode];
+        assert.equal(theme.clocksLayout, "row");
+        for (const clock of theme.clocks) {
+            assert.equal(clock.style, "digital");
+            assert.equal(clock.timeSize, 64);
+            assert.equal(clock.dateSize, 20);
+            assert.equal(clock.showSeconds, false);
+            assert.equal(clock.blinkColon, false);
+            assert.equal(clock.showLabel, false);
+            assert.equal(clock.label, "");
+        }
+    }
+});
+
+test("broken clock options are repaired", () => {
+    const raw = createDefaultSettings();
+    Object.assign(raw.themes.stars.clocks[0], { style: "sundial", timeSize: 900, dateSize: "big", label: "x".repeat(100) });
+    raw.themes.stars.clocksLayout = "diagonal";
+    const theme = normalizeSettings(raw).themes.stars;
+    assert.equal(theme.clocksLayout, "row");
+    assert.equal(theme.clocks[0].style, "digital");
+    assert.equal(theme.clocks[0].timeSize, 160);
+    assert.equal(theme.clocks[0].dateSize, 20);
+    assert.equal(theme.clocks[0].label.length, 40);
+});

@@ -935,6 +935,123 @@
     "be": "2025 Ліпень 20",
     "uk": "2025 Липень 20"
   },
+  "clock_style_label": {
+    "en": "Style:",
+    "ru": "Вид:",
+    "pl": "Styl:",
+    "de": "Stil:",
+    "es": "Estilo:",
+    "be": "Выгляд:",
+    "uk": "Вигляд:"
+  },
+  "clock_style_digital": {
+    "en": "Digital",
+    "ru": "Цифровые",
+    "pl": "Cyfrowy",
+    "de": "Digital",
+    "es": "Digital",
+    "be": "Лічбавы",
+    "uk": "Цифровий"
+  },
+  "clock_style_analog": {
+    "en": "Analog",
+    "ru": "Стрелочные",
+    "pl": "Analogowy",
+    "de": "Analog",
+    "es": "Analógico",
+    "be": "Стрэлачны",
+    "uk": "Стрілочний"
+  },
+  "clock_time_size_label": {
+    "en": "Time size:",
+    "ru": "Размер времени:",
+    "pl": "Rozmiar godziny:",
+    "de": "Größe der Uhrzeit:",
+    "es": "Tamaño de la hora:",
+    "be": "Памер часу:",
+    "uk": "Розмір часу:"
+  },
+  "clock_date_size_label": {
+    "en": "Date size:",
+    "ru": "Размер даты:",
+    "pl": "Rozmiar daty:",
+    "de": "Größe des Datums:",
+    "es": "Tamaño de la fecha:",
+    "be": "Памер даты:",
+    "uk": "Розмір дати:"
+  },
+  "clock_show_label": {
+    "en": "Show city",
+    "ru": "Показывать город",
+    "pl": "Pokaż miasto",
+    "de": "Stadt anzeigen",
+    "es": "Mostrar ciudad",
+    "be": "Паказваць горад",
+    "uk": "Показувати місто"
+  },
+  "clock_label_title": {
+    "en": "Your own text instead of the city name",
+    "ru": "Свой текст вместо названия города",
+    "pl": "Własny tekst zamiast nazwy miasta",
+    "de": "Eigener Text statt des Stadtnamens",
+    "es": "Tu propio texto en lugar del nombre de la ciudad",
+    "be": "Свой тэкст замест назвы горада",
+    "uk": "Власний текст замість назви міста"
+  },
+  "clock_show_seconds": {
+    "en": "Show seconds",
+    "ru": "Показывать секунды",
+    "pl": "Pokaż sekundy",
+    "de": "Sekunden anzeigen",
+    "es": "Mostrar segundos",
+    "be": "Паказваць секунды",
+    "uk": "Показувати секунди"
+  },
+  "clock_blink_colon": {
+    "en": "Blinking colon",
+    "ru": "Мигающее двоеточие",
+    "pl": "Migający dwukropek",
+    "de": "Blinkender Doppelpunkt",
+    "es": "Dos puntos parpadeantes",
+    "be": "Мігатлівае двукроп'е",
+    "uk": "Блимаюча двокрапка"
+  },
+  "clock_offset_hours": {
+    "en": "{value} h",
+    "ru": "{value} ч",
+    "pl": "{value} godz.",
+    "de": "{value} Std.",
+    "es": "{value} h",
+    "be": "{value} г",
+    "uk": "{value} год"
+  },
+  "clocks_layout_label": {
+    "en": "Several clocks:",
+    "ru": "Несколько часов:",
+    "pl": "Kilka zegarów:",
+    "de": "Mehrere Uhren:",
+    "es": "Varios relojes:",
+    "be": "Некалькі гадзіннікаў:",
+    "uk": "Кілька годинників:"
+  },
+  "clocks_layout_row": {
+    "en": "Side by side",
+    "ru": "В ряд",
+    "pl": "Obok siebie",
+    "de": "Nebeneinander",
+    "es": "En fila",
+    "be": "У шэраг",
+    "uk": "В ряд"
+  },
+  "clocks_layout_column": {
+    "en": "One under another",
+    "ru": "Друг под другом",
+    "pl": "Jeden pod drugim",
+    "de": "Untereinander",
+    "es": "Uno debajo de otro",
+    "be": "Адзін пад адным",
+    "uk": "Один під одним"
+  },
   "date_and_time_clocks_customization_timezone_local_label_option": {
     "en": "Local",
     "ru": "Локальный",

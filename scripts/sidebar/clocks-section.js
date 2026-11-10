@@ -2,18 +2,20 @@
  * "Time and date" section: up to MAX_CLOCKS clock editors for the active background's theme.
  */
 import { getActiveTheme, getSettings, subscribe, updateSettings, onExternalChange } from "../core/settings.js";
-import { DEFAULT_FONT, MAX_CLOCKS, getDefaultClock, getDefaultTheme } from "../core/defaults.js";
-import { formatUtcOffset } from "../core/time-format.js";
-import { t } from "../core/i18n.js";
+import { CLOCK_DATE_SIZE, CLOCK_TIME_SIZE, DEFAULT_FONT, MAX_CLOCKS, getDefaultClock, getDefaultTheme } from "../core/defaults.js";
+import { defaultClockLabel, formatClockDate, formatUtcOffset } from "../core/time-format.js";
+import { getLocale, t } from "../core/i18n.js";
 import { createElement } from "../core/utils.js";
 import { createIcon } from "../core/icons.js";
-import { bindControl, createSelect, syncBoundControls } from "./controls.js";
+import { bindControl, createLabeledInput, createSelect, syncBoundControls } from "./controls.js";
 
 const editorsContainer = document.getElementById("time-and-date-controls");
 const addClockButton = document.getElementById("add-clock");
 const resetButton = document.getElementById("reset-time-date");
 const showTimeCheckbox = document.getElementById("toggle-time");
 const showDateCheckbox = document.getElementById("toggle-date");
+const layoutRow = document.getElementById("clocks-layout-row");
+const layoutSelect = document.getElementById("clocks-layout");
 
 const FONTS = [
     "Inter", "Arial", "Segoe UI", "Georgia", "Courier New", "Roboto", "Helvetica", "Verdana", "Tahoma",
@@ -29,13 +31,27 @@ const TIME_FORMAT_OPTIONS = [
     { value: "custom", labelKey: "date_and_time_clocks_customization_time_format_sixth_option" }
 ];
 
-const DATE_FORMAT_OPTIONS = [
-    { value: "month-day-year", labelKey: "date_and_time_clocks_customization_date_format_first_option" },
-    { value: "day-month-year", labelKey: "date_and_time_clocks_customization_date_format_second_option" },
-    { value: "year-month-day", labelKey: "date_and_time_clocks_customization_date_format_third_option" },
-    { value: "dd-mm-yyyy", label: "20-07-2025" },
-    { value: "mm-dd-yyyy", label: "07-20-2025" }
+// The same day as in the other examples (Sunday, 20 July 2025).
+const EXAMPLE_DATE = new Date(Date.UTC(2025, 6, 20, 12));
+
+function dateFormatOptions() {
+    return [
+        { value: "month-day-year", labelKey: "date_and_time_clocks_customization_date_format_first_option" },
+        { value: "day-month-year", labelKey: "date_and_time_clocks_customization_date_format_second_option" },
+        { value: "year-month-day", labelKey: "date_and_time_clocks_customization_date_format_third_option" },
+        { value: "dd-mm-yyyy", label: "20-07-2025" },
+        { value: "mm-dd-yyyy", label: "07-20-2025" },
+        { value: "weekday", label: formatClockDate(EXAMPLE_DATE, { format: "weekday", timeZone: "UTC", locale: getLocale() }) }
+    ];
+}
+
+const STYLE_OPTIONS = [
+    { value: "digital", labelKey: "clock_style_digital" },
+    { value: "analog", labelKey: "clock_style_analog" }
 ];
+
+/** Slider changes re-render the page clocks; saving waits until the slider stops for a moment. */
+const SIZE_DEBOUNCE_MS = 100;
 
 const SHADOW_STEPS = { up: [0, -1], down: [0, 1], left: [-1, 0], right: [1, 0] };
 
@@ -88,12 +104,38 @@ function activeMode() {
 }
 
 /** Binds a clock field of the active theme; right-click restores that theme's default. */
-function bindClockField(input, index, field) {
+function bindClockField(input, index, field, { debounceMs = 0 } = {}) {
     return bindControl(input, {
         get: settings => getActiveTheme(settings).clocks[index]?.[field],
         set: (settings, value) => { getActiveTheme(settings).clocks[index][field] = value; },
-        defaultValue: () => getDefaultClock(activeMode())[field]
+        defaultValue: () => getDefaultClock(activeMode())[field],
+        debounceMs
     });
+}
+
+function clockSwitch(index, field, labelKey, className = "") {
+    const { label, input } = createLabeledInput({ labelKey, type: "checkbox", className });
+    bindClockField(input, index, field);
+    return label;
+}
+
+function clockSlider(index, field, labelKey, range) {
+    const { label, input } = createLabeledInput({ labelKey, type: "range", min: range.min, max: range.max, step: 1 });
+    bindClockField(input, index, field, { debounceMs: SIZE_DEBOUNCE_MS });
+    return label;
+}
+
+/** "Show city" switch and the text field for an own label (its placeholder is the city). */
+function createLabelControls(index, timeZoneSelect) {
+    const input = createElement("input", {
+        className: "clock-label-input",
+        attrs: { type: "text", maxlength: 40, title: t("clock_label_title") }
+    });
+    bindClockField(input, index, "label");
+    const updatePlaceholder = () => { input.placeholder = defaultClockLabel(timeZoneSelect.value); };
+    updatePlaceholder();
+    timeZoneSelect.addEventListener("change", updatePlaceholder);
+    return [clockSwitch(index, "showLabel", "clock_show_label"), input];
 }
 
 function createLabeledRow(labelKey, control, className = "format-control") {
@@ -115,7 +157,7 @@ function createTextStyleRow(index, target, isSelected, onSelectShadowTarget) {
     const fontSelect = bindClockField(createFontSelect(getActiveTheme(getSettings()).clocks[index][fontField]), index, fontField);
     const colorInput = bindClockField(createElement("input", { attrs: { type: "color" } }), index, `${target}Color`);
 
-    return { row: createElement("div", { className: "font-control", children: [label, fontSelect, colorInput] }), label };
+    return { row: createElement("div", { className: "font-control", children: [label, fontSelect, colorInput] }), label, fontSelect };
 }
 
 function createShadowEditor(index, getTarget) {
@@ -239,27 +281,46 @@ function createClockEditor(index, clockCount) {
         if (clocks.length > 1) clocks.splice(index, 1);
     }));
 
-    return createElement("div", {
+    const clock = getActiveTheme(getSettings()).clocks[index];
+    const styleSelect = bindClockField(createSelect(STYLE_OPTIONS), index, "style");
+    const timeZoneSelect = bindClockField(createTimeZoneSelect(clock.timezone), index, "timezone");
+    const timeFormatRow = createLabeledRow("date_and_time_clocks_customization_time_format_label",
+        bindClockField(createSelect(TIME_FORMAT_OPTIONS), index, "timeFormat"));
+
+    // Font, time format and the blinking colon mean nothing for an analog face.
+    timeRow.fontSelect.classList.add("digital-only");
+    timeFormatRow.classList.add("digital-only");
+
+    const editor = createElement("div", {
         className: "time-and-date-wrapper",
         children: [
             removeButton,
+            createLabeledRow("clock_style_label", styleSelect),
             timeRow.row,
             dateRow.row,
             shadowEditor.element,
-            createLabeledRow("date_and_time_clocks_customization_time_format_label",
-                bindClockField(createSelect(TIME_FORMAT_OPTIONS), index, "timeFormat")),
-            createLabeledRow("date_and_time_clocks_customization_timezone_label",
-                bindClockField(createTimeZoneSelect(getActiveTheme(getSettings()).clocks[index].timezone), index, "timezone")),
+            clockSlider(index, "timeSize", "clock_time_size_label", CLOCK_TIME_SIZE),
+            clockSlider(index, "dateSize", "clock_date_size_label", CLOCK_DATE_SIZE),
+            timeFormatRow,
+            createLabeledRow("date_and_time_clocks_customization_timezone_label", timeZoneSelect),
             createLabeledRow("date_and_time_clocks_customization_date_format_label",
-                bindClockField(createSelect(DATE_FORMAT_OPTIONS), index, "dateFormat"))
+                bindClockField(createSelect(dateFormatOptions()), index, "dateFormat")),
+            ...createLabelControls(index, timeZoneSelect),
+            clockSwitch(index, "showSeconds", "clock_show_seconds"),
+            clockSwitch(index, "blinkColon", "clock_blink_colon", "digital-only")
         ]
     });
+    const showStyle = () => { editor.dataset.style = styleSelect.value; };
+    showStyle();
+    styleSelect.addEventListener("change", showStyle);
+    return editor;
 }
 
 function renderEditors() {
     const clocks = getActiveTheme(getSettings()).clocks;
     editorsContainer.replaceChildren(...clocks.map((_, index) => createClockEditor(index, clocks.length)));
     addClockButton.hidden = clocks.length >= MAX_CLOCKS;
+    layoutRow.hidden = clocks.length < 2;
 }
 
 async function addClock() {
@@ -288,6 +349,12 @@ export function initClocksSection() {
     bindControl(showDateCheckbox, {
         get: settings => getActiveTheme(settings).showDate,
         set: (settings, value) => { getActiveTheme(settings).showDate = value; }
+    });
+
+    bindControl(layoutSelect, {
+        get: settings => getActiveTheme(settings).clocksLayout,
+        set: (settings, value) => { getActiveTheme(settings).clocksLayout = value; },
+        defaultValue: "row"
     });
 
     renderEditors();

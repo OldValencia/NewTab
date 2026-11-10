@@ -6,7 +6,8 @@
  */
 
 export const TIME_FORMATS = ["24", "12", "arabic", "chinese", "japanese", "custom"];
-export const DATE_FORMATS = ["month-day-year", "day-month-year", "year-month-day", "dd-mm-yyyy", "mm-dd-yyyy"];
+// "weekday" is written by Intl in the UI language ("вторник, 10 ноября"), the others use MONTH_NAMES as in 1.0.x.
+export const DATE_FORMATS = ["month-day-year", "day-month-year", "year-month-day", "dd-mm-yyyy", "mm-dd-yyyy", "weekday"];
 
 const MONTH_NAMES = {
     en: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
@@ -65,6 +66,7 @@ export function getZonedParts(date, timeZone) {
         day: "numeric",
         hour: "numeric",
         minute: "numeric",
+        second: "numeric",
         hourCycle: "h23"
     });
 
@@ -78,38 +80,68 @@ export function getZonedParts(date, timeZone) {
         monthIndex: Number(parts.month) - 1,
         day: Number(parts.day),
         hours: Number(parts.hour),
-        minutes: Number(parts.minute)
+        minutes: Number(parts.minute),
+        seconds: Number(parts.second)
     };
 }
 
 const pad2 = number => String(number).padStart(2, "0");
 const toArabicDigits = number => String(number).split("").map(digit => ARABIC_DIGITS[Number(digit)]).join("");
 
-export function formatClockTime(date, { format, timeZone }) {
-    const { hours, minutes } = getZonedParts(date, timeZone);
+export function formatClockTime(date, { format, timeZone, showSeconds = false }) {
+    const { hours, minutes, seconds } = getZonedParts(date, timeZone);
     const hours12 = hours % 12 || 12;
+    const secondsPart = showSeconds ? `:${pad2(seconds)}` : "";
 
     switch (format) {
         case "12":
-            return `${hours12}:${pad2(minutes)} ${hours >= 12 ? "PM" : "AM"}`;
+            return `${hours12}:${pad2(minutes)}${secondsPart} ${hours >= 12 ? "PM" : "AM"}`;
         case "arabic":
-            return `${toArabicDigits(hours)}:${toArabicDigits(pad2(minutes))}`;
+            return [hours, pad2(minutes), ...(showSeconds ? [pad2(seconds)] : [])].map(toArabicDigits).join(":");
         case "chinese":
-            return `${hours >= 12 ? "下午" : "上午"}${hours12}:${pad2(minutes)}`;
+            return `${hours >= 12 ? "下午" : "上午"}${hours12}:${pad2(minutes)}${secondsPart}`;
         case "japanese":
-            return `${hours}時${pad2(minutes)}分`;
+            return `${hours}時${pad2(minutes)}分${showSeconds ? `${pad2(seconds)}秒` : ""}`;
         case "custom":
             return date.toLocaleTimeString(undefined, {
                 hour: "2-digit",
                 minute: "2-digit",
+                second: showSeconds ? "2-digit" : undefined,
                 timeZone: toIntlTimeZone(timeZone)
             });
         default:
-            return `${pad2(hours)}:${pad2(minutes)}`;
+            return `${pad2(hours)}:${pad2(minutes)}${secondsPart}`;
     }
 }
 
+/** Angles of the analog clock hands in degrees (0 = 12 o'clock); hands move smoothly between marks. */
+export function getHandAngles(date, timeZone) {
+    const { hours, minutes, seconds } = getZonedParts(date, timeZone);
+    return {
+        hour: (hours % 12) * 30 + minutes * 0.5,
+        minute: minutes * 6 + seconds * 0.1,
+        second: seconds * 6
+    };
+}
+
+function capitalize(text, locale) {
+    return text.charAt(0).toLocaleUpperCase(locale) + text.slice(1);
+}
+
+function formatWeekdayDate(date, timeZone, locale) {
+    const text = new Intl.DateTimeFormat(locale, {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        timeZone: toIntlTimeZone(timeZone)
+    }).format(date);
+    // Slavic languages write weekdays in lowercase; at the start of a line they need a capital.
+    return capitalize(text, locale);
+}
+
 export function formatClockDate(date, { format, timeZone, locale }) {
+    if (format === "weekday") return formatWeekdayDate(date, timeZone, locale);
+
     const { year, monthIndex, day } = getZonedParts(date, timeZone);
     const monthName = (MONTH_NAMES[locale] ?? MONTH_NAMES.en)[monthIndex];
     const dayText = pad2(day);
@@ -135,12 +167,48 @@ export function formatNumericDate(date, timeZone) {
     return `${pad2(day)}-${pad2(monthIndex + 1)}-${year}`;
 }
 
-/** "UTC+05:30" for the given zone at the given moment. */
-export function formatUtcOffset(timeZone, date = new Date()) {
+/**
+ * Minutes between UTC and the zone's wall clock at `date`.
+ * The zoned parts have no seconds, so `date` is compared at the start of its minute too —
+ * otherwise "UTC+09:00" became "UTC+08:59" in the second half of every minute.
+ */
+function offsetMinutes(timeZone, date) {
     const zoned = getZonedParts(date, timeZone);
     const asUtc = Date.UTC(zoned.year, zoned.monthIndex, zoned.day, zoned.hours, zoned.minutes);
-    const utcMinutes = Math.round((asUtc - date.getTime()) / 60000);
+    return Math.round((asUtc - Math.floor(date.getTime() / 60000) * 60000) / 60000);
+}
+
+/** "UTC+05:30" for the given zone at the given moment. */
+export function formatUtcOffset(timeZone, date = new Date()) {
+    const utcMinutes = offsetMinutes(timeZone, date);
     const sign = utcMinutes < 0 ? "-" : "+";
     const absolute = Math.abs(utcMinutes);
     return `UTC${sign}${pad2(Math.floor(absolute / 60))}:${pad2(absolute % 60)}`;
+}
+
+
+/**
+ * Default clock label: the city of the zone ("Tokyo", "New York"), "UTC+3" for fixed offsets.
+ * For "local" it is the city of the computer's own zone.
+ */
+export function defaultClockLabel(timeZone) {
+    const zone = timeZone === "local" ? new Intl.DateTimeFormat().resolvedOptions().timeZone : timeZone;
+    if (!zone || ["UTC", "Etc/UTC", "Etc/GMT"].includes(zone)) return "UTC";
+    if (zone.startsWith("Etc/")) {
+        const minutes = offsetMinutes(zone, new Date());
+        return `UTC${minutes < 0 ? "−" : "+"}${Math.abs(minutes) / 60}`;
+    }
+    return zone.slice(zone.lastIndexOf("/") + 1).replaceAll("_", " ");
+}
+
+/**
+ * How far the zone is from the computer's own time: { sign: "+" | "−", hours, minutes }, or null when equal.
+ * Shown next to the label of clocks in other zones ("Tokyo · +7 h").
+ */
+export function relativeOffset(timeZone, date = new Date()) {
+    if (timeZone === "local") return null;
+    const difference = offsetMinutes(timeZone, date) - offsetMinutes("local", date);
+    if (difference === 0) return null;
+    const absolute = Math.abs(difference);
+    return { sign: difference > 0 ? "+" : "−", hours: Math.floor(absolute / 60), minutes: absolute % 60 };
 }

@@ -505,3 +505,12 @@ section:has(> .section-content.open) .section-icon {
     color: var(--panel-text);
     text-decoration: underline;
 }
+
+/* Analog clocks have no font, time format or colon to style */
+.time-and-date-wrapper[data-style="analog"] .digital-only {
+    display: none;
+}
+
+.clock-label-input {
+    width: 100%;
+}

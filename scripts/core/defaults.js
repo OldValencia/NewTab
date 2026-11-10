@@ -5,6 +5,12 @@ export const MAX_CLOCKS = 3;
 export const MAX_LINKS = 30;
 export const DEFAULT_LOCALE = "en";
 export const DEFAULT_FONT = "Inter";
+export const CLOCK_STYLES = ["digital", "analog"];
+export const CLOCK_LAYOUTS = ["row", "column"];
+/** Font sizes in px; the defaults are the sizes every clock had before they became adjustable. */
+export const CLOCK_TIME_SIZE = { min: 24, max: 160, default: 64 };
+export const CLOCK_DATE_SIZE = { min: 10, max: 48, default: 20 };
+export const MAX_CLOCK_LABEL_LENGTH = 40;
 
 /** Every background mode: procedural effects plus image modes. */
 export const BACKGROUND_MODES = [...EFFECTS.map(effect => effect.id), ...IMAGE_MODES];
@@ -21,12 +27,20 @@ function clock({ timeFont, timeColor, dateFont = timeFont, dateColor, timeFormat
         dateFormat: "day-month-year",
         timezone: "local",
         timeShadow: { ...timeShadow },
-        dateShadow: { ...dateShadow }
+        dateShadow: { ...dateShadow },
+        // Added in 1.1.0; the defaults keep clocks looking as before.
+        style: "digital",
+        timeSize: CLOCK_TIME_SIZE.default,
+        dateSize: CLOCK_DATE_SIZE.default,
+        showSeconds: false,
+        blinkColon: false,
+        showLabel: false,
+        label: "" // empty = the city of the time zone (defaultClockLabel)
     };
 }
 
 function theme(linksColor, clockOptions) {
-    return { linksColor, showTime: true, showDate: true, clocks: [clock(clockOptions)] };
+    return { linksColor, showTime: true, showDate: true, clocksLayout: "row", clocks: [clock(clockOptions)] };
 }
 
 const PHOTO_SHADOWS = {

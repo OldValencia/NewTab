@@ -8,6 +8,11 @@ import { clamp, isPlainObject, isValidHttpUrl } from "./utils.js";
 import { DATE_FORMATS, TIME_FORMATS, normalizeTimeZone } from "./time-format.js";
 import {
     BACKGROUND_MODES,
+    CLOCK_DATE_SIZE,
+    CLOCK_LAYOUTS,
+    CLOCK_STYLES,
+    CLOCK_TIME_SIZE,
+    MAX_CLOCK_LABEL_LENGTH,
     MAX_CLOCKS,
     MAX_LINKS,
     SCHEMA_VERSION,
@@ -93,13 +98,21 @@ function normalizeClock(rawClock, mode) {
     clock.timezone = normalizeTimeZone(isPlainObject(rawClock) ? rawClock.timezone : undefined);
     clock.timeShadow = normalizeShadow(clock.timeShadow);
     clock.dateShadow = normalizeShadow(clock.dateShadow);
+    clock.style = oneOf(clock.style, CLOCK_STYLES, defaults.style);
+    clock.timeSize = Math.round(clamp(clock.timeSize, CLOCK_TIME_SIZE.min, CLOCK_TIME_SIZE.max));
+    clock.dateSize = Math.round(clamp(clock.dateSize, CLOCK_DATE_SIZE.min, CLOCK_DATE_SIZE.max));
+    clock.label = clock.label.slice(0, MAX_CLOCK_LABEL_LENGTH);
     return clock;
 }
 
 function normalizeTheme(theme, rawTheme, mode) {
     const rawClocks = isPlainObject(rawTheme) && Array.isArray(rawTheme.clocks) ? rawTheme.clocks : [];
     const clocks = rawClocks.slice(0, MAX_CLOCKS).map(rawClock => normalizeClock(rawClock, mode));
-    return { ...theme, clocks: clocks.length > 0 ? clocks : [getDefaultClock(mode)] };
+    return {
+        ...theme,
+        clocksLayout: oneOf(theme.clocksLayout, CLOCK_LAYOUTS, "row"),
+        clocks: clocks.length > 0 ? clocks : [getDefaultClock(mode)]
+    };
 }
 
 function normalizeEffectParams(effect, params) {
