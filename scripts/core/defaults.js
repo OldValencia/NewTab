@@ -112,6 +112,9 @@ export function createDefaultSettings() {
             mode: "stars",
             effects,
             imageFilters: { ...DEFAULT_IMAGE_FILTERS },
+            // Different background at night (scripts/backgrounds/schedule.js); off by default.
+            // Empty modes are filled with the current background when it is switched on.
+            schedule: { enabled: false, dayMode: "", nightMode: "", nightStart: "20:00", dayStart: "07:00" },
             // The Wikimedia Commons picture of the day; `date` is the local day it was loaded for.
             photoOfTheDay: { date: "", photo: null },
             onlinePhoto: {

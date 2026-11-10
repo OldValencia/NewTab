@@ -8,6 +8,7 @@ import { getSettings, initSettings, subscribe } from "./core/settings.js";
 import { applyTranslations, initI18n } from "./core/i18n.js";
 import { applyIcons } from "./core/icons.js";
 import { initBackground } from "./backgrounds/manager.js";
+import { initBackgroundSchedule } from "./backgrounds/schedule.js";
 import { initClocks } from "./widgets/clocks.js";
 import { initLinks } from "./widgets/links.js";
 import { initWeather } from "./widgets/weather.js";
@@ -33,6 +34,7 @@ async function start() {
     initClocks();
     initLinks();
     initWeather();
+    initBackgroundSchedule(); // may switch the mode, so it runs before the first background render
     const backgroundReady = initBackground();
     const bookmarksReady = initBookmarks();
 

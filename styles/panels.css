@@ -109,7 +109,7 @@
 }
 
 /* Text fields and selects (low specificity, so specific fields can restyle themselves) */
-:where(.glass-panel) :where(select, input[type="text"], input[type="url"]) {
+:where(.glass-panel) :where(select, input[type="text"], input[type="url"], input[type="time"]) {
     box-sizing: border-box;
     min-width: 0;
     padding: 7px 10px;
@@ -144,14 +144,19 @@
     color: #fff;
 }
 
-:where(.glass-panel) :where(select, input[type="text"], input[type="url"]):hover {
+:where(.glass-panel) :where(select, input[type="text"], input[type="url"], input[type="time"]):hover {
     background-color: var(--panel-surface-hover);
 }
 
-:where(.glass-panel) :where(select, input[type="text"], input[type="url"]):focus {
+:where(.glass-panel) :where(select, input[type="text"], input[type="url"], input[type="time"]):focus {
     outline: none;
     border-color: var(--panel-accent);
     box-shadow: 0 0 0 3px var(--panel-accent-soft);
+}
+
+/* Light clock icon and digits in the time field on the dark panel */
+:where(.glass-panel) input[type="time"] {
+    color-scheme: dark;
 }
 
 /* Checkboxes look like switches; in a row with text the switch is always on the right */

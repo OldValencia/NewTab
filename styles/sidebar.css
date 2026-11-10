@@ -463,6 +463,11 @@ section:has(> .section-content.open) .section-icon {
     width: 100%;
 }
 
+.background-schedule {
+    padding-top: 8px;
+    border-top: 1px solid var(--panel-border);
+}
+
 #online-photo-status.error,
 #photo-of-the-day-status.error {
     color: var(--panel-danger);

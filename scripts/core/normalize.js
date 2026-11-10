@@ -25,6 +25,7 @@ import { SUPPORTED_LOCALE_CODES } from "./locales.js";
 export const IMAGE_FITS = ["cover", "contain", "repeat", "stretch", "center"];
 export const PHOTO_INTERVALS = ["onload", "3", "5", "15", "30", "60", "never"];
 export const WEATHER_UNITS = ["metric", "imperial"];
+const TIME_OF_DAY = /^([01]\d|2[0-3]):[0-5]\d$/;
 
 function toBoolean(value, fallback) {
     if (value === true || value === "true") return true;
@@ -243,6 +244,13 @@ export function normalizeSettings(raw) {
     photo.interval = oneOf(String(photo.interval), PHOTO_INTERVALS, "onload");
     photo.current = normalizePhoto(photo.current);
     photo.queue = photo.queue.map(normalizePhoto).filter(Boolean).slice(0, 50);
+
+    const schedule = background.schedule;
+    const scheduleDefaults = defaults.background.schedule;
+    schedule.dayMode = oneOf(schedule.dayMode, BACKGROUND_MODES, "");
+    schedule.nightMode = oneOf(schedule.nightMode, BACKGROUND_MODES, "");
+    schedule.nightStart = TIME_OF_DAY.test(schedule.nightStart) ? schedule.nightStart : scheduleDefaults.nightStart;
+    schedule.dayStart = TIME_OF_DAY.test(schedule.dayStart) ? schedule.dayStart : scheduleDefaults.dayStart;
 
     const photoOfTheDay = background.photoOfTheDay;
     photoOfTheDay.photo = normalizePhoto(photoOfTheDay.photo);

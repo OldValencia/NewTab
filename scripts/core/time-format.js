@@ -212,3 +212,20 @@ export function relativeOffset(timeZone, date = new Date()) {
     const absolute = Math.abs(difference);
     return { sign: difference > 0 ? "+" : "−", hours: Math.floor(absolute / 60), minutes: absolute % 60 };
 }
+
+function minutesOfDay(time) {
+    const [hours, minutes] = time.split(":").map(Number);
+    return hours * 60 + minutes;
+}
+
+/**
+ * Whether `now` (computer's local time) is between nightStart and dayStart ("HH:MM").
+ * Night may cross midnight (20:00 → 07:00) or not (01:00 → 09:00); equal times mean no night.
+ */
+export function isNightTime(now, nightStart, dayStart) {
+    const current = now.getHours() * 60 + now.getMinutes();
+    const night = minutesOfDay(nightStart);
+    const day = minutesOfDay(dayStart);
+    if (night === day) return false;
+    return night > day ? current >= night || current < day : current >= night && current < day;
+}

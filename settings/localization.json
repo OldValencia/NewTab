@@ -1313,6 +1313,60 @@
     "be": "Не ўдалося загрузіць фота дня. Праз некалькі хвілін паспрабуем зноў.",
     "uk": "Не вдалося завантажити фото дня. Через кілька хвилин спробуємо знову."
   },
+  "background_schedule_toggle": {
+    "en": "Different background at night",
+    "ru": "Другой фон ночью",
+    "pl": "Inne tło w nocy",
+    "de": "Anderer Hintergrund nachts",
+    "es": "Otro fondo por la noche",
+    "be": "Іншы фон уначы",
+    "uk": "Інший фон уночі"
+  },
+  "background_schedule_day_mode": {
+    "en": "Day background:",
+    "ru": "Дневной фон:",
+    "pl": "Tło w dzień:",
+    "de": "Hintergrund am Tag:",
+    "es": "Fondo de día:",
+    "be": "Дзённы фон:",
+    "uk": "Денний фон:"
+  },
+  "background_schedule_night_mode": {
+    "en": "Night background:",
+    "ru": "Ночной фон:",
+    "pl": "Tło w nocy:",
+    "de": "Hintergrund nachts:",
+    "es": "Fondo de noche:",
+    "be": "Начны фон:",
+    "uk": "Нічний фон:"
+  },
+  "background_schedule_night_start": {
+    "en": "Night from:",
+    "ru": "Ночь с:",
+    "pl": "Noc od:",
+    "de": "Nacht ab:",
+    "es": "Noche desde:",
+    "be": "Ноч з:",
+    "uk": "Ніч з:"
+  },
+  "background_schedule_day_start": {
+    "en": "Day from:",
+    "ru": "День с:",
+    "pl": "Dzień od:",
+    "de": "Tag ab:",
+    "es": "Día desde:",
+    "be": "Дзень з:",
+    "uk": "День з:"
+  },
+  "background_schedule_hint": {
+    "en": "The background picked in the list above is remembered for the current part of the day.",
+    "ru": "Фон, выбранный в списке выше, запоминается для текущей части суток.",
+    "pl": "Tło wybrane na liście powyżej jest zapamiętywane dla bieżącej pory dnia.",
+    "de": "Der oben in der Liste gewählte Hintergrund wird für die aktuelle Tageszeit gespeichert.",
+    "es": "El fondo elegido en la lista de arriba se guarda para la parte del día actual.",
+    "be": "Фон, выбраны ў спісе вышэй, запамінаецца для бягучай часткі сутак.",
+    "uk": "Фон, вибраний у списку вище, запам'ятовується для поточної частини доби."
+  },
   "background_custom_image_choose_button": {
     "en": "Choose image…",
     "ru": "Выбрать изображение…",

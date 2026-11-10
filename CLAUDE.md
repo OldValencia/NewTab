@@ -41,6 +41,7 @@ scripts/backgrounds/
   manager.js                    Shows the selected background, fades between modes, filters, photo credit
   online-photo.js               Picsum (random) / Openverse (keyword) photo queue
   photo-of-the-day.js           Wikimedia Commons picture of the day (one per local day)
+  schedule.js                   Different background at night (switches background.mode at set times)
   canvas.js, controls-presets.js
 scripts/widgets/                What renders on the page: clocks, links, weather (+ api, conditions, icons, effects), bookmarks,
                                 favicon.js (site icons for links and bookmarks)

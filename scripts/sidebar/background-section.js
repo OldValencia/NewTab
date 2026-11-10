@@ -15,6 +15,11 @@ const modeList = document.getElementById("background-modes");
 const imageFiltersGroup = document.getElementById("bg-effects-group");
 const resetButton = document.getElementById("reset-bg");
 
+const scheduleCheckbox = document.getElementById("bg-schedule-enabled");
+const scheduleOptions = document.getElementById("bg-schedule-options");
+const scheduleDayModeSelect = document.getElementById("bg-schedule-day-mode");
+const scheduleNightModeSelect = document.getElementById("bg-schedule-night-mode");
+
 const customImageOptions = document.getElementById("custom-image-options");
 const chooseImageButton = document.getElementById("choose-custom-image");
 const imageFileInput = document.getElementById("bg-upload");
@@ -137,6 +142,51 @@ async function handleImageFile() {
     if (getSettings().background.mode !== "customImage") await setMode("customImage");
 }
 
+/** Every background with its label, in the order of the list above. */
+function allModeOptions() {
+    return [
+        ...EFFECTS.map(effect => ({ value: effect.id, labelKey: effect.labelKey })),
+        ...Object.entries(IMAGE_MODE_LABELS).map(([mode, labelKey]) => ({ value: mode, labelKey }))
+    ];
+}
+
+function fillModeSelect(select) {
+    select.replaceChildren(...allModeOptions().map(({ value, labelKey }) =>
+        createElement("option", { text: t(labelKey), attrs: { value } })));
+}
+
+function renderScheduleOptions() {
+    scheduleOptions.hidden = !getSettings().background.schedule.enabled;
+}
+
+function initSchedule() {
+    fillModeSelect(scheduleDayModeSelect);
+    fillModeSelect(scheduleNightModeSelect);
+
+    const defaults = createDefaultSettings().background.schedule;
+    const bindScheduleField = (element, field, defaultValue, isValid = () => true) => bindControl(element, {
+        get: settings => settings.background.schedule[field],
+        set: (settings, value) => {
+            // A half-typed or cleared time field is not saved; the last valid time stays.
+            if (isValid(value)) settings.background.schedule[field] = value;
+        },
+        defaultValue
+    });
+    const isTime = value => /^\d{2}:\d{2}$/.test(value);
+    const currentMode = () => getSettings().background.mode;
+
+    bindScheduleField(scheduleCheckbox, "enabled", defaults.enabled);
+    bindScheduleField(scheduleDayModeSelect, "dayMode", currentMode);
+    bindScheduleField(scheduleNightModeSelect, "nightMode", currentMode);
+    bindScheduleField(document.getElementById("bg-schedule-night-start"), "nightStart", defaults.nightStart, isTime);
+    bindScheduleField(document.getElementById("bg-schedule-day-start"), "dayStart", defaults.dayStart, isTime);
+
+    renderScheduleOptions();
+    subscribe(settings => settings.background.schedule.enabled, renderScheduleOptions);
+    // The schedule changes modes and fills empty slots by itself; keep the selects in step.
+    subscribe(settings => [settings.background.mode, settings.background.schedule], syncBoundControls);
+}
+
 function initImageFilters() {
     const filterBindings = [
         ["bg-blur", "blur"],
@@ -196,6 +246,7 @@ export function initBackgroundSection() {
     renderActiveMode();
     initImageFilters();
     initOnlinePhotoOptions();
+    initSchedule();
 
     chooseImageButton.addEventListener("click", chooseImage);
     imageFileInput.addEventListener("change", handleImageFile);
@@ -204,6 +255,7 @@ export function initBackgroundSection() {
     subscribe(settings => settings.background.mode, renderActiveMode);
     onExternalChange(() => {
         renderActiveMode();
+        renderScheduleOptions();
         syncBoundControls();
     });
 }

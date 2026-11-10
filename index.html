@@ -272,6 +272,27 @@
                     </select>
                 </label>
             </div>
+            <div class="background-schedule">
+                <label data-i18n="background_schedule_toggle">
+                    <input type="checkbox" id="bg-schedule-enabled">
+                    Different background at night
+                </label>
+                <div id="bg-schedule-options" class="procedural-controls-element" hidden>
+                    <label data-i18n="background_schedule_day_mode">Day background:
+                        <select id="bg-schedule-day-mode"></select>
+                    </label>
+                    <label data-i18n="background_schedule_night_mode">Night background:
+                        <select id="bg-schedule-night-mode"></select>
+                    </label>
+                    <label data-i18n="background_schedule_night_start">Night from:
+                        <input type="time" id="bg-schedule-night-start" required>
+                    </label>
+                    <label data-i18n="background_schedule_day_start">Day from:
+                        <input type="time" id="bg-schedule-day-start" required>
+                    </label>
+                    <p class="section-hint" data-i18n="background_schedule_hint">The background picked in the list above is remembered for the current part of the day.</p>
+                </div>
+            </div>
             <button id="reset-bg" class="sidebar-wide-button reset-button" type="button" data-icon="reset"
                     data-i18n="background_section_reset_button">Reset All Backgrounds</button>
         </div>
