@@ -77,41 +77,41 @@
     "pl": "<strong>Prawy klik</strong> na dowolnym polu (kolor, czcionka, tekst) — przywraca domyślne ustawienia",
     "de": "<strong>Rechtsklick</strong> auf ein Eingabefeld (Farbe, Schriftart oder Text) setzt es zurück",
     "es": "<strong>Clic derecho</strong> en cualquier campo (color, fuente o texto) lo restablece",
-    "be": "<strong>Права кнопка мышы</strong> на полі (колер, шрыфт, тэкст) — скід да стандартных налад",
+    "be": "<strong>Правая кнопка мышы</strong> на полі (колер, шрыфт, тэкст) — скід да стандартных налад",
     "uk": "<strong>Правий клік</strong> на полі (колір, шрифт, текст) — скидає до стандартних налаштувань"
   },
   "hotkeys_second_line": {
-    "en": "<strong>Key Left ←</strong> opens the bookmarks sidebar (if enabled)",
-    "ru": "<strong>Клавиша Left ←</strong> откроет боковое меню закладок (если включено)",
-    "pl": "<strong>Klawisz Lewo ←</strong> otwiera panel zakładek (jeśli włączony)",
-    "de": "<strong>Taste Links ←</strong> öffnet die Lesezeichen-Seitenleiste (wenn aktiviert)",
-    "es": "<strong>Tecla Izquierda ←</strong> abre la barra de marcadores (si está activada)",
-    "be": "<strong>Клавіша Left ←</strong> адкрые бакавое меню закладак (калі ўключана)",
-    "uk": "<strong>Клавіша Left ←</strong> відкриває бокове меню закладок (якщо увімкнено)"
+    "en": "<strong>Left arrow ←</strong> opens the bookmarks sidebar (if enabled)",
+    "ru": "<strong>Стрелка влево ←</strong> откроет боковое меню закладок (если включено)",
+    "pl": "<strong>Strzałka w lewo ←</strong> otwiera panel zakładek (jeśli włączony)",
+    "de": "<strong>Pfeiltaste links ←</strong> öffnet die Lesezeichen-Seitenleiste (wenn aktiviert)",
+    "es": "<strong>Flecha izquierda ←</strong> abre la barra de marcadores (si está activada)",
+    "be": "<strong>Стрэлка ўлева ←</strong> адкрые бакавое меню закладак (калі ўключана)",
+    "uk": "<strong>Стрілка вліво ←</strong> відкриває бокове меню закладок (якщо увімкнено)"
   },
   "hotkeys_third_line": {
-    "en": "<strong>Key Right →</strong> opens the main sidebar",
-    "ru": "<strong>Клавиша Right →</strong> откроет основное боковое меню",
-    "pl": "<strong>Klawisz Prawo →</strong> otwiera główny panel boczny",
-    "de": "<strong>Taste Rechts →</strong> öffnet die Hauptseitenleiste",
-    "es": "<strong>Tecla Derecha →</strong> abre la barra lateral principal",
-    "be": "<strong>Клавіша Right →</strong> адкрые галоўнае бакавое меню",
-    "uk": "<strong>Клавіша Right →</strong> відкриває головне бокове меню"
+    "en": "<strong>Right arrow →</strong> opens the main sidebar",
+    "ru": "<strong>Стрелка вправо →</strong> откроет основное боковое меню",
+    "pl": "<strong>Strzałka w prawo →</strong> otwiera główny panel boczny",
+    "de": "<strong>Pfeiltaste rechts →</strong> öffnet die Hauptseitenleiste",
+    "es": "<strong>Flecha derecha →</strong> abre la barra lateral principal",
+    "be": "<strong>Стрэлка ўправа →</strong> адкрые галоўнае бакавое меню",
+    "uk": "<strong>Стрілка вправо →</strong> відкриває головне бокове меню"
   },
   "hotkeys_sixth_line": {
     "en": "Click on the <strong>Settings</strong> or <strong>Customization</strong> header below to collapse all sections in this sidebar",
     "ru": "Нажмите на заголовок <strong>Настройки</strong> или <strong>Кастомизация</strong> ниже, чтобы свернуть все секции в боковом меню",
     "pl": "Kliknij nagłówek <strong>Ustawienia</strong> lub <strong>Personalizacja</strong> poniżej, aby zwinąć wszystkie sekcje w tym panelu",
-    "de": "Klicke auf die Überschrift <strong>Einstellungen</strong> oder <strong>Anpassung</strong> unten, um alle Bereiche in dieser Seitenleiste zu schließen",
+    "de": "Klicken Sie auf die Überschrift <strong>Einstellungen</strong> oder <strong>Anpassung</strong> unten, um alle Bereiche in dieser Seitenleiste einzuklappen",
     "es": "Haz clic en el encabezado <strong>Configuración</strong> o <strong>Personalización</strong> abajo para contraer todas las secciones de esta barra lateral",
-    "be": "Націсніце на загаловак <strong>Настройкі</strong> або <strong>Кастомізацыя</strong> ніжэй, каб згарнуць усе секцыі ў бакавым меню",
-    "uk": "Натисніть на заголовок <strong>Налаштування</strong> або <strong>Кастомізація</strong> нижче, щоб згорнути всі секції в цій боковій панелі"
+    "be": "Націсніце на загаловак <strong>Налады</strong> або <strong>Кастомізацыя</strong> ніжэй, каб згарнуць усе секцыі ў бакавым меню",
+    "uk": "Натисніть на заголовок <strong>Налаштування</strong> або <strong>Персоналізація</strong> нижче, щоб згорнути всі секції в цій боковій панелі"
   },
   "hotkeys_seventh_line": {
     "en": "<strong>Keys 1-9</strong> to open the corresponding link from your links list (if no input is focused). For example, <strong>Key 1</strong> opens the first link, <strong>Key 2</strong> opens the second, etc.",
     "ru": "<strong>Клавиши 1-9</strong> открывают соответствующую ссылку из вашего списка (если ни одно поле ввода не в фокусе). Например, <strong>Клавиша 1</strong> откроет первую ссылку, <strong>Клавиша 2</strong> — вторую и так далее.",
-    "pl": "<strong>Klawisze 1-9</strong> otwierają odpowiedni link z twojej listy (jeśli żadne pole nie jest aktywne). Na przykład, <strong>Klawisz 1</strong> otwiera pierwszy link, <strong>Klawisz 2</strong> otwiera drugi, itd.",
-    "de": "<strong>Tasten 1-9</strong> öffnen den entsprechenden Link aus deiner Linkliste (wenn kein Eingabefeld fokussiert ist). Zum Beispiel öffnet <strong>Taste 1</strong> den ersten Link, <strong>Taste 2</strong> den zweiten, usw.",
+    "pl": "<strong>Klawisze 1-9</strong> otwierają odpowiedni link z twojej listy (jeśli żadne pole nie jest aktywne). Na przykład <strong>Klawisz 1</strong> otwiera pierwszy link, <strong>Klawisz 2</strong> otwiera drugi, itd.",
+    "de": "<strong>Tasten 1-9</strong> öffnen den entsprechenden Link aus Ihrer Linkliste (wenn kein Eingabefeld fokussiert ist). Zum Beispiel öffnet <strong>Taste 1</strong> den ersten Link, <strong>Taste 2</strong> den zweiten, usw.",
     "es": "<strong>Teclas 1-9</strong> para abrir el enlace correspondiente de tu lista de enlaces (si ningún campo de entrada está enfocado). Por ejemplo, <strong>Tecla 1</strong> abre el primer enlace, <strong>Tecla 2</strong> abre el segundo, etc.",
     "be": "<strong>Клавішы 1-9</strong> адкрываюць адпаведную спасылку з вашага спісу (калі ніводнае поле не ў фокусе). Напрыклад, <strong>Клавіша 1</strong> адкрые першую спасылку, <strong>Клавіша 2</strong> — другую і гэтак далей.",
     "uk": "<strong>Клавіші 1-9</strong> відкривають відповідне посилання з вашого списку (якщо жодне поле не в фокусі). Наприклад, <strong>Клавіша 1</strong> відкриє перше посилання, <strong>Клавіша 2</strong> — друге і так далі."
@@ -123,7 +123,7 @@
     "de": "Anpassung",
     "es": "Personalización",
     "be": "Кастомізацыя",
-    "uk": "Налаштування"
+    "uk": "Персоналізація"
   },
   "main_sidebar_links_section_header": {
     "en": "Links",
@@ -208,7 +208,7 @@
   },
   "time_and_date_section_reset_button": {
     "en": "Reset Time & Date Settings",
-    "ru": "Сбросить настройки виджета",
+    "ru": "Сбросить настройки времени и даты",
     "pl": "Zresetuj ustawienia czasu i daty",
     "de": "Zeit- und Datumseinstellungen zurücksetzen",
     "es": "Restablecer configuración de hora y fecha",
@@ -356,7 +356,7 @@
     "pl": "Własny obraz",
     "de": "Benutzerdefiniertes Bild",
     "es": "Imagen personalizada",
-    "be": "Уласнае выява",
+    "be": "Уласная выява",
     "uk": "Власне зображення"
   },
   "background_section_dynamic_search_interval_header": {
@@ -479,8 +479,8 @@
   "background_section_effects_image_fit_cover_option": {
     "en": "Cover",
     "ru": "Масштабировать",
-    "pl": "Zakryj",
-    "de": "Abdecken",
+    "pl": "Wypełnij",
+    "de": "Ausfüllen",
     "es": "Cubrir",
     "be": "Пакрыць",
     "uk": "Покрити"
@@ -496,7 +496,7 @@
   },
   "background_section_effects_image_fit_repeat_option": {
     "en": "Repeat",
-    "ru": "Заполнить",
+    "ru": "Замостить",
     "pl": "Powtórz",
     "de": "Wiederholen",
     "es": "Repetir",
@@ -526,7 +526,7 @@
     "ru": "Погода",
     "pl": "Pogoda",
     "de": "Wetter",
-    "es": "Clima",
+    "es": "El tiempo",
     "be": "Надвор'е",
     "uk": "Погода"
   },
@@ -535,7 +535,7 @@
     "ru": "Сбросить настройки погоды",
     "pl": "Zresetuj ustawienia pogody",
     "de": "Wettereinstellungen zurücksetzen",
-    "es": "Restablecer configuración del clima",
+    "es": "Restablecer configuración del tiempo",
     "be": "Скінуць налады надвор'я",
     "uk": "Скинути налаштування погоди"
   },
@@ -544,7 +544,7 @@
     "ru": "Показывать погоду",
     "pl": "Pokaż pogodę",
     "de": "Wetter anzeigen",
-    "es": "Mostrar clima",
+    "es": "Mostrar el tiempo",
     "be": "Паказваць надвор'е",
     "uk": "Показувати погоду"
   },
@@ -559,12 +559,12 @@
   },
   "bookmarks_section_toggle_show_bookmarks": {
     "en": "Show bookmarks",
-    "ru": "Показать закладки",
+    "ru": "Показывать закладки",
     "pl": "Pokaż zakładki",
     "de": "Lesezeichen anzeigen",
     "es": "Mostrar marcadores",
-    "be": "Паказаць закладкі",
-    "uk": "Показати закладки"
+    "be": "Паказваць закладкі",
+    "uk": "Показувати закладки"
   },
   "bookmarks_section_toggle_hide_bookmarks": {
     "en": "Open bookmarks widget by default",
@@ -573,13 +573,13 @@
     "de": "Lesezeichen-Widget standardmäßig öffnen",
     "es": "Abrir el widget de marcadores por defecto",
     "be": "Адкрываць віджэт закладак па змаўчанні",
-    "uk": "Віджет закладок відкривати за замовчуванням"
+    "uk": "Відкривати віджет закладок за замовчуванням"
   },
   "weather_widget_input_placeholder_city": {
     "en": "Enter your city...",
     "ru": "Введите ваш город...",
     "pl": "Wpisz swoje miasto...",
-    "de": "Gib deine Stadt ein...",
+    "de": "Geben Sie Ihre Stadt ein...",
     "es": "Introduce tu ciudad...",
     "be": "Увядзіце ваш горад...",
     "uk": "Введіть своє місто..."
@@ -589,7 +589,7 @@
     "ru": "🌍 Показать погоду",
     "pl": "🌍 Pokaż pogodę",
     "de": "🌍 Wetter anzeigen",
-    "es": "🌍 Mostrar clima",
+    "es": "🌍 Mostrar el tiempo",
     "be": "🌍 Паказаць надвор'е",
     "uk": "🌍 Показати погоду"
   },
@@ -793,7 +793,7 @@
   },
   "date_and_time_clocks_customization_time_label": {
     "en": "Time: ",
-    "ru": "Часы: ",
+    "ru": "Время: ",
     "pl": "Godzina: ",
     "de": "Zeit: ",
     "es": "Hora: ",
@@ -820,7 +820,7 @@
   },
   "date_and_time_clocks_customization_time_format_first_option": {
     "en": "24-hour",
-    "ru": "24-х часовой",
+    "ru": "24-часовой",
     "pl": "24-godzinny",
     "de": "24-Stunden",
     "es": "24 horas",
@@ -829,7 +829,7 @@
   },
   "date_and_time_clocks_customization_time_format_second_option": {
     "en": "12-hour (AM/PM)",
-    "ru": "12-и часовой (AM/PM)",
+    "ru": "12-часовой (AM/PM)",
     "pl": "12-godzinny (AM/PM)",
     "de": "12-Stunden (AM/PM)",
     "es": "12 horas (AM/PM)",
@@ -919,7 +919,7 @@
   },
   "date_and_time_clocks_customization_timezone_local_label_option": {
     "en": "Local",
-    "ru": "ЛОкальный",
+    "ru": "Локальный",
     "pl": "Lokalna",
     "de": "Lokal",
     "es": "Local",
@@ -1361,9 +1361,9 @@
   "weather_precipitation": {
     "en": "Chance of precipitation",
     "ru": "Вероятность осадков",
-    "pl": "Szansa opadów",
+    "pl": "Prawdopodobieństwo opadów",
     "de": "Niederschlagsrisiko",
-    "es": "Probabilidad de lluvia",
+    "es": "Probabilidad de precipitación",
     "be": "Верагоднасць ападкаў",
     "uk": "Ймовірність опадів"
   },
@@ -1587,7 +1587,7 @@
     "en": "Unpin",
     "ru": "Открепить",
     "pl": "Odepnij",
-    "de": "Lösen",
+    "de": "Nicht mehr anheften",
     "es": "Desfijar",
     "be": "Адмацаваць",
     "uk": "Відкріпити"
@@ -1640,7 +1640,7 @@
   "links_section_google_icons_hint": {
     "en": "More sites get an icon, but Google receives the addresses of your links. When off, icons are loaded from the sites themselves.",
     "ru": "Иконки будут у большего числа сайтов, но Google получит адреса ваших ссылок. Если выключено, иконки загружаются с самих сайтов.",
-    "pl": "Więcej stron dostanie ikonę, ale Google otrzyma adresy Twoich linków. Gdy wyłączone, ikony są pobierane z samych stron.",
+    "pl": "Więcej stron dostanie ikonę, ale Google otrzyma adresy twoich linków. Gdy wyłączone, ikony są pobierane z samych stron.",
     "de": "Mehr Websites erhalten ein Symbol, aber Google erhält die Adressen Ihrer Links. Wenn aus, werden Symbole direkt von den Websites geladen.",
     "es": "Más sitios tendrán icono, pero Google recibirá las direcciones de tus enlaces. Si está desactivado, los iconos se cargan desde los propios sitios.",
     "be": "Значкі будуць у большай колькасці сайтаў, але Google атрымае адрасы вашых спасылак. Калі выключана, значкі загружаюцца з саміх сайтаў.",
