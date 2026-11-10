@@ -3,12 +3,12 @@
     bottom: 20px;
     right: 20px;
     z-index: 1000;
-    font-family: 'SF Pro Display', sans-serif;
+    font-family: "Inter", sans-serif;
     border-radius: 16px;
     transition: right 0.3s ease;
 }
 
-#weather-widget.sidebar-shifted {
+body.settings-open #weather-widget {
     right: 470px;
 }
 
@@ -21,7 +21,7 @@
     backdrop-filter: blur(24px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    font-family: 'SF Pro Display', sans-serif;
+    font-family: "Inter", sans-serif;
     color: #fff;
     z-index: 9999;
     transition: all 0.3s ease;
@@ -37,7 +37,7 @@
     backdrop-filter: blur(24px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    font-family: 'SF Pro Display', sans-serif;
+    font-family: "Inter", sans-serif;
     color: #fff;
     padding: 10px;
     border-radius: 16px;
@@ -75,37 +75,54 @@
     display: flex;
 }
 
-.weather-api-info-line {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.weather-api-info-line span {
-    margin-left: 3px;
-}
-
-.weather-api-url-link {
-    color: #00aaff;
-    text-decoration: none;
-}
-.weather-api-url-link:hover {
-    text-decoration: underline;
-}
-
-.weather-api-input {
-    width: 100%;
-    padding: 4px;
-    border-radius: 3px;
-    border: none;
-    font-size: 14px;
-}
-
+/* Animations inside the widget (scripts/widgets/weather-effects.js) */
 .weather-effect {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
     border-radius: 16px;
 }
 
-@keyframes drop {
+.rain-drop {
+    position: absolute;
+    width: 2px;
+    height: 12px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    animation: rainDrop 1.5s linear infinite;
+}
+
+.snow-flake {
+    position: absolute;
+    opacity: 0.8;
+    animation-name: snowFall;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+.fog-cloud {
+    position: absolute;
+    width: 200px;
+    height: 120px;
+    background-size: cover;
+}
+
+.weather-effect.thunder {
+    background: rgba(255, 255, 255, 0.3);
+    animation: thunderFlash 3s ease-in-out infinite;
+}
+
+.wind-leaf {
+    position: absolute;
+    opacity: 0.8;
+    animation-name: leafDrift;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+}
+
+@keyframes rainDrop {
     0% {
         top: -20px;
         opacity: 0;

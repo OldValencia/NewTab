@@ -4,7 +4,7 @@
 #bookmark-sidebar {
     position: fixed;
     top: 0;
-    left: 0;
+    left: -450px;
     width: 400px;
     height: 100%;
     padding: 20px;
@@ -14,15 +14,14 @@
     backdrop-filter: blur(20px);
     box-shadow: 4px 0 12px rgba(0, 0, 0, 0.3);
     border-right: 1px solid rgba(255, 255, 255, 0.1);
-    font-family: 'SF Pro Display', sans-serif;
+    font-family: "Inter", sans-serif;
     overflow-y: auto;
     transition: left 0.15s ease;
     z-index: 999;
 }
 
-#bookmark-sidebar.hidden {
-    display: flex !important;
-    left: -450px;
+#bookmark-sidebar.open {
+    left: 0;
 }
 
 #bookmark-sidebar h2 {
@@ -33,7 +32,6 @@
 }
 
 .sidebar-menu-button {
-    display: none;
     position: fixed;
     top: 20px;
     left: 20px;
@@ -49,11 +47,11 @@
 }
 
 .sidebar-menu-button:hover,
-.sidebar-menu-button.shifted {
+body.bookmarks-open .sidebar-menu-button {
     background: rgba(255, 255, 255, 0.2);
 }
 
-.sidebar-menu-button.shifted {
+body.bookmarks-open .sidebar-menu-button {
     left: 460px;
 }
 
@@ -86,10 +84,6 @@
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.08);
     box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.2);
-}
-
-.bookmark-section-content.open {
-    display: flex;
 }
 
 .bookmark-style-gap {
@@ -191,3 +185,15 @@
     font-size: 15px;
     margin-bottom: 4px;
 }
+
+.rename-input {
+    flex: 1;
+    margin: 4px 6px 4px 10px;
+    padding: 4px 6px;
+    border: none;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    font-size: 14px;
+}
+

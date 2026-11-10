@@ -15,42 +15,35 @@
     height: 100%;
     top: 0;
     left: 50%;
-    background: rgba(255, 255, 255, 0.1);
     overflow: hidden;
 }
 
-#background-layer .line:nth-child(1) {
-    margin-left: -25%;
-}
-#background-layer .line:nth-child(3) {
-    margin-left: 25%;
-}
-
-#background-layer .line::after {
-    content: "";
-    display: block;
+/* Color and delay are set per line in scripts/backgrounds/effects/falling-lines.js */
+#background-layer .line-drop {
     position: absolute;
+    display: block;
     height: 15vh;
     width: 100%;
     top: -50%;
     left: 0;
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #ffffff 75%, #ffffff 100%);
-    animation: drop 7s infinite forwards;
+    animation: lineDrop 7s infinite forwards;
     animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
 }
 
-#background-layer .line:nth-child(1)::after {
-    animation-delay: 2s;
-}
-#background-layer .line:nth-child(3)::after {
-    animation-delay: 2.5s;
-}
-
-@keyframes drop {
+/*
+ * In 1.0.x this effect accidentally used the weather widget's "drop" keyframes
+ * (same name, loaded later). They are kept here so the effect looks the same.
+ */
+@keyframes lineDrop {
     0% {
-        top: -50%;
+        top: -20px;
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
     }
     100% {
-        top: 110%;
+        top: 100%;
+        opacity: 0;
     }
 }

@@ -1,14 +1,14 @@
 # 🌌 New Tab Extension ([Addons.Mozilla.org](https://addons.mozilla.org/en-US/firefox/addon/newtabaddon/))
 
-**New Tab Extension** is a minimalist browser extension that:
+**New Tab Extension** replaces Firefox's new tab page (and home page) with a customizable one:
 
-- Replaces Firefox's default new tab page
-- Lets you choose from multiple animated or static backgrounds
-- Saves your preferences locally using `localStorage`
-- Works entirely offline - no external servers or dependencies
+- Animated backgrounds, your own picture, or a fresh online photo
+- Up to three clocks with fonts, colors, shadows, formats and time zones
+- A grid of your favorite links, a bookmarks sidebar and a weather widget
+- Interface in English, Русский, Polski, Deutsch, Español, Беларуская, Українська
 
 <p align="center">
-<img src="./icons/icon-96.svg" alt="Loom Icon" width="500px"/>
+<img src="./icons/icon-96.svg" alt="New Tab Extension icon" width="500px"/>
 </p>
 
 ## Screenshots
@@ -18,9 +18,36 @@
 ### Bookmarks and widgets
 ![Widgets](Screenshots/Widgets.png "Time and date format, sidebar")
 ### Sidebar
-![Sidebar.png](Screenshots/Sidebar.png "Search bar widget")
+![Sidebar.png](Screenshots/Sidebar.png "Settings sidebar")
 
----
+![Backgrounds.png](Screenshots/Backgrounds.png "Various background modes")
+![Weather.png](Screenshots/Weather.png "Weather widget")
+
+## 🛠 Features
+
+- 🎨 11 procedural backgrounds (starfield, waves, solar system, …) with their own color/size controls
+- 🖼 Custom background image with blur, brightness, vignette and fit options
+- 📷 Online photo background: random photos from [Picsum](https://picsum.photos) or keyword search on [Openverse](https://openverse.org), no API key
+- 🕒 Up to 3 clocks; 24h / 12h / Arabic / Chinese / Japanese / locale formats; any time zone (daylight saving aware)
+- 🔗 Links grid (1–9 keys open the first nine links), drag & drop ordering
+- 📚 Bookmarks sidebar with search, pinning, renaming and deleting
+- 🌦️ Weather widget powered by [Open-Meteo](https://open-meteo.com) — no API key needed
+- 💾 Export / import all settings as a JSON file
+- ⌨️ Hotkeys: ← bookmarks, → settings, right-click any setting to reset it
+
+## 🔒 Privacy
+
+Settings are stored locally in Firefox (`browser.storage.local`). There are no analytics and no accounts.
+The page only talks to the network for features you turn on:
+
+| Feature | Service | What is sent |
+|---|---|---|
+| Weather | Open-Meteo | the city you typed or your coordinates |
+| Online photo | Picsum / Openverse | your search keyword |
+| Link icons | each linked site (`/favicon.ico`) | nothing beyond loading the icon |
+| Link icons via Google (optional, off by default) | Google | the addresses of your links |
+
+All fonts are bundled with the extension.
 
 ## How to Load the Extension Temporarily (via `about:debugging`)
 
@@ -31,41 +58,9 @@
 
 > ⚠️ Temporary extensions are removed when Firefox restarts.
 
-## How to Set It as Your Homepage
-
-To make the extension your homepage:
-
-1. Open Firefox settings (`about:preferences`)
-2. Scroll to **Home > New Windows and Tabs**
-3. Under **New tabs**, select **Custom URLs...**
-4. Enter: `moz-extension://<your-extension-id>/index.html`
-
-> You can find your extension ID in `about:debugging` after loading it.
-
-## 🛠 Features
-
-- 🎨 Multiple background modes: stars, particles, grids, images, and more
-- 💾 Settings saved locally - no cloud, no sync required
-- 📅 Customizable time and date formats
-- 📝 Sidebar with:
-  - Weather widget with location support
-  - Notifications manager to notify about various options
-  - Background customization options
-  - etc.
-- ⏰ Time customization (12/24 hour format, date format)
-- ⚡ Fast and lightweight - no performance impact
-- 🔒 Private — no data collection, no analytics
-
-
-![Backgrounds.png](Screenshots/Backgrounds.png "Various background modes")
-![Notification_editor.png](Screenshots/Notification_editor.png "Notification editor")
-![Weather.png](Screenshots/Weather.png "Weather widget")
-
 ## 💡 Developer Notes
 
-- Built with vanilla JavaScript, HTML, and CSS
-- Uses `localStorage` for persistent settings
-- Supports multiple background modes: stars, particles, grids, images, and more
-- Includes a sidebar with sticky notes, weather widget, quotes widget, and time customization
-- Designed to be lightweight and fast, with no external dependencies
-- Designed to be easily modifiable
+- Vanilla JavaScript (ES modules), HTML and CSS — no build step, no dependencies
+- Start reading at `scripts/app.js`; see `CLAUDE.md` for the project structure and conventions
+- Tests for settings migration and time formatting: `node --test "tests/*.test.mjs"`
+- Release archive: `python release.py`

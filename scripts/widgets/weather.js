@@ -1,361 +1,127 @@
-const weatherSummary = document.getElementById("weather-summary");
-const weatherInput = document.getElementById("location-input");
-const cityBtn = document.getElementById("weather-city-btn");
-const geoBtn = document.getElementById("weather-geo-btn");
+import { getSettings, subscribe, updateSettings } from "../core/settings.js";
+import { getLocale, t } from "../core/i18n.js";
+import { CityNotFoundError, describeWeather, fetchCurrentWeather, findCity } from "./weather-api.js";
+import { showWeatherEffects } from "./weather-effects.js";
 
-const DEFAULT_WEATHER_SUMMARY_VALUE = "🌦️ —";
-const CACHE_DURATION_MS = 60 * 60 * 1000;
+const widget = document.getElementById("weather-widget");
+const summary = document.getElementById("weather-summary");
+const cityInput = document.getElementById("location-input");
+const cityButton = document.getElementById("weather-city-btn");
+const geolocationButton = document.getElementById("weather-geo-btn");
 
-async function loadCachedWeather() {
-    const {weatherWidget} = loadCustomSettings();
-    if (!weatherWidget.cachedWeather) return false;
+const CACHE_MAX_AGE_MS = 30 * 60 * 1000;
+const EMPTY_SUMMARY = "🌦️ —";
 
-    const {data, timestamp} = JSON.parse(weatherWidget.cachedWeather);
-    if (Date.now() - timestamp < CACHE_DURATION_MS) {
-        await updateWeather(data);
-        return false;
-    }
-    return true;
+function isCacheFresh(cache, location) {
+    return cache !== null
+        && Date.now() - cache.fetchedAt < CACHE_MAX_AGE_MS
+        && cache.latitude === location.latitude
+        && cache.longitude === location.longitude;
 }
 
-async function applyWeatherVisibilitySetting() {
-    const settings = loadCustomSettings();
-    if (settings.weatherWidget.showWeather === undefined || settings.weatherWidget.showWeather === null) {
-        settings.weatherWidget.showWeather = false;
-    }
-    toggleWeatherWidget.checked = settings.weatherWidget.showWeather;
-    weatherWidgetElement.style.display = settings.weatherWidget.showWeather ? "block" : "none";
-    addCustomNotificationButton.classList.toggle("weather-widget-disabled", !settings.weatherWidget.showWeather);
-    addCustomNotificationButton.offsetHeight
-
-    if (settings.weatherWidget.showWeather) {
-        await addNotificationTempTriggerType();
-    } else {
-        removeNotificationTempTriggerType();
-    }
+function placeName(location) {
+    if (!location.name) return t("weather_my_location");
+    return location.country ? `${location.name}, ${location.country}` : location.name;
 }
 
-async function saveWeatherData(data, city) {
-    const settings = loadCustomSettings();
-    settings.weatherWidget.cachedWeather = JSON.stringify({data, timestamp: Date.now()});
-    settings.weatherWidget.weatherCity = city;
-    weatherInput.value = settings.weatherWidget.weatherCity;
-    await saveCustomSettings(settings);
+function showStatus(text) {
+    summary.textContent = text;
+    showWeatherEffects(widget, []);
 }
 
-async function loadSavedCity(shouldFetch = false) {
-    const {weatherWidget} = loadCustomSettings();
-    if (weatherWidget.weatherCity) {
-        weatherInput.value = weatherWidget.weatherCity;
-        if (shouldFetch) {
-            await fetchWeatherByCity(weatherWidget.weatherCity);
+function showWeather(weather, location) {
+    const { emoji, effects } = describeWeather(weather);
+    summary.textContent = `${emoji} ${Math.round(weather.temperature)}°C — ${placeName(location)}`;
+    showWeatherEffects(widget, effects);
+}
+
+async function refreshWeather() {
+    const { weather } = getSettings();
+    if (!weather.enabled) return;
+
+    let location = weather.location;
+    try {
+        if (!location && weather.city) {
+            location = await findCity(weather.city, getLocale());
+            await updateSettings(settings => { settings.weather.location = location; });
         }
-    }
-}
-
-async function fetchWeatherByCity(city) {
-    const {weatherWidget} = loadCustomSettings();
-    if (weatherWidget.cachedWeather) {
-        const {data, timestamp} = JSON.parse(weatherWidget.cachedWeather);
-        if (Date.now() - timestamp < CACHE_DURATION_MS && weatherWidget.weatherCity === city) {
-            await updateWeather(data);
+        if (!location) {
+            showStatus(EMPTY_SUMMARY);
             return;
         }
+        if (isCacheFresh(weather.cache, location)) {
+            showWeather(weather.cache, location);
+            return;
+        }
+
+        const current = await fetchCurrentWeather(location);
+        await updateSettings(settings => { settings.weather.cache = current; });
+        showWeather(current, location);
+    } catch (error) {
+        console.warn("Could not load weather:", error);
+        showStatus(error instanceof CityNotFoundError ? t("weather_city_not_found") : t("weather_load_error"));
     }
-    fetchWeather(`q=${encodeURIComponent(city)}`, city);
 }
 
-async function getWeatherByCity() {
-    const city = weatherInput.value.trim();
-    if (city) await fetchWeatherByCity(city);
+async function useCity() {
+    const city = cityInput.value.trim();
+    if (!city) return;
+
+    try {
+        const location = await findCity(city, getLocale());
+        await updateSettings(settings => {
+            settings.weather.city = city;
+            settings.weather.location = location;
+            settings.weather.cache = null;
+        });
+        await refreshWeather();
+    } catch (error) {
+        console.warn("Could not find city:", error);
+        showStatus(error instanceof CityNotFoundError ? t("weather_city_not_found") : t("weather_load_error"));
+    }
 }
 
-function getWeatherByGeolocation() {
+function useGeolocation() {
     if (!navigator.geolocation) {
-        weatherSummary.textContent = "Geolocation is not supported";
+        showStatus(t("weather_geolocation_unsupported"));
         return;
     }
 
     navigator.geolocation.getCurrentPosition(
-        async ({coords: {latitude, longitude}}) => {
-            const location = `${latitude},${longitude}`;
-            const {weatherWidget} = loadCustomSettings();
-            if (weatherWidget.weatherCity === location && weatherWidget.cachedWeather) {
-                const {data, timestamp} = JSON.parse(weatherWidget.cachedWeather);
-                if (Date.now() - timestamp < CACHE_DURATION_MS && weatherWidget.weatherCity === location) {
-                    await updateWeather(data);
-                    return;
-                }
-            }
-            fetchWeather(`q=${location}`, location);
+        async ({ coords }) => {
+            await updateSettings(settings => {
+                settings.weather.city = "";
+                settings.weather.location = { latitude: coords.latitude, longitude: coords.longitude, name: "", country: "" };
+                settings.weather.cache = null;
+            });
+            cityInput.value = "";
+            await refreshWeather();
         },
-        () => weatherSummary.textContent = "Access to geolocation is prohibited"
+        () => showStatus(t("weather_geolocation_denied"))
     );
 }
 
-function fetchWeather(query, cityLabel) {
-    const {weatherWidget} = loadCustomSettings();
-    fetch(`https://api.weatherapi.com/v1/current.json?key=${weatherWidget.weatherApiKey}&${query}&aqi=no`)
-        .then(async res => {
-            const data = await res.json();
-            if (!res.ok || data.error) {
-                throw new Error(data.error?.message || "API Error");
-            }
-            return data;
-        })
-        .then(async data => {
-            await updateWeather(data);
-            await saveWeatherData(data, cityLabel);
-        })
-        .catch(async (error) => {
-            console.warn("Weather load error:", error);
-            weatherSummary.textContent = "Load error";
-        });
+function renderVisibility() {
+    const { weather } = getSettings();
+    widget.hidden = !weather.enabled;
+    cityInput.value = weather.city;
+    if (weather.enabled) refreshWeather();
 }
 
-async function updateWeather(data) {
-    const {weatherWidget} = loadCustomSettings();
-    if (!weatherWidget.showWeather) return;
+export function initWeather() {
+    summary.textContent = EMPTY_SUMMARY;
+    renderVisibility();
 
-    if (!data || !data.current || !data.current.condition) {
-        console.warn("Incorrect weather data", data);
-        weatherSummary.textContent = "Data error";
-        return;
-    }
+    subscribe(settings => settings.weather.enabled, renderVisibility);
+    subscribe(settings => [settings.weather.city, settings.weather.location], () => {
+        const { weather } = getSettings();
+        cityInput.value = weather.city;
+        if (!weather.location && !weather.city) showStatus(EMPTY_SUMMARY);
+    });
 
-    clearWeatherEffects();
-
-    const code = data.current.condition.code;
-
-    const rainCodes = [1063, 1150, 1153, 1168, 1171, 1180, 1183, 1186, 1189, 1192, 1195, 1240, 1243, 1246, 1273];
-    if (rainCodes.includes(code)) startRainEffect();
-
-    const snowCodes = [1066, 1114, 1117, 1204, 1207, 1210, 1213, 1216, 1219, 1222, 1225, 1255, 1258, 1279, 1282];
-    if (snowCodes.includes(code)) startSnowEffect();
-
-    const fogCodes = [1030, 1135, 1147];
-    if (fogCodes.includes(code)) startFogEffect();
-
-    const thunderCodes = [1087, 1276, 1282];
-    if (thunderCodes.includes(code)) {
-        startThunderEffect();
-        startRainEffect(5);
-    }
-
-    const windCodes = [1114, 1117, 1006, 1009];
-    if (windCodes.includes(code)) startWindEffect();
-
-    const mixedCodes = [1069, 1072, 1198, 1201, 1237, 1249, 1252, 1261, 1264];
-    if (mixedCodes.includes(code)) {
-        startSnowEffect();
-        startRainEffect();
-    }
-
-    const emoji = getWeatherEmoji(code);
-    const temp = Math.round(data.current.temp_c);
-    const {name: city, country} = data.location;
-    weatherSummary.textContent = `${emoji} ${temp}°C — ${city}, ${country}`;
-
-    const bg = window.getComputedStyle(document.body).backgroundColor;
-    weatherSummary.style.color = getBrightness(bg) < 128 ? "#fff" : "#000";
-
-    await checkTemperatureNotifications(temp);
-    await applyWeatherVisibilitySetting();
+    cityButton.addEventListener("click", useCity);
+    cityInput.addEventListener("keydown", event => {
+        if (event.key === "Enter") useCity();
+    });
+    geolocationButton.addEventListener("click", useGeolocation);
 }
-
-function getWeatherEmoji(code) {
-    const hour = new Date().getHours();
-    const isDay = hour >= 6 && hour < 18
-
-    const emojiMap = {
-        clear: {codes: [1000], day: "☀️", night: "🌕"},
-        partlyCloudy: {codes: [1003], day: "🌤️", night: "🌥️"},
-        cloudy: {codes: [1006, 1009], day: "☁️", night: "☁️"},
-        mist: {codes: [1030], day: "🌁", night: "🌁"},
-        patchyRain: {codes: [1063, 1180, 1273], day: "🌦️", night: "🌧️"},
-        patchySnow: {codes: [1066, 1210, 1279], day: "❄️", night: "❄️"},
-        patchySleet: {codes: [1069], day: "🌨️🧊", night: "🌨️🧊"},
-        patchyFreezingDrizzle: {codes: [1072], day: "🌧️🧊", night: "🌧️🧊"},
-        thunder: {codes: [1087, 1276, 1282], day: "⛈️", night: "🌩️"},
-        blowingSnow: {codes: [1114], day: "🌬️❄️", night: "🌬️❄️"},
-        blizzard: {codes: [1117], day: "🌬️❄️", night: "🌬️❄️"},
-        fog: {codes: [1135, 1147], day: "🌫️", night: "🌫️"},
-        drizzle: {codes: [1150, 1153], day: "🌦️", night: "🌧️"},
-        freezingDrizzle: {codes: [1168, 1171], day: "🌧️🧊", night: "🌧️🧊"},
-        lightRain: {codes: [1183, 1240], day: "🌧️", night: "🌧️"},
-        moderateRain: {codes: [1186, 1189, 1243], day: "🌧️", night: "🌧️"},
-        heavyRain: {codes: [1192, 1195, 1246], day: "🌧️💦", night: "🌧️💦"},
-        freezingRain: {codes: [1198, 1201], day: "🧊🌧️", night: "🧊🌧️"},
-        lightSleet: {codes: [1204], day: "🌨️🧊", night: "🌨️🧊"},
-        heavySleet: {codes: [1207], day: "🌨️🧊", night: "🌨️🧊"},
-        lightSnow: {codes: [1213], day: "❄️", night: "❄️"},
-        moderateSnow: {codes: [1216, 1219], day: "❄️", night: "❄️"},
-        heavySnow: {codes: [1222, 1225], day: "❄️❄️", night: "❄️❄️"},
-        icePellets: {codes: [1237], day: "🧊", night: "🧊"},
-        showerRain: {codes: [1240, 1243, 1246], day: "🌦️", night: "🌧️"},
-        showerSleet: {codes: [1249, 1252], day: "🌨️🧊", night: "🌨️🧊"},
-        showerSnow: {codes: [1255, 1258], day: "🌨️", night: "🌨️"},
-        showerIce: {codes: [1261, 1264], day: "🧊🌨️", night: "🧊🌨️"},
-        thunderRain: {codes: [1273, 1276], day: "⛈️", night: "🌩️"},
-        thunderSnow: {codes: [1279, 1282], day: "🌩️❄️", night: "🌩️❄️"}
-    };
-    for (const key in emojiMap) {
-        if (emojiMap[key].codes.includes(code)) {
-            return isDay ? emojiMap[key].day : emojiMap[key].night;
-        }
-    }
-
-    return "❔";
-}
-
-function getBrightness(rgb) {
-    const [r, g, b] = rgb.match(/\d+/g).map(Number);
-    return (r * 299 + g * 587 + b * 114) / 1000;
-}
-
-function startRainEffect(dropsNumber = 30) {
-    const rainContainer = document.createElement("div");
-    rainContainer.className = "weather-effect rain";
-    rainContainer.style.position = "absolute";
-    rainContainer.style.top = "0";
-    rainContainer.style.left = "0";
-    rainContainer.style.width = "100%";
-    rainContainer.style.height = "100%";
-    rainContainer.style.pointerEvents = "none";
-    rainContainer.style.overflow = "hidden";
-    rainContainer.style.zIndex = "0";
-
-    for (let i = 0; i < dropsNumber; i++) {
-        const drop = document.createElement("div");
-        drop.className = "rain-drop";
-        drop.style.position = "absolute";
-        drop.style.width = "2px";
-        drop.style.height = "12px";
-        drop.style.background = "rgba(255,255,255,0.3)";
-        drop.style.borderRadius = "50%";
-        drop.style.left = `${Math.random() * 100}%`;
-        drop.style.top = `-${Math.random() * 20}px`;
-        drop.style.animation = `drop 1.5s linear infinite`;
-        drop.style.animationDelay = `${Math.random() * 2}s`;
-        rainContainer.appendChild(drop);
-    }
-
-    weatherWidgetElement.appendChild(rainContainer);
-}
-
-function startSnowEffect() {
-    const snowContainer = document.createElement("div");
-    snowContainer.className = "weather-effect snow";
-    snowContainer.style.position = "absolute";
-    snowContainer.style.top = "0";
-    snowContainer.style.left = "0";
-    snowContainer.style.width = "100%";
-    snowContainer.style.height = "100%";
-    snowContainer.style.pointerEvents = "none";
-    snowContainer.style.overflow = "hidden";
-    snowContainer.style.zIndex = "0";
-
-    for (let i = 0; i < 40; i++) {
-        const flake = document.createElement("div");
-        flake.className = "snow-flake";
-        flake.textContent = "❄️";
-        flake.style.position = "absolute";
-        flake.style.left = `${Math.random() * 100}%`;
-        flake.style.top = `-${Math.random() * 20}px`;
-        flake.style.fontSize = `${Math.random() * 12 + 12}px`;
-        flake.style.opacity = "0.8";
-        flake.style.animation = `snowFall ${Math.random() * 5 + 5}s linear infinite`;
-        flake.style.animationDelay = `${Math.random() * 3}s`;
-        snowContainer.appendChild(flake);
-    }
-
-    weatherWidgetElement.appendChild(snowContainer);
-}
-
-function startFogEffect() {
-    const fogWrapper = document.createElement("div");
-    fogWrapper.className = "weather-effect fog-wrapper";
-    fogWrapper.style.position = "absolute";
-    fogWrapper.style.top = "0";
-    fogWrapper.style.left = "0";
-    fogWrapper.style.width = "100%";
-    fogWrapper.style.height = "100%";
-    fogWrapper.style.overflow = "hidden";
-    fogWrapper.style.pointerEvents = "none";
-    fogWrapper.style.zIndex = "0";
-
-    for (let i = 0; i < 3; i++) {
-        const fogCloud = document.createElement("div");
-        fogCloud.className = "fog-cloud";
-        fogCloud.style.position = "absolute";
-        fogCloud.style.top = `${20 + i * 20}%`;
-        fogCloud.style.left = `${-30 + i * 20}%`;
-        fogCloud.style.width = "200px";
-        fogCloud.style.height = "120px";
-        fogCloud.style.background = "url('data:image/svg+xml;utf8,<svg width=\"200\" height=\"120\" xmlns=\"http://www.w3.org/2000/svg\"><ellipse cx=\"100\" cy=\"60\" rx=\"90\" ry=\"50\" fill=\"white\" fill-opacity=\"0.15\"/></svg>')";
-        fogCloud.style.backgroundSize = "cover";
-        fogCloud.style.animation = `fogFloat${i} ${40 + i * 10}s linear infinite`;
-
-        fogWrapper.appendChild(fogCloud);
-    }
-
-    cityBtn.style.color = "#fff";
-    geoBtn.style.color = "#fff";
-    weatherWidgetElement.appendChild(fogWrapper);
-}
-
-function startThunderEffect() {
-    const flash = document.createElement("div");
-    flash.className = "weather-effect thunder";
-    flash.style.position = "absolute";
-    flash.style.top = "0";
-    flash.style.left = "0";
-    flash.style.width = "100%";
-    flash.style.height = "100%";
-    flash.style.pointerEvents = "none";
-    flash.style.zIndex = "0";
-    flash.style.background = "rgba(255,255,255,0.3)";
-    flash.style.animation = "thunderFlash 3s ease-in-out infinite";
-
-    weatherWidgetElement.appendChild(flash);
-}
-
-function startWindEffect() {
-    const windContainer = document.createElement("div");
-    windContainer.className = "weather-effect wind";
-    windContainer.style.position = "absolute";
-    windContainer.style.top = "0";
-    windContainer.style.left = "0";
-    windContainer.style.width = "100%";
-    windContainer.style.height = "100%";
-    windContainer.style.pointerEvents = "none";
-    windContainer.style.overflow = "hidden";
-    windContainer.style.zIndex = "0";
-
-    const leafEmojis = ["🍃", "🍂", "🌿"];
-    for (let i = 0; i < 20; i++) {
-        const leaf = document.createElement("div");
-        leaf.className = "wind-leaf";
-        leaf.textContent = leafEmojis[Math.floor(Math.random() * leafEmojis.length)];
-        leaf.style.position = "absolute";
-        leaf.style.left = `${Math.random() * 100}%`;
-        leaf.style.top = `${Math.random() * 100}px`;
-        leaf.style.fontSize = `${Math.random() * 16 + 16}px`;
-        leaf.style.opacity = "0.8";
-        leaf.style.animation = `leafDrift ${Math.random() * 6 + 6}s ease-in-out infinite`;
-        leaf.style.animationDelay = `${Math.random() * 3}s`;
-        windContainer.appendChild(leaf);
-    }
-
-    weatherWidgetElement.appendChild(windContainer);
-}
-
-function clearWeatherEffects() {
-    const effects = document.querySelectorAll(".weather-effect");
-    effects.forEach(el => el.remove());
-    cityBtn.style.color = "#fff";
-    geoBtn.style.color = "#fff";
-}
-
-cityBtn.addEventListener("click", getWeatherByCity);
-geoBtn.addEventListener("click", getWeatherByGeolocation);
